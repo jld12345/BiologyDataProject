@@ -1,0 +1,249 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Npgsql;
+using NpgsqlTypes;
+using System.Data.SqlClient;
+using System.Data;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace BiologyDepartment
+{
+    public class dbBioConnection
+    {
+
+        private string sUserName = "";
+        private string sPWord = "";
+        private string sDSource = "";
+        private string sDBVar = "";
+        private string sSQL = "";
+        public string PostgresDB = "";//"Server=127.0.0.1;Port=5432;User Id=biologyprojectadmin;Password=ImWay2c@@l;Database=BiologyProject;";
+        private string sMessage = "";
+        private string[] sqlCheckList = { "--", ";--", ";", "/*", "*/", "@@", "@", "char", "nchar",
+                                          "varchar", "nvarchar", "alter", "begin", "cast", "create",
+                                          "cursor","declare", "delete", "drop", "end", "exec", "execute",
+                                          "fetch", "insert", "kill", "select", "sys", "sysobjects",
+                                          "syscolumns", "table", "update"
+                                        };
+        public dbBioConnection()
+        {
+            dbUser = GlobalVariables.dbUser;
+            dbpword = GlobalVariables.dbPass;
+            dbDataSource = GlobalVariables.DataSource;
+            PostgresDB = sDSource + sUserName + sPWord;
+        }
+
+        public string dbUser
+        {
+           set {sUserName = "User Id=" + value + ";";}
+        }
+        public string dbpword
+        {
+            set { sPWord = "Password=" + value + ";"; }
+        }
+        public string dbDataSource
+        {
+            set { sDSource = value; }
+        }
+        public string dbSetSQL
+        {
+            set { sSQL = value; }
+        }
+
+        public int IntScalar(NpgsqlCommand cmd)
+        {
+            try
+            {
+                int dataset = 0;
+                using (cmd)
+                {
+                    cmd.Connection = GlobalVariables.Connection;
+                    cmd.Connection.Open();
+                    dataset = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                return dataset;
+            }
+            catch (NpgsqlException e)
+            {
+                sMessage = e.ToString();
+                MessageBox.Show(sMessage.ToString());
+                return 0;
+            }
+            catch (Exception e)
+            {
+                sMessage = e.ToString();
+                MessageBox.Show(sMessage.ToString());
+                return 0;
+            }
+        }
+
+        public DataSet readData(NpgsqlCommand cmd)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                using (cmd)
+                {
+                    cmd.Connection = GlobalVariables.Connection;
+                    cmd.Connection.Open();
+                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(ds);
+                    }
+                }
+                return ds;
+            }
+            catch (NpgsqlException e)
+            {
+                sMessage = e.ToString();
+                MessageBox.Show(sMessage.ToString());
+                return null;
+            }
+            catch (Exception e)
+            {
+                sMessage = e.ToString();
+                MessageBox.Show(sMessage.ToString());
+                return null;
+            }
+        }
+
+        public DataTable readDataTable(NpgsqlCommand cmd)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                using (cmd)
+                {
+                    cmd.Connection = GlobalVariables.Connection;
+                    cmd.Connection.Open();
+                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd))
+                    {
+                        adapter.Fill(ds);
+                    }
+                }
+                return ds.Tables[0];
+            }
+            catch (NpgsqlException e)
+            {
+                sMessage = e.ToString();
+                MessageBox.Show(sMessage.ToString());
+                return null;
+            }
+            catch (Exception e)
+            {
+                sMessage = e.ToString();
+                MessageBox.Show(sMessage.ToString());
+                return null;
+            }
+        }
+
+        public bool insertData(NpgsqlCommand cmd)
+        {
+            try
+            {
+                using (cmd)
+                {
+                    cmd.Connection = GlobalVariables.Connection;
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                return true;
+
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
+
+        public int InsertDataAndGetID(NpgsqlCommand cmd)
+        {
+            try
+            {
+                int nReturn = 0;
+                using (cmd)
+                {
+                    cmd.Connection = GlobalVariables.Connection;
+                    cmd.Connection.Open();
+                    nReturn = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                return nReturn;
+
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        public bool updateData(NpgsqlCommand cmd)
+        {
+            try
+            {
+                using (cmd)
+                {
+                    cmd.Connection = GlobalVariables.Connection;
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public void UpdateFromDataGridView(DataTable dataSource, string sSelect)
+        {
+            DataTable dt = new DataTable();
+            using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sSelect, GlobalVariables.Connection))
+            {
+                GlobalVariables.Connection.Open();
+                adapter.Fill(dt);
+                dt = dataSource.Copy();
+                adapter.Update(dt);
+            }
+        }
+
+        public bool deleteData(NpgsqlCommand cmd)
+        {
+            try
+            {
+                using (cmd)
+                {
+                    cmd.Connection = GlobalVariables.Connection;
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool checkForSQLInjection(string userInput)
+        {
+            if (string.IsNullOrEmpty(userInput))
+                return false;
+
+            string CheckString = userInput.Replace("'", "''");
+
+            for (int i = 0; i <= sqlCheckList.Length - 1; i++)
+            {
+                if ((CheckString.IndexOf(sqlCheckList[i], StringComparison.OrdinalIgnoreCase) >= 0))
+                    return true;
+            }
+
+            return false;
+        }
+    }
+}

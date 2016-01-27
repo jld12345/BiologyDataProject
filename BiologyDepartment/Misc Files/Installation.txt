@@ -1,0 +1,16 @@
+Prerequisites
+
+1.  Windows 7 Operating System
+2.  .Net 4.0 or later.  Can be installed from Microsoft.
+3.  R Statistics 3.0 or higher.
+4.  R Statistics ggplot2 library.
+5.  Minimum screen resolution of 1280X720.
+6.  Admin rights for installation.
+
+Installation instructions
+
+1.  Install required prerequisites.
+2.  Click Setup.exe.
+3.  Antivirus may create a warning about attempting to access an unknown or 
+    potentially harmful site.  The site is the Active Directory Server and 
+    the Oracle Server.

@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.Common.43.0.1\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.43.0.1\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\CefSharp.WinForms.43.0.1\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.43.0.1\build\CefSharp.WinForms.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BiologyDepartment</RootNamespace>
+    <AssemblyName>BiologyDepartment</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <NuGetPackageImportStamp>614e7d70</NuGetPackageImportStamp>
+    <PublishUrl>Y:\Software\Biology\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>true</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://71.45.88.36:30080/Program/</UpdateUrl>
+    <TargetCulture>en</TargetCulture>
+    <ProductName>Biology Department Database Access</ProductName>
+    <PublisherName>James Davis</PublisherName>
+    <MinimumRequiredVersion>1.0.0.1</MinimumRequiredVersion>
+    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\..\RStat\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>3AC79BA628336EE877427001296EF79D7794E48A</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>BiologyDepartment_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>BiologyDepartment.BioDept</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging, Version=2.2.5.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Imaging.2.2.5\lib\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math, Version=2.2.5.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML">
+      <HintPath>..\..\..\..\Users\James\Downloads\ClosedXML_v0.76.0.0\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DgvFilterPopup">
+      <HintPath>..\..\..\..\Users\James\Downloads\DgvFilterPopup_dll_and_docs_cs\DgvFilterPopup.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Open XML SDK\V2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicInterop">
+      <HintPath>..\packages\DynamicInterop.0.7.1.0\lib\net40\DynamicInterop.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Excel, Version=2.1.2.3, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net20\Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Excel.Helper, Version=1.0.1.0, Culture=neutral, PublicKeyToken=ab40b1b8217243eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReaderHelper.1.0.3.0\lib\Excel.Helper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ExcelApi, Version=1.7.2.0, Culture=neutral, PublicKeyToken=9084b9221296229e, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetOffice.Excel.1.7.2.0\lib\net40\ExcelApi.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Mono.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.EF6.2.0.12-pre4\lib\net45\Mono.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Security.Protocol.Tls, Version=1.0.1528.33423, Culture=neutral, PublicKeyToken=4c884638a2b03853">
+      <HintPath>..\packages\Npgsql.EF6.2.0.12-pre4\lib\net45\Mono.Security.Protocol.Tls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NetOffice, Version=1.7.2.0, Culture=neutral, PublicKeyToken=297f57b43ae7c1de, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetOffice.Core.1.7.2.0\lib\net40\NetOffice.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Npgsql, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.0-alpha3\lib\net452\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OfficeApi, Version=1.7.2.0, Culture=neutral, PublicKeyToken=a39beb0835c43c8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetOffice.Core.1.7.2.0\lib\net40\OfficeApi.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RDotNet">
+      <HintPath>..\packages\R.NET.Community.1.5.19\lib\net40\RDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="RDotNet.NativeLibrary">
+      <HintPath>..\packages\R.NET.Community.1.5.19\lib\net40\RDotNet.NativeLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Management.Instrumentation" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="VBIDEApi, Version=1.7.2.0, Culture=neutral, PublicKeyToken=931cec8882205047, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetOffice.Core.1.7.2.0\lib\net40\VBIDEApi.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Author\Author.cs" />
+    <Compile Include="Author_EX\author_ex.cs" />
+    <Compile Include="Experiments\ExperimentsUtility.cs" />
+    <Compile Include="Login\LoginUtility.cs" />
+    <Compile Include="Misc Files\CalendarColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Author\ctlAuthors.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Author\ctlAuthors.Designer.cs">
+      <DependentUpon>ctlAuthors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Experiments\ctlExperiments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Experiments\ctlExperiments.Designer.cs">
+      <DependentUpon>ctlExperiments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Misc Files\DataGridImageButton.cs" />
+    <Compile Include="Misc Files\DataGridViewColumnType.cs" />
+    <Compile Include="R Scripts\ctlRScripts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="R Scripts\ctlRScripts.Designer.cs">
+      <DependentUpon>ctlRScripts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ctlSetup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\ctlSetup.Designer.cs">
+      <DependentUpon>ctlSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\daoEXPermissions.cs" />
+    <Compile Include="Admin\DataCache.cs" />
+    <Compile Include="Misc Files\EventsClass.cs" />
+    <Compile Include="Active Directory\daoActiveDirectory.cs" />
+    <Compile Include="Author_EX\daoAuthorEX.cs" />
+    <Compile Include="Author\daoAuthors.cs" />
+    <Compile Include="Misc Files\daoChart.cs" />
+    <Compile Include="Data\daoData.cs" />
+    <Compile Include="Experiments\daoExperiments.cs" />
+    <Compile Include="Admin\dbBioConnection.cs" />
+    <Compile Include="Experiments\Experiments.cs" />
+    <Compile Include="Data\FishData.cs" />
+    <Compile Include="Admin\frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Author\frmAuthor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Author\frmAuthor.Designer.cs">
+      <DependentUpon>frmAuthor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\frmDataLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Data\frmDataLoading.Designer.cs">
+      <DependentUpon>frmDataLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\frmExDataEntry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Data\frmExDataEntry.Designer.cs">
+      <DependentUpon>frmExDataEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Misc Files\BioDept.cs" />
+    <Compile Include="Admin\GlobalVariables.cs" />
+    <Compile Include="Admin\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="R Scripts\RStatistics.cs" />
+    <Compile Include="Login\ctlLogIn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Login\ctlLogIn.Designer.cs">
+      <DependentUpon>ctlLogIn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ctlAnimalData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Data\ctlAnimalData.Designer.cs">
+      <DependentUpon>ctlAnimalData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\daoSetup.cs" />
+    <Compile Include="Admin\UserPermissions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\UserPermissions.Designer.cs">
+      <DependentUpon>UserPermissions.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Author\ctlAuthors.resx">
+      <DependentUpon>ctlAuthors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Experiments\ctlExperiments.resx">
+      <DependentUpon>ctlExperiments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\ctlLogIn.resx">
+      <DependentUpon>ctlLogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R Scripts\ctlRScripts.resx">
+      <DependentUpon>ctlRScripts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\ctlSetup.resx">
+      <DependentUpon>ctlSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Author\frmAuthor.resx">
+      <DependentUpon>frmAuthor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\frmDataLoading.resx">
+      <DependentUpon>frmDataLoading.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\frmExDataEntry.resx">
+      <DependentUpon>frmExDataEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Data\ctlAnimalData.resx">
+      <DependentUpon>ctlAnimalData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\UserPermissions.resx">
+      <DependentUpon>UserPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,KB2468871">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29 and Update for .NET Framework 4 %28KB2468871%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client,KB2468871">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29 and Update for .NET Framework 4 %28KB2468871%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft Visual Studio 2010 Tools for Office Runtime %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="BiologyDepartment.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Auto</PublishState>
+      <IncludeHash>False</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+    <PublishFile Include="DynamicInterop">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+    <PublishFile Include="RDotNet">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Misc Files\images\addicon.png" />
+    <EmbeddedResource Include="Misc Files\images\deleteicon.png" />
+    <EmbeddedResource Include="Misc Files\images\editicon.png" />
+    <EmbeddedResource Include="Misc Files\images\addicon16.png" />
+    <EmbeddedResource Include="Misc Files\images\deleteicon16.png" />
+    <EmbeddedResource Include="Misc Files\images\editicon16.png" />
+    <Content Include="Misc Files\Installation.txt" />
+    <None Include="Resources\R-3.1.3-win.exe" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\cef.redist.x64.3.2357.1287\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2357.1287\build\cef.redist.x64.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\cef.redist.x64.3.2357.1287\build\cef.redist.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.3.2357.1287\build\cef.redist.x64.targets'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.3.2357.1287\build\cef.redist.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.3.2357.1287\build\cef.redist.x86.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.43.0.1\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.43.0.1\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.43.0.1\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.43.0.1\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.43.0.1\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.43.0.1\build\CefSharp.Common.targets'))" />
+  </Target>
+  <Import Project="..\packages\cef.redist.x86.3.2357.1287\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2357.1287\build\cef.redist.x86.targets')" />
+  <Import Project="..\packages\CefSharp.Common.43.0.1\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.43.0.1\build\CefSharp.Common.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
