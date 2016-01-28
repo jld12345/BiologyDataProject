@@ -13,7 +13,8 @@ namespace BiologyDepartment
             NpgsqlCMD = new NpgsqlCommand();
             NpgsqlCMD.CommandText = @"INSERT INTO EXPERIMENT_CUSTOM_COLUMNS 
                                       (EX_ID, CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE)
-                                      VALUES(:id, NEXTVAL('EXPERIMENT_CUSTOM_COLUMN_ID_SEQ'), :colName, :colType)";
+                                      VALUES(:id, NEXTVAL('EXPERIMENT_CUSTOM_COLUMN_ID_SEQ'), :colName, :colType);
+                                      select currval('EXPERIMENT_CUSTOM_COLUMN_ID_SEQ');";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":colName", NpgsqlDbType.Varchar));

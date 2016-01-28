@@ -297,11 +297,11 @@ namespace BiologyDepartment
             DataGridViewRow row = dgColAdmin.Rows[e.RowIndex];
             string sName = Convert.ToString(row.Cells["custom_column_name"].Value);
             string sType = Convert.ToString(row.Cells["custom_column_data_type"].Value);
-            if (!string.IsNullOrEmpty(sName) && !string.IsNullOrEmpty(sType))
+            if (string.IsNullOrEmpty(sName)  || string.IsNullOrEmpty(sType))
                 return;
 
             int nColID = 0;
-            int.TryParse(Convert.ToString(row.Cells["Add"].Value), out nColID);
+            int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
 
             switch(dgColAdmin.Columns[e.ColumnIndex].Name)
             {
@@ -309,21 +309,51 @@ namespace BiologyDepartment
                     if (nColID > 0)
                         _daoSetup.UpdateColumn(nColID, sName, sType);
                     else
-                        _daoSetup.InsertColumn(GlobalVariables.Experiment.ID, sName, sType);
+                    { 
+                        nColID = _daoSetup.InsertColumn(GlobalVariables.Experiment.ID, sName, sType);
+                        if(nColID > 0)
+                            dgColAdmin.Rows[e.RowIndex].Cells["custom_columns_id"].Value = nColID;
+                    }
                     break;
                 case "Delete":
                     if (nColID > 0)
+                    {
                         _daoSetup.DeleteColumn(nColID);
+                        DataRow drRemove = dtColumns.NewRow();
+                        foreach (DataRow drRow in dtColumns.Rows)
+                        {
+                            if (Convert.ToInt32(drRow["custom_columns_id"]) == nColID)
+                                drRemove = drRow;
+                        }
+                        dtColumns.Rows.Remove(drRemove);
+                    }
                     else
                         dgColAdmin.Rows.RemoveAt(e.RowIndex);
-
-                    LoadData();
-                    LoadGrid();
                     break;
                 default:
                     break;
             }
+
         }
+
+        private void ctlSetup_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.F5)
+            {
+                LoadData();
+                LoadGrid();
+            }
+        }
+
+        private void ctlSetup_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F5)
+            {
+                LoadData();
+                LoadGrid();
+            }
+        }
+
     }
 }
 

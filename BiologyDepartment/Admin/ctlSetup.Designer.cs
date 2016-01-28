@@ -185,6 +185,7 @@
             this.dgColAdmin.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgColAdmin_CellClick);
             this.dgColAdmin.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgColAdmin_CellContentClick);
             this.dgColAdmin.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgColAdmin_RowsAdded);
+            this.dgColAdmin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ctlSetup_KeyPress);
             // 
             // pnlImport1
             // 
@@ -349,10 +350,6 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Import File";
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
             // ctlSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -360,6 +357,8 @@
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "ctlSetup";
             this.Size = new System.Drawing.Size(893, 606);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ctlSetup_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ctlSetup_KeyPress);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

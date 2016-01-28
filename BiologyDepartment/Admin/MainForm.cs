@@ -233,6 +233,28 @@ namespace BiologyDepartment
             _ctlSetup.LoadGrid();
         }
 
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (tabControlMain.SelectedTab.Name)
+            {
+                case "tabData":
+
+                    break;
+                case "tabAuthors":
+
+                    break;
+                case "tabRScripts":
+                    
+                    break;
+                case "tabSetup":
+                    if (e.KeyCode == Keys.F5)
+                    {
+                        LoadSetup();
+                    }
+                    break;
+            }
+        }
+
     }
     
 }

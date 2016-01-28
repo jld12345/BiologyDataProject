@@ -141,10 +141,12 @@
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(971, 474);
             this.Controls.Add(this.tabControlMain);
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(979, 501);
             this.Name = "MainForm";
             this.Text = "Biology Project Database";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.tabControlMain.ResumeLayout(false);
             this.tabR.ResumeLayout(false);
             this.ResumeLayout(false);
