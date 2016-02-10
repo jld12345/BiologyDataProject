@@ -40,6 +40,8 @@
             this.pbShow = new System.Windows.Forms.PictureBox();
             this.pnlShow2 = new System.Windows.Forms.Panel();
             this.gbShowColumns = new System.Windows.Forms.GroupBox();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.dgColAdmin = new System.Windows.Forms.DataGridView();
             this.pnlImport1 = new System.Windows.Forms.Panel();
@@ -54,7 +56,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.dgExcelData = new System.Windows.Forms.DataGridView();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbHasHeaders = new System.Windows.Forms.CheckBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtExcelPath = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -155,9 +157,12 @@
             // 
             // gbShowColumns
             // 
+            this.gbShowColumns.Controls.Add(this.btnRefresh);
+            this.gbShowColumns.Controls.Add(this.btnDelete);
             this.gbShowColumns.Controls.Add(this.btnUpdate);
             this.gbShowColumns.Controls.Add(this.dgColAdmin);
             this.gbShowColumns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbShowColumns.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbShowColumns.Location = new System.Drawing.Point(0, 0);
             this.gbShowColumns.MaximumSize = new System.Drawing.Size(0, 495);
             this.gbShowColumns.Name = "gbShowColumns";
@@ -165,13 +170,34 @@
             this.gbShowColumns.TabIndex = 5;
             this.gbShowColumns.TabStop = false;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(733, 110);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 39);
+            this.btnRefresh.TabIndex = 3;
+            this.btnRefresh.Text = "Refresh Grid";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(733, 65);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 39);
+            this.btnDelete.TabIndex = 2;
+            this.btnDelete.Text = "Delete Columns";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // btnUpdate
             // 
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnUpdate.Location = new System.Drawing.Point(733, 20);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 39);
             this.btnUpdate.TabIndex = 1;
-            this.btnUpdate.Text = "Update Columns";
+            this.btnUpdate.Text = "Add/Update Columns";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
@@ -182,9 +208,6 @@
             this.dgColAdmin.Name = "dgColAdmin";
             this.dgColAdmin.Size = new System.Drawing.Size(704, 271);
             this.dgColAdmin.TabIndex = 0;
-            this.dgColAdmin.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgColAdmin_CellClick);
-            this.dgColAdmin.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgColAdmin_CellContentClick);
-            this.dgColAdmin.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgColAdmin_RowsAdded);
             this.dgColAdmin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ctlSetup_KeyPress);
             // 
             // pnlImport1
@@ -234,7 +257,7 @@
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.btnImport);
             this.groupBox1.Controls.Add(this.dgExcelData);
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.cbHasHeaders);
             this.groupBox1.Controls.Add(this.btnBrowse);
             this.groupBox1.Controls.Add(this.txtExcelPath);
             this.groupBox1.Controls.Add(this.label3);
@@ -263,6 +286,7 @@
             this.btnMapData.TabIndex = 16;
             this.btnMapData.Text = "Map Data";
             this.btnMapData.UseVisualStyleBackColor = true;
+            this.btnMapData.Click += new System.EventHandler(this.btnMapData_Click);
             // 
             // lblWorksheet
             // 
@@ -312,17 +336,18 @@
             this.dgExcelData.Size = new System.Drawing.Size(869, 371);
             this.dgExcelData.TabIndex = 11;
             // 
-            // checkBox1
+            // cbHasHeaders
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(282, 42);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(157, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "First Row Contains Headers";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbHasHeaders.AutoSize = true;
+            this.cbHasHeaders.Checked = true;
+            this.cbHasHeaders.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbHasHeaders.Location = new System.Drawing.Point(282, 42);
+            this.cbHasHeaders.Name = "cbHasHeaders";
+            this.cbHasHeaders.Size = new System.Drawing.Size(157, 17);
+            this.cbHasHeaders.TabIndex = 10;
+            this.cbHasHeaders.Text = "First Row Contains Headers";
+            this.cbHasHeaders.UseVisualStyleBackColor = true;
+            this.cbHasHeaders.CheckedChanged += new System.EventHandler(this.cbHasHeaders_CheckedChanged);
             // 
             // btnBrowse
             // 
@@ -357,7 +382,6 @@
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "ctlSetup";
             this.Size = new System.Drawing.Size(893, 606);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ctlSetup_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ctlSetup_KeyPress);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -398,7 +422,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.DataGridView dgExcelData;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbHasHeaders;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.TextBox txtExcelPath;
         private System.Windows.Forms.Label label3;
@@ -410,5 +434,7 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnImportCol;
         private System.Windows.Forms.Button btnMapData;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

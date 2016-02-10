@@ -20,6 +20,7 @@ namespace BiologyDepartment
         private bool bInitialize = false;
         private daoSetup _daoSetup;
         private DataGridViewColumnType dgColumnType = new DataGridViewColumnType();
+        private List<string> sMapColumns = new List<string>();
 
         List<string> theTypes = new List<string>(new string [] {
             "CHARACTER", 
@@ -190,48 +191,59 @@ namespace BiologyDepartment
             }
         }
 
-        private void dgColAdmin_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            switch(e.ToString())
-            {
-                case "Del":
-                    break;
-            }
-        }
-
         public void LoadData()
         {
             dtColumns = _daoSetup.GetExperimentColumns(GlobalVariables.Experiment.ID);
 
-            if (!dtColumns.Columns.Contains("Add"))
-                dtColumns.Columns.Add("Add", typeof(string));
-            if (!dtColumns.Columns.Contains("Delete"))
-                dtColumns.Columns.Add("Delete", typeof(string));
             if (!dtColumns.Columns.Contains("custom_column_name"))
                 dtColumns.Columns.Add("custom_column_name", typeof(string));
             if (!dtColumns.Columns.Contains("custom_column_data_type"))
                 dtColumns.Columns.Add("custom_column_data_type", typeof(string));
             if (!dtColumns.Columns.Contains("custom_columns_id"))
-                dtColumns.Columns.Add("custom_columns_id", typeof(string));        
-        }
-
-        private void dgColAdmin_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
-        {
-
+                dtColumns.Columns.Add("custom_columns_id", typeof(string));
+            if (!dtColumns.Columns.Contains("map_column"))
+                dtColumns.Columns.Add("map_column", typeof(string));
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            //dtColumns = _daoSetup.UpdateColumn(dgColAdmin.DataSource as DataTable);
+        {    
+            if(dgColAdmin.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("No rows have been selected to add/update.  Please select a row or rows to add/update",
+                    "NO ROWS SELECTED", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            foreach (DataGridViewRow row in dgColAdmin.SelectedRows)
+            {
+                int nColID = 0;
+                string sName = Convert.ToString(row.Cells["custom_column_name"].Value);
+                string sType = Convert.ToString(row.Cells["custom_column_data_type"].Value);
+                if (string.IsNullOrEmpty(sName) || string.IsNullOrEmpty(sType))
+                    return;
+                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
+
+                if (nColID > 0)
+                    _daoSetup.UpdateColumn(nColID, sName, sType);
+                else
+                {
+                    nColID = _daoSetup.InsertColumn(GlobalVariables.Experiment.ID, sName, sType);
+                    if (nColID > 0)
+                        dgColAdmin.Rows[row.Index].Cells["custom_columns_id"].Value = nColID;
+                }
+            }
+
+            MapColumns();
         }
 
         private void btnImport_Click(object sender, EventArgs e)
         {
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             dgExcelData.DataSource = null;
+            sMapColumns.Clear();
         }
 
         private void btnImportCol_Click(object sender, EventArgs e)
@@ -258,6 +270,8 @@ namespace BiologyDepartment
                 }
             }
 
+            MapColumns();
+
             if(lstExistingCols.Count > 0)
             {
                 string sCol = "";
@@ -272,16 +286,14 @@ namespace BiologyDepartment
         public void LoadGrid()
         {
             //use column name as the property to bind it to the datatable.
-            if (!dgColAdmin.Columns.Contains("Add"))
-                dgColAdmin.Columns.Add(dgColumnType.AddButtonColumnAddIcon("Add", "", true, 1));
-            if (!dgColAdmin.Columns.Contains("Delete"))
-                dgColAdmin.Columns.Add(dgColumnType.AddButtonColumnDeleteIcon("Delete", "", true, 2));
             if (!dgColAdmin.Columns.Contains("custom_column_name"))
-                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_column_name", "NAME", true, 3));
+                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_column_name", "NAME", true, 1));
             if (!dgColAdmin.Columns.Contains("custom_column_data_type"))
-                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("custom_column_data_type", "TYPE", true, 4, theTypes));
+                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("custom_column_data_type", "TYPE", true, 2, theTypes));
+            if (!dgColAdmin.Columns.Contains("map_column"))
+                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("map_column", "MAP COLUMN", true, 3, sMapColumns));
             if(!dgColAdmin.Columns.Contains("custom_columns_id"))
-                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_columns_id", "ex_id", false, 5));
+                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_columns_id", "ex_id", false, 4));
             
             dgColAdmin.DataSource = dtColumns;
 
@@ -292,66 +304,106 @@ namespace BiologyDepartment
 
         }
 
-        private void dgColAdmin_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridViewRow row = dgColAdmin.Rows[e.RowIndex];
-            string sName = Convert.ToString(row.Cells["custom_column_name"].Value);
-            string sType = Convert.ToString(row.Cells["custom_column_data_type"].Value);
-            if (string.IsNullOrEmpty(sName)  || string.IsNullOrEmpty(sType))
-                return;
-
-            int nColID = 0;
-            int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
-
-            switch(dgColAdmin.Columns[e.ColumnIndex].Name)
-            {
-                case "Add":
-                    if (nColID > 0)
-                        _daoSetup.UpdateColumn(nColID, sName, sType);
-                    else
-                    { 
-                        nColID = _daoSetup.InsertColumn(GlobalVariables.Experiment.ID, sName, sType);
-                        if(nColID > 0)
-                            dgColAdmin.Rows[e.RowIndex].Cells["custom_columns_id"].Value = nColID;
-                    }
-                    break;
-                case "Delete":
-                    if (nColID > 0)
-                    {
-                        _daoSetup.DeleteColumn(nColID);
-                        DataRow drRemove = dtColumns.NewRow();
-                        foreach (DataRow drRow in dtColumns.Rows)
-                        {
-                            if (Convert.ToInt32(drRow["custom_columns_id"]) == nColID)
-                                drRemove = drRow;
-                        }
-                        dtColumns.Rows.Remove(drRemove);
-                    }
-                    else
-                        dgColAdmin.Rows.RemoveAt(e.RowIndex);
-                    break;
-                default:
-                    break;
-            }
-
-        }
-
         private void ctlSetup_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(e.KeyChar == (char)Keys.F5)
             {
-                LoadData();
-                LoadGrid();
+                Refresh();
             }
         }
 
-        private void ctlSetup_KeyDown(object sender, KeyEventArgs e)
+        private void Refresh()
         {
-            if (e.KeyCode == Keys.F5)
+            LoadData();
+            LoadGrid();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            List<DataGridViewRow> lstRows = new List<DataGridViewRow>();
+            foreach (DataGridViewRow row in dgColAdmin.SelectedRows)
             {
-                LoadData();
-                LoadGrid();
+                int nColID = 0;
+                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
+                if (nColID > 0)
+                {
+                    _daoSetup.DeleteColumn(nColID);
+                    DataRow drRemove = dtColumns.NewRow();
+                    foreach (DataRow drRow in dtColumns.Rows)
+                    {
+                        if (Convert.ToInt32(drRow["custom_columns_id"]) == nColID)
+                            drRemove = drRow;
+                    }
+                    dtColumns.Rows.Remove(drRemove);
+                }
+                else
+                    lstRows.Add(row);
             }
+            foreach (DataGridViewRow row in lstRows)
+                dgColAdmin.Rows.Remove(row);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            Refresh();
+            sMapColumns.Clear();
+        }
+
+        private void btnMapData_Click(object sender, EventArgs e)
+        {
+            MapColumns();
+        }
+
+        private void MapColumns()
+        {
+            foreach (DataGridViewColumn dgCol in dgExcelData.Columns)
+            {
+                if (cbHasHeaders.Checked && !sMapColumns.Contains(dgCol.HeaderText))
+                    sMapColumns.Add(dgCol.HeaderText);
+                else if (!sMapColumns.Contains(dgCol.Index.ToString()))
+                    sMapColumns.Add(dgCol.Index.ToString());
+            }
+
+            Refresh();
+
+            foreach(string sCol in sMapColumns)
+            {
+                foreach (DataGridViewRow row in dgColAdmin.Rows)
+                {
+                    if (row.Cells["custom_column_name"].Value != null &&
+                        Convert.ToString(row.Cells["custom_column_name"].Value).ToUpper().Equals(sCol.ToUpper()))
+                    {
+                        row.Cells["map_column"].Value = sCol;
+                        if (dgExcelData.Rows.Count > 0)
+                        {
+                            DataGridViewRow tempRow = dgExcelData.Rows[0];
+                            if (row.Cells["custom_column_data_type"].Value == DBNull.Value)
+                            {
+                                string tempString = Convert.ToString(tempRow.Cells[sCol].Value);
+                                DateTime tempDate;
+                                double tempDouble = 0;
+                                int tempInt = 0;
+
+                                if (DateTime.TryParse(tempString, out tempDate))
+                                    row.Cells["custom_column_data_type"].Value = "DATE_TIME";
+                                else if (Int32.TryParse(tempString, out tempInt))
+                                    row.Cells["custom_column_data_type"].Value = "INTEGER";
+                                else if (Double.TryParse(tempString, out tempDouble))
+                                    row.Cells["custom_column_data_type"].Value = "DECIMAL";
+                                else
+                                    row.Cells["custom_column_data_type"].Value = "CHARACTER";
+                            }
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void cbHasHeaders_CheckedChanged(object sender, EventArgs e)
+        {
+            sMapColumns.Clear();
         }
 
     }
