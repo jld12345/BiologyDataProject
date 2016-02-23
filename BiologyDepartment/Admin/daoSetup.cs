@@ -67,5 +67,20 @@ namespace BiologyDepartment
 
             return GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
         }
+
+        internal int GetNewRowID()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal int GetNewRowID(int p)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void InsertRowValue(int rowID, string p1, string p2, string p3)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

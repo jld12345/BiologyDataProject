@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -21,6 +22,7 @@ namespace BiologyDepartment
         private daoSetup _daoSetup;
         private DataGridViewColumnType dgColumnType = new DataGridViewColumnType();
         private List<string> sMapColumns = new List<string>();
+        private DataTable dtNotInserted = new DataTable();
 
         List<string> theTypes = new List<string>(new string [] {
             "CHARACTER", 
@@ -237,7 +239,70 @@ namespace BiologyDepartment
 
         private void btnImport_Click(object sender, EventArgs e)
         {
+            
+            Dictionary<string, string> deCols = new Dictionary<string, string>();
+            foreach(DataGridViewRow dgvr in dgColAdmin.Rows)
+            {
+                string col = Convert.ToString(dgvr.Cells["custom_column_name"].Value);
+                string mapCol = Convert.ToString(dgvr.Cells["map_colum"]);
+                if(!string.IsNullOrEmpty(mapCol))
+                {
+                    col = col + "|" + Convert.ToString(dgvr.Cells["custom_column_data_type"].Value);
+                    deCols.Add(mapCol, col);
+                }
+            }
 
+            DataTable dt = (DataTable)dgExcelData.DataSource;
+            foreach(DataGridViewRow dgvr in dgExcelData.Rows)
+            {
+                bool bIsValid = false;
+                List<string> values = new List<string>();
+                foreach(KeyValuePair<string, string> entry in deCols)
+                {
+                    DateTime tempDate;
+                    double tempDouble = 0;
+                    int tempInt = 0;                    
+                    string cellVal = Convert.ToString(dgvr.Cells[entry.Key].Value);
+
+                    switch(entry.Value)
+                    {
+                        case "DECIMAL":
+                            if (Double.TryParse(cellVal, out tempDouble))
+                                bIsValid = true;
+                            break;
+                        case "INTEGER": 
+                            if (Int32.TryParse(cellVal, out tempInt))
+                                bIsValid = true;
+                            break;
+                        case "DATE_TIME":
+                            if (DateTime.TryParse(cellVal,out tempDate))
+                                bIsValid = true;
+                            break;
+                        default:
+                            bIsValid = true;
+                            break;
+                    }
+                    if(bIsValid)
+                        values.Add(entry.Value + "|" + cellVal);
+                    else
+                    {
+                        bIsValid = false;
+                        continue;
+                    }
+                }
+
+                if (bIsValid)
+                {
+                    int rowID = _daoSetup.GetNewRowID(GlobalVariables.Experiment.ID);
+                    foreach (string item in values)
+                    {
+                        string[] subItem = item.Split('|');
+
+                        _daoSetup.InsertRowValue(rowID, subItem[0], subItem[1], subItem[2]);
+                    }
+                }
+            }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
