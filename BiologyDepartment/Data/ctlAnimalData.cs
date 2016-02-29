@@ -38,6 +38,7 @@ namespace BiologyDepartment
         private Npgsql.NpgsqlDataAdapter adapterCustom;
         private Npgsql.NpgsqlDataAdapter adapterData;
         private DgvComboBoxColumnFilter ExcludeFilter;
+        private List<AnimalData> animalAgg = new List<AnimalData>();
 
         public event EventHandler<CloseCtlAnimalData> CloseFormEvent;
 
@@ -106,14 +107,14 @@ namespace BiologyDepartment
 
         private void GetData()
         {
-            DataTable dtCore = new DataTable();
             DataTable dtCustom= new DataTable();
             DataTable dtData = new DataTable();
             DataSet dsBind = new DataSet();
             DataColumn dcParent;
             DataColumn dcChild;
 
-            adapterCore = new Npgsql.NpgsqlDataAdapter();
+            animalAgg = _daoData.BulkExport();
+            /*adapterCore = new Npgsql.NpgsqlDataAdapter();
             adapterCustom = new Npgsql.NpgsqlDataAdapter();
             adapterData = new Npgsql.NpgsqlDataAdapter();
 
@@ -161,7 +162,7 @@ namespace BiologyDepartment
                 dsBind.Relations.Add("drCustomData", dcParent, dcChild);
             }
             
-            _bindingSource.DataSource = dsBind;
+            _bindingSource.DataSource = dsBind;*/
         }
 
 

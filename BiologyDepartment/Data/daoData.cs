@@ -4,6 +4,8 @@ using Npgsql;
 using NpgsqlTypes;
 using System.Data;
 using System.Windows.Forms;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace BiologyDepartment
 {
@@ -18,22 +20,10 @@ namespace BiologyDepartment
         {
         }
 
-        public NpgsqlDataAdapter DataAdapterCore(int id)
+        public List<AnimalData> BulkExport()
         {
-            string selectCommand = @"select 
-	                                    ecc.ex_core_col_id, 
-	                                    ecc.ex_id, 
-	                                    ecc.modified_date, 
-	                                    ecc.exclude_row, 
-	                                    ecc.modified_date
-                                    from experiment_core_columns ecc
-                                    where ecc.ex_id = :id
-                                    and ecc.deleted_date is null";
-            adapter = new Npgsql.NpgsqlDataAdapter(selectCommand, GlobalVariables.Connection);
-            NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(adapter);
-            adapter.SelectCommand.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
-            adapter.SelectCommand.Parameters[0].Value = id;
-            return adapter;
+            List<AnimalData> theData = GlobalVariables.GlobalConnection.BulkExportData();
+            return theData;
         }
 
         public DataSet getExData(int id)

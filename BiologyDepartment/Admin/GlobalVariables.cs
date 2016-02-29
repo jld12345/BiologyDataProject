@@ -26,6 +26,7 @@ namespace BiologyDepartment
         static List<string> QueryColumns = new List<string>();
         static frmDataLoading dl = new frmDataLoading();
         static Experiments _experiments = new Experiments();
+        static NpgsqlConnection con;
 
         static dbBioConnection BioConnection;
 
@@ -58,12 +59,23 @@ namespace BiologyDepartment
 
         public static NpgsqlConnection Connection
         {
-            get { return con(); }
+            get { return conn(); }
         }
 
-        private static NpgsqlConnection con()
+        private static NpgsqlConnection conn()
         {
-            NpgsqlConnection con = new NpgsqlConnection("Server=54.187.120.10;Port=5432;User Id=biologyprojectadmin;Password=ImWay2c@@l;Database=BiologyProject;");
+            if (con == null)
+            {
+              con =  new NpgsqlConnection(@"Server=54.187.120.10;
+                                        Port=5432;
+                                        User Id=" + dbUser + @";
+                                        Password=" + dbPass + @";
+                                        Database=BiologyProject;
+                                        Pooling=false;
+                                        Connection Lifetime=0");
+            }
+            if (con.State != System.Data.ConnectionState.Open)
+                con.Open();
             return con; 
         }
 

@@ -11,6 +11,7 @@ using System.Reflection;
 using Excel;
 using System.IO;
 using BiologyDepartment.Misc_Files;
+using System.Diagnostics;
 namespace BiologyDepartment
 {
     public partial class ctlSetup : UserControl
@@ -239,32 +240,47 @@ namespace BiologyDepartment
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             Dictionary<string, string> deCols = new Dictionary<string, string>();
+            List<string> ImportRows = new List<string>();
             foreach(DataGridViewRow dgvr in dgColAdmin.Rows)
             {
+                if(dgvr.Cells["custom_column_name"].Value == DBNull.Value ||
+                    dgvr.Cells["custom_columns_id"].Value == DBNull.Value ||
+                    dgvr.Cells["custom_column_data_type"].Value == DBNull.Value ||
+                    dgvr.Cells["map_column"].Value == DBNull.Value)
+                {
+                    string sMsg= "Cannot import data at this time.  Please verify that all columns have been mapped and imported.";
+                    MessageBox.Show(sMsg, "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 string col = Convert.ToString(dgvr.Cells["custom_column_name"].Value);
-                string mapCol = Convert.ToString(dgvr.Cells["map_colum"]);
+                string colId = Convert.ToString(dgvr.Cells["custom_columns_id"].Value);
+                string mapCol = Convert.ToString(dgvr.Cells["map_column"].Value);
                 if(!string.IsNullOrEmpty(mapCol))
                 {
-                    col = col + "|" + Convert.ToString(dgvr.Cells["custom_column_data_type"].Value);
+                    col = colId + "|" +col + "|" + Convert.ToString(dgvr.Cells["custom_column_data_type"].Value);
                     deCols.Add(mapCol, col);
                 }
             }
 
             DataTable dt = (DataTable)dgExcelData.DataSource;
+            DataTable dtClone = dt.Clone();
             foreach(DataGridViewRow dgvr in dgExcelData.Rows)
             {
                 bool bIsValid = false;
-                List<string> values = new List<string>();
+                string values = "";
+                string colIDs = "";
                 foreach(KeyValuePair<string, string> entry in deCols)
                 {
                     DateTime tempDate;
                     double tempDouble = 0;
-                    int tempInt = 0;                    
+                    int tempInt = 0;
+                    string[] subItem = entry.Value.Split('|');
                     string cellVal = Convert.ToString(dgvr.Cells[entry.Key].Value);
 
-                    switch(entry.Value)
+                    switch(subItem[2])
                     {
                         case "DECIMAL":
                             if (Double.TryParse(cellVal, out tempDouble))
@@ -282,27 +298,34 @@ namespace BiologyDepartment
                             bIsValid = true;
                             break;
                     }
-                    if(bIsValid)
-                        values.Add(entry.Value + "|" + cellVal);
+                    if (bIsValid)
+                    {
+                        values = values + "|^|"+ subItem[0] + "^*^" + cellVal;
+                    }
                     else
                     {
                         bIsValid = false;
+                        dtClone.Rows.Add(dgvr);
                         continue;
                     }
                 }
-
                 if (bIsValid)
                 {
-                    int rowID = _daoSetup.GetNewRowID(GlobalVariables.Experiment.ID);
-                    foreach (string item in values)
+                    var trimChars = "|^|";
+                    values = values.TrimStart(trimChars.ToArray());
+                    ImportRows.Add(values);
+                    /*if (ImportRows.Count >= 500)
                     {
-                        string[] subItem = item.Split('|');
-
-                        _daoSetup.InsertRowValue(rowID, subItem[0], subItem[1], subItem[2]);
-                    }
+                        _daoSetup.BulkImport(ImportRows);
+                        ImportRows.Clear();
+                    }*/
                 }
             }
-            
+
+            if (ImportRows.Count >0 )
+                _daoSetup.BulkImport(ImportRows);
+            sw.Stop();
+            Trace.WriteLine("Elapsed:  " + sw.Elapsed);
         }
 
         private void button2_Click(object sender, EventArgs e)

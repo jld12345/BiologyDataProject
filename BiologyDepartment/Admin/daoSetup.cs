@@ -2,6 +2,8 @@
 using NpgsqlTypes;
 using System.Data;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace BiologyDepartment
 {
@@ -68,19 +70,53 @@ namespace BiologyDepartment
             return GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
         }
 
-        internal int GetNewRowID()
+        public int GetNewRowID()
         {
-            throw new NotImplementedException();
+            NpgsqlCMD = new NpgsqlCommand();
+            NpgsqlCMD.CommandText = @"INSERT INTO EXPERIMENT_CORE_COLUMNS 
+                                      (EX_CORE_COL_ID, EX_ID, MODIFIED_USER, MODIFIED_DATE)
+                                      VALUES(NEXTVAL('EXPERIMENT_CORE_COLUMNS_ID_SEQ'),:id, :moduser, LOCALTIMESTAMP);
+                                      select currval('EXPERIMENT_CORE_COLUMNS_ID_SEQ');";
+
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":id", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters[0].Value = GlobalVariables.Experiment.ID;
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":moduser", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters[1].Value = GlobalVariables.ADUserName;
+            //NpgsqlCMD.Parameters.Add(new NpgsqlParameter("uploadTime", NpgsqlDbType.Timestamp));
+            //NpgsqlCMD.Parameters[2].Value = DateTime.Now();
+
+            return GlobalVariables.GlobalConnection.InsertDataAndGetID(NpgsqlCMD);
         }
 
-        internal int GetNewRowID(int p)
+        public void InsertRowValue(int rowID, int nCusColumnID, string sInputData, string sAggData)
         {
-            throw new NotImplementedException();
+            NpgsqlCMD = new NpgsqlCommand();
+            NpgsqlCMD.CommandText = @"INSERT INTO EXPERIMENT_DATA
+                                      (EXPERIMENT_DATA_ID, EX_CORE_COL_ID, CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_DATA, DATA_AGG)
+                                      VALUES(NEXTVAL('EXPERIMENT_DATA_ID_SEQ'),:rowID, :id, :theData, :theDataAgg);";
+
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":id", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters[0].Value = nCusColumnID;
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":theData", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters[1].Value = sInputData;
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":theDataAgg", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters[2].Value = sAggData;
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":rowID", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters[3].Value = rowID;
+
+            GlobalVariables.GlobalConnection.insertData(NpgsqlCMD);
         }
 
-        internal void InsertRowValue(int rowID, string p1, string p2, string p3)
+        public void BulkImport(List<string> ImportRows)
         {
-            throw new NotImplementedException();
+            GlobalVariables.GlobalConnection.BulkInsertData(ImportRows);
+        }
+
+        public int GetExperimentDataRowID()
+        {
+            NpgsqlCMD = new NpgsqlCommand();
+            NpgsqlCMD.CommandText = @"SELECT NEXTVAL('EXPERIMENT_DATA_ID_SEQ');";
+            return GlobalVariables.GlobalConnection.InsertDataAndGetID(NpgsqlCMD);
         }
     }
 }

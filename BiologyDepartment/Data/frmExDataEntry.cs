@@ -46,7 +46,7 @@ namespace BiologyDepartment
         public frmExDataEntry(int id)
         {
             InitializeComponent();
-            theAnimal = new AnimalData(id, 0, 0);
+            theAnimal = new AnimalData();
             btnClear.Enabled = true;
             SetMeasurements();
             SetLineWidthCombo();
@@ -55,7 +55,7 @@ namespace BiologyDepartment
         public frmExDataEntry(int id, int row)
         {
             InitializeComponent();
-            theAnimal = new AnimalData(id, row, 0);
+            theAnimal = new AnimalData();
             SetMeasurements();
             SetLineWidthCombo();
             SetFields();
@@ -105,7 +105,7 @@ namespace BiologyDepartment
 
         private void SetFields()
         {
-            if (theAnimal.GetCoreID() > 0)
+            /*if (theAnimal.GetCoreID() > 0)
             {
                 /*DataSet dsFishData = new DataSet();
                 DataTable dtFishData = new DataTable();
@@ -118,10 +118,10 @@ namespace BiologyDepartment
                 picBox = dtFishData.Rows[0]["PICTURE"] as byte[];
                 if (picBox != null && picBox.Length > 0)
                     setPicBox(picBox);
-                else*/
+                else
                     pbImage.BackgroundImage = null;
 
-            }
+            }*/
         }
 
         private void frmFishData_Load(object sender, EventArgs e)
@@ -257,7 +257,7 @@ namespace BiologyDepartment
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-            if (theAnimal.GetCoreID() > 0)
+            /*if (theAnimal.GetCoreID() > 0)
             {
                 _daoData.UpdateCore(theAnimal);
                 _daoData.UpdateExperimentData(theAnimal);
@@ -266,7 +266,7 @@ namespace BiologyDepartment
             {
                 _daoData.InsertCore();
                 _daoData.InsertData();
-            }
+            }*/
 
             if (pbImage.BackgroundImage != null)
             {
@@ -275,7 +275,7 @@ namespace BiologyDepartment
                 byte[] photo_array = new byte[ms.Length];
                 ms.Position = 0;
                 ms.Read(photo_array, 0, photo_array.Length);
-                _daoData.UpdatePic("Fish_Weight_Length", theAnimal.GetCoreID(), photo_array);
+                //_daoData.UpdatePic("Fish_Weight_Length", theAnimal.GetCoreID(), photo_array);
             }
         }
 

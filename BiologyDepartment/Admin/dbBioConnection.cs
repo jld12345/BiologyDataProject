@@ -62,7 +62,6 @@ namespace BiologyDepartment
                 using (cmd)
                 {
                     cmd.Connection = GlobalVariables.Connection;
-                    cmd.Connection.Open();
                     dataset = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 return dataset;
@@ -89,7 +88,6 @@ namespace BiologyDepartment
                 using (cmd)
                 {
                     cmd.Connection = GlobalVariables.Connection;
-                    cmd.Connection.Open();
                     using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd))
                     {
                         adapter.Fill(ds);
@@ -119,7 +117,6 @@ namespace BiologyDepartment
                 using (cmd)
                 {
                     cmd.Connection = GlobalVariables.Connection;
-                    cmd.Connection.Open();
                     using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd))
                     {
                         adapter.Fill(ds);
@@ -148,7 +145,6 @@ namespace BiologyDepartment
                 using (cmd)
                 {
                     cmd.Connection = GlobalVariables.Connection;
-                    cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -168,7 +164,6 @@ namespace BiologyDepartment
                 using (cmd)
                 {
                     cmd.Connection = GlobalVariables.Connection;
-                    cmd.Connection.Open();
                     nReturn = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 return nReturn;
@@ -187,7 +182,6 @@ namespace BiologyDepartment
                 using (cmd)
                 {
                     cmd.Connection = GlobalVariables.Connection;
-                    cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -218,7 +212,6 @@ namespace BiologyDepartment
                 using (cmd)
                 {
                     cmd.Connection = GlobalVariables.Connection;
-                    cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -244,6 +237,52 @@ namespace BiologyDepartment
             }
 
             return false;
+        }
+
+        public void BulkInsertData(List<string> ImportRows)
+        {
+            NpgsqlConnection con = GlobalVariables.Connection;
+            using (var writer = con.BeginBinaryImport
+                (@"COPY EXPERIMENT_DATA 
+                    (EX_ID, MODFIED_DATE, MODIFIED_USER, DATA_AGG) 
+                     FROM STDIN (FORMAT BINARY)"))
+            {
+                foreach (string row in ImportRows)
+                {
+                    writer.StartRow();
+                    writer.Write(GlobalVariables.Experiment.ID, NpgsqlDbType.Integer);
+                    writer.Write(DateTime.Now.ToLongDateString(), NpgsqlDbType.Timestamp);
+                    writer.Write(GlobalVariables.ADUserName, NpgsqlDbType.Varchar);
+                    writer.Write(row, NpgsqlDbType.Varchar);
+                }
+            }
+            
+        }
+
+        public List<AnimalData> BulkExportData()
+        {
+            AnimalData animal;
+            List<AnimalData> animalAgg = new List<AnimalData>();
+
+            NpgsqlConnection con = GlobalVariables.Connection;
+            using (var reader = con.BeginBinaryExport
+                (@"COPY (SELECT EXPERIMENT_DATA_ID, EXCLUDE_ROW, DATA_AGG
+                        FROM EXPERIMENT_DATA WHERE EX_ID = " + GlobalVariables.Experiment.ID + @") 
+                        TO STDOUT (FORMAT BINARY)"))
+            {
+                while(reader.StartRow() != -1)
+                {
+                    animal = new AnimalData();
+                    animal.DataID = reader.Read<int>(NpgsqlDbType.Integer);
+                    animal.ExcludeRow = reader.Read<string>(NpgsqlDbType.Varchar);
+                    animal.DataAgg = reader.Read<string>(NpgsqlDbType.Text);
+                    animal.ExID = GlobalVariables.Experiment.ID;
+                    animal.GetAggData();
+                    animalAgg.Add(animal);
+
+                }
+            }
+            return animalAgg;
         }
     }
 }
