@@ -72,6 +72,7 @@ namespace BiologyDepartment
                                         Password=" + dbPass + @";
                                         Database=BiologyProject;
                                         Pooling=false;
+                                        CommandTimeout=300;
                                         Connection Lifetime=0");
             }
             if (con.State != System.Data.ConnectionState.Open)

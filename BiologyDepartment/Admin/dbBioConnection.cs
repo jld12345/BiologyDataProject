@@ -244,7 +244,7 @@ namespace BiologyDepartment
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var writer = con.BeginBinaryImport
                 (@"COPY EXPERIMENT_DATA 
-                    (EX_ID, MODFIED_DATE, MODIFIED_USER, DATA_AGG) 
+                    (EX_ID, MODIFIED_DATE, MODIFIED_USER, DATA_AGG) 
                      FROM STDIN (FORMAT BINARY)"))
             {
                 foreach (string row in ImportRows)
@@ -283,6 +283,31 @@ namespace BiologyDepartment
                 }
             }
             return animalAgg;
+        }
+
+        public List<CustomColumns> GetColumns()
+        {
+            CustomColumns col;
+            List<CustomColumns> colAgg = new List<CustomColumns>();
+            GlobalVariables.Connection.Close();
+            NpgsqlConnection con = GlobalVariables.Connection;
+            using (var reader = con.BeginBinaryExport
+                (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE
+                        FROM EXPERIMENT_CUSTOM_COLUMNS WHERE EX_ID = " + GlobalVariables.Experiment.ID + @") 
+                        TO STDOUT (FORMAT BINARY)"))
+            {
+                while (reader.StartRow() != -1)
+                {
+                    col = new CustomColumns();
+                    col.ColID = reader.Read<int>(NpgsqlDbType.Integer);
+                    col.ColName = reader.Read<string>(NpgsqlDbType.Varchar);
+                    col.ColDataType = reader.Read<string>(NpgsqlDbType.Varchar);
+                    col.EX_ID = GlobalVariables.Experiment.ID;
+
+                    colAgg.Add(col);
+                }
+            }
+            return colAgg;
         }
     }
 }

@@ -22,6 +22,7 @@ using System.IO;
 using System.Reflection;
 using ClosedXML.Excel;
 using BiologyDepartment.Misc_Files;
+using System.Diagnostics;
 
 namespace BiologyDepartment
 {
@@ -39,6 +40,8 @@ namespace BiologyDepartment
         private Npgsql.NpgsqlDataAdapter adapterData;
         private DgvComboBoxColumnFilter ExcludeFilter;
         private List<AnimalData> animalAgg = new List<AnimalData>();
+        private List<CustomColumns> animalCols = new List<CustomColumns>();
+        private DataTable dtAnimals = new DataTable();
 
         public event EventHandler<CloseCtlAnimalData> CloseFormEvent;
 
@@ -53,12 +56,11 @@ namespace BiologyDepartment
             filterManager = new DgvFilterManager();
             filterManager.ColumnFilterAdding += new ColumnFilterEventHandler(fm_ColumnFilterAdding);
             GetData();
-            dgExData.DataSource = _bindingSource;
-            AddGridButtons();
+            SetGrid();
             filterManager.DataGridView = dgExData;
         }
 
-        private void AddGridButtons()
+        private void SetGrid()
         {
             if (!dgExData.Columns.Contains("EDIT"))
             {
@@ -89,80 +91,112 @@ namespace BiologyDepartment
                 dgExData.Columns.Insert(2, chkExclude);
             }
 
-            dgExData.Columns["EXCLUDE"].Visible = false;
-            //dgExData.Columns["ADD"].DefaultCellStyle.Font = new Font("Arial", 22F, GraphicsUnit.Pixel);
-            //dgExData.Columns["DELETE"].DefaultCellStyle.Font = new Font("Arial", 22F, GraphicsUnit.Pixel);
+            dgExData.Columns["EXCLUDE"].Visible = true;
 
-            /*foreach(DataGridViewRow row in dgExData.Rows)
+            dgExData.DataSource = dtAnimals;
+
+            foreach(DataColumn col in dtAnimals.Columns)
             {
-                row.Cells["ADD"].Value = "+";
-                row.Cells["DELETE"].Value = "X";
-                if (Convert.ToString(row.Cells["EXCLUDE_ROW"].Value).Equals("Y"))
-                    row.Cells["EXCLUDE"].Value = 1;
-                else
-                    row.Cells["EXCLUDE"].Value = 0;
-            }*/
-
+                dgExData.Columns[col.ColumnName].HeaderText = col.Caption;
+            }
         }
 
         private void GetData()
         {
-            DataTable dtCustom= new DataTable();
-            DataTable dtData = new DataTable();
-            DataSet dsBind = new DataSet();
-            DataColumn dcParent;
-            DataColumn dcChild;
-
+            Stopwatch sw = new Stopwatch();
+            Trace.WriteLine("GetData start stopwatch");
+            sw.Start();
             animalAgg = _daoData.BulkExport();
-            /*adapterCore = new Npgsql.NpgsqlDataAdapter();
-            adapterCustom = new Npgsql.NpgsqlDataAdapter();
-            adapterData = new Npgsql.NpgsqlDataAdapter();
-
-            adapterCore = _daoData.DataAdapterCore(intID);
-            adapterCustom = _daoData.DataAdapterCustom(intID);
-            adapterData = _daoData.DataAdapterData(intID);
-
-            adapterCore.Fill(dtCore);
-            adapterCustom.Fill(dtCustom);
-            adapterData.Fill(dtData);
-
-            if(dtCore.Rows.Count > 0 && dtCustom.Rows.Count > 0)
+            animalCols = _daoData.GetColumns();
+            int colPosition = 0;
+            foreach(CustomColumns col in animalCols)
             {
-                if(!dsBind.Tables.Contains("dtCore"))
-                    dsBind.Tables.Add(dtCore);
-                if(!dsBind.Tables.Contains("dtCustom"))
-                    dsBind.Tables.Add(dtCustom);
-
-                dcParent = dsBind.Tables["dtCore"].Columns["EX_ID"];
-                dcChild = dsBind.Tables["dtCustom"].Columns["EX_ID"];
-                dsBind.Relations.Add("drCoreCustom", dcParent, dcChild);
+                DataColumn newCol = new DataColumn();
+                if(!dtAnimals.Columns.Contains(Convert.ToString(col.ColID)))
+                {
+                    newCol.ColumnName = Convert.ToString(col.ColID);
+                    switch(col.ColDataType)
+                    {
+                        case "INTEGER":
+                            newCol.DataType = System.Type.GetType("System.Int32");
+                            break;
+                        case "DECIMAL":
+                            newCol.DataType = System.Type.GetType("System.Decimal");
+                            break;
+                        case "CHARACTER":
+                            newCol.DataType = System.Type.GetType("System.String");
+                            break;
+                        case "DATE/TIME":
+                            newCol.DataType = System.Type.GetType("System.DateTime");
+                            break;
+                        case "IMAGE":
+                            newCol.DataType = System.Type.GetType("System.Byte");
+                            break;
+                    }
+                    newCol.Caption = col.ColName;
+                    dtAnimals.Columns.Add(newCol);
+                    dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
+                    colPosition++;
+                }
+            }
+            if(!dtAnimals.Columns.Contains("DataID"))
+            {
+                DataColumn newCol = new DataColumn();
+                newCol.ColumnName = "DataID";
+                newCol.DataType = System.Type.GetType("System.Int32");
+                newCol.Caption = "Row ID";
+                dtAnimals.Columns.Add(newCol);
+                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
+                colPosition++;
             }
 
-            if (dtCore.Rows.Count > 0 && dtData.Rows.Count > 0)
+            if(!dtAnimals.Columns.Contains("ExcludeRow"))
             {
-                if(!dsBind.Tables.Contains("dtCore"))
-                    dsBind.Tables.Add(dtCore);
-                if(!dsBind.Tables.Contains("dtData"))
-                    dsBind.Tables.Add(dtData);
-
-                dcParent = dsBind.Tables["dtCore"].Columns["EX_CORE_COL_ID"];
-                dcChild = dsBind.Tables["dtData"].Columns["EX_CORE_COL_ID"];
-                dsBind.Relations.Add("drCoreData", dcParent, dcChild);
+                DataColumn newCol = new DataColumn();
+                newCol.ColumnName = "ExcludeRow";
+                newCol.DataType = System.Type.GetType("System.String");
+                newCol.Caption = "Exclude Row";
+                dtAnimals.Columns.Add(newCol);
+                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
+                colPosition++;
             }
 
-            if (dtCustom.Rows.Count > 0 && dtData.Rows.Count > 0)
+            foreach(AnimalData animal in animalAgg)
             {
-                if (!dsBind.Tables.Contains("dtCustom"))
-                    dsBind.Tables.Add(dtCustom);
-                if (!dsBind.Tables.Contains("dtData"))
-                    dsBind.Tables.Add(dtData);
+                DataRow row = dtAnimals.NewRow();
+                row["DataID"] = animal.DataID;
+                row["ExcludeRow"] = animal.ExcludeRow;
 
-                dcParent = dsBind.Tables["dtCore"].Columns["CUSTOM_COLUMNS_ID"];
-                dcChild = dsBind.Tables["dtData"].Columns["CUSTOM_COLUMNS_ID"];
-                dsBind.Relations.Add("drCustomData", dcParent, dcChild);
+                foreach(KeyValuePair<int, string> entry in animal.AggDictionary)
+                {
+                    string sType = Convert.ToString(dtAnimals.Columns[Convert.ToString(entry.Key)].DataType);
+                    if (string.IsNullOrEmpty(entry.Value))
+                        row[Convert.ToString(entry.Key)] = DBNull.Value;
+                    else
+                    {
+                        switch (sType)
+                        {
+                            case "System.String":
+                                row[Convert.ToString(entry.Key)] = Convert.ToString(entry.Value);
+                                break;
+                            case "System.Int32":
+                                row[Convert.ToString(entry.Key)] = Convert.ToInt32(entry.Value);
+                                break;
+                            case "System.Decimal":
+                                row[Convert.ToString(entry.Key)] = Convert.ToDecimal(entry.Value);
+                                break;
+                            case "System.DateTime":
+                                row[Convert.ToString(entry.Key)] = Convert.ToDateTime(entry.Value);
+                                break;
+                        }
+                    }
+                }
+
+                dtAnimals.Rows.Add(row);
             }
-            
-            _bindingSource.DataSource = dsBind;*/
+
+            sw.Stop();
+            Trace.WriteLine("Elapsed:  " + sw.Elapsed);
         }
 
 

@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace BiologyDepartment
 {
@@ -34,10 +35,16 @@ namespace BiologyDepartment
         /// <returns>Returns True of user is valid</returns>
         public bool ValidateCredentials(string sUserName, string sPassword)
         {
+            Stopwatch sw = new Stopwatch();
+            Trace.WriteLine("ValidateCredentials start stopwatch");
+            sw.Start();
             _PrincipalContext = GetPrincipalContext(sUserName, sPassword);
 
+            Stopwatch sw1 = new Stopwatch();
+            Trace.WriteLine("PrincipalContext.ValidateCredentials start stopwatch");
             bool valid = _PrincipalContext.ValidateCredentials(sUserName, sPassword);
-
+            sw1.Stop();
+            Trace.WriteLine("PrincipalContext.ValidateCredentials elasped:  " + sw1.Elapsed);
             if (valid)
             {
                 GetDBContext(sUserName);
@@ -45,6 +52,8 @@ namespace BiologyDepartment
                 GlobalVariables.ADPass = sPassword;
             }
 
+            sw.Stop();
+            Trace.WriteLine("ValidateCredentials elasped:  " + sw.Elapsed);
             return valid;
         }
 
@@ -55,6 +64,8 @@ namespace BiologyDepartment
 
         public void GetDBContext(string sUserName)
         {
+            Stopwatch sw = new Stopwatch();
+            Trace.WriteLine("GetDBContext start stopwatch");
             GroupPrincipal theGroup = null;
 
             if (IsUserGroupMember(sUserName, "Biology Project Admin"))
@@ -62,13 +73,20 @@ namespace BiologyDepartment
             else if (IsUserGroupMember(sUserName, "Biology Project Users"))
                 theGroup = GetGroup("Biology Project Users");
             else
+            {
+                sw.Stop();
+                Trace.WriteLine("GetDBContext elapsed:  " + sw.Elapsed);
                 return;
+            }
 
             DirectoryEntry de = (theGroup.GetUnderlyingObject() as DirectoryEntry);
 
             GlobalVariables.dbUser = de.Properties["oracleUser"].Value.ToString();
             GlobalVariables.dbPass = de.Properties["oraclePass"].Value.ToString();
             GlobalVariables.ADUserGroup = theGroup.Name;
+
+            sw.Stop();
+            Trace.WriteLine("GetDBContext elapsed:  " + sw.Elapsed);
         }
 
         /// <summary>
@@ -409,7 +427,12 @@ namespace BiologyDepartment
         /// <returns>Retruns the PrincipalContext object</returns>
         public PrincipalContext GetPrincipalContext(string sUserName, string sPassword)
         {
+            Stopwatch sw = new Stopwatch();
+            Trace.WriteLine("GetPrincipalContext start stopwatch");
+            sw.Start();
             PrincipalContext theContext = new PrincipalContext(ContextType.Domain, "54.187.120.10", sUserName, sPassword);
+            sw.Stop();
+            Trace.WriteLine("GetPrincipalContext elapsed:  " + sw.Elapsed);
             return theContext;
         }
 

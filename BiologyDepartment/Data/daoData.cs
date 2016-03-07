@@ -26,6 +26,12 @@ namespace BiologyDepartment
             return theData;
         }
 
+        public List<CustomColumns> GetColumns()
+        {
+            List<CustomColumns> theData = GlobalVariables.GlobalConnection.GetColumns();
+            return theData;
+        }
+
         public DataSet getExData(int id)
         {
             NpgsqlCMD = new NpgsqlCommand();
@@ -224,5 +230,6 @@ namespace BiologyDepartment
             adapter.SelectCommand.Parameters[0].Value = intID;
             return adapter;
         }
+
     }
 }

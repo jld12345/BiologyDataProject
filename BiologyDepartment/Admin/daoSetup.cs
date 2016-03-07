@@ -33,7 +33,7 @@ namespace BiologyDepartment
             NpgsqlCMD = new NpgsqlCommand();
             NpgsqlCMD.CommandText = @"UPDATE EXPERIMENT_CUSTOM_COLUMNS 
                                       SET   CUSTOM_COLUMN_NAME = :colName, 
-                                            CUSTOM_COLUMN_DATA_TYPE = :colType,
+                                            CUSTOM_COLUMN_DATA_TYPE = :colType
                                       WHERE CUSTOM_COLUMNS_ID = :id";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":id", NpgsqlDbType.Integer));

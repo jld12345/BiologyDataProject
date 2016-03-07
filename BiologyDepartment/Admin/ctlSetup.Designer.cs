@@ -63,6 +63,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btnImportCol = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbValidate = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlShow1.SuspendLayout();
@@ -289,8 +290,10 @@
             // 
             // dgExcelData
             // 
+            this.dgExcelData.AllowUserToAddRows = false;
             this.dgExcelData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgExcelData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgExcelData.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgExcelData.Location = new System.Drawing.Point(0, 0);
             this.dgExcelData.Name = "dgExcelData";
             this.dgExcelData.Size = new System.Drawing.Size(877, 310);
@@ -395,6 +398,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbValidate);
             this.groupBox2.Controls.Add(this.btnImportCol);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.btnImport);
@@ -410,6 +414,18 @@
             this.groupBox2.Size = new System.Drawing.Size(872, 65);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
+            // 
+            // cbValidate
+            // 
+            this.cbValidate.AutoSize = true;
+            this.cbValidate.Checked = true;
+            this.cbValidate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbValidate.Location = new System.Drawing.Point(336, 19);
+            this.cbValidate.Name = "cbValidate";
+            this.cbValidate.Size = new System.Drawing.Size(90, 17);
+            this.cbValidate.TabIndex = 17;
+            this.cbValidate.Text = "Validate Data";
+            this.cbValidate.UseVisualStyleBackColor = true;
             // 
             // ctlSetup
             // 
@@ -479,5 +495,6 @@
         private System.Windows.Forms.TextBox txtExcelPath;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dgExcelData;
+        private System.Windows.Forms.CheckBox cbValidate;
     }
 }

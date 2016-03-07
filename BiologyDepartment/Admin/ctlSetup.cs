@@ -241,96 +241,125 @@ namespace BiologyDepartment
         private void btnImport_Click(object sender, EventArgs e)
         {
             Stopwatch sw = new Stopwatch();
-            sw.Start();
-            Dictionary<string, string> deCols = new Dictionary<string, string>();
-            List<string> ImportRows = new List<string>();
-            foreach(DataGridViewRow dgvr in dgColAdmin.Rows)
+
+            if (cbValidate.CheckState == CheckState.Unchecked)
             {
-                if(dgvr.Cells["custom_column_name"].Value == DBNull.Value ||
-                    dgvr.Cells["custom_columns_id"].Value == DBNull.Value ||
-                    dgvr.Cells["custom_column_data_type"].Value == DBNull.Value ||
-                    dgvr.Cells["map_column"].Value == DBNull.Value)
+                string msg = "Validate Data is not checked.  Continuing will not " +
+                             "validate the data before inserting into the database.";
+                DialogResult dr = MessageBox.Show(msg, "Validaition Warning",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (dr == DialogResult.Cancel)
                 {
-                    string sMsg= "Cannot import data at this time.  Please verify that all columns have been mapped and imported.";
-                    MessageBox.Show(sMsg, "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                }
-                string col = Convert.ToString(dgvr.Cells["custom_column_name"].Value);
-                string colId = Convert.ToString(dgvr.Cells["custom_columns_id"].Value);
-                string mapCol = Convert.ToString(dgvr.Cells["map_column"].Value);
-                if(!string.IsNullOrEmpty(mapCol))
-                {
-                    col = colId + "|" +col + "|" + Convert.ToString(dgvr.Cells["custom_column_data_type"].Value);
-                    deCols.Add(mapCol, col);
                 }
             }
 
-            DataTable dt = (DataTable)dgExcelData.DataSource;
-            DataTable dtClone = dt.Clone();
-            foreach(DataGridViewRow dgvr in dgExcelData.Rows)
-            {
-                bool bIsValid = false;
-                string values = "";
-                string colIDs = "";
-                foreach(KeyValuePair<string, string> entry in deCols)
+                sw.Start();
+                Dictionary<string, string> deCols = new Dictionary<string, string>();
+                List<string> ImportRows = new List<string>();
+                foreach (DataGridViewRow dgvr in dgColAdmin.Rows)
                 {
-                    DateTime tempDate;
-                    double tempDouble = 0;
-                    int tempInt = 0;
-                    string[] subItem = entry.Value.Split('|');
-                    string cellVal = Convert.ToString(dgvr.Cells[entry.Key].Value);
-
-                    switch(subItem[2])
+                    if (dgvr.Cells["custom_column_name"].Value == DBNull.Value ||
+                        dgvr.Cells["custom_columns_id"].Value == DBNull.Value ||
+                        dgvr.Cells["custom_column_data_type"].Value == DBNull.Value ||
+                        dgvr.Cells["map_column"].Value == DBNull.Value)
                     {
-                        case "DECIMAL":
-                            if (Double.TryParse(cellVal, out tempDouble))
-                                bIsValid = true;
-                            break;
-                        case "INTEGER": 
-                            if (Int32.TryParse(cellVal, out tempInt))
-                                bIsValid = true;
-                            break;
-                        case "DATE_TIME":
-                            if (DateTime.TryParse(cellVal,out tempDate))
-                                bIsValid = true;
-                            break;
-                        default:
+                        string sMsg = "Cannot import data at this time.  Please verify that all columns have been mapped and imported.";
+                        MessageBox.Show(sMsg, "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    string col = Convert.ToString(dgvr.Cells["custom_column_name"].Value);
+                    string colId = Convert.ToString(dgvr.Cells["custom_columns_id"].Value);
+                    string mapCol = Convert.ToString(dgvr.Cells["map_column"].Value);
+                    if (!string.IsNullOrEmpty(mapCol) && !string.IsNullOrEmpty(col) && !string.IsNullOrEmpty(colId))
+                    {
+                        col = colId + "|" + col + "|" + Convert.ToString(dgvr.Cells["custom_column_data_type"].Value);
+                        deCols.Add(mapCol, col);
+                    }
+                }
+
+                DataTable dt = (DataTable)dgExcelData.DataSource;
+                dtNotInserted = dt.Clone();
+                foreach (DataGridViewRow dgvr in dgExcelData.Rows)
+                {
+                    bool bIsValid = false;
+                    string values = "";
+                    foreach (KeyValuePair<string, string> entry in deCols)
+                    {
+                        DateTime tempDate;
+                        bIsValid = false;
+                        double tempDouble = 0;
+                        int tempInt = 0;
+                        string[] subItem = entry.Value.Split('|');
+                        string cellVal = Convert.ToString(dgvr.Cells[entry.Key].Value);
+                        if (cbValidate.CheckState == CheckState.Checked)
+                        {
+                            switch (subItem[2])
+                            {
+                                case "DECIMAL":
+                                    if (!string.IsNullOrEmpty(cellVal) && Double.TryParse(cellVal, out tempDouble))
+                                        bIsValid = true;
+                                    break;
+                                case "INTEGER":
+                                    if (!string.IsNullOrEmpty(cellVal) && Int32.TryParse(cellVal, out tempInt))
+                                        bIsValid = true;
+                                    break;
+                                case "DATE_TIME":
+                                    if (!string.IsNullOrEmpty(cellVal) && DateTime.TryParse(cellVal, out tempDate))
+                                        bIsValid = true;
+                                    break;
+                                default:
+                                    bIsValid = true;
+                                    break;
+                            }
+                        }
+                        else
                             bIsValid = true;
+
+                        if (bIsValid)
+                        {
+                            values = values + "|^|" + subItem[0] + "^*^" + cellVal;
+                        }
+                        else
+                        {
+                            DataRow newRow = dtNotInserted.NewRow();
+                            for (int i = 0; i < newRow.ItemArray.Length; i++)
+                            {
+                                newRow[i] = dgvr.Cells[i].Value;
+                            }
+                            dtNotInserted.Rows.Add(newRow);
                             break;
+                        }
                     }
                     if (bIsValid)
                     {
-                        values = values + "|^|"+ subItem[0] + "^*^" + cellVal;
-                    }
-                    else
-                    {
-                        bIsValid = false;
-                        dtClone.Rows.Add(dgvr);
-                        continue;
+                        ImportRows.Add(values);
                     }
                 }
-                if (bIsValid)
-                {
-                    var trimChars = "|^|";
-                    values = values.TrimStart(trimChars.ToArray());
-                    ImportRows.Add(values);
-                    /*if (ImportRows.Count >= 500)
-                    {
-                        _daoSetup.BulkImport(ImportRows);
-                        ImportRows.Clear();
-                    }*/
-                }
-            }
 
-            if (ImportRows.Count >0 )
-                _daoSetup.BulkImport(ImportRows);
-            sw.Stop();
-            Trace.WriteLine("Elapsed:  " + sw.Elapsed);
+                if (ImportRows.Count > 0)
+                {
+                    _daoSetup.BulkImport(ImportRows);
+                    sw.Stop();
+                    Trace.WriteLine("Import time elapsed:  " + sw.Elapsed);
+                }
+
+                string msg2 = ImportRows.Count.ToString() + " were imported.  ";
+                dgExcelData.DataSource = "";
+                if (dtNotInserted.Rows.Count > 0)
+                {
+                    dgExcelData.DataSource = dtNotInserted;
+                    msg2 = msg2 + dtNotInserted.Rows.Count.ToString() + " were determined to have errors and were not imported.  " +
+                        "Please verify the data is correct and try to import again.  Data checks may be bypassed by unchecking the Validate Data box.";
+                }                
+                
+                MessageBox.Show(msg2, "Data Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dgExcelData.DataSource = null;
+            dgExcelData.DataSource = "";
             sMapColumns.Clear();
         }
 
