@@ -28,29 +28,154 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctlAnimalData));
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.dgExData = new ADGV.AdvancedDataGridView();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.searchToolBar = new ADGV.SearchToolBar();
+            this.tsButtonStrip = new System.Windows.Forms.ToolStrip();
+            this.btnAdd = new System.Windows.Forms.ToolStripButton();
+            this.btnExport = new System.Windows.Forms.ToolStripButton();
+            this.btnSearch = new System.Windows.Forms.ToolStripButton();
+            this.btnClearFilter = new System.Windows.Forms.ToolStripButton();
+            this.btnClearSort = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgExData = new System.Windows.Forms.DataGridView();
-            this.btnExport = new System.Windows.Forms.Button();
-            this.btnExclude = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgExData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tsButtonStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // saveFileDialog1
             // 
             this.saveFileDialog1.Filter = "Excel Worksheets|*.xlsx";
             this.saveFileDialog1.Title = "Export File";
+            // 
+            // dgExData
+            // 
+            this.dgExData.AllowUserToOrderColumns = true;
+            this.dgExData.AutoGenerateContextFilters = true;
+            this.dgExData.CausesValidation = false;
+            this.dgExData.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            this.dgExData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgExData.DateWithTime = false;
+            this.dgExData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgExData.Location = new System.Drawing.Point(0, 0);
+            this.dgExData.Name = "dgExData";
+            this.dgExData.ReadOnly = true;
+            this.dgExData.Size = new System.Drawing.Size(1394, 598);
+            this.dgExData.TabIndex = 26;
+            this.dgExData.TimeFilter = false;
+            this.dgExData.SortStringChanged += new System.EventHandler(this.dataGridView_SortStringChanged);
+            this.dgExData.FilterStringChanged += new System.EventHandler(this.dataGridView_FilterStringChanged);
+            this.dgExData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellClick);
+            this.dgExData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellContentClick);
+            this.dgExData.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgExData_RowsRemoved);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.searchToolBar);
+            this.splitContainer1.Panel1.Controls.Add(this.tsButtonStrip);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.Controls.Add(this.dgExData);
+            this.splitContainer1.Size = new System.Drawing.Size(1394, 674);
+            this.splitContainer1.SplitterDistance = 72;
+            this.splitContainer1.TabIndex = 39;
+            // 
+            // searchToolBar
+            // 
+            this.searchToolBar.AllowMerge = false;
+            this.searchToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.searchToolBar.Location = new System.Drawing.Point(0, 27);
+            this.searchToolBar.MaximumSize = new System.Drawing.Size(0, 27);
+            this.searchToolBar.MinimumSize = new System.Drawing.Size(0, 27);
+            this.searchToolBar.Name = "searchToolBar";
+            this.searchToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.searchToolBar.Size = new System.Drawing.Size(1394, 27);
+            this.searchToolBar.TabIndex = 1;
+            this.searchToolBar.Search += new ADGV.SearchToolBarSearchEventHandler(this.searchToolBar_Search);
+            // 
+            // tsButtonStrip
+            // 
+            this.tsButtonStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAdd,
+            this.btnExport,
+            this.btnSearch,
+            this.btnClearFilter,
+            this.btnClearSort,
+            this.btnSave});
+            this.tsButtonStrip.Location = new System.Drawing.Point(0, 0);
+            this.tsButtonStrip.Name = "tsButtonStrip";
+            this.tsButtonStrip.Padding = new System.Windows.Forms.Padding(0, 0, 1, 5);
+            this.tsButtonStrip.Size = new System.Drawing.Size(1394, 27);
+            this.tsButtonStrip.TabIndex = 0;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
+            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(59, 19);
+            this.btnAdd.Text = "Add Row";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
+            this.btnExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(44, 19);
+            this.btnExport.Text = "Export";
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click_1);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
+            this.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(46, 19);
+            this.btnSearch.Text = "Search";
+            this.btnSearch.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // btnClearFilter
+            // 
+            this.btnClearFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnClearFilter.Image = ((System.Drawing.Image)(resources.GetObject("btnClearFilter.Image")));
+            this.btnClearFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnClearFilter.Name = "btnClearFilter";
+            this.btnClearFilter.Size = new System.Drawing.Size(72, 19);
+            this.btnClearFilter.Text = "Clear Filters";
+            this.btnClearFilter.Click += new System.EventHandler(this.clearFilterButton_Click);
+            // 
+            // btnClearSort
+            // 
+            this.btnClearSort.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnClearSort.Image = ((System.Drawing.Image)(resources.GetObject("btnClearSort.Image")));
+            this.btnClearSort.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnClearSort.Name = "btnClearSort";
+            this.btnClearSort.Size = new System.Drawing.Size(62, 19);
+            this.btnClearSort.Text = "Clear Sort";
+            this.btnClearSort.Click += new System.EventHandler(this.clearSortButton_Click);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -72,94 +197,14 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.Width = 125;
             // 
-            // dgExData
+            // btnSave
             // 
-            this.dgExData.AllowUserToOrderColumns = true;
-            this.dgExData.CausesValidation = false;
-            this.dgExData.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            this.dgExData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgExData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgExData.Location = new System.Drawing.Point(0, 0);
-            this.dgExData.Name = "dgExData";
-            this.dgExData.ReadOnly = true;
-            this.dgExData.Size = new System.Drawing.Size(1394, 612);
-            this.dgExData.TabIndex = 26;
-            this.dgExData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellClick);
-            // 
-            // btnExport
-            // 
-            this.btnExport.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnExport.Location = new System.Drawing.Point(449, 3);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(81, 40);
-            this.btnExport.TabIndex = 35;
-            this.btnExport.Text = "EXPORT DATA";
-            this.btnExport.UseVisualStyleBackColor = false;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click_1);
-            // 
-            // btnExclude
-            // 
-            this.btnExclude.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnExclude.Location = new System.Drawing.Point(275, 3);
-            this.btnExclude.Name = "btnExclude";
-            this.btnExclude.Size = new System.Drawing.Size(81, 40);
-            this.btnExclude.TabIndex = 36;
-            this.btnExclude.Text = "EXCLUDE ROW";
-            this.btnExclude.UseVisualStyleBackColor = false;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnAdd.Location = new System.Drawing.Point(14, 3);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(81, 40);
-            this.btnAdd.TabIndex = 33;
-            this.btnAdd.Text = "ADD ROW";
-            this.btnAdd.UseVisualStyleBackColor = false;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnDelete.Location = new System.Drawing.Point(188, 3);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(81, 40);
-            this.btnDelete.TabIndex = 37;
-            this.btnDelete.Text = "DELETE ROW";
-            this.btnDelete.UseVisualStyleBackColor = false;
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnEdit.Location = new System.Drawing.Point(101, 3);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(81, 40);
-            this.btnEdit.TabIndex = 34;
-            this.btnEdit.Text = "EDIT ROW";
-            this.btnEdit.UseVisualStyleBackColor = false;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.btnExport);
-            this.splitContainer1.Panel1.Controls.Add(this.btnEdit);
-            this.splitContainer1.Panel1.Controls.Add(this.btnDelete);
-            this.splitContainer1.Panel1.Controls.Add(this.btnAdd);
-            this.splitContainer1.Panel1.Controls.Add(this.btnExclude);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.AutoScroll = true;
-            this.splitContainer1.Panel2.Controls.Add(this.dgExData);
-            this.splitContainer1.Size = new System.Drawing.Size(1394, 674);
-            this.splitContainer1.SplitterDistance = 58;
-            this.splitContainer1.TabIndex = 39;
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(84, 19);
+            this.btnSave.Text = "Save Changes";
             // 
             // ctlAnimalData
             // 
@@ -177,9 +222,12 @@
             this.Size = new System.Drawing.Size(1400, 680);
             ((System.ComponentModel.ISupportInitialize)(this.dgExData)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tsButtonStrip.ResumeLayout(false);
+            this.tsButtonStrip.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -191,12 +239,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridView dgExData;
-        private System.Windows.Forms.Button btnExport;
-        private System.Windows.Forms.Button btnExclude;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnEdit;
+        private ADGV.AdvancedDataGridView dgExData;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private ADGV.SearchToolBar searchToolBar;
+        private System.Windows.Forms.ToolStrip tsButtonStrip;
+        private System.Windows.Forms.ToolStripButton btnAdd;
+        private System.Windows.Forms.ToolStripButton btnExport;
+        private System.Windows.Forms.ToolStripButton btnSearch;
+        private System.Windows.Forms.ToolStripButton btnClearFilter;
+        private System.Windows.Forms.ToolStripButton btnClearSort;
+        private System.Windows.Forms.ToolStripButton btnSave;
     }
 }

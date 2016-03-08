@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ADGV;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Collections.Specialized;
 using System.Collections;
@@ -18,7 +19,6 @@ using System.Data.Common;
 using System.Globalization;
 using System.Threading;
 using DgvFilterPopup;
-using System.IO;
 using System.Reflection;
 using ClosedXML.Excel;
 using BiologyDepartment.Misc_Files;
@@ -33,12 +33,7 @@ namespace BiologyDepartment
         private int intID= 0;
         private System.Collections.ArrayList fishList = new System.Collections.ArrayList();
         private DataTable sexList = new DataTable();
-        private DgvFilterManager filterManager;
         private BindingSource _bindingSource = new BindingSource();
-        private Npgsql.NpgsqlDataAdapter adapterCore;
-        private Npgsql.NpgsqlDataAdapter adapterCustom;
-        private Npgsql.NpgsqlDataAdapter adapterData;
-        private DgvComboBoxColumnFilter ExcludeFilter;
         private List<AnimalData> animalAgg = new List<AnimalData>();
         private List<CustomColumns> animalCols = new List<CustomColumns>();
         private DataTable dtAnimals = new DataTable();
@@ -53,19 +48,21 @@ namespace BiologyDepartment
         public void Initialize(int id)
         {
             intID = id;
-            filterManager = new DgvFilterManager();
-            filterManager.ColumnFilterAdding += new ColumnFilterEventHandler(fm_ColumnFilterAdding);
             GetData();
             SetGrid();
-            filterManager.DataGridView = dgExData;
         }
 
         private void SetGrid()
         {
+            _bindingSource.ListChanged -= new ListChangedEventHandler(bindingSource_ListChanged);
+            _bindingSource.ListChanged += new ListChangedEventHandler(bindingSource_ListChanged);
+
             if (!dgExData.Columns.Contains("EDIT"))
             {
                 DataGridViewEditButtonColumn btnEdit = new DataGridViewEditButtonColumn();
                 dgExData.Columns.Insert(0, btnEdit);
+                dgExData.Columns["EDIT"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dgExData.DisableFilter(dgExData.Columns["EDIT"]);
             }
 
             if (!dgExData.Columns.Contains("DELETE"))
@@ -78,6 +75,8 @@ namespace BiologyDepartment
                 btnDel.FlatStyle = FlatStyle.Popup;
                 btnDel.DefaultCellStyle.ForeColor = Color.Red;
                 dgExData.Columns.Insert(1, btnDel);
+                dgExData.Columns["DELETE"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dgExData.DisableFilter(dgExData.Columns["DELETE"]);
             }
 
             if (!dgExData.Columns.Contains("EXCLUDE"))
@@ -89,15 +88,26 @@ namespace BiologyDepartment
                 chkExclude.FlatStyle = FlatStyle.Standard;
                 chkExclude.ThreeState = false;
                 dgExData.Columns.Insert(2, chkExclude);
+                dgExData.Columns["EXCLUDE"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dgExData.DisableFilter(dgExData.Columns["EXCLUDE"]);  
             }
 
             dgExData.Columns["EXCLUDE"].Visible = true;
+            dgExData.Columns["Exclude_Row"].Visible = false;
 
-            dgExData.DataSource = dtAnimals;
+            _bindingSource.DataSource = dtAnimals;
+            dgExData.DataSource = _bindingSource;
 
             foreach(DataColumn col in dtAnimals.Columns)
             {
                 dgExData.Columns[col.ColumnName].HeaderText = col.Caption;
+            }
+
+            this.searchToolBar.SetColumns(dgExData.Columns);
+
+            foreach(DataGridViewRow dgvr in dgExData.Rows)
+            {
+                CheckExcludeState(dgvr.Index);
             }
         }
 
@@ -215,14 +225,10 @@ namespace BiologyDepartment
                 {
                     case "View":
                     case "Add/Edit":
-                        btnDelete.Enabled = false;
-                        btnEdit.Enabled = false;
                         btnAdd.Enabled = false;
                         break;
                     case "Admin":
                     case "Owner":
-                        btnDelete.Enabled = true;
-                        btnEdit.Enabled = true;
                         btnAdd.Enabled = true;
                         break;
                 }
@@ -273,27 +279,6 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnExclude_Click(object sender, EventArgs e)
-        {
-
-            foreach (DataGridViewRow dgr in dgExData.SelectedRows)
-            {
-                if (dgr.Cells["EXCLUDE_ROW"].Value.ToString().Equals("N"))
-                    dgr.Cells["EXCLUDE_ROW"].Value = 'Y';
-                else
-                    dgr.Cells["EXCLUDE_ROW"].Value = 'N';
-
-                _daoData.UpdateCore(intID, Convert.ToInt32(dgr.Cells["FI_ID"].Value.ToString()), dgr.Cells["EXCLUDE_ROW"].Value.ToString());
-            }
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow dgr in dgExData.SelectedRows)
-                _daoData.UpdateDeleteRow(intID);
-
-        }
-
         private void btnExport_Click_1(object sender, EventArgs e)
         {
             if(saveFileDialog1.ShowDialog() == DialogResult.OK)
@@ -328,9 +313,82 @@ namespace BiologyDepartment
             }
         }
 
-        private void dgExData_BindingContextChanged(object sender, EventArgs e)
+        private void dataGridView_SortStringChanged(object sender, EventArgs e)
         {
+            _bindingSource.Sort = dgExData.SortString;
         }
+
+        private void dataGridView_FilterStringChanged(object sender, EventArgs e)
+        {
+            _bindingSource.Filter = dgExData.FilterString;
+        }
+
+        private void clearFilterButton_Click(object sender, EventArgs e)
+        {
+            dgExData.ClearFilter(true);
+        }
+
+        private void clearSortButton_Click(object sender, EventArgs e)
+        {
+            dgExData.ClearSort(true);
+        }
+
+        private void bindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            this.searchToolBar.SetColumns(dgExData.Columns);
+        }
+
+        private void searchToolBar_Search(object sender, SearchToolBarSearchEventArgs e)
+        {
+            int startColumn = 0;
+            int startRow = 0;
+            if (!e.FromBegin)
+            {
+                bool endcol = dgExData.CurrentCell.ColumnIndex + 1 >= dgExData.ColumnCount;
+                bool endrow = dgExData.CurrentCell.RowIndex + 1 >= dgExData.RowCount;
+
+                if (endcol && endrow)
+                {
+                    startColumn = dgExData.CurrentCell.ColumnIndex;
+                    startRow = dgExData.CurrentCell.RowIndex;
+                }
+                else
+                {
+                    startColumn = endcol ? 0 : dgExData.CurrentCell.ColumnIndex + 1;
+                    startRow = dgExData.CurrentCell.RowIndex + (endcol ? 1 : 0);
+                }
+            }
+            DataGridViewCell c = dgExData.FindCell(
+                e.ValueToSearch,
+                e.ColumnToSearch != null ? e.ColumnToSearch.Name : null,
+                startRow,
+                startColumn,
+                e.WholeWord,
+                e.CaseSensitive);
+
+            if (c != null)
+                dgExData.CurrentCell = c;
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            if (this.btnSearch.Checked)
+            {
+                this.searchToolBar.Show();
+                btnSearch.CheckState = CheckState.Unchecked;
+            }
+            else
+            {
+                this.searchToolBar.Hide();
+                btnSearch.CheckState = CheckState.Checked;
+            }
+        }
+
+        private void searchToolBar_VisibleChanged(object sender, EventArgs e)
+        {
+            this.btnSearch.Checked = this.searchToolBar.Visible;
+        }
+
 
         private void dgExData_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -381,6 +439,42 @@ namespace BiologyDepartment
                     e.ColumnFilter = new DgvBaseColumnFilter();
                     break;
             }
+        }
+
+        private void dgExData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var dg = (DataGridView)sender;
+
+            switch(dg.Columns[e.ColumnIndex].Name)
+            {
+                case "DELETE":
+                    dgExData.Rows.RemoveAt(e.RowIndex);
+                    break;
+                case "EDIT":
+                    break;
+                case "EXCLUDE":
+                    CheckExcludeState(e.RowIndex);
+                    break;
+            }
+        }
+
+        private void CheckExcludeState(int nRowIndex)
+        {
+            if (dgExData.Rows[nRowIndex].Cells["EXCLUDE_ROW"].Value.ToString().Equals("N"))
+            {
+                dgExData.Rows[nRowIndex].Cells["EXCLUDE_ROW"].Value = 'Y';
+                dgExData.Rows[nRowIndex].Cells["EXCLUDE"].Value = true;
+            }
+            else
+            {
+                dgExData.Rows[nRowIndex].Cells["EXCLUDE_ROW"].Value = 'N';
+                dgExData.Rows[nRowIndex].Cells["EXCLUDE"].Value = false;
+            }
+        }
+
+        private void dgExData_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+
         }
     }
 
