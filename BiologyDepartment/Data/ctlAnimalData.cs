@@ -23,6 +23,7 @@ using System.Reflection;
 using ClosedXML.Excel;
 using BiologyDepartment.Misc_Files;
 using System.Diagnostics;
+using BiologyDepartment.Data;
 
 namespace BiologyDepartment
 {
@@ -30,13 +31,13 @@ namespace BiologyDepartment
     {
         private DataTable dtExperiments = new DataTable();
         private daoData _daoData = new daoData();
+        private DataUtil _dataUtil = new DataUtil();
         private int intID= 0;
-        private System.Collections.ArrayList fishList = new System.Collections.ArrayList();
-        private DataTable sexList = new DataTable();
         private BindingSource _bindingSource = new BindingSource();
         private List<AnimalData> animalAgg = new List<AnimalData>();
         private List<CustomColumns> animalCols = new List<CustomColumns>();
         private DataTable dtAnimals = new DataTable();
+        private bool bIsInitialize = false;
 
         public event EventHandler<CloseCtlAnimalData> CloseFormEvent;
 
@@ -48,14 +49,15 @@ namespace BiologyDepartment
         public void Initialize(int id)
         {
             intID = id;
-            GetData();
             SetGrid();
+            bIsInitialize = true;
         }
 
         private void SetGrid()
         {
             _bindingSource.ListChanged -= new ListChangedEventHandler(bindingSource_ListChanged);
             _bindingSource.ListChanged += new ListChangedEventHandler(bindingSource_ListChanged);
+            dtAnimals = _dataUtil.GetData();
 
             if (!dgExData.Columns.Contains("EDIT"))
             {
@@ -92,11 +94,10 @@ namespace BiologyDepartment
                 dgExData.DisableFilter(dgExData.Columns["EXCLUDE"]);  
             }
 
-            dgExData.Columns["EXCLUDE"].Visible = true;
-            dgExData.Columns["Exclude_Row"].Visible = false;
-
             _bindingSource.DataSource = dtAnimals;
             dgExData.DataSource = _bindingSource;
+            dgExData.Columns["EXCLUDE"].Visible = true;
+            dgExData.Columns["ExcludeRow"].Visible = false;
 
             foreach(DataColumn col in dtAnimals.Columns)
             {
@@ -107,108 +108,9 @@ namespace BiologyDepartment
 
             foreach(DataGridViewRow dgvr in dgExData.Rows)
             {
-                CheckExcludeState(dgvr.Index);
+                _dataUtil.CheckExcludeState(dgvr.Index, bIsInitialize, ref dgExData);
             }
-        }
-
-        private void GetData()
-        {
-            Stopwatch sw = new Stopwatch();
-            Trace.WriteLine("GetData start stopwatch");
-            sw.Start();
-            animalAgg = _daoData.BulkExport();
-            animalCols = _daoData.GetColumns();
-            int colPosition = 0;
-            foreach(CustomColumns col in animalCols)
-            {
-                DataColumn newCol = new DataColumn();
-                if(!dtAnimals.Columns.Contains(Convert.ToString(col.ColID)))
-                {
-                    newCol.ColumnName = Convert.ToString(col.ColID);
-                    switch(col.ColDataType)
-                    {
-                        case "INTEGER":
-                            newCol.DataType = System.Type.GetType("System.Int32");
-                            break;
-                        case "DECIMAL":
-                            newCol.DataType = System.Type.GetType("System.Decimal");
-                            break;
-                        case "CHARACTER":
-                            newCol.DataType = System.Type.GetType("System.String");
-                            break;
-                        case "DATE/TIME":
-                            newCol.DataType = System.Type.GetType("System.DateTime");
-                            break;
-                        case "IMAGE":
-                            newCol.DataType = System.Type.GetType("System.Byte");
-                            break;
-                    }
-                    newCol.Caption = col.ColName;
-                    dtAnimals.Columns.Add(newCol);
-                    dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
-                    colPosition++;
-                }
-            }
-            if(!dtAnimals.Columns.Contains("DataID"))
-            {
-                DataColumn newCol = new DataColumn();
-                newCol.ColumnName = "DataID";
-                newCol.DataType = System.Type.GetType("System.Int32");
-                newCol.Caption = "Row ID";
-                dtAnimals.Columns.Add(newCol);
-                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
-                colPosition++;
-            }
-
-            if(!dtAnimals.Columns.Contains("ExcludeRow"))
-            {
-                DataColumn newCol = new DataColumn();
-                newCol.ColumnName = "ExcludeRow";
-                newCol.DataType = System.Type.GetType("System.String");
-                newCol.Caption = "Exclude Row";
-                dtAnimals.Columns.Add(newCol);
-                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
-                colPosition++;
-            }
-
-            foreach(AnimalData animal in animalAgg)
-            {
-                DataRow row = dtAnimals.NewRow();
-                row["DataID"] = animal.DataID;
-                row["ExcludeRow"] = animal.ExcludeRow;
-
-                foreach(KeyValuePair<int, string> entry in animal.AggDictionary)
-                {
-                    string sType = Convert.ToString(dtAnimals.Columns[Convert.ToString(entry.Key)].DataType);
-                    if (string.IsNullOrEmpty(entry.Value))
-                        row[Convert.ToString(entry.Key)] = DBNull.Value;
-                    else
-                    {
-                        switch (sType)
-                        {
-                            case "System.String":
-                                row[Convert.ToString(entry.Key)] = Convert.ToString(entry.Value);
-                                break;
-                            case "System.Int32":
-                                row[Convert.ToString(entry.Key)] = Convert.ToInt32(entry.Value);
-                                break;
-                            case "System.Decimal":
-                                row[Convert.ToString(entry.Key)] = Convert.ToDecimal(entry.Value);
-                                break;
-                            case "System.DateTime":
-                                row[Convert.ToString(entry.Key)] = Convert.ToDateTime(entry.Value);
-                                break;
-                        }
-                    }
-                }
-
-                dtAnimals.Rows.Add(row);
-            }
-
-            sw.Stop();
-            Trace.WriteLine("Elapsed:  " + sw.Elapsed);
-        }
-
+        }     
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -281,36 +183,7 @@ namespace BiologyDepartment
 
         private void btnExport_Click_1(object sender, EventArgs e)
         {
-            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                //Creating DataTable
-                DataTable dt = new DataTable();
-
-                //Adding the Columns
-                foreach (DataGridViewColumn column in dgExData.Columns)
-                {
-                    dt.Columns.Add(column.HeaderText, column.ValueType);
-                }
-
-                //Adding the Rows
-                foreach (DataGridViewRow row in dgExData.Rows)
-                {
-                    dt.Rows.Add();
-                    foreach (DataGridViewCell cell in row.Cells)
-                    {
-                        if (cell.Value != DBNull.Value && cell.Value != null)
-                            dt.Rows[dt.Rows.Count - 1][cell.ColumnIndex] = cell.Value;
-                        else
-                            dt.Rows[dt.Rows.Count - 1][cell.ColumnIndex] = DBNull.Value;
-                    }
-                }
-                using (XLWorkbook wb = new XLWorkbook())
-                {
-                    wb.Worksheets.Add(dt, "Customers");
-                    if(!string.IsNullOrEmpty(saveFileDialog1.FileName))
-                        wb.SaveAs(saveFileDialog1.FileName);
-                }
-            }
+            _dataUtil.ExportToExcel(ref dgExData);
         }
 
         private void dataGridView_SortStringChanged(object sender, EventArgs e)
@@ -392,7 +265,7 @@ namespace BiologyDepartment
 
         private void dgExData_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            switch(e.ColumnIndex.ToString())
+            /*switch(e.ColumnIndex.ToString())
             {
                 case "0":
                     int selectedrowindex = dgExData.SelectedCells[0].RowIndex;
@@ -424,21 +297,7 @@ namespace BiologyDepartment
                     _daoData.UpdateCore(intID, Convert.ToInt32(dgExData.Rows[e.RowIndex].Cells["FI_ID"].Value.ToString()), dgExData.Rows[e.RowIndex].Cells["EXCLUDE_ROW"].Value.ToString());
                     break;
                 
-            }
-        }
-
-
-        public void fm_ColumnFilterAdding(object sender, ColumnFilterEventArgs e)
-        {
-            switch (e.Column.Name)
-            {
-                case "EXCLUDE":
-                    //e.ColumnFilter = new DgvComboBoxColumnFilter();
-                    break;
-                default:
-                    e.ColumnFilter = new DgvBaseColumnFilter();
-                    break;
-            }
+            }*/
         }
 
         private void dgExData_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -453,28 +312,27 @@ namespace BiologyDepartment
                 case "EDIT":
                     break;
                 case "EXCLUDE":
-                    CheckExcludeState(e.RowIndex);
+                    _dataUtil.CheckExcludeState(e.RowIndex, bIsInitialize, ref dgExData);
                     break;
             }
         }
 
-        private void CheckExcludeState(int nRowIndex)
-        {
-            if (dgExData.Rows[nRowIndex].Cells["EXCLUDE_ROW"].Value.ToString().Equals("N"))
-            {
-                dgExData.Rows[nRowIndex].Cells["EXCLUDE_ROW"].Value = 'Y';
-                dgExData.Rows[nRowIndex].Cells["EXCLUDE"].Value = true;
-            }
-            else
-            {
-                dgExData.Rows[nRowIndex].Cells["EXCLUDE_ROW"].Value = 'N';
-                dgExData.Rows[nRowIndex].Cells["EXCLUDE"].Value = false;
-            }
-        }
 
-        private void dgExData_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            foreach (DataRow row in dtAnimals.Rows)
+            {
+                string sState = Convert.ToString(row.RowState);
+                switch (sState)
+                {
+                    case "Unchanged":
+                    case "Added":
+                    case "Deleted":
+                    case "Modified":
+                        break;
+                }
+            }
         }
     }
 

@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctlAnimalData));
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.dgExData = new ADGV.AdvancedDataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.searchToolBar = new ADGV.SearchToolBar();
@@ -40,10 +39,10 @@
             this.btnSearch = new System.Windows.Forms.ToolStripButton();
             this.btnClearFilter = new System.Windows.Forms.ToolStripButton();
             this.btnClearSort = new System.Windows.Forms.ToolStripButton();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnSave = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgExData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -51,11 +50,6 @@
             this.splitContainer1.SuspendLayout();
             this.tsButtonStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.Filter = "Excel Worksheets|*.xlsx";
-            this.saveFileDialog1.Title = "Export File";
             // 
             // dgExData
             // 
@@ -76,7 +70,6 @@
             this.dgExData.FilterStringChanged += new System.EventHandler(this.dataGridView_FilterStringChanged);
             this.dgExData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellClick);
             this.dgExData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellContentClick);
-            this.dgExData.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgExData_RowsRemoved);
             // 
             // splitContainer1
             // 
@@ -177,6 +170,16 @@
             this.btnClearSort.Text = "Clear Sort";
             this.btnClearSort.Click += new System.EventHandler(this.clearSortButton_Click);
             // 
+            // btnSave
+            // 
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(84, 19);
+            this.btnSave.Text = "Save Changes";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Column Name";
@@ -196,15 +199,6 @@
             this.dataGridViewTextBoxColumn3.MinimumWidth = 125;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.Width = 125;
-            // 
-            // btnSave
-            // 
-            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(84, 19);
-            this.btnSave.Text = "Save Changes";
             // 
             // ctlAnimalData
             // 
@@ -235,7 +229,6 @@
         #endregion
 
         private System.Windows.Forms.FontDialog fontDialog1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
