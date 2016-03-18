@@ -74,6 +74,7 @@ namespace BiologyDepartment.Data
                     colPosition++;
                 }
             }
+            
             if (!dtAnimals.Columns.Contains("DataID"))
             {
                 DataColumn newCol = new DataColumn();
@@ -201,6 +202,16 @@ namespace BiologyDepartment.Data
                         wb.SaveAs(saveFileDialog.FileName);
                 }
             }
+        }
+
+        public void AddRow(DataRow row, ref DataTable dtTemp)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateRow(DataRow row, ref DataTable dtTemp)
+        {
+            throw new NotImplementedException();
         }
     }
 }

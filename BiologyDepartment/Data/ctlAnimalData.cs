@@ -24,11 +24,13 @@ using ClosedXML.Excel;
 using BiologyDepartment.Misc_Files;
 using System.Diagnostics;
 using BiologyDepartment.Data;
+using BiologyDepartment.Common;
 
 namespace BiologyDepartment
 {
     public partial class ctlAnimalData : UserControl
     {
+        #region Private Variables
         private DataTable dtExperiments = new DataTable();
         private daoData _daoData = new daoData();
         private DataUtil _dataUtil = new DataUtil();
@@ -38,6 +40,8 @@ namespace BiologyDepartment
         private List<CustomColumns> animalCols = new List<CustomColumns>();
         private DataTable dtAnimals = new DataTable();
         private bool bIsInitialize = false;
+        private CommonUtil _commonUtil = new CommonUtil();
+        #endregion
 
         public event EventHandler<CloseCtlAnimalData> CloseFormEvent;
 
@@ -317,22 +321,38 @@ namespace BiologyDepartment
             }
         }
 
-
-
         private void btnSave_Click(object sender, EventArgs e)
         {
+            DataTable dtAdded = dtAnimals.Clone();
+            DataTable dtNotAdded;
+            DataTable dtModified = dtAnimals.Clone();
+            DataTable dtNotModified;
             foreach (DataRow row in dtAnimals.Rows)
             {
                 string sState = Convert.ToString(row.RowState);
                 switch (sState)
                 {
                     case "Unchanged":
+                        break;
                     case "Added":
+                        _dataUtil.AddRow(row, ref dtAdded);
+                        break;
                     case "Deleted":
+                        _daoData.UpdateDeleteRow(Convert.ToInt32(row["DataID"]));
+                        break;
                     case "Modified":
+                        _dataUtil.UpdateRow(row, ref dtModified);
                         break;
                 }
             }
+
+            dtNotAdded = _commonUtil.ValidateData(dtAdded, null, true, false);
+            dtNotModified = _commonUtil.ValidateData(dtModified, null, true, true);
+
+            /*will add code here to show dialog if the rows were not added/modified and will allow the user
+             * to bypass the validation
+            */
+
         }
     }
 

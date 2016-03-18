@@ -155,24 +155,19 @@ namespace BiologyDepartment
         public void UpdateDeleteRow(int nCoreID)
         {
             NpgsqlCMD = new NpgsqlCommand();
-
             string sName = GlobalVariables.ADUserName;
 
-            NpgsqlCMD.CommandText = @"Update 
-                                        set deleted_user = :mUser,
-                                        deleted_date = now()
-                                        Where FI_ID = :therow";
+            NpgsqlCMD.CommandText = @"Update experiment_data
+                                    set deleted_user = :mUser,
+                                    deleted_date = now()
+                                    Where experiment_data_id = :therow";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mUser", sName));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("therow", nCoreID));
             NpgsqlCMD.Parameters[0].Value = sName;
             NpgsqlCMD.Parameters[1].Value = nCoreID;
+            GlobalVariables.GlobalConnection.updateData(NpgsqlCMD);
 
-            if(GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
-                MessageBox.Show("Data successfully deleted.", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
-                MessageBox.Show("Error deleting data.", "Delete Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            NpgsqlCMD.Parameters.Clear();
         }
 
         public void InsertCore()

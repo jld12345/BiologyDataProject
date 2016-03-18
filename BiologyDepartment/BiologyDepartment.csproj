@@ -249,6 +249,8 @@
   <ItemGroup>
     <Compile Include="Author\Author.cs" />
     <Compile Include="Author_EX\author_ex.cs" />
+    <Compile Include="Common\CommonUtil.cs" />
+    <Compile Include="Data\DataUtil.cs" />
     <Compile Include="Experiments\ExperimentsUtility.cs" />
     <Compile Include="Login\LoginUtility.cs" />
     <Compile Include="Misc Files\CalendarColumn.cs">
