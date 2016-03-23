@@ -220,19 +220,8 @@ namespace BiologyDepartment
         private void btnImport_Click(object sender, EventArgs e)
         {
 
-            if (cbValidate.CheckState == CheckState.Unchecked)
-            {
-                string msg = "Validate Data is not checked.  Continuing will not " +
-                             "validate the data before inserting into the database.";
-                DialogResult dr = MessageBox.Show(msg, "Validaition Warning",
-                    MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                if (dr == DialogResult.Cancel)
-                {
-                    return;
-                }
-            }
-            bool bIsChecked = (cbValidate.CheckState == CheckState.Checked)?true:false; 
-            dgExcelData.DataSource = _commonUtil.ValidateData((DataTable)dgExcelData.DataSource, dgColAdmin, bIsChecked, false);
+            dgExcelData.DataSource = _commonUtil.ValidateData((DataTable)dgExcelData.DataSource, dgColAdmin, true, false);
+            sMapColumns.Clear();
         }
 
         private void button2_Click(object sender, EventArgs e)

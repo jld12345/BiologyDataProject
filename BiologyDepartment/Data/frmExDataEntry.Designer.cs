@@ -40,6 +40,8 @@
             this.btnUpload = new System.Windows.Forms.Button();
             this.fdUploadPic = new System.Windows.Forms.OpenFileDialog();
             this.pbImage = new System.Windows.Forms.Panel();
+            this.lblZoom = new System.Windows.Forms.Label();
+            this.udZoom = new System.Windows.Forms.NumericUpDown();
             this.txtCalibration = new System.Windows.Forms.TextBox();
             this.txtMeasure = new System.Windows.Forms.TextBox();
             this.lblCalibration = new System.Windows.Forms.Label();
@@ -54,30 +56,31 @@
             this.lblLineSize = new System.Windows.Forms.Label();
             this.btnResetLine = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.udZoom = new System.Windows.Forms.NumericUpDown();
-            this.lblZoom = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pnlInput = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
             this.pbImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // pbVideo
             // 
             this.pbVideo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbVideo.Location = new System.Drawing.Point(16, 308);
+            this.pbVideo.Location = new System.Drawing.Point(417, 16);
             this.pbVideo.Name = "pbVideo";
-            this.pbVideo.Size = new System.Drawing.Size(291, 226);
+            this.pbVideo.Size = new System.Drawing.Size(230, 182);
             this.pbVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbVideo.TabIndex = 0;
             this.pbVideo.TabStop = false;
             // 
             // btnPic
             // 
-            this.btnPic.Location = new System.Drawing.Point(16, 591);
+            this.btnPic.Location = new System.Drawing.Point(252, 56);
             this.btnPic.Name = "btnPic";
-            this.btnPic.Size = new System.Drawing.Size(115, 50);
+            this.btnPic.Size = new System.Drawing.Size(71, 37);
             this.btnPic.TabIndex = 19;
             this.btnPic.Text = "TAKE PICTURE";
             this.btnPic.UseVisualStyleBackColor = true;
@@ -85,9 +88,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(16, 647);
+            this.btnSave.Location = new System.Drawing.Point(252, 96);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(116, 50);
+            this.btnSave.Size = new System.Drawing.Size(71, 36);
             this.btnSave.TabIndex = 20;
             this.btnSave.Text = "SAVE";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -95,9 +98,9 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(137, 647);
+            this.btnClear.Location = new System.Drawing.Point(329, 95);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(116, 50);
+            this.btnClear.Size = new System.Drawing.Size(74, 38);
             this.btnClear.TabIndex = 21;
             this.btnClear.Text = "CLEAR";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -106,7 +109,7 @@
             // cbCaptureDevice
             // 
             this.cbCaptureDevice.FormattingEnabled = true;
-            this.cbCaptureDevice.Location = new System.Drawing.Point(13, 564);
+            this.cbCaptureDevice.Location = new System.Drawing.Point(252, 33);
             this.cbCaptureDevice.Name = "cbCaptureDevice";
             this.cbCaptureDevice.Size = new System.Drawing.Size(159, 21);
             this.cbCaptureDevice.TabIndex = 38;
@@ -115,16 +118,16 @@
             // cbResolution
             // 
             this.cbResolution.FormattingEnabled = true;
-            this.cbResolution.Location = new System.Drawing.Point(178, 564);
+            this.cbResolution.Location = new System.Drawing.Point(181, 33);
             this.cbResolution.Name = "cbResolution";
-            this.cbResolution.Size = new System.Drawing.Size(96, 21);
+            this.cbResolution.Size = new System.Drawing.Size(65, 21);
             this.cbResolution.TabIndex = 39;
             this.cbResolution.SelectedIndexChanged += new System.EventHandler(this.cbResolution_SelectedIndexChanged);
             // 
             // lblVideo
             // 
             this.lblVideo.AutoSize = true;
-            this.lblVideo.Location = new System.Drawing.Point(13, 548);
+            this.lblVideo.Location = new System.Drawing.Point(252, 17);
             this.lblVideo.Name = "lblVideo";
             this.lblVideo.Size = new System.Drawing.Size(71, 13);
             this.lblVideo.TabIndex = 40;
@@ -133,7 +136,7 @@
             // lblRes
             // 
             this.lblRes.AutoSize = true;
-            this.lblRes.Location = new System.Drawing.Point(175, 548);
+            this.lblRes.Location = new System.Drawing.Point(178, 16);
             this.lblRes.Name = "lblRes";
             this.lblRes.Size = new System.Drawing.Size(57, 13);
             this.lblRes.TabIndex = 41;
@@ -141,9 +144,9 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(16, 703);
+            this.btnExit.Location = new System.Drawing.Point(332, 139);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(116, 50);
+            this.btnExit.Size = new System.Drawing.Size(71, 33);
             this.btnExit.TabIndex = 42;
             this.btnExit.Text = "EXIT";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -151,9 +154,9 @@
             // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(137, 591);
+            this.btnUpload.Location = new System.Drawing.Point(329, 56);
             this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(116, 50);
+            this.btnUpload.Size = new System.Drawing.Size(74, 37);
             this.btnUpload.TabIndex = 44;
             this.btnUpload.Text = "UPLOAD PIC";
             this.btnUpload.UseVisualStyleBackColor = true;
@@ -176,111 +179,14 @@
             this.pbImage.MouseEnter += new System.EventHandler(this.pbImage_MouseEnter);
             this.pbImage.MouseLeave += new System.EventHandler(this.pbImage_MouseLeave);
             // 
-            // txtCalibration
+            // lblZoom
             // 
-            this.txtCalibration.Location = new System.Drawing.Point(16, 239);
-            this.txtCalibration.Name = "txtCalibration";
-            this.txtCalibration.Size = new System.Drawing.Size(68, 20);
-            this.txtCalibration.TabIndex = 48;
-            // 
-            // txtMeasure
-            // 
-            this.txtMeasure.Location = new System.Drawing.Point(16, 282);
-            this.txtMeasure.Name = "txtMeasure";
-            this.txtMeasure.Size = new System.Drawing.Size(68, 20);
-            this.txtMeasure.TabIndex = 49;
-            // 
-            // lblCalibration
-            // 
-            this.lblCalibration.AutoSize = true;
-            this.lblCalibration.Location = new System.Drawing.Point(13, 223);
-            this.lblCalibration.Name = "lblCalibration";
-            this.lblCalibration.Size = new System.Drawing.Size(56, 13);
-            this.lblCalibration.TabIndex = 50;
-            this.lblCalibration.Text = "Calibration";
-            // 
-            // lblMeasure
-            // 
-            this.lblMeasure.AutoSize = true;
-            this.lblMeasure.Location = new System.Drawing.Point(13, 266);
-            this.lblMeasure.Name = "lblMeasure";
-            this.lblMeasure.Size = new System.Drawing.Size(74, 13);
-            this.lblMeasure.TabIndex = 51;
-            this.lblMeasure.Text = " Measurement";
-            // 
-            // cmbMeasurement
-            // 
-            this.cmbMeasurement.FormattingEnabled = true;
-            this.cmbMeasurement.Location = new System.Drawing.Point(147, 238);
-            this.cmbMeasurement.Name = "cmbMeasurement";
-            this.cmbMeasurement.Size = new System.Drawing.Size(62, 21);
-            this.cmbMeasurement.TabIndex = 52;
-            // 
-            // lblPer
-            // 
-            this.lblPer.AutoSize = true;
-            this.lblPer.Location = new System.Drawing.Point(90, 242);
-            this.lblPer.Name = "lblPer";
-            this.lblPer.Size = new System.Drawing.Size(51, 13);
-            this.lblPer.TabIndex = 53;
-            this.lblPer.Text = "pixels per";
-            // 
-            // btnCalibrate
-            // 
-            this.btnCalibrate.Location = new System.Drawing.Point(232, 223);
-            this.btnCalibrate.Name = "btnCalibrate";
-            this.btnCalibrate.Size = new System.Drawing.Size(75, 24);
-            this.btnCalibrate.TabIndex = 54;
-            this.btnCalibrate.Text = "Calibrate";
-            this.btnCalibrate.UseVisualStyleBackColor = true;
-            this.btnCalibrate.Click += new System.EventHandler(this.btnCalibrate_Click);
-            // 
-            // btnReset
-            // 
-            this.btnReset.Location = new System.Drawing.Point(232, 251);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(75, 25);
-            this.btnReset.TabIndex = 55;
-            this.btnReset.Text = "Reset All";
-            this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
-            // btnLineColor
-            // 
-            this.btnLineColor.BackColor = System.Drawing.Color.Yellow;
-            this.btnLineColor.Location = new System.Drawing.Point(178, 282);
-            this.btnLineColor.Name = "btnLineColor";
-            this.btnLineColor.Size = new System.Drawing.Size(25, 20);
-            this.btnLineColor.TabIndex = 56;
-            this.btnLineColor.UseVisualStyleBackColor = false;
-            this.btnLineColor.Click += new System.EventHandler(this.btnLineColor_Click);
-            // 
-            // cbLineWidth
-            // 
-            this.cbLineWidth.FormattingEnabled = true;
-            this.cbLineWidth.Location = new System.Drawing.Point(93, 282);
-            this.cbLineWidth.Name = "cbLineWidth";
-            this.cbLineWidth.Size = new System.Drawing.Size(79, 21);
-            this.cbLineWidth.TabIndex = 57;
-            // 
-            // lblLineSize
-            // 
-            this.lblLineSize.AutoSize = true;
-            this.lblLineSize.Location = new System.Drawing.Point(94, 266);
-            this.lblLineSize.Name = "lblLineSize";
-            this.lblLineSize.Size = new System.Drawing.Size(58, 13);
-            this.lblLineSize.TabIndex = 58;
-            this.lblLineSize.Text = "Line Width";
-            // 
-            // btnResetLine
-            // 
-            this.btnResetLine.Location = new System.Drawing.Point(232, 282);
-            this.btnResetLine.Name = "btnResetLine";
-            this.btnResetLine.Size = new System.Drawing.Size(75, 25);
-            this.btnResetLine.TabIndex = 59;
-            this.btnResetLine.Text = "Reset Line";
-            this.btnResetLine.UseVisualStyleBackColor = true;
-            this.btnResetLine.Click += new System.EventHandler(this.btnResetLine_Click);
+            this.lblZoom.AutoSize = true;
+            this.lblZoom.Location = new System.Drawing.Point(13, 10);
+            this.lblZoom.Name = "lblZoom";
+            this.lblZoom.Size = new System.Drawing.Size(34, 13);
+            this.lblZoom.TabIndex = 61;
+            this.lblZoom.Text = "Zoom";
             // 
             // udZoom
             // 
@@ -305,22 +211,160 @@
             0});
             this.udZoom.ValueChanged += new System.EventHandler(this.udZoom_ValueChanged);
             // 
-            // lblZoom
+            // txtCalibration
             // 
-            this.lblZoom.AutoSize = true;
-            this.lblZoom.Location = new System.Drawing.Point(13, 10);
-            this.lblZoom.Name = "lblZoom";
-            this.lblZoom.Size = new System.Drawing.Size(34, 13);
-            this.lblZoom.TabIndex = 61;
-            this.lblZoom.Text = "Zoom";
+            this.txtCalibration.Location = new System.Drawing.Point(13, 33);
+            this.txtCalibration.Name = "txtCalibration";
+            this.txtCalibration.Size = new System.Drawing.Size(65, 20);
+            this.txtCalibration.TabIndex = 48;
             // 
-            // dataGridView1
+            // txtMeasure
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 13);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(951, 204);
-            this.dataGridView1.TabIndex = 60;
+            this.txtMeasure.Location = new System.Drawing.Point(16, 113);
+            this.txtMeasure.Name = "txtMeasure";
+            this.txtMeasure.Size = new System.Drawing.Size(68, 20);
+            this.txtMeasure.TabIndex = 49;
+            // 
+            // lblCalibration
+            // 
+            this.lblCalibration.AutoSize = true;
+            this.lblCalibration.Location = new System.Drawing.Point(10, 17);
+            this.lblCalibration.Name = "lblCalibration";
+            this.lblCalibration.Size = new System.Drawing.Size(56, 13);
+            this.lblCalibration.TabIndex = 50;
+            this.lblCalibration.Text = "Calibration";
+            // 
+            // lblMeasure
+            // 
+            this.lblMeasure.AutoSize = true;
+            this.lblMeasure.Location = new System.Drawing.Point(10, 95);
+            this.lblMeasure.Name = "lblMeasure";
+            this.lblMeasure.Size = new System.Drawing.Size(74, 13);
+            this.lblMeasure.TabIndex = 51;
+            this.lblMeasure.Text = " Measurement";
+            // 
+            // cmbMeasurement
+            // 
+            this.cmbMeasurement.FormattingEnabled = true;
+            this.cmbMeasurement.Location = new System.Drawing.Point(16, 72);
+            this.cmbMeasurement.Name = "cmbMeasurement";
+            this.cmbMeasurement.Size = new System.Drawing.Size(68, 21);
+            this.cmbMeasurement.TabIndex = 52;
+            // 
+            // lblPer
+            // 
+            this.lblPer.AutoSize = true;
+            this.lblPer.Location = new System.Drawing.Point(13, 56);
+            this.lblPer.Name = "lblPer";
+            this.lblPer.Size = new System.Drawing.Size(51, 13);
+            this.lblPer.TabIndex = 53;
+            this.lblPer.Text = "pixels per";
+            // 
+            // btnCalibrate
+            // 
+            this.btnCalibrate.Location = new System.Drawing.Point(16, 139);
+            this.btnCalibrate.Name = "btnCalibrate";
+            this.btnCalibrate.Size = new System.Drawing.Size(74, 24);
+            this.btnCalibrate.TabIndex = 54;
+            this.btnCalibrate.Text = "Calibrate";
+            this.btnCalibrate.UseVisualStyleBackColor = true;
+            this.btnCalibrate.Click += new System.EventHandler(this.btnCalibrate_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Location = new System.Drawing.Point(16, 169);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(74, 25);
+            this.btnReset.TabIndex = 55;
+            this.btnReset.Text = "Reset All";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // btnLineColor
+            // 
+            this.btnLineColor.BackColor = System.Drawing.Color.Yellow;
+            this.btnLineColor.Location = new System.Drawing.Point(88, 33);
+            this.btnLineColor.Name = "btnLineColor";
+            this.btnLineColor.Size = new System.Drawing.Size(25, 20);
+            this.btnLineColor.TabIndex = 56;
+            this.btnLineColor.UseVisualStyleBackColor = false;
+            this.btnLineColor.Click += new System.EventHandler(this.btnLineColor_Click);
+            // 
+            // cbLineWidth
+            // 
+            this.cbLineWidth.FormattingEnabled = true;
+            this.cbLineWidth.Location = new System.Drawing.Point(96, 72);
+            this.cbLineWidth.Name = "cbLineWidth";
+            this.cbLineWidth.Size = new System.Drawing.Size(74, 21);
+            this.cbLineWidth.TabIndex = 57;
+            // 
+            // lblLineSize
+            // 
+            this.lblLineSize.AutoSize = true;
+            this.lblLineSize.Location = new System.Drawing.Point(93, 56);
+            this.lblLineSize.Name = "lblLineSize";
+            this.lblLineSize.Size = new System.Drawing.Size(58, 13);
+            this.lblLineSize.TabIndex = 58;
+            this.lblLineSize.Text = "Line Width";
+            // 
+            // btnResetLine
+            // 
+            this.btnResetLine.Location = new System.Drawing.Point(96, 138);
+            this.btnResetLine.Name = "btnResetLine";
+            this.btnResetLine.Size = new System.Drawing.Size(74, 25);
+            this.btnResetLine.TabIndex = 59;
+            this.btnResetLine.Text = "Reset Line";
+            this.btnResetLine.UseVisualStyleBackColor = true;
+            this.btnResetLine.Click += new System.EventHandler(this.btnResetLine_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.pbVideo);
+            this.groupBox1.Controls.Add(this.lblRes);
+            this.groupBox1.Controls.Add(this.btnLineColor);
+            this.groupBox1.Controls.Add(this.btnUpload);
+            this.groupBox1.Controls.Add(this.btnExit);
+            this.groupBox1.Controls.Add(this.cbLineWidth);
+            this.groupBox1.Controls.Add(this.btnClear);
+            this.groupBox1.Controls.Add(this.lblLineSize);
+            this.groupBox1.Controls.Add(this.btnSave);
+            this.groupBox1.Controls.Add(this.btnResetLine);
+            this.groupBox1.Controls.Add(this.btnPic);
+            this.groupBox1.Controls.Add(this.cbCaptureDevice);
+            this.groupBox1.Controls.Add(this.cbResolution);
+            this.groupBox1.Controls.Add(this.txtMeasure);
+            this.groupBox1.Controls.Add(this.lblMeasure);
+            this.groupBox1.Controls.Add(this.lblPer);
+            this.groupBox1.Controls.Add(this.lblVideo);
+            this.groupBox1.Controls.Add(this.cmbMeasurement);
+            this.groupBox1.Controls.Add(this.btnReset);
+            this.groupBox1.Controls.Add(this.btnCalibrate);
+            this.groupBox1.Controls.Add(this.lblCalibration);
+            this.groupBox1.Controls.Add(this.txtCalibration);
+            this.groupBox1.Location = new System.Drawing.Point(314, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(653, 204);
+            this.groupBox1.TabIndex = 61;
+            this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.AutoSize = true;
+            this.groupBox2.Controls.Add(this.pnlInput);
+            this.groupBox2.Location = new System.Drawing.Point(2, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(306, 741);
+            this.groupBox2.TabIndex = 62;
+            this.groupBox2.TabStop = false;
+            // 
+            // pnlInput
+            // 
+            this.pnlInput.AutoScroll = true;
+            this.pnlInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlInput.Location = new System.Drawing.Point(3, 16);
+            this.pnlInput.Name = "pnlInput";
+            this.pnlInput.Size = new System.Drawing.Size(300, 722);
+            this.pnlInput.TabIndex = 0;
             // 
             // frmExDataEntry
             // 
@@ -328,30 +372,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(983, 768);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.btnResetLine);
-            this.Controls.Add(this.lblLineSize);
-            this.Controls.Add(this.cbLineWidth);
-            this.Controls.Add(this.btnLineColor);
-            this.Controls.Add(this.btnReset);
-            this.Controls.Add(this.btnCalibrate);
-            this.Controls.Add(this.lblPer);
-            this.Controls.Add(this.cmbMeasurement);
-            this.Controls.Add(this.lblMeasure);
-            this.Controls.Add(this.lblCalibration);
-            this.Controls.Add(this.txtMeasure);
-            this.Controls.Add(this.txtCalibration);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pbImage);
-            this.Controls.Add(this.btnUpload);
-            this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.lblRes);
-            this.Controls.Add(this.lblVideo);
-            this.Controls.Add(this.cbResolution);
-            this.Controls.Add(this.cbCaptureDevice);
-            this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnPic);
-            this.Controls.Add(this.pbVideo);
             this.Name = "frmExDataEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enter Data";
@@ -361,7 +384,9 @@
             this.pbImage.ResumeLayout(false);
             this.pbImage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -397,6 +422,8 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.NumericUpDown udZoom;
         private System.Windows.Forms.Label lblZoom;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Panel pnlInput;
     }
 }

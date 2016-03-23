@@ -19,6 +19,7 @@ namespace BiologyDepartment.Common
     {
         #region Private Variables
         daoSetup _daoSetup = new daoSetup();
+        daoData _daoData = new daoData();
         #endregion
         public CommonUtil() { }
 
@@ -33,6 +34,7 @@ namespace BiologyDepartment.Common
             DataTable dtNotInserted;
             Dictionary<string, string> deCols = new Dictionary<string, string>();
             List<string> ImportRows = new List<string>();
+            List<AnimalData> theAnimals = new List<AnimalData>();
 
             sw.Start();
 
@@ -48,7 +50,6 @@ namespace BiologyDepartment.Common
                 {
                     string sMsg = "Cannot import data at this time.  Please verify that all columns have been mapped and imported.";
                     MessageBox.Show(sMsg, "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return dtInput;
                 }
 
                 string col = Convert.ToString(dgvr.Cells["custom_column_name"].Value);
@@ -114,30 +115,63 @@ namespace BiologyDepartment.Common
                         break;
                     }
                 }
-                if (bIsValid)
+                if (bIsValid && !bIsUpdate)
                 {
                     ImportRows.Add(values);
                 }
+                else if(bIsValid && bIsUpdate)
+                {
+                    AnimalData animal = new AnimalData();
+                    animal.DataAgg = values;
+                    animal.DataID = Convert.ToInt32(dr["DataID"]);
+                    animal.ExID = GlobalVariables.Experiment.ID;
+                    animal.ExcludeRow = Convert.ToString(dr["ExcludeRow"]);
+                    animal.ModUser = GlobalVariables.ADUserName;
+                    _daoData.UpdateExperimentData(animal);
+                }
             }
 
-            if (ImportRows.Count > 0)
+            if (ImportRows.Count > 0 && !bIsUpdate)
             {
-                _daoSetup.BulkImport(ImportRows);
-                sw.Stop();
-                Trace.WriteLine("Import time elapsed:  " + sw.Elapsed);
+                _daoSetup.BulkImport(ImportRows);  
             }
+
+            sw.Stop();
+            Trace.WriteLine("Import time elapsed:  " + sw.Elapsed);
 
             string msg2 = ImportRows.Count.ToString() + " were imported.  ";
-            if (dtNotInserted.Rows.Count > 0)
+            if (dtNotInserted.Rows.Count > 0  && !bIsUpdate)
             {
 
-                msg2 = msg2 + dtNotInserted.Rows.Count.ToString() + " were determined to have errors and were not imported.  " +
-                    "Please verify the data is correct and try to import again.  Data checks may be bypassed by unchecking the Validate Data box.";
-                return dtNotInserted;
+                msg2 = msg2 + dtNotInserted.Rows.Count.ToString() + " were determined to have errors and were not imported/added.  " +
+                    "Please verify the data is correct and try to import/add again.  Pressing Yes will bypass the Data checks.  " +
+                    "Do you wish to enter the data in its current state?";
+            }
+            if (dtNotInserted.Rows.Count > 0 && bIsUpdate)
+            {
+
+                msg2 = msg2 + dtNotInserted.Rows.Count.ToString() + " were determined to have errors and were not updated.  " +
+                    "Please verify the data is correct and try to update again.  Pressing Yes will bypass the Data checks." +
+                    "Do you wish to update the data in its current state?";
             }
 
-            MessageBox.Show(msg2, "Data Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            return dtInput;
+            if (dtNotInserted.Rows.Count > 0)
+            {
+                DialogResult result = MessageBox.Show(msg2, "Data Import", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    if (!bIsUpdate)
+                        ValidateData(dtNotInserted, dgvColumns, false, false);
+                    else
+                        ValidateData(dtNotInserted, dgvColumns, false, true);
+                }
+                else
+                    return dtNotInserted;
+            }
+            else
+                MessageBox.Show(msg2, "Data Import", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            return null;
         }
 
         public DataSet GetExcelReader(string sFilePath)

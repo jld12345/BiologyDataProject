@@ -49,21 +49,20 @@
             this.pbImport = new System.Windows.Forms.PictureBox();
             this.pnlImport2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dgExcelData = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtExcelPath = new System.Windows.Forms.TextBox();
-            this.btnBrowse = new System.Windows.Forms.Button();
-            this.cbHasHeaders = new System.Windows.Forms.CheckBox();
-            this.cmbWorksheets = new System.Windows.Forms.ComboBox();
-            this.lblWorksheet = new System.Windows.Forms.Label();
-            this.btnMapData = new System.Windows.Forms.Button();
-            this.btnImport = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnImportCol = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.cbValidate = new System.Windows.Forms.CheckBox();
+            this.btnImportCol = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnMapData = new System.Windows.Forms.Button();
+            this.lblWorksheet = new System.Windows.Forms.Label();
+            this.cmbWorksheets = new System.Windows.Forms.ComboBox();
+            this.cbHasHeaders = new System.Windows.Forms.CheckBox();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.txtExcelPath = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dgExcelData = new System.Windows.Forms.DataGridView();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlShow1.SuspendLayout();
@@ -79,8 +78,8 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgExcelData)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgExcelData)).BeginInit();
             this.SuspendLayout();
             // 
             // notifyIcon1
@@ -288,117 +287,8 @@
             this.splitContainer1.SplitterDistance = 70;
             this.splitContainer1.TabIndex = 18;
             // 
-            // dgExcelData
-            // 
-            this.dgExcelData.AllowUserToAddRows = false;
-            this.dgExcelData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgExcelData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgExcelData.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgExcelData.Location = new System.Drawing.Point(0, 0);
-            this.dgExcelData.Name = "dgExcelData";
-            this.dgExcelData.Size = new System.Drawing.Size(877, 310);
-            this.dgExcelData.TabIndex = 12;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Import File";
-            // 
-            // txtExcelPath
-            // 
-            this.txtExcelPath.Location = new System.Drawing.Point(69, 17);
-            this.txtExcelPath.Name = "txtExcelPath";
-            this.txtExcelPath.Size = new System.Drawing.Size(201, 20);
-            this.txtExcelPath.TabIndex = 8;
-            // 
-            // btnBrowse
-            // 
-            this.btnBrowse.Location = new System.Drawing.Point(277, 17);
-            this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(52, 20);
-            this.btnBrowse.TabIndex = 9;
-            this.btnBrowse.Text = "Browse";
-            this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
-            // 
-            // cbHasHeaders
-            // 
-            this.cbHasHeaders.AutoSize = true;
-            this.cbHasHeaders.Checked = true;
-            this.cbHasHeaders.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbHasHeaders.Location = new System.Drawing.Point(277, 42);
-            this.cbHasHeaders.Name = "cbHasHeaders";
-            this.cbHasHeaders.Size = new System.Drawing.Size(157, 17);
-            this.cbHasHeaders.TabIndex = 10;
-            this.cbHasHeaders.Text = "First Row Contains Headers";
-            this.cbHasHeaders.UseVisualStyleBackColor = true;
-            this.cbHasHeaders.CheckedChanged += new System.EventHandler(this.cbHasHeaders_CheckedChanged);
-            // 
-            // cmbWorksheets
-            // 
-            this.cmbWorksheets.FormattingEnabled = true;
-            this.cmbWorksheets.Location = new System.Drawing.Point(69, 39);
-            this.cmbWorksheets.Name = "cmbWorksheets";
-            this.cmbWorksheets.Size = new System.Drawing.Size(201, 21);
-            this.cmbWorksheets.TabIndex = 14;
-            this.cmbWorksheets.SelectedIndexChanged += new System.EventHandler(this.cmbWorksheets_SelectedIndexChanged);
-            // 
-            // lblWorksheet
-            // 
-            this.lblWorksheet.AutoSize = true;
-            this.lblWorksheet.Location = new System.Drawing.Point(3, 43);
-            this.lblWorksheet.Name = "lblWorksheet";
-            this.lblWorksheet.Size = new System.Drawing.Size(59, 13);
-            this.lblWorksheet.TabIndex = 15;
-            this.lblWorksheet.Text = "Worksheet";
-            // 
-            // btnMapData
-            // 
-            this.btnMapData.Location = new System.Drawing.Point(611, 16);
-            this.btnMapData.Name = "btnMapData";
-            this.btnMapData.Size = new System.Drawing.Size(75, 36);
-            this.btnMapData.TabIndex = 16;
-            this.btnMapData.Text = "Map Data";
-            this.btnMapData.UseVisualStyleBackColor = true;
-            this.btnMapData.Click += new System.EventHandler(this.btnMapData_Click);
-            // 
-            // btnImport
-            // 
-            this.btnImport.Location = new System.Drawing.Point(692, 16);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(75, 36);
-            this.btnImport.TabIndex = 12;
-            this.btnImport.Text = "Import Data";
-            this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(774, 16);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 36);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Clear Data";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // btnImportCol
-            // 
-            this.btnImportCol.Location = new System.Drawing.Point(530, 16);
-            this.btnImportCol.Name = "btnImportCol";
-            this.btnImportCol.Size = new System.Drawing.Size(75, 36);
-            this.btnImportCol.TabIndex = 2;
-            this.btnImportCol.Text = "Import Columns";
-            this.btnImportCol.UseVisualStyleBackColor = true;
-            this.btnImportCol.Click += new System.EventHandler(this.btnImportCol_Click);
-            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.cbValidate);
             this.groupBox2.Controls.Add(this.btnImportCol);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.btnImport);
@@ -415,17 +305,113 @@
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             // 
-            // cbValidate
+            // btnImportCol
             // 
-            this.cbValidate.AutoSize = true;
-            this.cbValidate.Checked = true;
-            this.cbValidate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbValidate.Location = new System.Drawing.Point(336, 19);
-            this.cbValidate.Name = "cbValidate";
-            this.cbValidate.Size = new System.Drawing.Size(90, 17);
-            this.cbValidate.TabIndex = 17;
-            this.cbValidate.Text = "Validate Data";
-            this.cbValidate.UseVisualStyleBackColor = true;
+            this.btnImportCol.Location = new System.Drawing.Point(530, 16);
+            this.btnImportCol.Name = "btnImportCol";
+            this.btnImportCol.Size = new System.Drawing.Size(75, 36);
+            this.btnImportCol.TabIndex = 2;
+            this.btnImportCol.Text = "Import Columns";
+            this.btnImportCol.UseVisualStyleBackColor = true;
+            this.btnImportCol.Click += new System.EventHandler(this.btnImportCol_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(774, 16);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 36);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Clear Data";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Location = new System.Drawing.Point(692, 16);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(75, 36);
+            this.btnImport.TabIndex = 12;
+            this.btnImport.Text = "Import Data";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // btnMapData
+            // 
+            this.btnMapData.Location = new System.Drawing.Point(611, 16);
+            this.btnMapData.Name = "btnMapData";
+            this.btnMapData.Size = new System.Drawing.Size(75, 36);
+            this.btnMapData.TabIndex = 16;
+            this.btnMapData.Text = "Map Data";
+            this.btnMapData.UseVisualStyleBackColor = true;
+            this.btnMapData.Click += new System.EventHandler(this.btnMapData_Click);
+            // 
+            // lblWorksheet
+            // 
+            this.lblWorksheet.AutoSize = true;
+            this.lblWorksheet.Location = new System.Drawing.Point(3, 43);
+            this.lblWorksheet.Name = "lblWorksheet";
+            this.lblWorksheet.Size = new System.Drawing.Size(59, 13);
+            this.lblWorksheet.TabIndex = 15;
+            this.lblWorksheet.Text = "Worksheet";
+            // 
+            // cmbWorksheets
+            // 
+            this.cmbWorksheets.FormattingEnabled = true;
+            this.cmbWorksheets.Location = new System.Drawing.Point(69, 39);
+            this.cmbWorksheets.Name = "cmbWorksheets";
+            this.cmbWorksheets.Size = new System.Drawing.Size(201, 21);
+            this.cmbWorksheets.TabIndex = 14;
+            this.cmbWorksheets.SelectedIndexChanged += new System.EventHandler(this.cmbWorksheets_SelectedIndexChanged);
+            // 
+            // cbHasHeaders
+            // 
+            this.cbHasHeaders.AutoSize = true;
+            this.cbHasHeaders.Checked = true;
+            this.cbHasHeaders.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbHasHeaders.Location = new System.Drawing.Point(277, 42);
+            this.cbHasHeaders.Name = "cbHasHeaders";
+            this.cbHasHeaders.Size = new System.Drawing.Size(157, 17);
+            this.cbHasHeaders.TabIndex = 10;
+            this.cbHasHeaders.Text = "First Row Contains Headers";
+            this.cbHasHeaders.UseVisualStyleBackColor = true;
+            this.cbHasHeaders.CheckedChanged += new System.EventHandler(this.cbHasHeaders_CheckedChanged);
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.Location = new System.Drawing.Point(277, 17);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(52, 20);
+            this.btnBrowse.TabIndex = 9;
+            this.btnBrowse.Text = "Browse";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // txtExcelPath
+            // 
+            this.txtExcelPath.Location = new System.Drawing.Point(69, 17);
+            this.txtExcelPath.Name = "txtExcelPath";
+            this.txtExcelPath.Size = new System.Drawing.Size(201, 20);
+            this.txtExcelPath.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Import File";
+            // 
+            // dgExcelData
+            // 
+            this.dgExcelData.AllowUserToAddRows = false;
+            this.dgExcelData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgExcelData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgExcelData.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgExcelData.Location = new System.Drawing.Point(0, 0);
+            this.dgExcelData.Name = "dgExcelData";
+            this.dgExcelData.Size = new System.Drawing.Size(877, 310);
+            this.dgExcelData.TabIndex = 12;
             // 
             // ctlSetup
             // 
@@ -453,9 +439,9 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgExcelData)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgExcelData)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -495,6 +481,5 @@
         private System.Windows.Forms.TextBox txtExcelPath;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dgExcelData;
-        private System.Windows.Forms.CheckBox cbValidate;
     }
 }

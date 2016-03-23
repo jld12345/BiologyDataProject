@@ -170,24 +170,30 @@ namespace BiologyDepartment
 
         }
 
-        public void InsertCore()
+        public void UpdateExperimentData(AnimalData theAnimal)
         {
+            NpgsqlCMD = new NpgsqlCommand();
 
-        }
+            NpgsqlCMD.CommandText = @"  update experiment_data
+                                        set experiment_data_id = :exid,
+                                            modified_user = :mod_user,
+                                            modified_date = :mod_date,
+                                            exclude_row = :exclude,
+	                                        data_agg = :data_agg
+                                        where ex_core_id = :rowID";
 
-        public void InsertData()
-        {
-
-        }
-
-        internal void UpdateCore(AnimalData theAnimal)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void UpdateExperimentData(AnimalData theAnimal)
-        {
-            throw new NotImplementedException();
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_user", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("data_agg", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exclude", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_date", NpgsqlDbType.Timestamp));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rowID", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters[0].Value = GlobalVariables.Experiment.ID;
+            NpgsqlCMD.Parameters[1].Value = theAnimal.ModUser;
+            NpgsqlCMD.Parameters[2].Value = theAnimal.ExcludeRow;
+            NpgsqlCMD.Parameters[3].Value = theAnimal.DataAgg;
+            NpgsqlCMD.Parameters[4].Value = DateTime.Now.ToLongDateString();
+            NpgsqlCMD.Parameters[5].Value = theAnimal.DataID;
         }
 
         public NpgsqlDataAdapter DataAdapterCustom(int intID)
@@ -198,27 +204,6 @@ namespace BiologyDepartment
                                      ecc.custom_column_data_type
                                     from experiment_custom_columns ecc
                                     where ecc.ex_id = :id";
-            adapter = new Npgsql.NpgsqlDataAdapter(selectCommand, GlobalVariables.Connection);
-            NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(adapter);
-            adapter.SelectCommand.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
-            adapter.SelectCommand.Parameters[0].Value = intID;
-            return adapter;
-        }
-
-        public NpgsqlDataAdapter DataAdapterData(int intID)
-        {
-            string selectCommand = @"select 
-	                                 ed.experiment_data_id, 
-	                                 ed.ex_core_col_id,
-                                     ed.custom_columns_id,
-                                     ed.custom_column_data
-                                     from experiment_data ed
-                                     where exists(select ecc.ex_core_col_id
-                                                  from experiment_core_columns ecc
-                                                  where ecc.ex_id = :id
-                                                  and ecc.ex_core_col_id = ed.ex_core_col_id
-                                                   and ecc.deleted_date is null)
-                                     order by ed.ex_core_col_id";
             adapter = new Npgsql.NpgsqlDataAdapter(selectCommand, GlobalVariables.Connection);
             NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(adapter);
             adapter.SelectCommand.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));

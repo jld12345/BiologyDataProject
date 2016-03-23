@@ -52,13 +52,13 @@ namespace BiologyDepartment
             SetLineWidthCombo();
         }
 
-        public frmExDataEntry(int id, int row)
+        public frmExDataEntry(ref DataRow row)
         {
             InitializeComponent();
             theAnimal = new AnimalData();
             SetMeasurements();
             SetLineWidthCombo();
-            SetFields();
+            SetFields(ref row);
             btnClear.Enabled = false;
         }
 
@@ -89,11 +89,11 @@ namespace BiologyDepartment
             return inst;
         }
 
-        public static frmExDataEntry CreateInstance(int id, int row)
+        public static frmExDataEntry CreateInstance(ref DataRow row)
         {
             if (inst == null || inst.IsDisposed)
             {
-                inst = new frmExDataEntry(id, row);
+                inst = new frmExDataEntry(ref row);
             }
             else
             {
@@ -103,25 +103,32 @@ namespace BiologyDepartment
             return inst;
         }
 
-        private void SetFields()
+        private void SetFields(ref DataRow row)
         {
-            /*if (theAnimal.GetCoreID() > 0)
+            int i = 0;
+            foreach(DataColumn col in row.Table.Columns)
             {
-                /*DataSet dsFishData = new DataSet();
-                DataTable dtFishData = new DataTable();
+                Label lblTitle = new Label();
+                lblTitle.Name = col.ColumnName;
+                lblTitle.Text = col.Caption;
+                lblTitle.Location = new Point(0, i);
+                lblTitle.Visible = true;
+                lblTitle.BorderStyle = BorderStyle.FixedSingle;
+                lblTitle.Width = 100;
+                lblTitle.Height = 20;
+                pnlInput.Controls.Add(lblTitle);
 
-                dsFishData = _daoData.getFish(_fishData.Experiment, _fishData.Row);
-                dtFishData = dsFishData.Tables[0];
-
-                btnLineColor.BackColor = System.Drawing.Color.Yellow;
-
-                picBox = dtFishData.Rows[0]["PICTURE"] as byte[];
-                if (picBox != null && picBox.Length > 0)
-                    setPicBox(picBox);
-                else
-                    pbImage.BackgroundImage = null;
-
-            }*/
+                TextBox txtValue = new TextBox();
+                txtValue.Name = col.ColumnName;
+                txtValue.Location = new Point(105, i);
+                txtValue.Text = Convert.ToString(row[col.ColumnName]);
+                txtValue.Visible = true;
+                txtValue.BorderStyle = BorderStyle.FixedSingle;
+                txtValue.Width = 195;
+                txtValue.Height = 15;
+                pnlInput.Controls.Add(txtValue);
+                i = i + 25;
+            }
         }
 
         private void frmFishData_Load(object sender, EventArgs e)

@@ -203,15 +203,5 @@ namespace BiologyDepartment.Data
                 }
             }
         }
-
-        public void AddRow(DataRow row, ref DataTable dtTemp)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateRow(DataRow row, ref DataTable dtTemp)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

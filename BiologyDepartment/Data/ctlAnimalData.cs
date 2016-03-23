@@ -118,9 +118,13 @@ namespace BiologyDepartment
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(intID);
-            _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
-            _frmFishData.Show();
+            DataRow newRow = dtAnimals.NewRow();
+            using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(ref newRow))
+            {
+                _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
+                _frmFishData.ShowDialog();                
+            }
+            dtAnimals.Rows.Add(newRow);
         }
 
         private void setButtons()
@@ -148,22 +152,25 @@ namespace BiologyDepartment
 
         private void dgExData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int row = Convert.ToInt32(dgExData.Rows[e.RowIndex].Cells["FI_ID"].Value);
-            using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(intID, row))
+            EditRow();
+        }
+
+        private void EditRow()
+        {
+            int selectedrowindex = dgExData.SelectedCells[0].RowIndex;
+            DataRow newRow = dtAnimals.NewRow();
+            foreach (DataColumn col in dtAnimals.Columns)
+            {
+                newRow[col.ColumnName] = dtAnimals.Rows[selectedrowindex][col.ColumnName];
+            }
+            using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(ref newRow))
             {
                 _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
                 _frmFishData.ShowDialog();
             }
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            int selectedrowindex = dgExData.SelectedCells[0].RowIndex;
-            int row = Convert.ToInt32(dgExData.Rows[selectedrowindex].Cells["FI_ID"].Value);
-            using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(intID, row))
+            foreach (DataColumn col in dtAnimals.Columns)
             {
-                _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
-                _frmFishData.ShowDialog();
+                dtAnimals.Rows[selectedrowindex][col.ColumnName] = newRow[col.ColumnName];
             }
         }
 
@@ -314,6 +321,7 @@ namespace BiologyDepartment
                     dgExData.Rows.RemoveAt(e.RowIndex);
                     break;
                 case "EDIT":
+                    EditRow();
                     break;
                 case "EXCLUDE":
                     _dataUtil.CheckExcludeState(e.RowIndex, bIsInitialize, ref dgExData);
@@ -324,9 +332,7 @@ namespace BiologyDepartment
         private void btnSave_Click(object sender, EventArgs e)
         {
             DataTable dtAdded = dtAnimals.Clone();
-            DataTable dtNotAdded;
             DataTable dtModified = dtAnimals.Clone();
-            DataTable dtNotModified;
             foreach (DataRow row in dtAnimals.Rows)
             {
                 string sState = Convert.ToString(row.RowState);
@@ -335,24 +341,28 @@ namespace BiologyDepartment
                     case "Unchanged":
                         break;
                     case "Added":
-                        _dataUtil.AddRow(row, ref dtAdded);
+                        DataRow addRow = dtAdded.NewRow();
+                        foreach(DataColumn col in dtAnimals.Columns)
+                        {
+                            addRow[col.ColumnName] = row[col.ColumnName];
+                        }
+                        dtAdded.Rows.Add(addRow);
                         break;
                     case "Deleted":
                         _daoData.UpdateDeleteRow(Convert.ToInt32(row["DataID"]));
                         break;
                     case "Modified":
-                        _dataUtil.UpdateRow(row, ref dtModified);
+                        DataRow modRow = dtModified.NewRow();
+                        foreach(DataColumn col in dtAnimals.Columns)
+                        {
+                            modRow[col.ColumnName] = row[col.ColumnName];
+                        }
+                        dtModified.Rows.Add(modRow);
                         break;
                 }
             }
-
-            dtNotAdded = _commonUtil.ValidateData(dtAdded, null, true, false);
-            dtNotModified = _commonUtil.ValidateData(dtModified, null, true, true);
-
-            /*will add code here to show dialog if the rows were not added/modified and will allow the user
-             * to bypass the validation
-            */
-
+            _commonUtil.ValidateData(dtAdded, null, true, false);
+            _commonUtil.ValidateData(dtModified, null, true, true);
         }
     }
 
