@@ -114,6 +114,8 @@ namespace BiologyDepartment
             {
                 _dataUtil.CheckExcludeState(dgvr.Index, bIsInitialize, ref dgExData);
             }
+
+            dtAnimals.AcceptChanges();
         }     
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -122,9 +124,23 @@ namespace BiologyDepartment
             using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(ref newRow))
             {
                 _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
-                _frmFishData.ShowDialog();                
+                _frmFishData.ShowDialog();
+
+                DataTable dtReturn = _frmFishData.dtReturn;
+                if (dtReturn == null)
+                    return;
+
+                foreach (DataRow row in dtReturn.Rows)
+                {
+                    newRow = dtAnimals.NewRow();
+                    foreach (DataColumn col in dtAnimals.Columns)
+                    {
+                        newRow[col.ColumnName] = row[col.ColumnName];
+                    }
+                    dtAnimals.Rows.Add(newRow);
+                }
             }
-            dtAnimals.Rows.Add(newRow);
+            
         }
 
         private void setButtons()
@@ -167,10 +183,17 @@ namespace BiologyDepartment
             {
                 _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
                 _frmFishData.ShowDialog();
-            }
-            foreach (DataColumn col in dtAnimals.Columns)
-            {
-                dtAnimals.Rows[selectedrowindex][col.ColumnName] = newRow[col.ColumnName];
+                DataTable dtReturn = _frmFishData.dtReturn;
+                if (dtReturn == null)
+                    return;
+
+                foreach(DataRow row in dtReturn.Rows)
+                {
+                    foreach (DataColumn col in dtAnimals.Columns)
+                    {
+                        dtAnimals.Rows[selectedrowindex][col.ColumnName] = row[col.ColumnName];
+                    }
+                }
             }
         }
 
@@ -318,7 +341,10 @@ namespace BiologyDepartment
             switch(dg.Columns[e.ColumnIndex].Name)
             {
                 case "DELETE":
-                    dgExData.Rows.RemoveAt(e.RowIndex);
+                    _daoData.UpdateDeleteRow(Convert.ToInt32(dtAnimals.Rows[e.RowIndex]["DataID"]));
+                    dtAnimals.Rows.RemoveAt(e.RowIndex);
+                    //_daoData.UpdateDeleteRow(Convert.ToInt32(row["DataID"]));
+                    //dgExData.Rows.RemoveAt(e.RowIndex);
                     break;
                 case "EDIT":
                     EditRow();
@@ -349,7 +375,6 @@ namespace BiologyDepartment
                         dtAdded.Rows.Add(addRow);
                         break;
                     case "Deleted":
-                        _daoData.UpdateDeleteRow(Convert.ToInt32(row["DataID"]));
                         break;
                     case "Modified":
                         DataRow modRow = dtModified.NewRow();
@@ -361,8 +386,12 @@ namespace BiologyDepartment
                         break;
                 }
             }
-            _commonUtil.ValidateData(dtAdded, null, true, false);
-            _commonUtil.ValidateData(dtModified, null, true, true);
+            if(dtAdded.Rows.Count > 0)
+                _commonUtil.ValidateData(dtAdded, null, true, false);
+            if(dtModified.Rows.Count > 0)
+                _commonUtil.ValidateData(dtModified, null, true, true);
+
+            dtAnimals.AcceptChanges();
         }
     }
 
