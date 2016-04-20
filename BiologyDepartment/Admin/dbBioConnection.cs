@@ -114,14 +114,14 @@ namespace BiologyDepartment
             try
             {
                 DataSet ds = new DataSet();
-                using (cmd)
+                GlobalVariables.Connection.Close();
+                using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd))
                 {
-                    cmd.Connection = GlobalVariables.Connection;
-                    using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd))
-                    {
-                        adapter.Fill(ds);
-                    }
+                    adapter.SelectCommand.Connection = GlobalVariables.Connection;
+                    adapter.SelectCommand.CommandText = cmd.CommandText;
+                    adapter.Fill(ds);
                 }
+                
                 return ds.Tables[0];
             }
             catch (NpgsqlException e)
@@ -264,10 +264,12 @@ namespace BiologyDepartment
             AnimalData animal;
             List<AnimalData> animalAgg = new List<AnimalData>();
 
+            GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
                 (@"COPY (SELECT EXPERIMENT_DATA_ID, EXCLUDE_ROW, DATA_AGG
-                        FROM EXPERIMENT_DATA WHERE EX_ID = " + GlobalVariables.Experiment.ID + @") 
+                        FROM EXPERIMENT_DATA WHERE EX_ID = " + GlobalVariables.Experiment.ID + @"
+                        order by experiment_data_id asc) 
                         TO STDOUT (FORMAT BINARY)"))
             {
                 while(reader.StartRow() != -1)
