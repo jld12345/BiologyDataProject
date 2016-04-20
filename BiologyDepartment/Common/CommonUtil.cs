@@ -35,29 +35,39 @@ namespace BiologyDepartment.Common
             Dictionary<string, string> deCols = new Dictionary<string, string>();
             List<string> ImportRows = new List<string>();
             List<AnimalData> theAnimals = new List<AnimalData>();
+            bool bUseMapCol = true;
 
             sw.Start();
 
             if (dgvColumns == null)
-                dgvColumns.DataSource = _daoSetup.GetExperimentColumns(GlobalVariables.Experiment.ID);
-
-            foreach (DataGridViewRow dgvr in dgvColumns.Rows)
             {
-                if (dgvr.Cells["custom_column_name"].Value == DBNull.Value ||
-                    dgvr.Cells["custom_columns_id"].Value == DBNull.Value ||
-                    dgvr.Cells["custom_column_data_type"].Value == DBNull.Value ||
-                    dgvr.Cells["map_column"].Value == DBNull.Value)
+                dgvColumns = new DataGridView();
+                dgvColumns.DataSource = _daoSetup.GetExperimentColumns(GlobalVariables.Experiment.ID);
+                bUseMapCol = false;
+            }
+            DataTable dgvTable = (DataTable)dgvColumns.DataSource;
+            foreach (DataRow dgvr in dgvTable.Rows)
+            {
+                if (dgvr["custom_column_name"] == DBNull.Value ||
+                    dgvr["custom_columns_id"] == DBNull.Value ||
+                    dgvr["custom_column_data_type"] == DBNull.Value ||
+                    (bUseMapCol && dgvr["map_column"] == DBNull.Value))
                 {
                     string sMsg = "Cannot import data at this time.  Please verify that all columns have been mapped and imported.";
                     MessageBox.Show(sMsg, "Import Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                string col = Convert.ToString(dgvr.Cells["custom_column_name"].Value);
-                string colId = Convert.ToString(dgvr.Cells["custom_columns_id"].Value);
-                string mapCol = Convert.ToString(dgvr.Cells["map_column"].Value);
+                string col = Convert.ToString(dgvr["custom_column_name"]);
+                string colId = Convert.ToString(dgvr["custom_columns_id"]);
+
+                string mapCol = "";
+                if (bUseMapCol)
+                    mapCol = Convert.ToString(dgvr["map_column"]);
+                else
+                    mapCol = Convert.ToString(dtInput.Rows[0][Convert.ToString(dgvr["custom_columns_id"])]);
                 if (!string.IsNullOrEmpty(mapCol) && !string.IsNullOrEmpty(col) && !string.IsNullOrEmpty(colId))
                 {
-                    col = colId + "|" + col + "|" + Convert.ToString(dgvr.Cells["custom_column_data_type"].Value);
+                    col = colId + "|" + col + "|" + Convert.ToString(dgvr["custom_column_data_type"]);
                     deCols.Add(mapCol, col);
                 }
             }
@@ -75,7 +85,11 @@ namespace BiologyDepartment.Common
                     double tempDouble = 0;
                     int tempInt = 0;
                     string[] subItem = entry.Value.Split('|');
-                    string cellVal = Convert.ToString(dr[entry.Key]);
+                    string cellVal = "";
+                    if (bUseMapCol)
+                        cellVal = Convert.ToString(dr[entry.Key]);
+                    else
+                        cellVal = entry.Key;
                 if(bIsChecked)
                 {
                     switch (subItem[2])
@@ -128,6 +142,7 @@ namespace BiologyDepartment.Common
                     animal.ExcludeRow = Convert.ToString(dr["ExcludeRow"]);
                     animal.ModUser = GlobalVariables.ADUserName;
                     _daoData.UpdateExperimentData(animal);
+                    ImportRows.Add(values);
                 }
             }
 
