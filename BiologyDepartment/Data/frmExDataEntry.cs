@@ -33,6 +33,7 @@ namespace BiologyDepartment
         private List<Point> pointLine = new List<Point>();
         private List<Point> pointCalibrate = new List<Point>();
         private Bitmap bmpOriginal;
+        public DataTable dtReturn = new DataTable();
 
         public frmExDataEntry()
         {
@@ -105,6 +106,8 @@ namespace BiologyDepartment
 
         private void SetFields(ref DataRow row)
         {
+            dtReturn = row.Table.Clone();
+
             int i = 0;
             foreach(DataColumn col in row.Table.Columns)
             {
@@ -247,6 +250,23 @@ namespace BiologyDepartment
                 videoSource.Stop();
                 videoSource = null;
             }
+            AddRowToReturnTable();
+        }
+
+        private void AddRowToReturnTable()
+        {
+            DataRow row = dtReturn.NewRow();
+            foreach (Control con in pnlInput.Controls)
+            {
+                if (con.GetType() == typeof(TextBox))
+                {
+                    if(string.IsNullOrEmpty(con.Text))
+                        row[con.Name] = DBNull.Value;
+                    else
+                        row[con.Name] = con.Text;
+                }
+            }
+            dtReturn.Rows.Add(row);
         }
 
         private void btnUpload_Click(object sender, EventArgs e)

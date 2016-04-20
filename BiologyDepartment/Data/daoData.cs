@@ -175,12 +175,12 @@ namespace BiologyDepartment
             NpgsqlCMD = new NpgsqlCommand();
 
             NpgsqlCMD.CommandText = @"  update experiment_data
-                                        set experiment_data_id = :exid,
+                                        set ex_id = :exid,
                                             modified_user = :mod_user,
                                             modified_date = :mod_date,
                                             exclude_row = :exclude,
 	                                        data_agg = :data_agg
-                                        where ex_core_id = :rowID";
+                                        where experiment_data_id = :rowID";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_user", NpgsqlDbType.Varchar));
@@ -190,10 +190,11 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rowID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.Experiment.ID;
             NpgsqlCMD.Parameters[1].Value = theAnimal.ModUser;
-            NpgsqlCMD.Parameters[2].Value = theAnimal.ExcludeRow;
-            NpgsqlCMD.Parameters[3].Value = theAnimal.DataAgg;
+            NpgsqlCMD.Parameters[3].Value = theAnimal.ExcludeRow;
+            NpgsqlCMD.Parameters[2].Value = theAnimal.DataAgg;
             NpgsqlCMD.Parameters[4].Value = DateTime.Now.ToLongDateString();
             NpgsqlCMD.Parameters[5].Value = theAnimal.DataID;
+            GlobalVariables.GlobalConnection.updateData(NpgsqlCMD);
         }
 
         public NpgsqlDataAdapter DataAdapterCustom(int intID)
