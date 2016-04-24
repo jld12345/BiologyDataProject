@@ -101,7 +101,8 @@ namespace BiologyDepartment
                 {
                     case "tabExperiments":
                         _ctlExperiments = new ctlExperiments();
-                        tabExperiments.Controls.Add(_ctlExperiments);
+                        _ctlExperiments.Parent = tabExperiments;
+                        pnlTabExperiment.Controls.Add(_ctlExperiments);
                         _ctlExperiments.Dock = DockStyle.Fill;
                         break;
                     case "tabData":
@@ -121,17 +122,17 @@ namespace BiologyDepartment
                     case "tabAuthors":
                         _ctlAuthors = new ctlAuthors();
                         tabAuthors.Controls.Add(_ctlAuthors);
-                        _ctlAuthors.Dock = DockStyle.Fill;
+                        //_ctlAuthors.Dock = DockStyle.Fill;
                         break;
                     case "tabRScripts":
                         _ctlRScripts = new ctlRScripts();
                         tabRScripts.Controls.Add(_ctlRScripts);
-                        _ctlRScripts.Dock = DockStyle.Fill;
+                        //_ctlRScripts.Dock = DockStyle.Fill;
                         break;
                     case "tabSetup":
                         _ctlSetup = new ctlSetup();
                         tabSetup.Controls.Add(_ctlSetup);
-                        _ctlSetup.Dock = DockStyle.Fill;
+                        //_ctlSetup.Dock = DockStyle.Fill;
                         break;
                 }
                 
@@ -155,10 +156,9 @@ namespace BiologyDepartment
  
             // Get the item from the collection.
             TabPage _tabPage = tabControlMain.TabPages[e.Index];
- 
+            
             // Get the real bounds for the tab rectangle.
             Rectangle _tabBounds = tabControlMain.GetTabRect(e.Index);
- 
             if (e.State == DrawItemState.Selected)
             {
  

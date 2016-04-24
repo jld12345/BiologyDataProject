@@ -36,7 +36,9 @@
             this.pnlBrowser = new System.Windows.Forms.Panel();
             this.tabSetup = new System.Windows.Forms.TabPage();
             this.tabRScripts = new System.Windows.Forms.TabPage();
+            this.pnlTabExperiment = new System.Windows.Forms.Panel();
             this.tabControlMain.SuspendLayout();
+            this.tabExperiments.SuspendLayout();
             this.tabR.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,14 +61,16 @@
             this.tabControlMain.RightToLeftLayout = true;
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(971, 474);
-            this.tabControlMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControlMain.TabIndex = 0;
             this.tabControlMain.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControlMain_DrawItem);
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             // 
             // tabExperiments
             // 
+            this.tabExperiments.AutoScroll = true;
             this.tabExperiments.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.tabExperiments.Controls.Add(this.pnlTabExperiment);
+            this.tabExperiments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabExperiments.Location = new System.Drawing.Point(4, 4);
             this.tabExperiments.Name = "tabExperiments";
             this.tabExperiments.Padding = new System.Windows.Forms.Padding(3);
@@ -132,6 +136,14 @@
             this.tabRScripts.TabIndex = 5;
             this.tabRScripts.Text = "R Scripts";
             // 
+            // pnlTabExperiment
+            // 
+            this.pnlTabExperiment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTabExperiment.Location = new System.Drawing.Point(3, 3);
+            this.pnlTabExperiment.Name = "pnlTabExperiment";
+            this.pnlTabExperiment.Size = new System.Drawing.Size(832, 460);
+            this.pnlTabExperiment.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -148,6 +160,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.tabControlMain.ResumeLayout(false);
+            this.tabExperiments.ResumeLayout(false);
             this.tabR.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -163,6 +176,6 @@
         private System.Windows.Forms.TabPage tabSetup;
         private System.Windows.Forms.Panel pnlBrowser;
         private System.Windows.Forms.TabPage tabRScripts;
-
+        private System.Windows.Forms.Panel pnlTabExperiment;
     }
 }

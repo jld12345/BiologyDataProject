@@ -16,8 +16,9 @@ namespace BiologyDepartment
         /// </summary>
         static string theUser;
         static string thePassword;
-        static string DBConnection = "Server=54.187.120.10;Port=5432;Database=BiologyProject;";
-        static string ADConnection = @"54.187.120.10";
+        static string DBConnection = BiologyDepartment.Properties.Settings.Default.MyPostgress +
+                                     "; Port=5432;Database=BiologyProject;";
+        static string ADConnection = BiologyDepartment.Properties.Settings.Default.MyActiveDirectory;
         static string ADUser;
         static string ADGroup;
         static string ADPassword;
@@ -66,8 +67,8 @@ namespace BiologyDepartment
         {
             if (con == null)
             {
-              con =  new NpgsqlConnection(@"Server=54.187.120.10;
-                                        Port=5432;
+              con =  new NpgsqlConnection(BiologyDepartment.Properties.Settings.Default.MyPostgress +
+                                        @"Port =5432;
                                         User Id=" + dbUser + @";
                                         Password=" + dbPass + @";
                                         Database=BiologyProject;
