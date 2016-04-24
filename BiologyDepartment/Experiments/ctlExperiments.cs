@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 
 namespace BiologyDepartment
 {
@@ -25,7 +19,9 @@ namespace BiologyDepartment
         private bool bEnableButtons = false;
         private bool bEdit = false;
         private bool bDelete = false;
+        private bool bIsNew = false;
         private Experiments exp = new Experiments();
+        private Experiments oldExp = new Experiments();
         public bool bLoad = true;
 
 
@@ -69,22 +65,26 @@ namespace BiologyDepartment
         {
             if (cbExperiments == null || cbExperiments.Items.Count <= 0)
                 return;
-            exUtil.Experiment.Alias = txtSName.Text;
-            exUtil.Experiment.Title = txtOfficialName.Text;
-            exUtil.Experiment.SDate = sDatePicker.Text;
-            exUtil.Experiment.EDate = eDatePicker.Text;
-            exUtil.Experiment.Hypo = rtxtHypo.Text;
-            exUtil.Experiment.ID = Convert.ToInt32(cbExperiments.SelectedValue.ToString());
-            exUtil.SetExperiment();
+            SetOldExperiment(false);
+            exp.Alias = txtSName.Text;
+            exp.Title = txtOfficialName.Text;
+            exp.SDate = sDatePicker.Text;
+            exp.EDate = eDatePicker.Text;
+            exp.Hypo = rtxtHypo.Text;
+            if (bIsNew)
+                exp.ID = 0;
+            else
+                exp.ID = Convert.ToInt32(cbExperiments.SelectedValue.ToString());
+            exUtil.SetExperiment(exp);
         }
 
         private void enableListBox()
         {
             txtBoxList.Clear();
-            txtBoxList.Add(exUtil.Experiment.SDate);
-            txtBoxList.Add(exUtil.Experiment.EDate);
-            txtBoxList.Add(exUtil.Experiment.Title);
-            txtBoxList.Add(exUtil.Experiment.Alias);
+            txtBoxList.Add(exp.SDate);
+            txtBoxList.Add(exp.EDate);
+            txtBoxList.Add(exp.Title);
+            txtBoxList.Add(exp.Alias);
 
         }
 
@@ -213,20 +213,59 @@ namespace BiologyDepartment
 
             if(bEdit)
             {
-                _daoExperiments.updateRecord(exp);
+                _daoExperiments.updateRecord(exp, false);
                 bEdit = false;
             }
             else if(bDelete)
             {
-                _daoExperiments.deleteRecord(cbExperiments.SelectedValue.ToString());
+                _daoExperiments.deleteRecord(cbExperiments.SelectedValue.ToString(), false);
                 bDelete = false;
             }
             else
             {
-                _daoExperiments.insertRecord(exp);
+                exp.ID = _daoExperiments.insertRecord(exp, false);
+                if (exp.ID > 0)
+                    bIsNew = false;
+                else
+                    SetOldExperiment(true);
             }
 
             frmRefresh();
+
+        }
+
+        private void SetOldExperiment(bool bResetExperiment)
+        {
+            if (!bResetExperiment)
+            {
+                int id = exp.ID;
+                string alias = exp.Alias;
+                string title = exp.Title;
+                string start = exp.SDate;
+                string end = exp.EDate;
+                string hypo = exp.Hypo;
+                oldExp.ID = id;
+                oldExp.Alias = alias;
+                oldExp.Title = title;
+                oldExp.SDate = start;
+                oldExp.EDate = start;
+                oldExp.Hypo = hypo;
+            }
+            else
+            {
+                int id = oldExp.ID;
+                string alias = oldExp.Alias;
+                string title = oldExp.Title;
+                string start = oldExp.SDate;
+                string end = oldExp.EDate;
+                string hypo = oldExp.Hypo;
+                exp.ID = id;
+                exp.Alias = alias;
+                exp.Title = title;
+                exp.SDate = start;
+                exp.EDate = start;
+                exp.Hypo = hypo;
+            }
 
         }
 
@@ -257,7 +296,7 @@ namespace BiologyDepartment
         private void btnDelete_Click(object sender, EventArgs e)
         {
             //_daoAuthorEX.deleteAllRecords(Convert.ToInt32(cbExperiments.SelectedValue.ToString()));
-            _daoExperiments.deleteRecord(cbExperiments.SelectedValue.ToString());
+            _daoExperiments.deleteRecord(cbExperiments.SelectedValue.ToString(), false);
             frmRefresh();
         }
 
@@ -265,11 +304,6 @@ namespace BiologyDepartment
         {
             frmRefresh();
         }
-
-        /*private void btnView_Click(object sender, EventArgs e)
-        {
-            OnRaiseFormEvent(new OpenCtlAnimalData(Convert.ToInt32(cbExperiments.SelectedValue.ToString())));
-        }*/
 
         private void dgExperiments_SelectionChanged(object sender, EventArgs e)
         {
@@ -301,6 +335,17 @@ namespace BiologyDepartment
             if (cbExperiments.SelectedValue == null)
                 return;
             OnExperimentChangedEvent(new ExperimentHasChanged(Convert.ToInt32(cbExperiments.SelectedValue.ToString()), bLoad));
+        }
+
+        private void btnNew_Click_1(object sender, EventArgs e)
+        {
+            bIsNew = true;
+            txtOfficialName.Clear();
+            txtSName.Clear();
+            rtxtHypo.Clear();
+            sDatePicker.Value = DateTime.Now;
+            eDatePicker.Value = DateTime.Now;
+            btnSave.Enabled = true;
         }
 
         /*private void btnPermissions_Click(object sender, EventArgs e)

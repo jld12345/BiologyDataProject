@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.Data;
 
 namespace BiologyDepartment
@@ -19,14 +14,27 @@ namespace BiologyDepartment
             Experiment = new Experiments();
         }
 
-        public void SetComboBox(ref ComboBox theComboBox, ref DataTable theDataTable)
+        public bool SetComboBox(ref ComboBox theComboBox, ref DataTable theDataTable)
         {
-            theComboBox.ValueMember = "EX_ID";
-            theComboBox.DisplayMember = "EX_ALIAS";
-            theComboBox.DataSource = theDataTable;
+            if (theComboBox == null)
+                return false;
+            if (theDataTable == null || theDataTable.Rows.Count == 0)
+            {
+                theComboBox.ValueMember = "";
+                theComboBox.DisplayMember = "";
+                theComboBox.DataSource = "";
+                return false;
+            }
+            else
+            {
+                theComboBox.ValueMember = "EX_ID";
+                theComboBox.DisplayMember = "EX_ALIAS";
+                theComboBox.DataSource = theDataTable;
+            }
+            return true;
         }
 
-        public void SetExperiment()
+        public void SetExperiment(Experiments Experiment)
         {
             GlobalVariables.Experiment = Experiment;
         }

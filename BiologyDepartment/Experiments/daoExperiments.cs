@@ -41,7 +41,7 @@ namespace BiologyDepartment
         public DataSet getRecord(int rec)
         {
             NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = "Select * from author_experiments Where EX_ID = :rec";
+            NpgsqlCMD.CommandText = "Select * from experiments Where EX_ID = :rec";
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rec", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = rec;
 
@@ -55,7 +55,7 @@ namespace BiologyDepartment
                 return null;
         }
 
-        public void insertRecord(Experiments e)
+        public int insertRecord(Experiments e, bool bIsUnitTest)
         {
             int id = 0;
             NpgsqlCMD = new NpgsqlCommand();
@@ -84,26 +84,29 @@ namespace BiologyDepartment
 
             if (id <= 0)
             {
-                MessageBox.Show("Error inserting experiment.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if(!bIsUnitTest)
+                    MessageBox.Show("Error inserting experiment.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
             }
-            else
+            else if(!bIsUnitTest)
                 MessageBox.Show("Experiment successfully inserted.", "Picture Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
-                
 
-            if(GlobalVariables.ADUserName.Equals("James"))
-                daoPermissions.insertPermissions(id, GlobalVariables.ADUserName, "Owner");
-            else
+
+            if (!bIsUnitTest)
             {
-                daoPermissions.insertPermissions(id, GlobalVariables.ADUserName, "Owner");
-                daoPermissions.insertPermissions(id, "James", "Admin");
+                if (GlobalVariables.ADUserName.Equals("James"))
+                    daoPermissions.insertPermissions(id, GlobalVariables.ADUserName, "Owner");
+                else
+                {
+                    daoPermissions.insertPermissions(id, GlobalVariables.ADUserName, "Owner");
+                    daoPermissions.insertPermissions(id, "James", "Admin");
+                }
             }
-            
+            return id;
         }
 
-        public void updateRecord(Experiments e)
-        {
+        public void updateRecord(Experiments e, bool bIsUnitTest)
+        { 
             NpgsqlCMD = new NpgsqlCommand();
             NpgsqlCMD.CommandText = @"Update experiments 
                               Set EX_ALIAS = :alias, 
@@ -126,27 +129,32 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[4].Value = e.Hypo;
             NpgsqlCMD.Parameters[5].Value = e.ID;
 
-            if(GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
+            if(GlobalVariables.GlobalConnection.updateData(NpgsqlCMD) && !bIsUnitTest)
                 MessageBox.Show("Experiment successfully updated.", "Data Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
+            else if(!bIsUnitTest)
                 MessageBox.Show("Error updating experiment.", "Update Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public void deleteRecord(string id)
+        public void deleteRecord(string id, bool bIsUnitTest)
         {
             NpgsqlCMD = new NpgsqlCommand();
-            DialogResult mResult =MessageBox.Show("Are you sure you wish to permantely delete this record?", "Delete Record Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult mResult;
+            if (!bIsUnitTest)
+                mResult = MessageBox.Show("Are you sure you wish to permantely delete this record?", "Delete Record Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            else
+                mResult = DialogResult.Yes;
+
             if (mResult == DialogResult.Yes)
             {
                 NpgsqlCMD.CommandText = "Delete from experiments where EX_ID = :exID";
                 NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
                 NpgsqlCMD.Parameters[0].Value = Convert.ToInt32(id);
-                if(GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD))
+                if(GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD) && !bIsUnitTest)
                     MessageBox.Show("Data successfully deleted.", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
+                else if(!bIsUnitTest)
                     MessageBox.Show("Error deleting data.", "Delete Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
+            else if(!bIsUnitTest)
                 MessageBox.Show("Delete process has been cancelled.", "Delete Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
