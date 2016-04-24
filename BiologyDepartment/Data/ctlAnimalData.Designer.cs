@@ -63,7 +63,7 @@
             this.dgExData.Location = new System.Drawing.Point(0, 0);
             this.dgExData.Name = "dgExData";
             this.dgExData.ReadOnly = true;
-            this.dgExData.Size = new System.Drawing.Size(1394, 598);
+            this.dgExData.Size = new System.Drawing.Size(994, 518);
             this.dgExData.TabIndex = 26;
             this.dgExData.TimeFilter = false;
             this.dgExData.SortStringChanged += new System.EventHandler(this.dataGridView_SortStringChanged);
@@ -89,7 +89,7 @@
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.dgExData);
-            this.splitContainer1.Size = new System.Drawing.Size(1394, 674);
+            this.splitContainer1.Size = new System.Drawing.Size(994, 594);
             this.splitContainer1.SplitterDistance = 72;
             this.splitContainer1.TabIndex = 39;
             // 
@@ -102,7 +102,7 @@
             this.searchToolBar.MinimumSize = new System.Drawing.Size(0, 27);
             this.searchToolBar.Name = "searchToolBar";
             this.searchToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.searchToolBar.Size = new System.Drawing.Size(1394, 27);
+            this.searchToolBar.Size = new System.Drawing.Size(994, 27);
             this.searchToolBar.TabIndex = 1;
             this.searchToolBar.Search += new ADGV.SearchToolBarSearchEventHandler(this.searchToolBar_Search);
             // 
@@ -118,7 +118,7 @@
             this.tsButtonStrip.Location = new System.Drawing.Point(0, 0);
             this.tsButtonStrip.Name = "tsButtonStrip";
             this.tsButtonStrip.Padding = new System.Windows.Forms.Padding(0, 0, 1, 5);
-            this.tsButtonStrip.Size = new System.Drawing.Size(1394, 27);
+            this.tsButtonStrip.Size = new System.Drawing.Size(994, 27);
             this.tsButtonStrip.TabIndex = 0;
             // 
             // btnAdd
@@ -207,14 +207,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CausesValidation = false;
             this.Controls.Add(this.splitContainer1);
-            this.MaximumSize = new System.Drawing.Size(1500, 680);
-            this.MinimumSize = new System.Drawing.Size(1400, 680);
             this.Name = "ctlAnimalData";
             this.Padding = new System.Windows.Forms.Padding(3);
-            this.Size = new System.Drawing.Size(1400, 680);
+            this.Size = new System.Drawing.Size(1000, 600);
             ((System.ComponentModel.ISupportInitialize)(this.dgExData)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
