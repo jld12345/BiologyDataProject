@@ -13,7 +13,7 @@ namespace BiologyDepartment.Tests
         public void daoExperimentsTest()
         {
             daoExperiments dao = new daoExperiments();
-            if (dao == null )
+            if (dao == null)
                 Assert.Fail("DAO is null");
         }
 
@@ -60,7 +60,7 @@ namespace BiologyDepartment.Tests
             exp.Hypo = "UnitTest";
 
             nID = dao.insertRecord(exp, true);
-            if(nID <= 0)
+            if (nID <= 0)
                 Assert.Fail("Record was not inserted");
 
             exp.ID = nID;
@@ -82,6 +82,12 @@ namespace BiologyDepartment.Tests
                 Assert.Fail("Experiment did not delete");
             else
                 Assert.Pass("CRUD should work");
+
+        }
+
+        [Test()]
+        public void getChildExpirementsTest()
+        {
 
         }
     }
