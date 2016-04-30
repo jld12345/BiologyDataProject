@@ -18,12 +18,12 @@ using System.Diagnostics;
 
 namespace BiologyDepartment
 {
-    class daoActiveDirectory
+    public class daoActiveDirectory
     {
 
         #region Variables
-        PrincipalContext _PrincipalContext = null;
-
+        private PrincipalContext _PrincipalContext = null;
+        public PrincipalContext principalContext { get { return _PrincipalContext; } }
         #endregion
         #region Validate Methods
 
@@ -430,7 +430,7 @@ namespace BiologyDepartment
             Stopwatch sw = new Stopwatch();
             Trace.WriteLine("GetPrincipalContext start stopwatch");
             sw.Start();
-            PrincipalContext theContext = new PrincipalContext(ContextType.Domain, "54.187.120.10", sUserName, sPassword);
+            PrincipalContext theContext = new PrincipalContext(ContextType.Domain, GlobalVariables.ActiveDirectoryConnection, sUserName, sPassword);
             sw.Stop();
             Trace.WriteLine("GetPrincipalContext elapsed:  " + sw.Elapsed);
             return theContext;
