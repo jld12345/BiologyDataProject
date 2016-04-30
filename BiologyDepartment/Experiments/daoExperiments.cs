@@ -24,6 +24,7 @@ namespace BiologyDepartment
                                    from experiments ex, experiment_access ea
                                    where upper(ea.user_name) = :user_name
                                    and ex.ex_id = ea.ex_id
+                                   and ex.ex_parent_id is null
                                    order by ex.ex_id";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
@@ -36,6 +37,26 @@ namespace BiologyDepartment
             }
             else
                 return null;
+        }
+
+        public DataTable getChildExpirements(string sExperimentIds)
+        {
+            DataTable dt = new DataTable();
+            NpgsqlCMD = new NpgsqlCommand();
+            NpgsqlCMD.CommandText = @"Select ex.*, ea.access_type as Permissions 
+                                   from experiments ex, experiment_access ea
+                                   where upper(ea.user_name) = :user_name
+                                   and ex.ex_id = ea.ex_id
+                                   and ex.ex_parent_id is not null
+                                   and ex.ex_parent_id in :experiments
+                                   order by ex.ex_id";
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("experiments", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters[1].Value = "(" + sExperimentIds + ")";
+
+            dt = GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
+            return dt;
         }
 
         public DataSet getRecord(int rec)
@@ -61,7 +82,7 @@ namespace BiologyDepartment
             NpgsqlCMD = new NpgsqlCommand();
             NpgsqlCMD.CommandText = @"
                                    Insert into experiments (EX_ID, EX_ALIAS, EX_TITLE, EX_SDATE, EX_EDATE, EX_HYPOTHESIS) 
-                                   VALUES (nextval('experiments_id_seq'), :alias, :title, :sdate, :edate,:hypo)
+                                   VALUES (nextval('experiments_id_seq'), :alias, :title, :sdate, :edate,:hypo,:parent)
                                    returning ex_id
                                    ";
 
@@ -70,11 +91,16 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("sdate", NpgsqlDbType.Date));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("edate", NpgsqlDbType.Date));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("hypo", NpgsqlDbType.Text));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("parent", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = e.Alias;
             NpgsqlCMD.Parameters[1].Value = e.Title;
             NpgsqlCMD.Parameters[2].Value = Convert.ToDateTime(e.SDate);
             NpgsqlCMD.Parameters[3].Value = Convert.ToDateTime(e.EDate);
             NpgsqlCMD.Parameters[4].Value = e.Hypo;
+            if (e.ParentEx > 0)
+                NpgsqlCMD.Parameters[5].Value = e.ParentEx;
+            else
+                NpgsqlCMD.Parameters[5].Value = null;
 
             NpgsqlParameter ExIDOutput = new NpgsqlParameter("id", NpgsqlDbType.Integer);
             ExIDOutput.Direction = ParameterDirection.Output;
