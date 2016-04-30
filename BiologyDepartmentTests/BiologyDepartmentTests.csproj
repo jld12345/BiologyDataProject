@@ -42,6 +42,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.DirectoryServices.Protocols" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
@@ -53,6 +56,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Active Directory\daoActiveDirectoryTests.cs" />
     <Compile Include="Experiments\daoExperimentsTests.cs" />
     <Compile Include="Experiments\ExperimentsUtilityTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,6 +69,9 @@
       <Project>{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}</Project>
       <Name>BiologyDepartment</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
