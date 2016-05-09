@@ -81,7 +81,7 @@ namespace BiologyDepartment
             int id = 0;
             NpgsqlCMD = new NpgsqlCommand();
             NpgsqlCMD.CommandText = @"
-                                   Insert into experiments (EX_ID, EX_ALIAS, EX_TITLE, EX_SDATE, EX_EDATE, EX_HYPOTHESIS) 
+                                   Insert into experiments (EX_ID, EX_ALIAS, EX_TITLE, EX_SDATE, EX_EDATE, EX_HYPOTHESIS, ex_parent_id) 
                                    VALUES (nextval('experiments_id_seq'), :alias, :title, :sdate, :edate,:hypo,:parent)
                                    returning ex_id
                                    ";
@@ -139,7 +139,8 @@ namespace BiologyDepartment
                               EX_TITLE  = :title,
                               EX_SDATE  = :sdate,
                               EX_EDATE  = :edate,
-                              EX_HYPOTHESIS  = :hypo
+                              EX_HYPOTHESIS  = :hypo,
+                              EX_PARENT_ID = :parent
                               Where EX_ID = :exID";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("alias", NpgsqlDbType.Varchar));
@@ -148,14 +149,19 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("edate", NpgsqlDbType.Date));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("hypo", NpgsqlDbType.Text));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("parent", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = e.Alias;
             NpgsqlCMD.Parameters[1].Value = e.Title;
             NpgsqlCMD.Parameters[2].Value = Convert.ToDateTime(e.SDate);
             NpgsqlCMD.Parameters[3].Value = Convert.ToDateTime(e.EDate);
             NpgsqlCMD.Parameters[4].Value = e.Hypo;
             NpgsqlCMD.Parameters[5].Value = e.ID;
+            if (e.ParentEx > 0)
+                NpgsqlCMD.Parameters[6].Value = e.ParentEx;
+            else
+                NpgsqlCMD.Parameters[6].Value = null;
 
-            if(GlobalVariables.GlobalConnection.updateData(NpgsqlCMD) && !bIsUnitTest)
+            if (GlobalVariables.GlobalConnection.updateData(NpgsqlCMD) && !bIsUnitTest)
                 MessageBox.Show("Experiment successfully updated.", "Data Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else if(!bIsUnitTest)
                 MessageBox.Show("Error updating experiment.", "Update Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
