@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Windows.Forms;
 using Npgsql;
 using NpgsqlTypes;
 
@@ -17,7 +19,7 @@ namespace BiologyDepartment
         static string theUser;
         static string thePassword;
         static string DBConnection = BiologyDepartment.Properties.Settings.Default.MyPostgress +
-                                     "; Port=5432;Database=BiologyProject;";
+                                     ";Port=5432;Database=BiologyProject;";
         static string ADConnection = BiologyDepartment.Properties.Settings.Default.MyActiveDirectory;
         static string ADUser;
         static string ADGroup;
@@ -27,6 +29,7 @@ namespace BiologyDepartment
         static List<string> QueryColumns = new List<string>();
         static frmDataLoading dl = new frmDataLoading();
         static Experiments _experiments = new Experiments();
+        static ImageList imageList = new ImageList();
         static NpgsqlConnection con;
 
         static dbBioConnection BioConnection;
@@ -68,7 +71,7 @@ namespace BiologyDepartment
             if (con == null)
             {
               con =  new NpgsqlConnection(BiologyDepartment.Properties.Settings.Default.MyPostgress +
-                                        @"Port =5432;
+                                        @";Port=5432;
                                         User Id=" + dbUser + @";
                                         Password=" + dbPass + @";
                                         Database=BiologyProject;
@@ -204,6 +207,16 @@ namespace BiologyDepartment
             {
                 return QueryColumns;
             }
+        }
+
+        public static ImageList Images
+        {
+            get { return imageList; }
+        }
+
+        public static void AddImage(string sImageName, Image theImage)
+        {
+            imageList.Images.Add(sImageName, theImage);
         }
 
         internal static void ClearQueryColumn()

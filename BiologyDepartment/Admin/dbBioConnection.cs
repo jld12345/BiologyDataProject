@@ -34,7 +34,7 @@ namespace BiologyDepartment
             dbUser = GlobalVariables.dbUser;
             dbpword = GlobalVariables.dbPass;
             dbDataSource = GlobalVariables.DataSource;
-            PostgresDB = sDSource + sUserName + sPWord;
+            PostgresDB = "Server=192.168.0.9;Port=5432;User Id=biologyprojectadmin;Password=ImWay2c@@l;Database=BiologyProject;";//sDSource + sUserName + sPWord;
         }
 
         public string dbUser
