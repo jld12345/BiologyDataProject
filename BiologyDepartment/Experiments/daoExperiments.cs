@@ -20,12 +20,19 @@ namespace BiologyDepartment
         public DataSet getExperiments()
         {
             NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Select ex.*, ea.access_type as Permissions 
-                                   from experiments ex, experiment_access ea
-                                   where upper(ea.user_name) = :user_name
-                                   and ex.ex_id = ea.ex_id
-                                   and ex.ex_parent_id is null
-                                   order by ex.ex_id";
+            NpgsqlCMD.CommandText = @"Select ex.ex_id, ex.ex_alias, ex.ex_title, ex.ex_sdate,
+                                      ex.ex_edate, ex.ex_hypothesis, 
+                                      case  
+                                            when ex.ex_parent_id is null then ex.ex_id
+                                            else ex.ex_parent_id
+                                      end as ex_parent_id, 
+                                      ea.access_type as Permissions 
+                                      from experiments ex, experiment_access ea
+                                      where upper(ea.user_name) = :user_name
+                                      and ex.ex_id = ea.ex_id
+                                      and ((ex.ex_parent_id is null)
+                                            or (ex.ex_parent_id = ex.ex_id))
+                                      order by ex.ex_id";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
@@ -43,17 +50,20 @@ namespace BiologyDepartment
         {
             DataTable dt = new DataTable();
             NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Select ex.*, ea.access_type as Permissions 
-                                   from experiments ex, experiment_access ea
-                                   where upper(ea.user_name) = :user_name
-                                   and ex.ex_id = ea.ex_id
-                                   and ex.ex_parent_id is not null
-                                   and ex.ex_parent_id in :experiments
-                                   order by ex.ex_id";
+            NpgsqlCMD.CommandText = @"Select ex.ex_id, ex.ex_alias, ex.ex_title, ex.ex_sdate,
+                                      ex.ex_edate, ex.ex_hypothesis, 
+                                      case  
+                                            when ex.ex_parent_id is null then ex.ex_id
+                                            else ex.ex_parent_id
+                                      end as ex_parent_id, 
+                                      ea.access_type as Permissions 
+                                      from experiments ex, experiment_access ea
+                                      where upper(ea.user_name) = :user_name
+                                      and ex.ex_id = ea.ex_id
+                                      and ex.ex_parent_id in (" + sExperimentIds + @")
+                                      order by ex.ex_id";
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
-            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("experiments", NpgsqlDbType.Varchar));
-            NpgsqlCMD.Parameters[1].Value = "(" + sExperimentIds + ")";
 
             dt = GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
             return dt;
