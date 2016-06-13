@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="MyActiveDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">54.187.120.10</Value>
+      <Value Profile="(Default)">dwbtechnologies.ddns.net:390</Value>
     </Setting>
     <Setting Name="MyPostgress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Server=192.168.1.11;</Value>
+      <Value Profile="(Default)">Server=dwbtechnologies.ddns.net</Value>
     </Setting>
     <Setting Name="MyDeployR" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.1.11:8000</Value>
+      <Value Profile="(Default)">192.168.1.09:8000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

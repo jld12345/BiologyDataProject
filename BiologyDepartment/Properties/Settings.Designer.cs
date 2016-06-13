@@ -12,7 +12,7 @@ namespace BiologyDepartment.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("54.187.120.10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("dwbtechnologies.ddns.net:390")]
         public string MyActiveDirectory {
             get {
                 return ((string)(this["MyActiveDirectory"]));
@@ -37,7 +37,7 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=192.168.1.11;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=dwbtechnologies.ddns.net")]
         public string MyPostgress {
             get {
                 return ((string)(this["MyPostgress"]));
@@ -49,7 +49,7 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.11:8000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.09:8000")]
         public string MyDeployR {
             get {
                 return ((string)(this["MyDeployR"]));
