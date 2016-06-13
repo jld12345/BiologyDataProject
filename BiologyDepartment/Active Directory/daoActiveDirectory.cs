@@ -39,6 +39,8 @@ namespace BiologyDepartment
             Trace.WriteLine("ValidateCredentials start stopwatch");
             sw.Start();
             _PrincipalContext = GetPrincipalContext(sUserName, sPassword);
+            if (_PrincipalContext == null)
+                return false;
 
             Stopwatch sw1 = new Stopwatch();
             Trace.WriteLine("PrincipalContext.ValidateCredentials start stopwatch");
@@ -68,10 +70,10 @@ namespace BiologyDepartment
             Trace.WriteLine("GetDBContext start stopwatch");
             GroupPrincipal theGroup = null;
 
-            if (IsUserGroupMember(sUserName, "Biology Project Admin"))
-                theGroup = GetGroup("Biology Project Admin");
-            else if (IsUserGroupMember(sUserName, "Biology Project Users"))
-                theGroup = GetGroup("Biology Project Users");
+            if (IsUserGroupMember(sUserName, "PostgresDatabaseAdmin"))
+                theGroup = GetGroup("PostgresDatabaseAdmin");
+            else if (IsUserGroupMember(sUserName, "PostgresDatabaseUser"))
+                theGroup = GetGroup("PostgresDatabaseUser");
             else
             {
                 sw.Stop();
@@ -81,8 +83,8 @@ namespace BiologyDepartment
 
             DirectoryEntry de = (theGroup.GetUnderlyingObject() as DirectoryEntry);
 
-            GlobalVariables.dbUser = de.Properties["oracleUser"].Value.ToString();
-            GlobalVariables.dbPass = de.Properties["oraclePass"].Value.ToString();
+            GlobalVariables.dbUser = de.Properties["displayName"].Value.ToString();
+            GlobalVariables.dbPass = de.Properties["description"].Value.ToString();
             GlobalVariables.ADUserGroup = theGroup.Name;
 
             sw.Stop();
@@ -370,6 +372,8 @@ namespace BiologyDepartment
         {
             UserPrincipal theUser = GetUser(sUserName);
             GroupPrincipal theGroup = GetGroup(sGroupName);
+            if (theGroup == null)
+                return false;
             int count = theGroup.Members.Count();
             foreach(var name in theGroup.Members)
             {
@@ -427,13 +431,22 @@ namespace BiologyDepartment
         /// <returns>Retruns the PrincipalContext object</returns>
         public PrincipalContext GetPrincipalContext(string sUserName, string sPassword)
         {
-            Stopwatch sw = new Stopwatch();
-            Trace.WriteLine("GetPrincipalContext start stopwatch");
-            sw.Start();
-            PrincipalContext theContext = new PrincipalContext(ContextType.Domain, GlobalVariables.ActiveDirectoryConnection, sUserName, sPassword);
-            sw.Stop();
-            Trace.WriteLine("GetPrincipalContext elapsed:  " + sw.Elapsed);
-            return theContext;
+            try
+            {
+                Stopwatch sw = new Stopwatch();
+                Trace.WriteLine("GetPrincipalContext start stopwatch");
+                sw.Start();
+                PrincipalContext theContext = new PrincipalContext(ContextType.Domain, GlobalVariables.ActiveDirectoryConnection, 
+                    sUserName, sPassword);
+                sw.Stop();
+                Trace.WriteLine("GetPrincipalContext elapsed:  " + sw.Elapsed);
+                return theContext;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.ToString(), "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
         }
 
         /// <summary>
