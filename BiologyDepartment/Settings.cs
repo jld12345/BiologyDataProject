@@ -1,5 +1,5 @@
 ﻿namespace BiologyDepartment.Properties {
-    
+
     
     // This class allows you to handle specific events on the settings class:
     //  The SettingChanging event is raised before a setting's value is changed.
