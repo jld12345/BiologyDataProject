@@ -1,0 +1,36 @@
+library(rClr)
+library(XML)
+clrLoadAssembly('C:\\BiologyDataProject.git\\trunk\\BiologyDepartment\\DLL Files\\ActiveDirectoryClass.dll')
+clrLoadAssembly('C:\\BiologyDataProject.git\\trunk\\BiologyDepartment\\DLL Files\\RClass.dll')
+clrLoadAssembly('C:\\BiologyDataProject.git\\trunk\\BiologyDepartment\\DLL Files\\Npgsql.dll')
+clrGetLoadedAssemblies()
+activeDirectory <- clrNew('ActiveDirectory.daoActiveDirectory')
+rUtil <- clrNew('RClass.RClassUtil')
+clrCall(activeDirectory, 'ValidateCredentials', 'james', 'ImWay2c@@l')
+adUser <- clrGet(activeDirectory, 'ADUserName')
+adPass <- clrGet(activeDirectory, 'ADPass')
+dbUser <- clrGet(activeDirectory, 'DBUser')
+dbPass <- clrGet(activeDirectory, 'DBPass')
+adGroup <- clrGet(activeDirectory, 'ADUserGroup')
+clrSet(rUtil, 'DBPass', dbPass)
+clrSet(rUtil, 'DBUser', dbUser)
+clrSet(rUtil, 'ADUserName', adUser)
+clrSet(rUtil, 'ADPass', adPass)
+clrSet(rUtil, 'ADUserGroup', adGroup)
+clrCall(rUtil, 'SetDao')
+dtExperiments <- clrCall(rUtil, 'GetExperiments', adUser)
+xmlDoc <- clrCall(rUtil, 'GetXMLDoc', dtExperiments)
+df <- clrGet(xmlDoc, 'OuterXml')
+doc = xmlToDataFrame(xmlParseString(df))
+exID <- as.integer('1')
+sFilter <- ''
+dtData <- clrCall(rUtil, 'GetData', exID, '')
+rowCount <- clrCall(rUtil, 'RowCount', dtData )
+xmlDoc <- clrCall(rUtil, 'GetXMLDoc', dtData)
+df <- clrGet(xmlDoc, 'OuterXml')
+theData <- xmlToDataFrame(xmlParseString(df))
+
+
+
+
+
