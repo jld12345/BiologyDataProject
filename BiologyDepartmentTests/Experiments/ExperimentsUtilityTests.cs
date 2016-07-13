@@ -56,7 +56,7 @@ namespace BiologyDepartment.Tests
         [Test()]
         public void SetComboBoxTest()
         {
-            ExperimentsUtility util = new ExperimentsUtility();
+            /*ExperimentsUtility util = new ExperimentsUtility();
             daoExperiments dao = new daoExperiments();
             GlobalVariables.ADUserName = "James";
             GlobalVariables.dbUser = "biologyprojectadmin";
@@ -103,7 +103,7 @@ namespace BiologyDepartment.Tests
             {
                 bPassed = false;
                 Assert.Fail("Should return false, empty combobox and datatable");
-            }
+            }*/
         }
 
         [Test()]
