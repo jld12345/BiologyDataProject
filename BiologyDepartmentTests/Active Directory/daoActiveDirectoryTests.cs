@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.DirectoryServices.AccountManagement;
+using ActiveDirectory;
 
 namespace BiologyDepartment.Tests
 {
@@ -29,7 +30,7 @@ namespace BiologyDepartment.Tests
         public void SetPrincipalContextTest()
         {
             daoActiveDirectory dao = new daoActiveDirectory();
-            dao.SetPrincipalContext("james", "ImWay2c@@l");
+           // dao.SetPrincipalContext("james", "ImWay2c@@l");
             if (dao.principalContext == null)
                 Assert.Fail("Principal Context is null");
             else
