@@ -62,10 +62,17 @@ namespace BiologyDepartment
             _bindingSource.ListChanged -= new ListChangedEventHandler(bindingSource_ListChanged);
             _bindingSource.ListChanged += new ListChangedEventHandler(bindingSource_ListChanged);
             dtAnimals = _dataUtil.GetData();
+            _bindingSource.DataSource = dtAnimals;
+            dgExData.DataSource = _bindingSource;
 
             if (!dgExData.Columns.Contains("EDIT"))
             {
-                DataGridViewEditButtonColumn btnEdit = new DataGridViewEditButtonColumn();
+                DataGridViewImageColumn btnEdit = new DataGridViewImageColumn();
+                btnEdit.HeaderText = "EDIT";
+                btnEdit.Name = "EDIT";
+                btnEdit.Width = 50;
+                btnEdit.DefaultCellStyle.ForeColor = Color.Red;
+                btnEdit.Image = GlobalVariables.Images.Images["Expand"];
                 dgExData.Columns.Insert(0, btnEdit);
                 dgExData.Columns["EDIT"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dgExData.DisableFilter(dgExData.Columns["EDIT"]);
@@ -73,13 +80,12 @@ namespace BiologyDepartment
 
             if (!dgExData.Columns.Contains("DELETE"))
             {
-                DataGridViewButtonColumn btnDel = new DataGridViewButtonColumn();
+                DataGridViewImageColumn btnDel = new DataGridViewImageColumn();
                 btnDel.HeaderText = "DELETE";
                 btnDel.Name = "DELETE";
-                btnDel.Text = "-";
                 btnDel.Width = 50;
-                btnDel.FlatStyle = FlatStyle.Popup;
                 btnDel.DefaultCellStyle.ForeColor = Color.Red;
+                btnDel.Image = GlobalVariables.Images.Images["Toggle"];
                 dgExData.Columns.Insert(1, btnDel);
                 dgExData.Columns["DELETE"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dgExData.DisableFilter(dgExData.Columns["DELETE"]);
@@ -98,8 +104,6 @@ namespace BiologyDepartment
                 dgExData.DisableFilter(dgExData.Columns["EXCLUDE"]);  
             }
 
-            _bindingSource.DataSource = dtAnimals;
-            dgExData.DataSource = _bindingSource;
             dgExData.Columns["EXCLUDE"].Visible = true;
             dgExData.Columns["ExcludeRow"].Visible = false;
 
@@ -217,7 +221,7 @@ namespace BiologyDepartment
 
         private void btnExport_Click_1(object sender, EventArgs e)
         {
-            _dataUtil.ExportToExcel(ref dgExData);
+            _dataUtil.ExportToExcel(dgExData, false);
         }
 
         private void dataGridView_SortStringChanged(object sender, EventArgs e)
@@ -228,6 +232,8 @@ namespace BiologyDepartment
         private void dataGridView_FilterStringChanged(object sender, EventArgs e)
         {
             _bindingSource.Filter = dgExData.FilterString;
+            GlobalVariables.FilteredGrid = dgExData;
+            GlobalVariables.RDataIsDirty = true;
         }
 
         private void clearFilterButton_Click(object sender, EventArgs e)

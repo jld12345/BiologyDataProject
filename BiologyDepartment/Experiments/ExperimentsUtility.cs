@@ -9,6 +9,7 @@ namespace BiologyDepartment
     {
         private Experiments theExperiment = new Experiments();
         private daoExperiments _daoExperiments = new daoExperiments();
+        private int nTableCount = 0;
 
         public Experiments Experiment { get; set; }
 
@@ -64,38 +65,8 @@ namespace BiologyDepartment
             DataTable dtParent = _daoExperiments.getExperiments().Tables[0];
             dtParent.TableName = "Parent";
             List<DataTable> dtList = new List<DataTable>();
-            int nTableCount = 0;
-
-            string sSearch = "";
-            foreach(DataRow dr in dtParent.Rows)
-            {
-                sSearch = sSearch + dr["ex_id"].ToString() + ",";
-            }
-            sSearch = sSearch.TrimEnd(',');
-            dtChild = _daoExperiments.getChildExpirements(sSearch);
-            if (dtChild != null && dtChild.Rows.Count > 0)
-            {
-                dtChild.TableName = "Child" + nTableCount.ToString();
-                dtList.Add(dtChild);
- 
-                while (dtChild.Rows.Count > 0)
-                {
-                    nTableCount++;
-                    sSearch = "";
-                    foreach (DataRow dr in dtChild.Rows)
-                    {
-                        sSearch = sSearch + dr["ex_id"].ToString() + ",";
-                    }
-                    sSearch = sSearch.TrimEnd(',');
-                    dtChild = _daoExperiments.getChildExpirements(sSearch);
-                    if (dtChild != null && dtChild.Rows.Count > 0)
-                    {
-                        dtChild.TableName = "Child" + nTableCount.ToString();
-                        dtList.Add(dtChild);
-                    }
-                }
-            }
-
+            nTableCount = 0;
+            dtList = GetDataTableList(dtParent);
             ds.Tables.Add(dtParent.Copy());
             for (int i = 0; i < dtList.Count; i++ )
             {
@@ -107,6 +78,37 @@ namespace BiologyDepartment
             }
 
             return ds;
+        }
+
+        private List<DataTable> GetDataTableList(DataTable dtSearch)
+        {
+            List<DataTable> dtList = new List<DataTable>();
+            foreach (DataRow dr in dtSearch.Rows)
+            {
+                string sSearch = dr["ex_id"].ToString();
+                DataTable dtChild = _daoExperiments.getChildExpirements(sSearch);
+
+                if (dtChild != null && dtChild.Rows.Count > 0)
+                {
+                    if (nTableCount > 0)
+                        nTableCount++;
+                    dtChild.TableName = "Child" + nTableCount.ToString();
+                    dtList.Add(dtChild.Copy());
+
+                    foreach (DataRow child in dtChild.Rows)
+                    {                        
+                        sSearch = child["ex_id"].ToString();
+                        DataTable dtSibling = _daoExperiments.getChildExpirements(sSearch);
+                        if(dtSibling != null && dtSibling.Rows.Count > 0)
+                        {
+                            nTableCount++;
+                            dtSibling.TableName = "Child" + nTableCount.ToString();
+                            dtList.Add(dtSibling.Copy());
+                        }
+                    }
+                }
+            }
+            return dtList;
         }
     }
 }

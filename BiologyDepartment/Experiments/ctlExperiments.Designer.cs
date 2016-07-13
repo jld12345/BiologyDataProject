@@ -39,8 +39,8 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnNew = new System.Windows.Forms.Button();
-            this.cbExperiments = new System.Windows.Forms.ComboBox();
             this.gbInfo = new System.Windows.Forms.GroupBox();
+            this.txtExID = new System.Windows.Forms.TextBox();
             this.cmbParentEx = new System.Windows.Forms.ComboBox();
             this.lblParentEx = new System.Windows.Forms.Label();
             this.eDatePicker = new System.Windows.Forms.DateTimePicker();
@@ -112,20 +112,18 @@
             this.gbExperiment.Controls.Add(this.btnEdit);
             this.gbExperiment.Controls.Add(this.btnSave);
             this.gbExperiment.Controls.Add(this.btnNew);
-            this.gbExperiment.Controls.Add(this.cbExperiments);
             this.gbExperiment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbExperiment.Location = new System.Drawing.Point(0, 0);
             this.gbExperiment.Name = "gbExperiment";
             this.gbExperiment.Size = new System.Drawing.Size(445, 202);
             this.gbExperiment.TabIndex = 29;
             this.gbExperiment.TabStop = false;
-            this.gbExperiment.Text = "Experiment";
             // 
             // btnPermissions
             // 
             this.btnPermissions.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnPermissions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPermissions.Location = new System.Drawing.Point(6, 96);
+            this.btnPermissions.Location = new System.Drawing.Point(6, 76);
             this.btnPermissions.Name = "btnPermissions";
             this.btnPermissions.Size = new System.Drawing.Size(148, 44);
             this.btnPermissions.TabIndex = 15;
@@ -136,7 +134,7 @@
             // 
             this.btnDelete.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(186, 95);
+            this.btnDelete.Location = new System.Drawing.Point(186, 75);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(148, 44);
             this.btnDelete.TabIndex = 13;
@@ -147,7 +145,7 @@
             // 
             this.btnEdit.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(186, 46);
+            this.btnEdit.Location = new System.Drawing.Point(186, 26);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(148, 44);
             this.btnEdit.TabIndex = 12;
@@ -158,7 +156,7 @@
             // 
             this.btnSave.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(187, 145);
+            this.btnSave.Location = new System.Drawing.Point(187, 125);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(148, 44);
             this.btnSave.TabIndex = 11;
@@ -170,7 +168,7 @@
             // 
             this.btnNew.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.btnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNew.Location = new System.Drawing.Point(6, 46);
+            this.btnNew.Location = new System.Drawing.Point(6, 26);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(148, 44);
             this.btnNew.TabIndex = 9;
@@ -178,18 +176,9 @@
             this.btnNew.UseVisualStyleBackColor = false;
             this.btnNew.Click += new System.EventHandler(this.btnNew_Click_1);
             // 
-            // cbExperiments
-            // 
-            this.cbExperiments.FormattingEnabled = true;
-            this.cbExperiments.Location = new System.Drawing.Point(6, 19);
-            this.cbExperiments.Name = "cbExperiments";
-            this.cbExperiments.Size = new System.Drawing.Size(329, 21);
-            this.cbExperiments.TabIndex = 1;
-            this.cbExperiments.SelectionChangeCommitted += new System.EventHandler(this.cbExperiments_SelectionChangeCommitted);
-            this.cbExperiments.SelectedValueChanged += new System.EventHandler(this.cbExperiments_SelectedValueChanged);
-            // 
             // gbInfo
             // 
+            this.gbInfo.Controls.Add(this.txtExID);
             this.gbInfo.Controls.Add(this.cmbParentEx);
             this.gbInfo.Controls.Add(this.lblParentEx);
             this.gbInfo.Controls.Add(this.eDatePicker);
@@ -208,6 +197,14 @@
             this.gbInfo.Size = new System.Drawing.Size(445, 426);
             this.gbInfo.TabIndex = 31;
             this.gbInfo.TabStop = false;
+            // 
+            // txtExID
+            // 
+            this.txtExID.Enabled = false;
+            this.txtExID.Location = new System.Drawing.Point(364, 8);
+            this.txtExID.Name = "txtExID";
+            this.txtExID.Size = new System.Drawing.Size(75, 20);
+            this.txtExID.TabIndex = 29;
             // 
             // cmbParentEx
             // 
@@ -334,7 +331,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgExperiments.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgExperiments.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dgExperiments.Location = new System.Drawing.Point(3, 3);
+            this.dgExperiments.Location = new System.Drawing.Point(2, 6);
             this.dgExperiments.MultiSelect = false;
             this.dgExperiments.Name = "dgExperiments";
             this.dgExperiments.ReadOnly = true;
@@ -348,6 +345,7 @@
             this.dgExperiments.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgExperiments.Size = new System.Drawing.Size(1002, 199);
             this.dgExperiments.TabIndex = 18;
+            this.dgExperiments.Visible = false;
             this.dgExperiments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExperiments_CellContentClick);
             this.dgExperiments.SelectionChanged += new System.EventHandler(this.dgExperiments_SelectionChanged);
             // 
@@ -382,7 +380,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.GroupBox gbExperiment;
-        private System.Windows.Forms.ComboBox cbExperiments;
         private System.Windows.Forms.GroupBox gbInfo;
         private System.Windows.Forms.DateTimePicker eDatePicker;
         private System.Windows.Forms.DateTimePicker sDatePicker;
@@ -401,6 +398,7 @@
         private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.ComboBox cmbParentEx;
         private System.Windows.Forms.Label lblParentEx;
+        private System.Windows.Forms.TextBox txtExID;
         private System.Windows.Forms.DataGridView dgExperiments;
     }
 }

@@ -17,6 +17,8 @@ namespace BiologyDepartment
         public string DelUser { get; set; }
         public string ExcludeRow { get; set; }
         public string DataAgg { get; set; }
+        public byte[] Picture { get; set; }
+
         public Dictionary<int, string> AggDictionary { get; set; }
 
         private string[] sColSeperator = new string[] { "|^|" };

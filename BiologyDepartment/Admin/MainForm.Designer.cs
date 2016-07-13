@@ -30,13 +30,13 @@
         {
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabExperiments = new System.Windows.Forms.TabPage();
+            this.pnlTabExperiment = new System.Windows.Forms.Panel();
             this.tabData = new System.Windows.Forms.TabPage();
             this.tabAuthors = new System.Windows.Forms.TabPage();
             this.tabR = new System.Windows.Forms.TabPage();
             this.pnlBrowser = new System.Windows.Forms.Panel();
             this.tabSetup = new System.Windows.Forms.TabPage();
             this.tabRScripts = new System.Windows.Forms.TabPage();
-            this.pnlTabExperiment = new System.Windows.Forms.Panel();
             this.tabControlMain.SuspendLayout();
             this.tabExperiments.SuspendLayout();
             this.tabR.SuspendLayout();
@@ -77,6 +77,14 @@
             this.tabExperiments.Size = new System.Drawing.Size(838, 466);
             this.tabExperiments.TabIndex = 0;
             this.tabExperiments.Text = "Experiments";
+            // 
+            // pnlTabExperiment
+            // 
+            this.pnlTabExperiment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTabExperiment.Location = new System.Drawing.Point(3, 3);
+            this.pnlTabExperiment.Name = "pnlTabExperiment";
+            this.pnlTabExperiment.Size = new System.Drawing.Size(832, 460);
+            this.pnlTabExperiment.TabIndex = 0;
             // 
             // tabData
             // 
@@ -136,14 +144,6 @@
             this.tabRScripts.TabIndex = 5;
             this.tabRScripts.Text = "R Scripts";
             // 
-            // pnlTabExperiment
-            // 
-            this.pnlTabExperiment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTabExperiment.Location = new System.Drawing.Point(3, 3);
-            this.pnlTabExperiment.Name = "pnlTabExperiment";
-            this.pnlTabExperiment.Size = new System.Drawing.Size(832, 460);
-            this.pnlTabExperiment.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,6 +158,7 @@
             this.Name = "MainForm";
             this.Text = "Biology Project Database";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.tabControlMain.ResumeLayout(false);
             this.tabExperiments.ResumeLayout(false);

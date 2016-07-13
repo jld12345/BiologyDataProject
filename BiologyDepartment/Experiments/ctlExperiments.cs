@@ -29,7 +29,12 @@ namespace BiologyDepartment
         private List<DataGridView> lstDGV = new List<DataGridView>();
         private List<BindingSource> lstBindSource = new List<BindingSource>();
         public bool bLoad = true;
+        string[] colors = Enum.GetNames(typeof(KnownColor));
 
+        enum GridBackGround
+        {
+            
+        };
 
         public event EventHandler<ExperimentHasChanged> ChangeExperimentEvent;
 
@@ -44,7 +49,6 @@ namespace BiologyDepartment
             GlobalVariables.GlobalConnection = new dbBioConnection();
             LoadImages();
             frmRefresh();
-            bLoad = false;
         }
 
         private void LoadImages()
@@ -94,7 +98,7 @@ namespace BiologyDepartment
 
         private void SetExperiment()
         {
-            if (cbExperiments == null || cbExperiments.Items.Count <= 0)
+            if (lstDGV.Count == 0)
                 return;
             SetOldExperiment(false);
             exp.Alias = txtSName.Text;
@@ -106,8 +110,9 @@ namespace BiologyDepartment
                 exp.ParentEx = Convert.ToInt32(cmbParentEx.SelectedValue.ToString());
             if (bIsNew)
                 exp.ID = 0;
-            else
-                exp.ID = Convert.ToInt32(cbExperiments.SelectedValue.ToString());
+            else if(!string.IsNullOrEmpty(txtExID.Text))
+                exp.ID = Convert.ToInt32(txtExID.Text);
+            
             exUtil.SetExperiment(exp);
         }
 
@@ -127,9 +132,14 @@ namespace BiologyDepartment
 
         private void SetComboBox()
         {
-            exUtil.SetComboBox(ref cbExperiments, ref dtExperiments);
-            dtParentExperiments = dtExperiments.Copy();
-            exUtil.SetComboBox(ref cmbParentEx, ref dtParentExperiments);
+            dtExperiments.Clear();
+            dtExperiments = dsExperiments.Tables[0].Clone();
+            foreach(DataTable dt in dsExperiments.Tables)
+            {
+                foreach (DataRow dr in dt.Rows)
+                    dtExperiments.Rows.Add(dr.ItemArray);
+            }
+            exUtil.SetComboBox(ref cmbParentEx, ref dtExperiments);
         }
 
         private void SetRecord(int nGridIndex)
@@ -138,6 +148,7 @@ namespace BiologyDepartment
             {
                 foreach (DataGridViewRow row in lstDGV[nGridIndex].SelectedRows)
                 {
+                    txtExID.Text = row.Cells["ex_id"].Value.ToString();
                     txtSName.Text = row.Cells["ex_alias"].Value.ToString();
                     txtOfficialName.Text = row.Cells["ex_title"].Value.ToString();
                     if (String.IsNullOrEmpty(row.Cells["ex_sdate"].Value.ToString())
@@ -171,6 +182,8 @@ namespace BiologyDepartment
         private void setGrid()
         {
             bLoad = true;
+            lstBindSource.Clear();
+            lstDGV.Clear();
             for (int i = 0; i < dsExperiments.Tables.Count; i++)
             {
                 DataGridView dgv = new DataGridView();
@@ -199,10 +212,13 @@ namespace BiologyDepartment
                 lstDGV[i].DataSource = lstBindSource[i];
                 lstDGV[i].AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 lstDGV[i].ScrollBars = ScrollBars.Both;
+                lstDGV[i].ClearSelection();
+                lstDGV[i].SelectionChanged += new System.EventHandler(this.dgExperiments_SelectionChanged);
                 splitContainer1.Panel2.Controls.Add(lstDGV[i]);
-                dgv.CellClick += new DataGridViewCellEventHandler(DGVNested_CellContentClick_Event);
-                dgv.SelectionChanged += new System.EventHandler(this.dgExperiments_SelectionChanged);
+                lstDGV[i].Visible = false;
+
             }
+            lstDGV[0].CellClick += new DataGridViewCellEventHandler(DGVNested_CellContentClick_Event);
             lstDGV[0].Dock = DockStyle.Fill;
             dgExperiments.Visible = false;
         }
@@ -218,13 +234,11 @@ namespace BiologyDepartment
             dgExperiments.ReadOnly = bEnable;
             if (bEnable == true)
             {
-                cbExperiments.Enabled = false;
                 btnEdit.Enabled = false;
                 btnDelete.Enabled = false;
             }
             else
             {
-                cbExperiments.Enabled = true;
                 btnEdit.Enabled = true;
                 btnDelete.Enabled = true;
             }
@@ -242,7 +256,6 @@ namespace BiologyDepartment
                 rtxtHypo.Text = "";
                 btnNew.Text = "Cancel";
                 enableListBox();
-                cbExperiments.Text = "Adding New Row";
             }
             else
             {
@@ -280,7 +293,7 @@ namespace BiologyDepartment
             }
             else if (bDelete)
             {
-                _daoExperiments.deleteRecord(cbExperiments.SelectedValue.ToString(), false);
+                _daoExperiments.deleteRecord(txtExID.Text, false);
                 bDelete = false;
             }
             else
@@ -344,15 +357,11 @@ namespace BiologyDepartment
             enableListBox();
             bEdit = false;
             bDelete = false;
-            bLoad = false;
-            foreach(var grid in lstDGV)
-            {
-                grid.ClearSelection();
-            }
-            if(lstDGV.Count > 0 && lstDGV[0].Rows.Count > 0)
-                lstDGV[0].Rows[0].Selected = true;
-            SetExperiment();
 
+            //SetExperiment();
+            foreach (var grid in lstDGV)
+                grid.ClearSelection();
+            lstDGV[0].Visible = true;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -365,7 +374,7 @@ namespace BiologyDepartment
         private void btnDelete_Click(object sender, EventArgs e)
         {
             //_daoAuthorEX.deleteAllRecords(Convert.ToInt32(cbExperiments.SelectedValue.ToString()));
-            _daoExperiments.deleteRecord(cbExperiments.SelectedValue.ToString(), false);
+            _daoExperiments.deleteRecord(txtExID.Text, false);
             frmRefresh();
         }
 
@@ -381,6 +390,7 @@ namespace BiologyDepartment
             var grid = (DataGridView)sender;
             int nGridIndex = Convert.ToInt32(grid.Name);
             SetRecord(nGridIndex);
+            OnExperimentChangedEvent(new ExperimentHasChanged(GlobalVariables.Experiment.ID, bLoad));
         }
 
         protected virtual void OnExperimentChangedEvent(ExperimentHasChanged e)
@@ -393,19 +403,6 @@ namespace BiologyDepartment
                 // Use the () operator to raise the event.
                 handler(this, e);
             }
-        }
-
-        private void cbExperiments_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-
-
-        }
-
-        private void cbExperiments_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (cbExperiments.SelectedValue == null)
-                return;
-            OnExperimentChangedEvent(new ExperimentHasChanged(Convert.ToInt32(cbExperiments.SelectedValue.ToString()), bLoad));
         }
 
         private void btnNew_Click_1(object sender, EventArgs e)
@@ -434,46 +431,73 @@ namespace BiologyDepartment
         private void DGVNested_CellContentClick_Event(object sender, DataGridViewCellEventArgs e)
         {
             var grid = (DataGridView)sender;
+            int nGrid = Convert.ToInt32(grid.Name) + 1;
+            bLoad = false;
+            lstDGV[0].ClearSelection();
+            lstDGV[1].ClearSelection();
+            lstDGV[2].ClearSelection();
+
             switch (grid.Rows[e.RowIndex].Cells[e.ColumnIndex].OwningColumn.Name)
             {
                 case "showChild":
 
-                    int nGrid = Convert.ToInt32(grid.Name) + 1;
                     if (nGrid >= lstDGV.Count)
+                    {
+                        MessageBox.Show("No Details Found");
+                        lstDGV[Convert.ToInt32(grid.Name)].Rows[e.RowIndex].Selected = true;
                         return;
+                    }
+
+                    DataView detailView = new DataView((DataTable)lstBindSource[nGrid].DataSource);
+                    String Filterexpression = grid.Rows[e.RowIndex].Cells["ex_id"].Value.ToString();
+                    detailView.RowFilter = "ex_parent_id = '" + Filterexpression + "'";
+
+                    if (detailView.Count <= 0)
+                    {
+                        MessageBox.Show("No Details Found");
+                        lstDGV[Convert.ToInt32(grid.Name)].Rows[e.RowIndex].Selected = true;
+                        return;
+                    }
 
                     // cols.Image = Image.FromFile(ImageName);
                     if (string.IsNullOrEmpty(Convert.ToString(grid.Rows[e.RowIndex].Cells["showChild"].Tag)) ||
                         Convert.ToString(grid.Rows[e.RowIndex].Cells["showChild"].Tag).Equals("Expand"))
                     {
                         lstDGV[nGrid].Visible = true;
+                        lstDGV[nGrid].CellClick += new DataGridViewCellEventHandler(DGVNested_CellContentClick_Event);
                         grid.Rows[e.RowIndex].Cells["showChild"].Value = GlobalVariables.Images.Images["Toggle"];
                         grid.Rows[e.RowIndex].Cells["showChild"].Tag = "Toggle";
-
-                        String Filterexpression = grid.Rows[e.RowIndex].Cells["ex_id"].Value.ToString();
 
                         grid.Controls.Add(lstDGV[nGrid]);
 
                         Rectangle dgvRectangle = grid.GetCellDisplayRectangle(1, e.RowIndex, true);
-                        DataView detailView = new DataView((DataTable)lstBindSource[nGrid].DataSource);
-                        detailView.RowFilter = "ex_parent_id = '" + Filterexpression + "'";
-                        lstDGV[nGrid].Size =
-                                new Size(grid.Width, grid.Rows[e.RowIndex].Height + (grid.Rows[e.RowIndex].Height * detailView.Count));
-                        lstDGV[nGrid].Location = new Point(dgvRectangle.X - 75, dgvRectangle.Y + 1);
 
-                        if (detailView.Count <= 0)
-                            MessageBox.Show("No Details Found");
-                        else
-                            lstDGV[nGrid].Rows[0].Selected = false;
+                        lstDGV[nGrid].Location = new Point(dgvRectangle.X - 150, dgvRectangle.Y + grid.Rows[e.RowIndex].Height);
+                        lstDGV[nGrid].Size =
+                            new Size(grid.Width, grid.Rows[e.RowIndex].Height + (grid.Rows[e.RowIndex].Height * (detailView.Count + 3)));
+                        lstDGV[nGrid].BringToFront();
+                        foreach (DataGridViewRow dgr in lstDGV[nGrid].Rows)
+                        {
+                            dgr.Selected = false;
+                            foreach (DataGridViewCell dgc in dgr.Cells)
+                            {
+                                dgc.Style.BackColor = Color.FromName(colors[nGrid]);
+                                dgc.Style.ForeColor = Color.Yellow;
+                            }
+                        }
+
                     }
                     else
                     {
                         grid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = GlobalVariables.Images.Images["Expand"];
                         grid.Rows[e.RowIndex].Cells["showChild"].Tag = "Expand";
                         lstDGV[nGrid].Visible = false;
+                        lstDGV[nGrid].CellClick -= new DataGridViewCellEventHandler(DGVNested_CellContentClick_Event);
                     }
                     break;
             }
+
+            lstDGV[Convert.ToInt32(grid.Name)].Rows[e.RowIndex].Selected = true;
         }
     }
     

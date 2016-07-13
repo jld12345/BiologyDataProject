@@ -14,7 +14,7 @@ namespace BiologyDepartment
     {
         private DataSet dataset = new DataSet();
         private DataTable table = new DataTable();
-        daoActiveDirectory _daoActiveDirectory = new daoActiveDirectory();
+        private ActiveDirectory.daoActiveDirectory _daoAD = new ActiveDirectory.daoActiveDirectory();
 
         public event EventHandler<ValidLoginEventArgs> RaiseLoginEvent;
 
@@ -27,8 +27,14 @@ namespace BiologyDepartment
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (_daoActiveDirectory.ValidateCredentials(txtUserName2.Text, txtPWord.Text))
+            if (_daoAD.ValidateCredentials(txtUserName2.Text, txtPWord.Text))
             {
+                GlobalVariables.ADUserName = _daoAD.ADUserName;
+                GlobalVariables.ADPass = _daoAD.ADPass;
+                GlobalVariables.dbPass = _daoAD.DBPass;
+                GlobalVariables.dbUser = _daoAD.DBUser;
+                GlobalVariables.ADUserGroup = _daoAD.ADUserGroup;
+
                 OnRaiseLoginEvent(new ValidLoginEventArgs(true));
                 this.btnLogin.Click -= this.btnLogin_Click;
                 this.btnCancel.Click -= this.btnCancel_Click;

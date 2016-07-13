@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Npgsql;
 using NpgsqlTypes;
+using RDotNet;
 
 namespace BiologyDepartment
 {
@@ -229,5 +230,10 @@ namespace BiologyDepartment
         {
             QueryColumns.Add(p);
         }
+
+        public static bool RDataIsDirty { get; set; }
+
+        public static ADGV.AdvancedDataGridView FilteredGrid { get; set; }
+
     }
 }

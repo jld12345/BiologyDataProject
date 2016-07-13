@@ -12,6 +12,12 @@ using System.Security.Permissions;
 using Microsoft.Win32;
 using CefSharp;
 using CefSharp.WinForms;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading;
+using System.Runtime.InteropServices;
+using RDotNet;
 
 namespace BiologyDepartment
 {
@@ -30,6 +36,8 @@ namespace BiologyDepartment
         private bool bSetupControlDirty = true;
 
         public delegate void MyDelegate();
+        [DllImport("user32.dll")]
+        private static extern long SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         public MainForm()
         {
@@ -46,7 +54,6 @@ namespace BiologyDepartment
                 this.tabControlMain.Hide();
                 this._ctlLogin.BringToFront();
 
-
             }
             catch(Exception e)
             {
@@ -55,34 +62,6 @@ namespace BiologyDepartment
             }
 
         }
-
-        /*private void CloseAnimalDataEventHandler(object sender, CloseCtlAnimalData e)
-        {
-            this.SuspendLayout();
-            this._ctlAnimalData.Hide();
-            this._ctlExperiments.Show();
-            this.ResumeLayout();
-        }
-
-        private void CtlAnimalDataEventHandler(object sender, OpenCtlAnimalData e)
-        {
-            this.SuspendLayout();
-            this._ctlExperiments.Hide();
-            this._ctlAnimalData.Show();
-            this._ctlAnimalData.Initialize(e.ID);
-            this.ResumeLayout();
-        }
-
-        private void experimentsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Controls.Clear();
-            this.Controls.Add(_ctlExperiments);
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }*/
 
         private void LoginEventHandler(object sender, ValidLoginEventArgs e)
         {
@@ -113,11 +92,27 @@ namespace BiologyDepartment
                         break;
                     case "tabR":
                         //var browser = new CefSharp.WinForms.ChromiumWebBrowser("http://dwbtechnologies.ddns.net:1521/")
-                        var browser = new CefSharp.WinForms.ChromiumWebBrowser("http:71.45.10.32:1521")
+                        /*var browser = new CefSharp.WinForms.ChromiumWebBrowser("http:71.45.10.32:1521")
                         {
                             Dock = DockStyle.Fill,
-                        };
-                        pnlBrowser.Controls.Add(browser);
+                        };*/
+                        //pnlBrowser.Controls.Add(browser);
+                        try
+                        {
+                            var procInfo = new System.Diagnostics.ProcessStartInfo("rstudio.exe");
+                            procInfo.WorkingDirectory = System.IO.Path.GetDirectoryName("rstudio.exe");
+                            procInfo.WindowStyle = ProcessWindowStyle.Maximized;
+                            Process pRStudio = Process.Start(procInfo);
+                            Thread.Sleep(500);
+                            pRStudio.WaitForInputIdle();
+                            SetParent(pRStudio.MainWindowHandle, pnlBrowser.Handle);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("There is an error starting RStudio.  Please check the RStudio installation.", "RStudio Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        } 
                         break;
                     case "tabAuthors":
                         _ctlAuthors = new ctlAuthors();
@@ -223,7 +218,7 @@ namespace BiologyDepartment
             public void LoadAuthors()
             {
                 tabControlMain.TabPages["tabAuthors"].Controls.Remove(_ctlAuthors);
-                _ctlAuthors.frmRefresh(EX_ID);
+                _ctlAuthors.frmRefresh(GlobalVariables.Experiment.ID);
                 tabControlMain.TabPages["tabAuthors"].Controls.Add(_ctlAuthors);
             }
 
@@ -253,6 +248,17 @@ namespace BiologyDepartment
                     }
                     break;
             }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (Process p in Process.GetProcesses())
+            {
+                if (p.ProcessName.ToUpper().Contains("RSTUDIO"))
+                {
+                    p.Kill();
+                }
+            } 
         }
 
     }

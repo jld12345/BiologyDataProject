@@ -87,9 +87,11 @@ namespace BiologyDepartment
                 DataSet ds = new DataSet();
                 using (cmd)
                 {
-                    cmd.Connection = GlobalVariables.Connection;
+                    GlobalVariables.Connection.Close();
                     using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd))
                     {
+                        adapter.SelectCommand.Connection = GlobalVariables.Connection;
+                        adapter.SelectCommand.CommandText = cmd.CommandText;
                         adapter.Fill(ds);
                     }
                 }
@@ -264,11 +266,16 @@ namespace BiologyDepartment
             AnimalData animal;
             List<AnimalData> animalAgg = new List<AnimalData>();
 
-            GlobalVariables.Connection.Close();
+            if(GlobalVariables.Connection != null)
+                GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT EXPERIMENT_DATA_ID, EXCLUDE_ROW, DATA_AGG
-                        FROM EXPERIMENT_DATA WHERE EX_ID = " + GlobalVariables.Experiment.ID + @"
+                (@"COPY (SELECT ED.EXPERIMENT_DATA_ID, ED.EXCLUDE_ROW, ED.DATA_AGG, 
+                        (SELECT DP.DATA_PICTURE FROM DATA_PICTURES DP
+                         WHERE DP.TABLE_NAME = 'EXPERIMENT_DATA'
+                         AND DP.TABLE_PRIMARY_KEY = ED.EXPERIMENT_DATA_ID) DATA_PICTURE
+                         FROM EXPERIMENT_DATA ED 
+                         WHERE ED.EX_ID = " + GlobalVariables.Experiment.ID + @"
                         order by experiment_data_id asc) 
                         TO STDOUT (FORMAT BINARY)"))
             {
@@ -280,6 +287,10 @@ namespace BiologyDepartment
                     animal.DataAgg = reader.Read<string>(NpgsqlDbType.Text);
                     animal.ExID = GlobalVariables.Experiment.ID;
                     animal.GetAggData();
+                    if (!reader.IsNull)
+                        animal.Picture = reader.Read<byte[]>(NpgsqlDbType.Bytea);
+                    else
+                        reader.Skip();
                     animalAgg.Add(animal);
 
                 }
@@ -308,6 +319,12 @@ namespace BiologyDepartment
 
                     colAgg.Add(col);
                 }
+                col = new CustomColumns();
+                col.ColID = 1;
+                col.ColName = "Data Picture";
+                col.ColDataType = "Byte[]";
+                col.EX_ID = GlobalVariables.Experiment.ID;
+                colAgg.Add(col);
             }
             return colAgg;
         }

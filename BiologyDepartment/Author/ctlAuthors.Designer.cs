@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dgAuthorEx = new System.Windows.Forms.DataGridView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.picAuthors = new System.Windows.Forms.PictureBox();
             this.gbAuthors = new System.Windows.Forms.GroupBox();
             this.btnEditAuthor = new System.Windows.Forms.Button();
             this.btnAddAuthor = new System.Windows.Forms.Button();
@@ -47,17 +45,19 @@
             this.txtMI = new System.Windows.Forms.TextBox();
             this.txtFName = new System.Windows.Forms.TextBox();
             this.txtLName = new System.Windows.Forms.TextBox();
+            this.picAuthors = new System.Windows.Forms.PictureBox();
+            this.dgAuthorEx = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgAuthorEx)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAuthors)).BeginInit();
             this.gbAuthors.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAuthors)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgAuthorEx)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -73,22 +73,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dgAuthorEx);
-            this.splitContainer1.Size = new System.Drawing.Size(898, 500);
-            this.splitContainer1.SplitterDistance = 361;
+            this.splitContainer1.Size = new System.Drawing.Size(1180, 697);
+            this.splitContainer1.SplitterDistance = 520;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // dgAuthorEx
-            // 
-            this.dgAuthorEx.AllowUserToAddRows = false;
-            this.dgAuthorEx.AllowUserToDeleteRows = false;
-            this.dgAuthorEx.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgAuthorEx.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgAuthorEx.Location = new System.Drawing.Point(0, 0);
-            this.dgAuthorEx.MultiSelect = false;
-            this.dgAuthorEx.Name = "dgAuthorEx";
-            this.dgAuthorEx.ReadOnly = true;
-            this.dgAuthorEx.Size = new System.Drawing.Size(533, 500);
-            this.dgAuthorEx.TabIndex = 31;
             // 
             // splitContainer2
             // 
@@ -105,19 +92,9 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.picAuthors);
-            this.splitContainer2.Size = new System.Drawing.Size(361, 500);
+            this.splitContainer2.Size = new System.Drawing.Size(520, 697);
             this.splitContainer2.SplitterDistance = 329;
             this.splitContainer2.TabIndex = 31;
-            // 
-            // picAuthors
-            // 
-            this.picAuthors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picAuthors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picAuthors.Location = new System.Drawing.Point(0, 0);
-            this.picAuthors.Name = "picAuthors";
-            this.picAuthors.Size = new System.Drawing.Size(361, 167);
-            this.picAuthors.TabIndex = 1;
-            this.picAuthors.TabStop = false;
             // 
             // gbAuthors
             // 
@@ -138,7 +115,7 @@
             this.gbAuthors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbAuthors.Location = new System.Drawing.Point(0, 0);
             this.gbAuthors.Name = "gbAuthors";
-            this.gbAuthors.Size = new System.Drawing.Size(361, 329);
+            this.gbAuthors.Size = new System.Drawing.Size(520, 329);
             this.gbAuthors.TabIndex = 31;
             this.gbAuthors.TabStop = false;
             // 
@@ -152,6 +129,7 @@
             this.btnEditAuthor.TabIndex = 19;
             this.btnEditAuthor.Text = "Edit Author";
             this.btnEditAuthor.UseVisualStyleBackColor = false;
+            this.btnEditAuthor.Click += new System.EventHandler(this.btnEditAuthor_Click);
             // 
             // btnAddAuthor
             // 
@@ -163,6 +141,7 @@
             this.btnAddAuthor.TabIndex = 14;
             this.btnAddAuthor.Text = "Add Author";
             this.btnAddAuthor.UseVisualStyleBackColor = false;
+            this.btnAddAuthor.Click += new System.EventHandler(this.btnAddAuthor_Click);
             // 
             // lblDept
             // 
@@ -272,25 +251,50 @@
             this.txtLName.Size = new System.Drawing.Size(176, 20);
             this.txtLName.TabIndex = 1;
             // 
+            // picAuthors
+            // 
+            this.picAuthors.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picAuthors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picAuthors.Location = new System.Drawing.Point(0, 0);
+            this.picAuthors.Name = "picAuthors";
+            this.picAuthors.Size = new System.Drawing.Size(520, 364);
+            this.picAuthors.TabIndex = 1;
+            this.picAuthors.TabStop = false;
+            // 
+            // dgAuthorEx
+            // 
+            this.dgAuthorEx.AllowUserToAddRows = false;
+            this.dgAuthorEx.AllowUserToDeleteRows = false;
+            this.dgAuthorEx.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgAuthorEx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgAuthorEx.Location = new System.Drawing.Point(0, 0);
+            this.dgAuthorEx.MultiSelect = false;
+            this.dgAuthorEx.Name = "dgAuthorEx";
+            this.dgAuthorEx.ReadOnly = true;
+            this.dgAuthorEx.Size = new System.Drawing.Size(656, 697);
+            this.dgAuthorEx.TabIndex = 31;
+            // 
             // ctlAuthors
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoSize = true;
             this.Controls.Add(this.splitContainer1);
             this.Name = "ctlAuthors";
-            this.Size = new System.Drawing.Size(898, 500);
+            this.Size = new System.Drawing.Size(1180, 697);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgAuthorEx)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picAuthors)).EndInit();
             this.gbAuthors.ResumeLayout(false);
             this.gbAuthors.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAuthors)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgAuthorEx)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -18,6 +18,8 @@ namespace BiologyDepartment
         private string sYData = "";
         private string sFactor = "";
         string sPlot = "";
+        private bool bLoad = true;
+        private Data.DataUtil _dataUtil = new Data.DataUtil();
 
         private enum GGPlot2
         {
@@ -93,11 +95,17 @@ namespace BiologyDepartment
 
         public void Initialize()
         {
-            btnSetScript.PerformClick();
-
-            PopulateForGGPlot();
-            PopulateForLatticeExtra();
-            PopulateComboBoxes();
+            if (bLoad || GlobalVariables.RDataIsDirty)
+            {
+                _dataUtil.ExportToExcel(GlobalVariables.FilteredGrid, true);
+                btnSetScript.PerformClick();
+                
+                PopulateForGGPlot();
+                PopulateForLatticeExtra();
+                PopulateComboBoxes();
+                bLoad = false;
+                GlobalVariables.RDataIsDirty = false;
+            }
         }
 
         private void PopulateComboBoxes()
@@ -122,12 +130,6 @@ namespace BiologyDepartment
 
         private void btnSetScript_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(GlobalVariables.StatsQuery))
-            {
-                MessageBox.Show("The query needed for the data has not been set.  Please go to the Data tab to set the needed data.", "DATA NOT SET", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                rtbRScript.Text = "";
-                return;
-            }
             rtbRScript.Text = "";
             rtbRScript.Text += "library(ggplot2) \n";
             rtbRScript.Text += "sql <- \"" + GlobalVariables.StatsQuery + "\" \n";

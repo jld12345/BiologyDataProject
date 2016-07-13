@@ -20,8 +20,16 @@ using System.Threading;
 using DgvFilterPopup;
 using System.Reflection;
 using ClosedXML.Excel;
+using ClosedXML.Utils;
 using BiologyDepartment.Misc_Files;
 using System.Diagnostics;
+using System.IO;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using A = DocumentFormat.OpenXml.Drawing;
+using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
+using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 
 namespace BiologyDepartment.Data
 {
@@ -65,7 +73,8 @@ namespace BiologyDepartment.Data
                             newCol.DataType = System.Type.GetType("System.DateTime");
                             break;
                         case "IMAGE":
-                            newCol.DataType = System.Type.GetType("System.Byte");
+                        case "Byte[]":
+                            newCol.DataType = System.Type.GetType("System.Byte[]");
                             break;
                     }
                     newCol.Caption = col.ColName;
@@ -127,7 +136,7 @@ namespace BiologyDepartment.Data
                         }
                     }
                 }
-
+                row["1"] = animal.Picture;
                 dtAnimals.Rows.Add(row);
             }
             dtAnimals.AcceptChanges();
@@ -168,39 +177,79 @@ namespace BiologyDepartment.Data
             }
         }
 
-        public void ExportToExcel(ref AdvancedDataGridView dgExData)
+        public void ExportToExcel(AdvancedDataGridView dgExData, bool bIsRExport)
         {
             saveFileDialog.Filter = "Excel Worksheets|*.xlsx";
             saveFileDialog.Title = "Export File";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //Creating DataTable
-                DataTable dt = new DataTable();
+                CreateExcelExport(saveFileDialog.FileName, dgExData);
+            }
+        }
 
-                //Adding the Columns
-                foreach (DataGridViewColumn column in dgExData.Columns)
-                {
-                    dt.Columns.Add(column.HeaderText, column.ValueType);
-                }
+        private void CreateExcelExport(string sFileName, AdvancedDataGridView dgExData)
+        {
+            if (dgExData == null)
+                return;
+            //Create a folder for the export images if they exist
+            int nRowCount = 1;
+            string sFilePath = new FileInfo(sFileName).Directory.FullName + "\\ExportExcelImages";
 
-                //Adding the Rows
-                foreach (DataGridViewRow row in dgExData.Rows)
+            if (Directory.Exists(sFilePath))
+            {
+                System.IO.DirectoryInfo di = new DirectoryInfo(sFilePath);
+
+                foreach (FileInfo file in di.GetFiles())
                 {
-                    dt.Rows.Add();
-                    foreach (DataGridViewCell cell in row.Cells)
-                    {
-                        if (cell.Value != DBNull.Value && cell.Value != null)
-                            dt.Rows[dt.Rows.Count - 1][cell.ColumnIndex] = cell.Value;
-                        else
-                            dt.Rows[dt.Rows.Count - 1][cell.ColumnIndex] = DBNull.Value;
-                    }
+                    file.Delete();
                 }
-                using (XLWorkbook wb = new XLWorkbook())
+                foreach (DirectoryInfo dir in di.GetDirectories())
                 {
-                    wb.Worksheets.Add(dt, "Customers");
-                    if (!string.IsNullOrEmpty(saveFileDialog.FileName))
-                        wb.SaveAs(saveFileDialog.FileName);
+                    dir.Delete(true);
                 }
+                Directory.Delete(sFilePath);
+            }
+
+            Directory.CreateDirectory(sFilePath);
+
+            //Creating DataTable
+            DataTable dt = new DataTable();
+            var temp  = (BindingSource)dgExData.DataSource;
+            DataView dv = ((DataTable)temp.DataSource).AsDataView();
+            dv.RowFilter = temp.Filter;
+            dt = dv.ToTable();
+
+            //Change the column name from the number used in the database to the column header name
+            foreach(DataColumn dc in dt.Columns)
+            {
+                dc.ColumnName = dc.Caption;
+            }
+
+            foreach(DataRow dr in dt.Rows)
+            {
+                if (dr["Data Picture"] == null)
+                    continue;
+                byte[] imageBytes = dr["Data Picture"] as byte[];
+                MemoryStream mStream = new MemoryStream(imageBytes);
+                mStream.Position = 0;
+
+                Image img = Image.FromStream(mStream);
+                Bitmap theImage = new Bitmap(img);
+                mStream.Close();
+                mStream.Dispose();
+                string sImagePath = sFilePath + "\\" + nRowCount.ToString() + ".bmp";
+                theImage.Save(sImagePath);
+                nRowCount++;
+            }
+
+            dt.Columns.Remove("Data Picture");
+            //Create the excel document
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt, "Data Export");
+                if (string.IsNullOrEmpty(sFileName))
+                    sFileName = "C:\\tempExcel.xls";
+                    wb.SaveAs(sFileName);
             }
         }
     }

@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.cmbPanels = new System.Windows.Forms.ComboBox();
+            this.lblFacet = new System.Windows.Forms.Label();
             this.txtColor = new System.Windows.Forms.TextBox();
             this.lblAxisColor = new System.Windows.Forms.Label();
             this.txtGraphOrder = new System.Windows.Forms.TextBox();
@@ -60,8 +62,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.rtbRScript = new System.Windows.Forms.RichTextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.cmbPanels = new System.Windows.Forms.ComboBox();
-            this.lblFacet = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -115,6 +116,25 @@
             this.splitContainer1.SplitterDistance = 448;
             this.splitContainer1.TabIndex = 0;
             // 
+            // cmbPanels
+            // 
+            this.cmbPanels.FormattingEnabled = true;
+            this.cmbPanels.Location = new System.Drawing.Point(289, 272);
+            this.cmbPanels.Name = "cmbPanels";
+            this.cmbPanels.Size = new System.Drawing.Size(146, 21);
+            this.cmbPanels.TabIndex = 29;
+            this.toolTip1.SetToolTip(this.cmbPanels, "Select which factor is used to set the panels.  Leave blank for no panels.");
+            // 
+            // lblFacet
+            // 
+            this.lblFacet.AutoSize = true;
+            this.lblFacet.Location = new System.Drawing.Point(244, 275);
+            this.lblFacet.Name = "lblFacet";
+            this.lblFacet.Size = new System.Drawing.Size(39, 13);
+            this.lblFacet.TabIndex = 28;
+            this.lblFacet.Text = "Panels";
+            this.lblFacet.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // txtColor
             // 
             this.txtColor.Location = new System.Drawing.Point(98, 328);
@@ -157,6 +177,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabGGPlot);
             this.tabControl1.Controls.Add(this.tabLatticeExtra);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(15, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -396,24 +417,15 @@
             this.rtbRScript.TabIndex = 0;
             this.rtbRScript.Text = "";
             // 
-            // cmbPanels
+            // tabPage1
             // 
-            this.cmbPanels.FormattingEnabled = true;
-            this.cmbPanels.Location = new System.Drawing.Point(289, 272);
-            this.cmbPanels.Name = "cmbPanels";
-            this.cmbPanels.Size = new System.Drawing.Size(146, 21);
-            this.cmbPanels.TabIndex = 29;
-            this.toolTip1.SetToolTip(this.cmbPanels, "Select which factor is used to set the panels.  Leave blank for no panels.");
-            // 
-            // lblFacet
-            // 
-            this.lblFacet.AutoSize = true;
-            this.lblFacet.Location = new System.Drawing.Point(244, 275);
-            this.lblFacet.Name = "lblFacet";
-            this.lblFacet.Size = new System.Drawing.Size(39, 13);
-            this.lblFacet.TabIndex = 28;
-            this.lblFacet.Text = "Panels";
-            this.lblFacet.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(411, 209);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Basic Settings";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // ctlRScripts
             // 
@@ -473,5 +485,6 @@
         private System.Windows.Forms.Label lblAxisColor;
         private System.Windows.Forms.ComboBox cmbPanels;
         private System.Windows.Forms.Label lblFacet;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }

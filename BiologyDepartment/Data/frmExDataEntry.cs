@@ -34,6 +34,8 @@ namespace BiologyDepartment
         private List<Point> pointCalibrate = new List<Point>();
         private Bitmap bmpOriginal;
         public DataTable dtReturn = new DataTable();
+        private bool bSavePic = false;
+        private byte[] originalPic;
 
         public frmExDataEntry()
         {
@@ -60,6 +62,7 @@ namespace BiologyDepartment
             SetMeasurements();
             SetLineWidthCombo();
             SetFields(ref row);
+            
             btnClear.Enabled = false;
         }
 
@@ -111,6 +114,12 @@ namespace BiologyDepartment
             int i = 0;
             foreach(DataColumn col in row.Table.Columns)
             {
+                if(col.Caption.Equals("Data Picture"))
+                {
+                    originalPic = row[col.ColumnName] as byte[];
+                    setPicBox(originalPic);
+                    continue;
+                }
                 Label lblTitle = new Label();
                 lblTitle.Name = col.ColumnName;
                 lblTitle.Text = col.Caption;
@@ -169,6 +178,8 @@ namespace BiologyDepartment
 
         private void setPicBox(byte[] imageBytes)
         {
+            if (imageBytes == null)
+                return;
             MemoryStream mStream = new MemoryStream(imageBytes);
             mStream.Position = 0;
 
@@ -266,6 +277,19 @@ namespace BiologyDepartment
                         row[con.Name] = con.Text;
                 }
             }
+
+            if (pbImage.BackgroundImage != null && bSavePic)
+            {
+                MemoryStream ms = new MemoryStream();
+                pbImage.BackgroundImage.Save(ms, ImageFormat.Jpeg);
+                byte[] photo_array = new byte[ms.Length];
+                ms.Position = 0;
+                ms.Read(photo_array, 0, photo_array.Length);
+                row["1"] = photo_array;
+            }
+            else if (originalPic != null)
+                row["1"] = originalPic;
+
             dtReturn.Rows.Add(row);
         }
 
@@ -283,7 +307,7 @@ namespace BiologyDepartment
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-
+            bSavePic = true;
             /*if (theAnimal.GetCoreID() > 0)
             {
                 _daoData.UpdateCore(theAnimal);
@@ -295,7 +319,7 @@ namespace BiologyDepartment
                 _daoData.InsertData();
             }*/
 
-            if (pbImage.BackgroundImage != null)
+            /*if (pbImage.BackgroundImage != null)
             {
                 MemoryStream ms = new MemoryStream();
                 pbImage.BackgroundImage.Save(ms, ImageFormat.Jpeg);
@@ -303,7 +327,7 @@ namespace BiologyDepartment
                 ms.Position = 0;
                 ms.Read(photo_array, 0, photo_array.Length);
                 //_daoData.UpdatePic("Fish_Weight_Length", theAnimal.GetCoreID(), photo_array);
-            }
+            }*/
         }
 
         private void pbImage_Paint(object sender, PaintEventArgs e)

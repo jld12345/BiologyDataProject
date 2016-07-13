@@ -61,6 +61,7 @@ namespace BiologyDepartment
                                       where upper(ea.user_name) = :user_name
                                       and ex.ex_id = ea.ex_id
                                       and ex.ex_parent_id in (" + sExperimentIds + @")
+                                      and ex.ex_id <> ex.ex_parent_id
                                       order by ex.ex_id";
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();

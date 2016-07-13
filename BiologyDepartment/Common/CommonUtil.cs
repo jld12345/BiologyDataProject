@@ -132,6 +132,10 @@ namespace BiologyDepartment.Common
                 if (bIsValid && !bIsUpdate)
                 {
                     ImportRows.Add(values);
+                    if(dr["1"] != DBNull.Value)
+                    {
+                        _daoData.InsertPic("EXPERIMENT_DATA", Convert.ToInt32(dr["DataID"]), dr["1"] as byte[]);  
+                    }
                 }
                 else if(bIsValid && bIsUpdate)
                 {
@@ -141,7 +145,10 @@ namespace BiologyDepartment.Common
                     animal.ExID = GlobalVariables.Experiment.ID;
                     animal.ExcludeRow = Convert.ToString(dr["ExcludeRow"]);
                     animal.ModUser = GlobalVariables.ADUserName;
+                    animal.Picture = dr["1"] as byte[];
                     _daoData.UpdateExperimentData(animal);
+                    if (animal.Picture != null)
+                        _daoData.InsertPic("EXPERIMENT_DATA", animal.DataID, animal.Picture);
                     ImportRows.Add(values);
                 }
             }

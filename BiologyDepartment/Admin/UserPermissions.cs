@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ActiveDirectory;
 
 namespace BiologyDepartment
 {
@@ -15,7 +16,7 @@ namespace BiologyDepartment
         private int exID = 0;
         private daoEXPermissions _permissions = new daoEXPermissions();
         private DataTable dtUser;
-        private daoActiveDirectory _daoAD = new daoActiveDirectory();
+        private ActiveDirectory.daoActiveDirectory _daoAD = new ActiveDirectory.daoActiveDirectory();
         private bool isAdding = false;
 
         public UserPermissions()
@@ -28,7 +29,7 @@ namespace BiologyDepartment
             InitializeComponent();
             exID = id;
             LoadUsers(id);
-            _daoAD.SetPrincipalContext(GlobalVariables.ADUserName, GlobalVariables.ADPass);
+            _daoAD.SetPrincipalContext(GlobalVariables.ADUserName, GlobalVariables.ADPass, GlobalVariables.ActiveDirectoryConnection);
         }
 
         public static UserPermissions CreateInstance()
