@@ -517,6 +517,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="R Scripts\RBaseScript.txt" />
     <EmbeddedResource Include="Misc Files\images\addicon.png" />
     <EmbeddedResource Include="Misc Files\images\deleteicon.png" />
     <EmbeddedResource Include="Misc Files\images\editicon.png" />

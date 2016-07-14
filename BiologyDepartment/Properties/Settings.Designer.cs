@@ -49,13 +49,13 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.09:8000")]
-        public string MyDeployR {
+        [global::System.Configuration.DefaultSettingValueAttribute("http:dwbtechnologies.ddns.net:8787")]
+        public string MyRStudio {
             get {
-                return ((string)(this["MyDeployR"]));
+                return ((string)(this["MyRStudio"]));
             }
             set {
-                this["MyDeployR"] = value;
+                this["MyRStudio"] = value;
             }
         }
     }

@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
+using System.IO;
 
 namespace BiologyDepartment
 {
@@ -97,7 +99,6 @@ namespace BiologyDepartment
         {
             if (bLoad || GlobalVariables.RDataIsDirty)
             {
-                _dataUtil.ExportToExcel(GlobalVariables.FilteredGrid, true);
                 btnSetScript.PerformClick();
                 
                 PopulateForGGPlot();
@@ -130,7 +131,15 @@ namespace BiologyDepartment
 
         private void btnSetScript_Click(object sender, EventArgs e)
         {
-            rtbRScript.Text = "";
+            Assembly thisExe = Assembly.GetExecutingAssembly();
+            using (Stream stream = thisExe.GetManifestResourceStream("BiologyDepartment.R_Scripts.RBaseScript.txt"))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    rtbRScript.Text = reader.ReadToEnd();
+                }
+            }
+            rtbRScript.Text += "";
             rtbRScript.Text += "library(ggplot2) \n";
             rtbRScript.Text += "sql <- \"" + GlobalVariables.StatsQuery + "\" \n";
 

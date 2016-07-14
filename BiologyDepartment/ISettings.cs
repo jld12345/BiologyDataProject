@@ -3,7 +3,7 @@
     public interface ISettings
     {
         string MyActiveDirectory { get; set; }
-        string MyDeployR { get; set; }
+        string MyRStudio { get; set; }
         string MyPostgress { get; set; }
     }
 }

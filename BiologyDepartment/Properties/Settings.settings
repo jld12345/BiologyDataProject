@@ -8,8 +8,8 @@
     <Setting Name="MyPostgress" Type="System.String" Scope="User">
       <Value Profile="(Default)">Server=dwbtechnologies.ddns.net</Value>
     </Setting>
-    <Setting Name="MyDeployR" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.1.09:8000</Value>
+    <Setting Name="MyRStudio" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http:dwbtechnologies.ddns.net:8787</Value>
     </Setting>
   </Settings>
 </SettingsFile>

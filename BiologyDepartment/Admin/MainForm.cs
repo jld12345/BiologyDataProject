@@ -91,28 +91,13 @@ namespace BiologyDepartment
                         //_ctlAnimalData.CloseFormEvent += CloseAnimalDataEventHandler;
                         break;
                     case "tabR":
-                        //var browser = new CefSharp.WinForms.ChromiumWebBrowser("http://dwbtechnologies.ddns.net:1521/")
-                        /*var browser = new CefSharp.WinForms.ChromiumWebBrowser("http:71.45.10.32:1521")
+                        var browser = new CefSharp.WinForms.ChromiumWebBrowser(BiologyDepartment.Properties.Settings.Default.MyRStudio);   
+                    //var browser = new CefSharp.WinForms.ChromiumWebBrowser("http:71.45.10.32:1521")
                         {
-                            Dock = DockStyle.Fill,
-                        };*/
-                        //pnlBrowser.Controls.Add(browser);
-                        try
-                        {
-                            var procInfo = new System.Diagnostics.ProcessStartInfo("rstudio.exe");
-                            procInfo.WorkingDirectory = System.IO.Path.GetDirectoryName("rstudio.exe");
-                            procInfo.WindowStyle = ProcessWindowStyle.Maximized;
-                            Process pRStudio = Process.Start(procInfo);
-                            Thread.Sleep(500);
-                            pRStudio.WaitForInputIdle();
-                            SetParent(pRStudio.MainWindowHandle, pnlBrowser.Handle);
-
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("There is an error starting RStudio.  Please check the RStudio installation.", "RStudio Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        } 
+                            Dock = DockStyle.Fill;
+                        };
+                        
+                        pnlBrowser.Controls.Add(browser);
                         break;
                     case "tabAuthors":
                         _ctlAuthors = new ctlAuthors();
