@@ -23,8 +23,7 @@ namespace BiologyDepartment
         private bool bLoad = true;
         private Data.DataUtil _dataUtil = new Data.DataUtil();
         private ctlGGPlot ggPlot = new ctlGGPlot();
-
-
+        private ctlRBaseFunctions rBaseItems = new ctlRBaseFunctions();
 
         public ctlRScripts()
         {
@@ -38,6 +37,8 @@ namespace BiologyDepartment
             {
                 ggPlot.Initialize();
                 tabGGPlot.Controls.Add(ggPlot);
+                rBaseItems.Initialize();
+                tabRBase.Controls.Add(rBaseItems);
                 //btnSetScript.PerformClick();
                 PopulateForLatticeExtra();
                 bLoad = false;

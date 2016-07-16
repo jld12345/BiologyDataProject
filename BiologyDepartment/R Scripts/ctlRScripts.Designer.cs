@@ -30,21 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tcMain = new System.Windows.Forms.TabControl();
+            this.tabRBase = new System.Windows.Forms.TabPage();
+            this.tabGGPlot = new System.Windows.Forms.TabPage();
             this.tabLatticeExtra = new System.Windows.Forms.TabPage();
             this.cblLatticeExtra = new System.Windows.Forms.CheckedListBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClipBoard = new System.Windows.Forms.Button();
             this.btnSetScript = new System.Windows.Forms.Button();
             this.rtbRScript = new System.Windows.Forms.RichTextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tabGGPlot = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tcMain.SuspendLayout();
             this.tabLatticeExtra.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +57,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
+            this.splitContainer1.Panel1.Controls.Add(this.tcMain);
             this.splitContainer1.Panel1.Controls.Add(this.btnRefresh);
             this.splitContainer1.Panel1.Controls.Add(this.btnClipBoard);
             this.splitContainer1.Panel1.Controls.Add(this.btnSetScript);
@@ -69,16 +69,36 @@
             this.splitContainer1.SplitterDistance = 593;
             this.splitContainer1.TabIndex = 0;
             // 
-            // tabControl1
+            // tcMain
             // 
-            this.tabControl1.Controls.Add(this.tabGGPlot);
-            this.tabControl1.Controls.Add(this.tabLatticeExtra);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(15, 4);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(573, 545);
-            this.tabControl1.TabIndex = 23;
+            this.tcMain.Controls.Add(this.tabRBase);
+            this.tcMain.Controls.Add(this.tabGGPlot);
+            this.tcMain.Controls.Add(this.tabLatticeExtra);
+            this.tcMain.Location = new System.Drawing.Point(15, 4);
+            this.tcMain.Name = "tcMain";
+            this.tcMain.SelectedIndex = 0;
+            this.tcMain.Size = new System.Drawing.Size(573, 545);
+            this.tcMain.TabIndex = 23;
+            // 
+            // tabRBase
+            // 
+            this.tabRBase.Location = new System.Drawing.Point(4, 22);
+            this.tabRBase.Name = "tabRBase";
+            this.tabRBase.Padding = new System.Windows.Forms.Padding(3);
+            this.tabRBase.Size = new System.Drawing.Size(565, 519);
+            this.tabRBase.TabIndex = 2;
+            this.tabRBase.Text = "R Base";
+            this.tabRBase.UseVisualStyleBackColor = true;
+            // 
+            // tabGGPlot
+            // 
+            this.tabGGPlot.Location = new System.Drawing.Point(4, 22);
+            this.tabGGPlot.Name = "tabGGPlot";
+            this.tabGGPlot.Padding = new System.Windows.Forms.Padding(3);
+            this.tabGGPlot.Size = new System.Drawing.Size(565, 519);
+            this.tabGGPlot.TabIndex = 0;
+            this.tabGGPlot.Text = "GGPLOT2";
+            this.tabGGPlot.UseVisualStyleBackColor = true;
             // 
             // tabLatticeExtra
             // 
@@ -86,7 +106,7 @@
             this.tabLatticeExtra.Location = new System.Drawing.Point(4, 22);
             this.tabLatticeExtra.Name = "tabLatticeExtra";
             this.tabLatticeExtra.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLatticeExtra.Size = new System.Drawing.Size(411, 209);
+            this.tabLatticeExtra.Size = new System.Drawing.Size(565, 519);
             this.tabLatticeExtra.TabIndex = 1;
             this.tabLatticeExtra.Text = "LatticeExtra";
             this.tabLatticeExtra.UseVisualStyleBackColor = true;
@@ -97,18 +117,8 @@
             this.cblLatticeExtra.FormattingEnabled = true;
             this.cblLatticeExtra.Location = new System.Drawing.Point(3, 3);
             this.cblLatticeExtra.Name = "cblLatticeExtra";
-            this.cblLatticeExtra.Size = new System.Drawing.Size(405, 203);
+            this.cblLatticeExtra.Size = new System.Drawing.Size(559, 513);
             this.cblLatticeExtra.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(411, 209);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Basic Settings";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btnRefresh
             // 
@@ -148,16 +158,6 @@
             this.rtbRScript.TabIndex = 0;
             this.rtbRScript.Text = "";
             // 
-            // tabGGPlot
-            // 
-            this.tabGGPlot.Location = new System.Drawing.Point(4, 22);
-            this.tabGGPlot.Name = "tabGGPlot";
-            this.tabGGPlot.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGGPlot.Size = new System.Drawing.Size(565, 519);
-            this.tabGGPlot.TabIndex = 0;
-            this.tabGGPlot.Text = "GGPLOT2";
-            this.tabGGPlot.UseVisualStyleBackColor = true;
-            // 
             // ctlRScripts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,7 +171,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
+            this.tcMain.ResumeLayout(false);
             this.tabLatticeExtra.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -184,11 +184,11 @@
         private System.Windows.Forms.Button btnClipBoard;
         private System.Windows.Forms.Button btnSetScript;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tcMain;
         private System.Windows.Forms.TabPage tabLatticeExtra;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.CheckedListBox cblLatticeExtra;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabGGPlot;
+        private System.Windows.Forms.TabPage tabRBase;
     }
 }

@@ -302,6 +302,12 @@
     <Compile Include="R Scripts\ctlGGPlot.Designer.cs">
       <DependentUpon>ctlGGPlot.cs</DependentUpon>
     </Compile>
+    <Compile Include="R Scripts\ctlRBaseFunctions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="R Scripts\ctlRBaseFunctions.Designer.cs">
+      <DependentUpon>ctlRBaseFunctions.cs</DependentUpon>
+    </Compile>
     <Compile Include="R Scripts\ctlRScripts.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -391,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="R Scripts\ctlGGPlot.resx">
       <DependentUpon>ctlGGPlot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R Scripts\ctlRBaseFunctions.resx">
+      <DependentUpon>ctlRBaseFunctions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="R Scripts\ctlRScripts.resx">
       <DependentUpon>ctlRScripts.cs</DependentUpon>
