@@ -50,7 +50,6 @@ namespace BiologyDepartment
                 _ctlLogin.RaiseLoginEvent += LoginEventHandler;
                 _ctlLogin.Location = new System.Drawing.Point(this.Width / 2 - _ctlLogin.Width / 2, this.Height / 2 - _ctlLogin.Height / 2);
                 this.Controls.Add(tabControlMain);
-                AddTabControls();
                 this.tabControlMain.Hide();
                 this._ctlLogin.BringToFront();
 
@@ -66,6 +65,7 @@ namespace BiologyDepartment
         private void LoginEventHandler(object sender, ValidLoginEventArgs e)
         {
             this.Controls.Remove(_ctlLogin);
+            AddTabControls();
             _ctlExperiments.ChangeExperimentEvent += ExperimentChangesTabsEvents;
             _ctlExperiments.Intialize();
             this.tabControlMain.Show();
@@ -138,10 +138,15 @@ namespace BiologyDepartment
             TabPage _tabPage = tabControlMain.TabPages[e.Index];
             
             // Get the real bounds for the tab rectangle.
+            //tab1 = x=1473,y=76, w=125, h=50
+            //tab2 = x=1473,y=118, w=125, h=50
+            //tab3 = x=1473,y=168, w=125, h=50
+            //tab4 = x=1473,y=222, w=125, h=50
+            //tab5 = x=1473,y=264, w=125, h=50
+            //tab6 = x=1473,y=2, w=125, h=50
             Rectangle _tabBounds = tabControlMain.GetTabRect(e.Index);
             if (e.State == DrawItemState.Selected)
             {
- 
                 // Draw a different background color, and don't paint a focus rectangle.
                 _textBrush = new SolidBrush(Color.Red);
                 g.FillRectangle(Brushes.Gray, e.Bounds);

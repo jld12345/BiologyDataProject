@@ -296,6 +296,12 @@
     </Compile>
     <Compile Include="Misc Files\DataGridImageButton.cs" />
     <Compile Include="Misc Files\DataGridViewColumnType.cs" />
+    <Compile Include="R Scripts\ctlGGPlot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="R Scripts\ctlGGPlot.Designer.cs">
+      <DependentUpon>ctlGGPlot.cs</DependentUpon>
+    </Compile>
     <Compile Include="R Scripts\ctlRScripts.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -352,6 +358,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="R Scripts\GGPlotUtilcs.cs" />
     <Compile Include="R Scripts\RStatistics.cs" />
     <Compile Include="Login\ctlLogIn.cs">
       <SubType>UserControl</SubType>
@@ -381,6 +388,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\ctlLogIn.resx">
       <DependentUpon>ctlLogIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="R Scripts\ctlGGPlot.resx">
+      <DependentUpon>ctlGGPlot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="R Scripts\ctlRScripts.resx">
       <DependentUpon>ctlRScripts.cs</DependentUpon>

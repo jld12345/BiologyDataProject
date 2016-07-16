@@ -53,14 +53,16 @@
             this.tabControlMain.Controls.Add(this.tabRScripts);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tabControlMain.ItemSize = new System.Drawing.Size(50, 125);
+            this.tabControlMain.ItemSize = new System.Drawing.Size(60, 150);
             this.tabControlMain.Location = new System.Drawing.Point(0, 0);
             this.tabControlMain.Multiline = true;
             this.tabControlMain.Name = "tabControlMain";
+            this.tabControlMain.Padding = new System.Drawing.Point(10, 3);
             this.tabControlMain.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabControlMain.RightToLeftLayout = true;
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(971, 474);
+            this.tabControlMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControlMain.TabIndex = 0;
             this.tabControlMain.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControlMain_DrawItem);
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
@@ -74,7 +76,7 @@
             this.tabExperiments.Location = new System.Drawing.Point(4, 4);
             this.tabExperiments.Name = "tabExperiments";
             this.tabExperiments.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExperiments.Size = new System.Drawing.Size(838, 466);
+            this.tabExperiments.Size = new System.Drawing.Size(813, 466);
             this.tabExperiments.TabIndex = 0;
             this.tabExperiments.Text = "Experiments";
             // 
@@ -83,7 +85,7 @@
             this.pnlTabExperiment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTabExperiment.Location = new System.Drawing.Point(3, 3);
             this.pnlTabExperiment.Name = "pnlTabExperiment";
-            this.pnlTabExperiment.Size = new System.Drawing.Size(832, 460);
+            this.pnlTabExperiment.Size = new System.Drawing.Size(807, 460);
             this.pnlTabExperiment.TabIndex = 0;
             // 
             // tabData
@@ -92,7 +94,7 @@
             this.tabData.Location = new System.Drawing.Point(4, 4);
             this.tabData.Name = "tabData";
             this.tabData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabData.Size = new System.Drawing.Size(838, 466);
+            this.tabData.Size = new System.Drawing.Size(813, 466);
             this.tabData.TabIndex = 1;
             this.tabData.Text = "Data";
             // 
@@ -102,7 +104,7 @@
             this.tabAuthors.Location = new System.Drawing.Point(4, 4);
             this.tabAuthors.Name = "tabAuthors";
             this.tabAuthors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAuthors.Size = new System.Drawing.Size(838, 466);
+            this.tabAuthors.Size = new System.Drawing.Size(813, 466);
             this.tabAuthors.TabIndex = 2;
             this.tabAuthors.Text = "Authors";
             // 
@@ -113,7 +115,7 @@
             this.tabR.Location = new System.Drawing.Point(4, 4);
             this.tabR.Name = "tabR";
             this.tabR.Padding = new System.Windows.Forms.Padding(3);
-            this.tabR.Size = new System.Drawing.Size(838, 466);
+            this.tabR.Size = new System.Drawing.Size(813, 466);
             this.tabR.TabIndex = 3;
             this.tabR.Text = "R Studio";
             // 
@@ -122,7 +124,7 @@
             this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBrowser.Location = new System.Drawing.Point(3, 3);
             this.pnlBrowser.Name = "pnlBrowser";
-            this.pnlBrowser.Size = new System.Drawing.Size(832, 460);
+            this.pnlBrowser.Size = new System.Drawing.Size(807, 460);
             this.pnlBrowser.TabIndex = 2;
             // 
             // tabSetup
@@ -131,7 +133,7 @@
             this.tabSetup.Location = new System.Drawing.Point(4, 4);
             this.tabSetup.Name = "tabSetup";
             this.tabSetup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSetup.Size = new System.Drawing.Size(838, 466);
+            this.tabSetup.Size = new System.Drawing.Size(813, 466);
             this.tabSetup.TabIndex = 4;
             this.tabSetup.Text = "Setup";
             // 
@@ -140,7 +142,7 @@
             this.tabRScripts.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.tabRScripts.Location = new System.Drawing.Point(4, 4);
             this.tabRScripts.Name = "tabRScripts";
-            this.tabRScripts.Size = new System.Drawing.Size(838, 466);
+            this.tabRScripts.Size = new System.Drawing.Size(813, 466);
             this.tabRScripts.TabIndex = 5;
             this.tabRScripts.Text = "R Scripts";
             // 
