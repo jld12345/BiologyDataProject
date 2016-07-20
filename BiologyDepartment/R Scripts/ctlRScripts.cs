@@ -54,7 +54,7 @@ namespace BiologyDepartment
 
         private void btnSetScript_Click(object sender, EventArgs e)
         {
-            Assembly thisExe = Assembly.GetExecutingAssembly();
+            /*Assembly thisExe = Assembly.GetExecutingAssembly();
             using (Stream stream = thisExe.GetManifestResourceStream("BiologyDepartment.R_Scripts.RBaseScript.txt"))
             {
                 using (var reader = new StreamReader(stream))
@@ -62,9 +62,9 @@ namespace BiologyDepartment
                     rtbRScript.Text = reader.ReadToEnd();
                 }
             }
-            rtbRScript.Text += ggPlot.GetRScript();
-            
-            
+            rtbRScript.Text += ggPlot.GetRScript();*/
+            rBaseItems.BuildStringSection();
+            rtbRScript.Text = rBaseItems.sbBase.ToString();  
         }
 
         private void PopulateForLatticeExtra()

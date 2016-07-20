@@ -24,6 +24,7 @@ namespace BiologyDepartment
         private bool bEdit = false;
         private bool bDelete = false;
         private bool bIsNew = false;
+        private bool bSave = false;
         private Experiments exp = new Experiments();
         private Experiments oldExp = new Experiments();
         private List<DataGridView> lstDGV = new List<DataGridView>();
@@ -108,7 +109,7 @@ namespace BiologyDepartment
             exp.Hypo = rtxtHypo.Text;
             if (cmbParentEx.SelectedValue != null)
                 exp.ParentEx = Convert.ToInt32(cmbParentEx.SelectedValue.ToString());
-            if (bIsNew)
+            if (bIsNew && bSave)
                 exp.ID = 0;
             else if(!string.IsNullOrEmpty(txtExID.Text))
                 exp.ID = Convert.ToInt32(txtExID.Text);
@@ -283,7 +284,7 @@ namespace BiologyDepartment
                         break;
                 }
             }
-
+            bSave = true;
             SetExperiment();
 
             if (bEdit || exp.ID > 0)
@@ -357,6 +358,8 @@ namespace BiologyDepartment
             enableListBox();
             bEdit = false;
             bDelete = false;
+            bIsNew = false;
+            bSave = false;
 
             //SetExperiment();
             foreach (var grid in lstDGV)
@@ -498,6 +501,11 @@ namespace BiologyDepartment
             }
 
             lstDGV[Convert.ToInt32(grid.Name)].Rows[e.RowIndex].Selected = true;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
         }
     }
     

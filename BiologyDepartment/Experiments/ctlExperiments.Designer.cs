@@ -54,6 +54,7 @@
             this.lblSName = new System.Windows.Forms.Label();
             this.lblOfficalName = new System.Windows.Forms.Label();
             this.dgExperiments = new System.Windows.Forms.DataGridView();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -107,6 +108,7 @@
             // 
             // gbExperiment
             // 
+            this.gbExperiment.Controls.Add(this.btnCancel);
             this.gbExperiment.Controls.Add(this.btnPermissions);
             this.gbExperiment.Controls.Add(this.btnDelete);
             this.gbExperiment.Controls.Add(this.btnEdit);
@@ -349,6 +351,18 @@
             this.dgExperiments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExperiments_CellContentClick);
             this.dgExperiments.SelectionChanged += new System.EventHandler(this.dgExperiments_SelectionChanged);
             // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Location = new System.Drawing.Point(6, 126);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(148, 44);
+            this.btnCancel.TabIndex = 16;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // ctlExperiments
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -400,5 +414,6 @@
         private System.Windows.Forms.Label lblParentEx;
         private System.Windows.Forms.TextBox txtExID;
         private System.Windows.Forms.DataGridView dgExperiments;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
