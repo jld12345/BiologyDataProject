@@ -30,7 +30,6 @@ namespace BiologyDepartment
         ctlAuthors _ctlAuthors;
         ctlRScripts _ctlRScripts;
         ctlSetup _ctlSetup;
-        private int EX_ID = 0;
         private bool bDataControlDirty = true;
         private bool bAuthorControlDirty = true;
         private bool bSetupControlDirty = true;
@@ -81,6 +80,7 @@ namespace BiologyDepartment
                     case "tabExperiments":
                         _ctlExperiments = new ctlExperiments();
                         _ctlExperiments.Parent = tabExperiments;
+                        _ctlExperiments.ChangeExperimentEvent += _ctlExperiments_ChangeExperimentEvent;
                         pnlTabExperiment.Controls.Add(_ctlExperiments);
                         _ctlExperiments.Dock = DockStyle.Fill;
                         break;
@@ -119,14 +119,20 @@ namespace BiologyDepartment
             }
         }
 
+        private void _ctlExperiments_ChangeExperimentEvent(object sender, ExperimentHasChanged e)
+        {
+            bDataControlDirty = true;
+            bAuthorControlDirty = true;
+        }
+
         private void ExperimentChangesTabsEvents(object sender, ExperimentHasChanged e)
         {
-            if (EX_ID != e.ID)
+            /*if (EX_ID != e.ID)
             {
                 EX_ID = e.ID;
                 bDataControlDirty = true;
                 bAuthorControlDirty = true;
-            }
+            }*/
         }
 
         private void tabControlMain_DrawItem(object sender, DrawItemEventArgs e)
@@ -201,7 +207,7 @@ namespace BiologyDepartment
             public void LoadData()
             {
                 tabControlMain.TabPages["tabData"].Controls.Remove(_ctlAnimalData);
-                _ctlAnimalData.Initialize(EX_ID);
+                _ctlAnimalData.Initialize(GlobalVariables.Experiment.ID);
                 tabControlMain.TabPages["tabData"].Controls.Add(_ctlAnimalData);
             }
 
@@ -242,13 +248,6 @@ namespace BiologyDepartment
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (Process p in Process.GetProcesses())
-            {
-                if (p.ProcessName.ToUpper().Contains("RSTUDIO"))
-                {
-                    p.Kill();
-                }
-            } 
         }
 
     }

@@ -37,6 +37,9 @@ namespace BiologyDepartment
             [ToolTip("Select DLLs to load if the rCLR package is selected.  The defaualt is to select all.")]
             [Description("Include .NET DLLs")]
             DLLs,
+            [ToolTip("If checked get the data as it is currently filtered, otherwise the raw data will be loaded.")]
+            [Description("Get Filtered Data")]
+            FilteredData,
             [ToolTip("Saves the XML document if created.  The document will be saved to My Documents.")]
             [Description("Save XML Document")]
             XML,
@@ -212,22 +215,20 @@ namespace BiologyDepartment
                         bInstallLibraries = true;
                         break;
                     case "Libraries":
+                        sb.AppendLine("###Libraries to install");
                         foreach(TreeNode child in node.Nodes)
                         {
-                            sb.AppendLine("###Libraries to install");
                             if (!child.Checked)
                                 continue;
                             if (bInstallLibraries)
                             {
-                                sb.AppendLine(@"if (!require(package, character.only=T, quietly=T)) 
-                                                {
-                                                install.packages(" + child.Name + @")
-                                                 library(" + child.Name + @", character.only=T)
-                                                }");
+                                sb.AppendLine(@"if (!require(""" + child.Name + @""", character.only=T, quietly=T)){");
+                                sb.AppendLine(@"install.packages(""" + child.Name + @""")");
+                                sb.AppendLine(@"library(""" + child.Name + @""", character.only=T)}");
                                 sb.AppendLine();
                             }
                             else
-                                sb.AppendLine("library(" + child.Name + ", character.only = T)");
+                                sb.AppendLine(@"library(""" + child.Name + @""", character.only = T)");
                         }
                         break;
                     case "DLLs":
@@ -238,7 +239,28 @@ namespace BiologyDepartment
                                 continue;
                             sb.AppendLine();
                             sb.AppendLine(@"clrLoadAssembly('C:\\BiologyDataProject.git\\trunk\\BiologyDepartment\\DLL Files\\" + sibling.Name + ".dll')");
+                            if (sibling.Name.Equals("ActiveDirectoryClass"))
+                            {
+                                sb.AppendLine("###Validates the ActiveDirectory user and gets the postgres database username and password");
+                                sb.AppendLine("activeDirectory <- clrNew('ActiveDirectory.daoActiveDirectory')");                            
+                                sb.AppendLine("clrCall(activeDirectory, 'ValidateCredentials', '" + GlobalVariables.ADUserName + "', '" + GlobalVariables.ADPass + "')");
+                                sb.AppendLine("dbUser <- clrGet(activeDirectory, 'DBUser')");
+                                sb.AppendLine("dbPass <- clrGet(activeDirectory, 'DBPass')");
+                            }
+                            else if(sibling.Name.Equals("RClass"))
+                            {
+                                sb.AppendLine("###Gets the Data for the dataframe");
+                                sb.AppendLine("rUtil <- clrNew('RClass.RClassUtil')");
+                                sb.AppendLine("clrSet(rUtil, 'DBPass', clrGet(activeDirectory, 'DBPass'))");
+                                sb.AppendLine("clrSet(rUtil, 'DBUser', clrGet(activeDirectory, 'DBUser'))");
+                                sb.AppendLine("clrSet(rUtil, 'ADUserName', clrGet(activeDirectory, 'ADUserName'))");
+                                sb.AppendLine("clrSet(rUtil, 'ADPass', clrGet(activeDirectory, 'ADPass'))");
+                                sb.AppendLine("clrSet(rUtil, 'ADUserGroup', clrGet(activeDirectory, 'ADUserGroup'))");
+                                sb.AppendLine("clrCall(rUtil, 'SetDao')");
+                            }
+
                         }
+
                         break;
                     case "XML":
                         sb.AppendLine("###XML file location");
@@ -248,6 +270,20 @@ namespace BiologyDepartment
                         break;
                     case "Plot":
                         sb.AppendLine("###Basic plots to run");
+                        break;
+                    case "FilteredData":
+                        sb.AppendLine("###Get the data.");
+                        sb.AppendLine("dtExperiments <- clrCall(rUtil, 'GetExperiments', clrGet(activeDirectory, 'ADUserName'))");
+                        sb.AppendLine("xmlDoc <- clrCall(rUtil, 'GetXMLDoc', dtExperiments)");
+                        sb.AppendLine("df <- clrGet(xmlDoc, 'OuterXml')");
+                        sb.AppendLine("doc = xmlToDataFrame(xmlParseString(df))");
+                        sb.AppendLine("exID <- as.integer('1')");
+                        sb.AppendLine("sFilter <- ''");
+                        sb.AppendLine("dtData <- clrCall(rUtil, 'GetData', exID, '')");
+                        sb.AppendLine("rowCount <- clrCall(rUtil, 'RowCount', dtData )");
+                        sb.AppendLine("xmlDoc <- clrCall(rUtil, 'GetXMLDoc', dtData)");
+                        sb.AppendLine("df <- clrGet(xmlDoc, 'OuterXml')");
+                        sb.AppendLine("theData <- xmlToDataFrame(xmlParseString(df))");
                         break;
                 }
 

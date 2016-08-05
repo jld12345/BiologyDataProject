@@ -106,6 +106,28 @@ namespace BiologyDepartment.Data
                 colPosition++;
             }
 
+            /*if(!dtAnimals.Columns.Contains("EDIT"))
+            {
+                DataColumn newCol = new DataColumn();
+                newCol.ColumnName = "EDIT";
+                newCol.DataType = System.Type.GetType("System.String");
+                newCol.Caption = "EDIT";
+                dtAnimals.Columns.Add(newCol);
+                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
+                colPosition++;
+            }
+
+            if (!dtAnimals.Columns.Contains("DELETE"))
+            {
+                DataColumn newCol = new DataColumn();
+                newCol.ColumnName = "DELETE";
+                newCol.DataType = System.Type.GetType("System.String");
+                newCol.Caption = "DELETE";
+                dtAnimals.Columns.Add(newCol);
+                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
+                colPosition++;
+            }*/
+
             foreach (AnimalData animal in animalAgg)
             {
                 DataRow row = dtAnimals.NewRow();
@@ -139,6 +161,9 @@ namespace BiologyDepartment.Data
                 row["1"] = animal.Picture;
                 dtAnimals.Rows.Add(row);
             }
+            DataColumn[] keys = new DataColumn[1];
+            keys[0] = dtAnimals.Columns["DataID"];
+            dtAnimals.PrimaryKey = keys;
             dtAnimals.AcceptChanges();
             
             sw.Stop();

@@ -73,9 +73,10 @@ namespace BiologyDepartment
                 btnEdit.Width = 50;
                 btnEdit.DefaultCellStyle.ForeColor = Color.Red;
                 btnEdit.Image = GlobalVariables.Images.Images["Expand"];
+                btnEdit.DataPropertyName = "EDIT";
                 dgExData.Columns.Insert(0, btnEdit);
-                dgExData.Columns["EDIT"].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dgExData.DisableFilter(dgExData.Columns["EDIT"]);
+                dgExData.Columns["EDIT"].SortMode = DataGridViewColumnSortMode.Automatic;
+                //dgExData.DisableFilter(dgExData.Columns["EDIT"]);
             }
 
             if (!dgExData.Columns.Contains("DELETE"))
@@ -86,9 +87,10 @@ namespace BiologyDepartment
                 btnDel.Width = 50;
                 btnDel.DefaultCellStyle.ForeColor = Color.Red;
                 btnDel.Image = GlobalVariables.Images.Images["Toggle"];
+                btnDel.DataPropertyName = "DELETE";
                 dgExData.Columns.Insert(1, btnDel);
                 dgExData.Columns["DELETE"].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dgExData.DisableFilter(dgExData.Columns["DELETE"]);
+                //dgExData.DisableFilter(dgExData.Columns["DELETE"]);
             }
 
             if (!dgExData.Columns.Contains("EXCLUDE"))
@@ -99,6 +101,7 @@ namespace BiologyDepartment
                 chkExclude.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                 chkExclude.FlatStyle = FlatStyle.Standard;
                 chkExclude.ThreeState = false;
+                chkExclude.DataPropertyName = "EXCLUDE";
                 dgExData.Columns.Insert(2, chkExclude);
                 dgExData.Columns["EXCLUDE"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dgExData.DisableFilter(dgExData.Columns["EXCLUDE"]);  
@@ -110,6 +113,7 @@ namespace BiologyDepartment
             foreach(DataColumn col in dtAnimals.Columns)
             {
                 dgExData.Columns[col.ColumnName].HeaderText = col.Caption;
+                dgExData.Columns[col.ColumnName].DisplayIndex = Convert.ToInt32(col.ColumnName);
             }
 
             this.searchToolBar.SetColumns(dgExData.Columns);
@@ -119,6 +123,7 @@ namespace BiologyDepartment
                 _dataUtil.CheckExcludeState(dgvr.Index, bIsInitialize, ref dgExData);
             }
 
+            dgExData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtAnimals.AcceptChanges();
         }     
 
@@ -177,11 +182,16 @@ namespace BiologyDepartment
 
         private void EditRow()
         {
-            int selectedrowindex = dgExData.SelectedCells[0].RowIndex;
+            string selectedrowindex = Convert.ToString(dgExData.SelectedRows[0].Cells["DataID"].Value);
+            var dtRow = dtAnimals.Rows
+                              .Cast<DataRow>()
+                              .Where(x => x["DataID"].ToString().Equals(selectedrowindex)).ToList();
+            DataRow row = dtAnimals.Rows.Find(dtRow[0]["DataID"]);
             DataRow newRow = dtAnimals.NewRow();
+            int rowindex = dtAnimals.Rows.IndexOf(row);
             foreach (DataColumn col in dtAnimals.Columns)
             {
-                newRow[col.ColumnName] = dtAnimals.Rows[selectedrowindex][col.ColumnName];
+                newRow[col.ColumnName] = dtRow[0][col.ColumnName];
             }
             using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(ref newRow))
             {
@@ -191,11 +201,11 @@ namespace BiologyDepartment
                 if (dtReturn == null)
                     return;
 
-                foreach(DataRow row in dtReturn.Rows)
+                foreach(DataRow dr in dtReturn.Rows)
                 {
                     foreach (DataColumn col in dtAnimals.Columns)
                     {
-                        dtAnimals.Rows[selectedrowindex][col.ColumnName] = row[col.ColumnName];
+                        dtAnimals.Rows[rowindex][col.ColumnName] = dtAnimals.Rows[rowindex][col.ColumnName];
                     }
                 }
             }

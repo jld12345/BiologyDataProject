@@ -61,8 +61,10 @@
             this.dgExData.DateWithTime = false;
             this.dgExData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgExData.Location = new System.Drawing.Point(0, 0);
+            this.dgExData.MultiSelect = false;
             this.dgExData.Name = "dgExData";
             this.dgExData.ReadOnly = true;
+            this.dgExData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgExData.Size = new System.Drawing.Size(994, 518);
             this.dgExData.TabIndex = 26;
             this.dgExData.TimeFilter = false;
