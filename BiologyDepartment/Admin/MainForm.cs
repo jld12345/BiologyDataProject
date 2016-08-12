@@ -65,7 +65,6 @@ namespace BiologyDepartment
         {
             this.Controls.Remove(_ctlLogin);
             AddTabControls();
-            _ctlExperiments.ChangeExperimentEvent += ExperimentChangesTabsEvents;
             _ctlExperiments.Intialize();
             this.tabControlMain.Show();
             _ctlLogin.RaiseLoginEvent -= LoginEventHandler;
@@ -123,16 +122,6 @@ namespace BiologyDepartment
         {
             bDataControlDirty = true;
             bAuthorControlDirty = true;
-        }
-
-        private void ExperimentChangesTabsEvents(object sender, ExperimentHasChanged e)
-        {
-            /*if (EX_ID != e.ID)
-            {
-                EX_ID = e.ID;
-                bDataControlDirty = true;
-                bAuthorControlDirty = true;
-            }*/
         }
 
         private void tabControlMain_DrawItem(object sender, DrawItemEventArgs e)
@@ -206,9 +195,8 @@ namespace BiologyDepartment
 
             public void LoadData()
             {
-                tabControlMain.TabPages["tabData"].Controls.Remove(_ctlAnimalData);
                 _ctlAnimalData.Initialize(GlobalVariables.Experiment.ID);
-                tabControlMain.TabPages["tabData"].Controls.Add(_ctlAnimalData);
+                //tabControlMain.TabPages["tabData"].Controls.Add(_ctlAnimalData);
             }
 
             public void LoadAuthors()

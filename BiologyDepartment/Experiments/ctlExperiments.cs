@@ -507,6 +507,11 @@ namespace BiologyDepartment
         {
 
         }
+
+        public void ClearAll()
+        {
+           
+        }
     }
     
 

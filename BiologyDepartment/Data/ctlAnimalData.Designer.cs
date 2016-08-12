@@ -40,6 +40,7 @@
             this.btnClearFilter = new System.Windows.Forms.ToolStripButton();
             this.btnClearSort = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
+            this.btnJSON = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -116,7 +117,8 @@
             this.btnSearch,
             this.btnClearFilter,
             this.btnClearSort,
-            this.btnSave});
+            this.btnSave,
+            this.btnJSON});
             this.tsButtonStrip.Location = new System.Drawing.Point(0, 0);
             this.tsButtonStrip.Name = "tsButtonStrip";
             this.tsButtonStrip.Padding = new System.Windows.Forms.Padding(0, 0, 1, 5);
@@ -126,7 +128,6 @@
             // btnAdd
             // 
             this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
             this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(59, 19);
@@ -182,6 +183,16 @@
             this.btnSave.Size = new System.Drawing.Size(84, 19);
             this.btnSave.Text = "Save Changes";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnJSON
+            // 
+            this.btnJSON.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnJSON.Image = ((System.Drawing.Image)(resources.GetObject("btnJSON.Image")));
+            this.btnJSON.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnJSON.Name = "btnJSON";
+            this.btnJSON.Size = new System.Drawing.Size(76, 19);
+            this.btnJSON.Text = "Create JSON";
+            this.btnJSON.Click += new System.EventHandler(this.btnJSON_Click);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -242,5 +253,6 @@
         private System.Windows.Forms.ToolStripButton btnClearFilter;
         private System.Windows.Forms.ToolStripButton btnClearSort;
         private System.Windows.Forms.ToolStripButton btnSave;
+        private System.Windows.Forms.ToolStripButton btnJSON;
     }
 }

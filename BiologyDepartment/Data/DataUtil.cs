@@ -89,7 +89,7 @@ namespace BiologyDepartment.Data
                 DataColumn newCol = new DataColumn();
                 newCol.ColumnName = "DataID";
                 newCol.DataType = System.Type.GetType("System.Int32");
-                newCol.Caption = "Row ID";
+                newCol.Caption = "RowID";
                 dtAnimals.Columns.Add(newCol);
                 dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
                 colPosition++;

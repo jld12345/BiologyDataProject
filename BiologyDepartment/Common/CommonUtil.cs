@@ -12,6 +12,7 @@ using Excel;
 using System.IO;
 using BiologyDepartment.Misc_Files;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace BiologyDepartment.Common
 {
@@ -223,6 +224,45 @@ namespace BiologyDepartment.Common
             {
                 throw;
             }
+        }
+
+        public string SerializeTableToJson(DataTable theTable)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                theTable.Columns.Remove("DATA PICTURE");
+                
+                ds.Tables.Add(theTable);
+                ds.AcceptChanges();
+
+                string sJson = JsonConvert.SerializeObject(ds, Formatting.Indented);
+                string sWriter = "";
+                using(System.IO.StringWriter writer = new System.IO.StringWriter())
+                {
+                    theTable.WriteXml(writer,false);
+                    sWriter = Convert.ToString(writer);
+                    
+                }
+                _daoData.InsertJson(sJson, sWriter);        
+                return sJson;
+            }
+            catch(Exception e)
+            {
+                return "Could not parse to JSON.";
+            }
+        }
+
+
+
+        public DataTable DeSerializeJsonToDataTable()
+        {
+            string sJson = _daoData.RetrieveJson();
+            DataSet data = JsonConvert.DeserializeObject<DataSet>(sJson);
+            if (data != null && data.Tables[0] != null)
+                return data.Tables[0];
+            else
+                return null;
         }
     }
 }

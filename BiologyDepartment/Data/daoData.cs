@@ -212,5 +212,15 @@ namespace BiologyDepartment
             return adapter;
         }
 
+
+        public void InsertJson(string sJson, string theXML)
+        {
+            GlobalVariables.GlobalConnection.BulkInsertJSON(sJson, theXML);
+        }
+
+        public string RetrieveJson()
+        {
+            return GlobalVariables.GlobalConnection.BulkExportJSON();
+        }
     }
 }

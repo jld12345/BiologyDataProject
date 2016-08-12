@@ -261,6 +261,26 @@ namespace BiologyDepartment
             
         }
 
+        public void BulkInsertJSON(string sJson, string theXML)
+        {
+            if (GlobalVariables.Connection != null)
+                GlobalVariables.Connection.Close();
+            NpgsqlConnection con = GlobalVariables.Connection;
+            using (var writer = con.BeginBinaryImport
+                (@"COPY JSON_EXPERIMENTS
+                    (EX_ID, JSON_DATA, JSONB_DATA, EX_XML, EX_DATA) 
+                     FROM STDIN (FORMAT BINARY)"))
+            {
+                    writer.StartRow();
+                    writer.Write(GlobalVariables.Experiment.ID, NpgsqlDbType.Integer);
+                    writer.Write(sJson, NpgsqlDbType.Json);
+                    writer.Write(sJson, NpgsqlDbType.Jsonb);
+                    writer.Write(theXML, NpgsqlDbType.Xml);
+                    writer.Write(theXML, NpgsqlDbType.Text);
+            }
+
+        }
+
         public List<AnimalData> BulkExportData()
         {
             AnimalData animal;
@@ -327,6 +347,28 @@ namespace BiologyDepartment
                 colAgg.Add(col);
             }
             return colAgg;
+        }
+
+        public string BulkExportJSON()
+        {
+            string sJson = "";
+            if (GlobalVariables.Connection != null)
+                GlobalVariables.Connection.Close();
+            NpgsqlConnection con = GlobalVariables.Connection;
+            using (var reader = con.BeginBinaryExport
+                (@"COPY (SELECT je.json_data
+                         FROM json_experiments je
+                         WHERE je.EX_ID = " + GlobalVariables.Experiment.ID + @"
+                        order by json_id desc
+                        limit 1) 
+                        TO STDOUT (FORMAT BINARY)"))
+            {
+                while (reader.StartRow() != -1)
+                {
+                    sJson = reader.Read<string>(NpgsqlDbType.Json);
+                }
+            }
+            return sJson;
         }
     }
 }

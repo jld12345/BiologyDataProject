@@ -59,6 +59,9 @@ namespace BiologyDepartment
 
         private void SetGrid()
         {
+            _bindingSource = new BindingSource();
+            dtAnimals.Clear();
+            dgExData.DataSource = null;
             _bindingSource.ListChanged -= new ListChangedEventHandler(bindingSource_ListChanged);
             _bindingSource.ListChanged += new ListChangedEventHandler(bindingSource_ListChanged);
             dtAnimals = _dataUtil.GetData();
@@ -110,10 +113,12 @@ namespace BiologyDepartment
             dgExData.Columns["EXCLUDE"].Visible = true;
             dgExData.Columns["ExcludeRow"].Visible = false;
 
+            int nDisplay = 3;
             foreach(DataColumn col in dtAnimals.Columns)
             {
                 dgExData.Columns[col.ColumnName].HeaderText = col.Caption;
-                dgExData.Columns[col.ColumnName].DisplayIndex = Convert.ToInt32(col.ColumnName);
+                dgExData.Columns[col.ColumnName].DisplayIndex = nDisplay;
+                nDisplay++;
             }
 
             this.searchToolBar.SetColumns(dgExData.Columns);
@@ -409,6 +414,20 @@ namespace BiologyDepartment
 
             dtAnimals.AcceptChanges();
         }
+
+        private void btnJSON_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (_bindingSource.DataSource as DataTable).Copy();
+            foreach(DataColumn col in dtAnimals.Columns)
+            {
+                dt.Columns[col.ColumnName].ColumnName = col.Caption;
+            }
+            dt.TableName = "";
+            string sJson =_commonUtil.SerializeTableToJson(dt);
+            dt = _commonUtil.DeSerializeJsonToDataTable();
+
+        }
+
     }
 
     public class CloseCtlAnimalData : EventArgs
