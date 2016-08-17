@@ -101,6 +101,15 @@ namespace BiologyDepartment
         public void Initialize()
         {
             PopulateForGGPlot();
+
+            if(GlobalVariables.CustomColumns == null)
+                GlobalVariables.CustomColumns = GlobalVariables.GlobalConnection.GetColumns();
+
+            foreach(CustomColumns col in GlobalVariables.CustomColumns)
+            {
+                cmbXAxisData.Items.Add(col.ColName);
+                cmbYAxisData.Items.Add(col.ColName);
+            }
         }
 
         public string GetRScript()
@@ -109,31 +118,28 @@ namespace BiologyDepartment
             string sXData = "";
             string sYData = "";
             string sFactor = "";
-            ggScript.AppendLine("library(ggplot2)");
 
             if (cmbXAxisData.Text != null)
                 sXData = cmbXAxisData.Text;
             if (cmbYAxisData.Text != null)
                 sYData = cmbYAxisData.Text;
             if (cmbGroupData.Text != null)
-                sFactor = ", \"" + cmbGroupData.Text + "\"";
+                sFactor = cmbGroupData.Text;
 
-            ggScript.AppendLine("theSummary <- summarySE(dframe, measurevar = \"" + sYData + "\", groupvars = c(\"" + sXData + "\"" +
-                                sFactor + "), TRUE)");
-
-            if (txtGraphOrder.Text != "")
-            {
-                ggScript.AppendLine("theSummary$" + sXData + " <- factor(theSummary$" + sXData + ", levels = c(" + txtGraphOrder + "))");
-            }
-            ggScript.AppendLine("theSummary");
+            ggScript.AppendLine("###Adding ggplot scripts");
 
             foreach (TreeNode node in tvGGPlot2.Nodes)
             {
+                string script = "";
                 if (node.Checked)
                 {
-                    ggScript.AppendLine(@"p1 <- ggplot(aes(y = " + sYData + ", x = factor(" + sXData + ")" + sFactor + @"
-                            ymin = errMin, ymax = errMax), data = dframe)");
-
+                    script = @"p1 <- ggplot(data = theData, aes(y = " + sYData + ", x = factor(" + sXData + ")" ;
+                    if(!string.IsNullOrEmpty(sFactor))
+                    {
+                        script += ", \" +  " + sFactor  + "\"";
+                    }
+                    script += "))";
+                    ggScript.AppendLine(script);
                     switch (node.Name)
                     {
                         case "Bar":
@@ -243,7 +249,7 @@ namespace BiologyDepartment
                             sGeom.AppendLine(@"p1 <- ggplot(aes(y = median, x = factor(" + sXData + "), ymin = errMin, ymax = errMax" + sFill + "), data = theSummary)");
                             break;
                     }
-                    sGeom.AppendLine(@"p1 <- p1 + geom_bar(stat = ""identity""" + sPosition + ") " + Environment.NewLine + sError + sSmooth + sColor + sText);
+                   sGeom.AppendLine(@"p1 <- p1 + geom_bar(stat = ""identity""" + sPosition + ") " + Environment.NewLine + sError + sSmooth + sColor + sText);
                 }
             }
             return sGeom.ToString();
@@ -447,6 +453,11 @@ namespace BiologyDepartment
         }
 
         private void tvGGPlot2_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void cmbXAxisData_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

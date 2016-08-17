@@ -28,157 +28,353 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControlMain = new System.Windows.Forms.TabControl();
-            this.tabExperiments = new System.Windows.Forms.TabPage();
-            this.pnlTabExperiment = new System.Windows.Forms.Panel();
-            this.tabData = new System.Windows.Forms.TabPage();
-            this.tabAuthors = new System.Windows.Forms.TabPage();
-            this.tabR = new System.Windows.Forms.TabPage();
-            this.pnlBrowser = new System.Windows.Forms.Panel();
-            this.tabSetup = new System.Windows.Forms.TabPage();
-            this.tabRScripts = new System.Windows.Forms.TabPage();
-            this.tabControlMain.SuspendLayout();
-            this.tabExperiments.SuspendLayout();
-            this.tabR.SuspendLayout();
+            this.components = new System.ComponentModel.Container();
+            Gnostice.Documents.FormatterSettings formatterSettings1 = new Gnostice.Documents.FormatterSettings();
+            Gnostice.Documents.TXTFormatterSettings txtFormatterSettings1 = new Gnostice.Documents.TXTFormatterSettings();
+            Gnostice.Documents.PageSettings pageSettings1 = new Gnostice.Documents.PageSettings();
+            Gnostice.Documents.Margins margins1 = new Gnostice.Documents.Margins();
+            Gnostice.Graphics.RenderingSettings renderingSettings1 = new Gnostice.Graphics.RenderingSettings();
+            Gnostice.Graphics.ImageRenderingSettings imageRenderingSettings1 = new Gnostice.Graphics.ImageRenderingSettings();
+            Gnostice.Graphics.LineArtRenderingSettings lineArtRenderingSettings1 = new Gnostice.Graphics.LineArtRenderingSettings();
+            Gnostice.Graphics.ResolutionSettings resolutionSettings1 = new Gnostice.Graphics.ResolutionSettings();
+            Gnostice.Graphics.TextRenderingSettings textRenderingSettings1 = new Gnostice.Graphics.TextRenderingSettings();
+            this.tabControlMain2 = new Syncfusion.Windows.Forms.Tools.TabControlAdv();
+            this.tpExperiments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.tpDocuments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.spcDocuments = new Syncfusion.Windows.Forms.Tools.SplitContainerAdv();
+            this.documentExplorer1 = new Syncfusion.Windows.Forms.Diagram.Controls.DocumentExplorer();
+            this.docViewer = new Gnostice.Documents.Controls.WinForms.DocumentViewer();
+            this.tpData = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.tpSetup = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.tpRScripts = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.tpRStudio = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.spcMainControl = new Syncfusion.Windows.Forms.Tools.SplitContainerAdv();
+            this.btnExit = new Syncfusion.Windows.Forms.ButtonAdv();
+            this.btnRefresh2 = new Syncfusion.Windows.Forms.ButtonAdv();
+            this.toolStripTabItem2 = new Syncfusion.Windows.Forms.Tools.ToolStripTabItem();
+            ((System.ComponentModel.ISupportInitialize)(this.tabControlMain2)).BeginInit();
+            this.tabControlMain2.SuspendLayout();
+            this.tpDocuments.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spcDocuments)).BeginInit();
+            this.spcDocuments.Panel1.SuspendLayout();
+            this.spcDocuments.Panel2.SuspendLayout();
+            this.spcDocuments.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spcMainControl)).BeginInit();
+            this.spcMainControl.Panel1.SuspendLayout();
+            this.spcMainControl.Panel2.SuspendLayout();
+            this.spcMainControl.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControlMain
+            // tabControlMain2
             // 
-            this.tabControlMain.Alignment = System.Windows.Forms.TabAlignment.Right;
-            this.tabControlMain.Controls.Add(this.tabExperiments);
-            this.tabControlMain.Controls.Add(this.tabData);
-            this.tabControlMain.Controls.Add(this.tabAuthors);
-            this.tabControlMain.Controls.Add(this.tabR);
-            this.tabControlMain.Controls.Add(this.tabSetup);
-            this.tabControlMain.Controls.Add(this.tabRScripts);
-            this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tabControlMain.ItemSize = new System.Drawing.Size(60, 150);
-            this.tabControlMain.Location = new System.Drawing.Point(0, 0);
-            this.tabControlMain.Multiline = true;
-            this.tabControlMain.Name = "tabControlMain";
-            this.tabControlMain.Padding = new System.Drawing.Point(10, 3);
-            this.tabControlMain.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabControlMain.RightToLeftLayout = true;
-            this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(971, 474);
-            this.tabControlMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabControlMain.TabIndex = 0;
-            this.tabControlMain.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControlMain_DrawItem);
-            this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
+            this.tabControlMain2.Alignment = System.Windows.Forms.TabAlignment.Right;
+            this.tabControlMain2.BeforeTouchSize = new System.Drawing.Size(971, 385);
+            this.tabControlMain2.CloseButtonForeColor = System.Drawing.Color.Empty;
+            this.tabControlMain2.CloseButtonHoverForeColor = System.Drawing.Color.Empty;
+            this.tabControlMain2.CloseButtonPressedForeColor = System.Drawing.Color.Empty;
+            this.tabControlMain2.Controls.Add(this.tpExperiments);
+            this.tabControlMain2.Controls.Add(this.tpDocuments);
+            this.tabControlMain2.Controls.Add(this.tpData);
+            this.tabControlMain2.Controls.Add(this.tpSetup);
+            this.tabControlMain2.Controls.Add(this.tpRScripts);
+            this.tabControlMain2.Controls.Add(this.tpRStudio);
+            this.tabControlMain2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlMain2.ItemSize = new System.Drawing.Size(150, 150);
+            this.tabControlMain2.Location = new System.Drawing.Point(0, 0);
+            this.tabControlMain2.Multiline = true;
+            this.tabControlMain2.MultilineText = true;
+            this.tabControlMain2.Name = "tabControlMain2";
+            this.tabControlMain2.RotateTextWhenVertical = true;
+            this.tabControlMain2.Size = new System.Drawing.Size(971, 385);
+            this.tabControlMain2.TabIndex = 0;
+            this.tabControlMain2.TabStyle = typeof(Syncfusion.Windows.Forms.Tools.TabRendererIE7);
+            this.tabControlMain2.ThemesEnabled = true;
+            this.tabControlMain2.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             // 
-            // tabExperiments
+            // tpExperiments
             // 
-            this.tabExperiments.AutoScroll = true;
-            this.tabExperiments.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tabExperiments.Controls.Add(this.pnlTabExperiment);
-            this.tabExperiments.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabExperiments.Location = new System.Drawing.Point(4, 4);
-            this.tabExperiments.Name = "tabExperiments";
-            this.tabExperiments.Padding = new System.Windows.Forms.Padding(3);
-            this.tabExperiments.Size = new System.Drawing.Size(813, 466);
-            this.tabExperiments.TabIndex = 0;
-            this.tabExperiments.Text = "Experiments";
+            this.tpExperiments.Image = null;
+            this.tpExperiments.ImageSize = new System.Drawing.Size(16, 16);
+            this.tpExperiments.Location = new System.Drawing.Point(4, 3);
+            this.tpExperiments.Name = "tpExperiments";
+            this.tpExperiments.ShowCloseButton = true;
+            this.tpExperiments.Size = new System.Drawing.Size(877, 378);
+            this.tpExperiments.TabIndex = 1;
+            this.tpExperiments.Text = "Experiments";
+            this.tpExperiments.ThemesEnabled = true;
             // 
-            // pnlTabExperiment
+            // tpDocuments
             // 
-            this.pnlTabExperiment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTabExperiment.Location = new System.Drawing.Point(3, 3);
-            this.pnlTabExperiment.Name = "pnlTabExperiment";
-            this.pnlTabExperiment.Size = new System.Drawing.Size(807, 460);
-            this.pnlTabExperiment.TabIndex = 0;
+            this.tpDocuments.Controls.Add(this.spcDocuments);
+            this.tpDocuments.Image = null;
+            this.tpDocuments.ImageSize = new System.Drawing.Size(16, 16);
+            this.tpDocuments.Location = new System.Drawing.Point(4, 3);
+            this.tpDocuments.Name = "tpDocuments";
+            this.tpDocuments.ShowCloseButton = true;
+            this.tpDocuments.Size = new System.Drawing.Size(877, 378);
+            this.tpDocuments.TabIndex = 6;
+            this.tpDocuments.Text = "Documents";
+            this.tpDocuments.ThemesEnabled = true;
             // 
-            // tabData
+            // spcDocuments
             // 
-            this.tabData.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tabData.Location = new System.Drawing.Point(4, 4);
-            this.tabData.Name = "tabData";
-            this.tabData.Padding = new System.Windows.Forms.Padding(3);
-            this.tabData.Size = new System.Drawing.Size(813, 466);
-            this.tabData.TabIndex = 1;
-            this.tabData.Text = "Data";
+            this.spcDocuments.BeforeTouchSize = 7;
+            this.spcDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spcDocuments.FixedPanel = Syncfusion.Windows.Forms.Tools.Enums.FixedPanel.Panel1;
+            this.spcDocuments.IsSplitterFixed = true;
+            this.spcDocuments.Location = new System.Drawing.Point(0, 0);
+            this.spcDocuments.Name = "spcDocuments";
             // 
-            // tabAuthors
+            // spcDocuments.Panel1
             // 
-            this.tabAuthors.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tabAuthors.Location = new System.Drawing.Point(4, 4);
-            this.tabAuthors.Name = "tabAuthors";
-            this.tabAuthors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAuthors.Size = new System.Drawing.Size(813, 466);
-            this.tabAuthors.TabIndex = 2;
-            this.tabAuthors.Text = "Authors";
+            this.spcDocuments.Panel1.Controls.Add(this.documentExplorer1);
             // 
-            // tabR
+            // spcDocuments.Panel2
             // 
-            this.tabR.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tabR.Controls.Add(this.pnlBrowser);
-            this.tabR.Location = new System.Drawing.Point(4, 4);
-            this.tabR.Name = "tabR";
-            this.tabR.Padding = new System.Windows.Forms.Padding(3);
-            this.tabR.Size = new System.Drawing.Size(813, 466);
-            this.tabR.TabIndex = 3;
-            this.tabR.Text = "R Studio";
+            this.spcDocuments.Panel2.Controls.Add(this.docViewer);
+            this.spcDocuments.Size = new System.Drawing.Size(877, 378);
+            this.spcDocuments.SplitterDistance = 218;
+            this.spcDocuments.TabIndex = 0;
             // 
-            // pnlBrowser
+            // documentExplorer1
             // 
-            this.pnlBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBrowser.Location = new System.Drawing.Point(3, 3);
-            this.pnlBrowser.Name = "pnlBrowser";
-            this.pnlBrowser.Size = new System.Drawing.Size(807, 460);
-            this.pnlBrowser.TabIndex = 2;
+            this.documentExplorer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.documentExplorer1.ImageIndex = 0;
+            this.documentExplorer1.Location = new System.Drawing.Point(0, 0);
+            this.documentExplorer1.Name = "documentExplorer1";
+            this.documentExplorer1.SelectedImageIndex = 0;
+            this.documentExplorer1.Size = new System.Drawing.Size(218, 378);
+            this.documentExplorer1.TabIndex = 0;
             // 
-            // tabSetup
+            // docViewer
             // 
-            this.tabSetup.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tabSetup.Location = new System.Drawing.Point(4, 4);
-            this.tabSetup.Name = "tabSetup";
-            this.tabSetup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSetup.Size = new System.Drawing.Size(813, 466);
-            this.tabSetup.TabIndex = 4;
-            this.tabSetup.Text = "Setup";
+            this.docViewer.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.docViewer.BorderWidth = 10;
+            this.docViewer.CurrentPage = 0;
+            this.docViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.docViewer.HScrollBar.LargeChange = 40;
+            this.docViewer.HScrollBar.SmallChange = 20;
+            this.docViewer.HScrollBar.Value = 0;
+            this.docViewer.HScrollBar.Visibility = Gnostice.Documents.Controls.WinForms.ScrollBarVisibility.Always;
+            this.docViewer.Location = new System.Drawing.Point(0, 0);
+            this.docViewer.Name = "docViewer";
             // 
-            // tabRScripts
             // 
-            this.tabRScripts.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tabRScripts.Location = new System.Drawing.Point(4, 4);
-            this.tabRScripts.Name = "tabRScripts";
-            this.tabRScripts.Size = new System.Drawing.Size(813, 466);
-            this.tabRScripts.TabIndex = 5;
-            this.tabRScripts.Text = "R Scripts";
+            // 
+            this.docViewer.NavigationPane.ActivePage = null;
+            this.docViewer.NavigationPane.Location = new System.Drawing.Point(0, 0);
+            this.docViewer.NavigationPane.Name = "";
+            this.docViewer.NavigationPane.TabIndex = 0;
+            this.docViewer.NavigationPane.Visibility = Gnostice.Documents.Controls.WinForms.Visibility.Auto;
+            this.docViewer.NavigationPane.WidthPercentage = 20;
+            this.docViewer.PageLayout = null;
+            this.docViewer.PageRotation = Gnostice.Documents.Controls.WinForms.RotationAngle.Zero;
+            txtFormatterSettings1.Font = new System.Drawing.Font("Calibri", 12F);
+            pageSettings1.Height = 11.6929F;
+            margins1.Bottom = 1F;
+            margins1.Footer = 0F;
+            margins1.Header = 0F;
+            margins1.Left = 1F;
+            margins1.Right = 1F;
+            margins1.Top = 1F;
+            pageSettings1.Margin = margins1;
+            pageSettings1.Orientation = Gnostice.Graphics.Orientation.Portrait;
+            pageSettings1.PageSize = Gnostice.Documents.PageSize.A4;
+            pageSettings1.Width = 8.2677F;
+            txtFormatterSettings1.PageSettings = pageSettings1;
+            formatterSettings1.TXT = txtFormatterSettings1;
+            this.docViewer.Preferences.FormatterSettings = formatterSettings1;
+            this.docViewer.Preferences.KeyNavigation = true;
+            imageRenderingSettings1.CompositingMode = Gnostice.Graphics.CompositingMode.SourceOver;
+            imageRenderingSettings1.CompositingQuality = Gnostice.Graphics.CompositingQuality.Default;
+            imageRenderingSettings1.InterpolationMode = Gnostice.Graphics.InterpolationMode.Bilinear;
+            imageRenderingSettings1.PixelOffsetMode = Gnostice.Graphics.PixelOffsetMode.Default;
+            renderingSettings1.Image = imageRenderingSettings1;
+            lineArtRenderingSettings1.SmoothingMode = Gnostice.Graphics.SmoothingMode.AntiAlias;
+            renderingSettings1.LineArt = lineArtRenderingSettings1;
+            resolutionSettings1.DpiX = 96F;
+            resolutionSettings1.DpiY = 96F;
+            resolutionSettings1.ResolutionMode = Gnostice.Graphics.ResolutionMode.UseSource;
+            renderingSettings1.Resolution = resolutionSettings1;
+            textRenderingSettings1.TextContrast = 3;
+            textRenderingSettings1.TextRenderingHint = Gnostice.Graphics.TextRenderingHint.AntiAlias;
+            renderingSettings1.Text = textRenderingSettings1;
+            this.docViewer.Preferences.RenderingSettings = renderingSettings1;
+            this.docViewer.Preferences.Units = Gnostice.Graphics.MeasurementUnit.Inches;
+            this.docViewer.Size = new System.Drawing.Size(652, 378);
+            this.docViewer.TabIndex = 0;
+            this.docViewer.VScrollBar.LargeChange = 40;
+            this.docViewer.VScrollBar.SmallChange = 20;
+            this.docViewer.VScrollBar.Value = 0;
+            this.docViewer.VScrollBar.Visibility = Gnostice.Documents.Controls.WinForms.ScrollBarVisibility.Always;
+            this.docViewer.Zoom.ZoomMode = Gnostice.Documents.Controls.WinForms.ZoomMode.ActualSize;
+            this.docViewer.Zoom.ZoomPercent = 100D;
+            // 
+            // tpData
+            // 
+            this.tpData.Image = null;
+            this.tpData.ImageSize = new System.Drawing.Size(16, 16);
+            this.tpData.Location = new System.Drawing.Point(4, 3);
+            this.tpData.Name = "tpData";
+            this.tpData.ShowCloseButton = true;
+            this.tpData.Size = new System.Drawing.Size(877, 378);
+            this.tpData.TabIndex = 2;
+            this.tpData.Text = "Data";
+            this.tpData.ThemesEnabled = true;
+            // 
+            // tpSetup
+            // 
+            this.tpSetup.Image = null;
+            this.tpSetup.ImageSize = new System.Drawing.Size(16, 16);
+            this.tpSetup.Location = new System.Drawing.Point(4, 3);
+            this.tpSetup.Name = "tpSetup";
+            this.tpSetup.ShowCloseButton = true;
+            this.tpSetup.Size = new System.Drawing.Size(877, 378);
+            this.tpSetup.TabIndex = 3;
+            this.tpSetup.Text = "Setup";
+            this.tpSetup.ThemesEnabled = true;
+            // 
+            // tpRScripts
+            // 
+            this.tpRScripts.Image = null;
+            this.tpRScripts.ImageSize = new System.Drawing.Size(16, 16);
+            this.tpRScripts.Location = new System.Drawing.Point(4, 3);
+            this.tpRScripts.Name = "tpRScripts";
+            this.tpRScripts.ShowCloseButton = true;
+            this.tpRScripts.Size = new System.Drawing.Size(877, 378);
+            this.tpRScripts.TabIndex = 4;
+            this.tpRScripts.Text = "RScripts";
+            this.tpRScripts.ThemesEnabled = true;
+            // 
+            // tpRStudio
+            // 
+            this.tpRStudio.Image = null;
+            this.tpRStudio.ImageSize = new System.Drawing.Size(16, 16);
+            this.tpRStudio.Location = new System.Drawing.Point(4, 3);
+            this.tpRStudio.Name = "tpRStudio";
+            this.tpRStudio.ShowCloseButton = true;
+            this.tpRStudio.Size = new System.Drawing.Size(877, 378);
+            this.tpRStudio.TabIndex = 5;
+            this.tpRStudio.Text = "RStudio";
+            this.tpRStudio.ThemesEnabled = true;
+            // 
+            // spcMainControl
+            // 
+            this.spcMainControl.BeforeTouchSize = 7;
+            this.spcMainControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spcMainControl.FixedPanel = Syncfusion.Windows.Forms.Tools.Enums.FixedPanel.Panel1;
+            this.spcMainControl.Location = new System.Drawing.Point(0, 0);
+            this.spcMainControl.Name = "spcMainControl";
+            this.spcMainControl.Orientation = System.Windows.Forms.Orientation.Vertical;
+            // 
+            // spcMainControl.Panel1
+            // 
+            this.spcMainControl.Panel1.Controls.Add(this.btnExit);
+            this.spcMainControl.Panel1.Controls.Add(this.btnRefresh2);
+            // 
+            // spcMainControl.Panel2
+            // 
+            this.spcMainControl.Panel2.Controls.Add(this.tabControlMain2);
+            this.spcMainControl.Size = new System.Drawing.Size(971, 485);
+            this.spcMainControl.SplitterDistance = 93;
+            this.spcMainControl.TabIndex = 1;
+            this.spcMainControl.Text = "spcMainControl";
+            // 
+            // btnExit
+            // 
+            this.btnExit.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Office2007;
+            this.btnExit.BeforeTouchSize = new System.Drawing.Size(75, 93);
+            this.btnExit.BorderStyleAdv = Syncfusion.Windows.Forms.ButtonAdvBorderStyle.Raised;
+            this.btnExit.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnExit.IsBackStageButton = false;
+            this.btnExit.Location = new System.Drawing.Point(75, 0);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(75, 93);
+            this.btnExit.TabIndex = 1;
+            this.btnExit.Text = "Exit";
+            this.btnExit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnExit.UseVisualStyle = true;
+            this.btnExit.Click += new System.EventHandler(this.tspExit_Click);
+            // 
+            // btnRefresh2
+            // 
+            this.btnRefresh2.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Office2007;
+            this.btnRefresh2.BeforeTouchSize = new System.Drawing.Size(75, 93);
+            this.btnRefresh2.BorderStyleAdv = Syncfusion.Windows.Forms.ButtonAdvBorderStyle.Raised;
+            this.btnRefresh2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnRefresh2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRefresh2.IsBackStageButton = false;
+            this.btnRefresh2.Location = new System.Drawing.Point(0, 0);
+            this.btnRefresh2.Name = "btnRefresh2";
+            this.btnRefresh2.Size = new System.Drawing.Size(75, 93);
+            this.btnRefresh2.TabIndex = 0;
+            this.btnRefresh2.Text = "Refresh";
+            this.btnRefresh2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRefresh2.UseVisualStyle = true;
+            this.btnRefresh2.Click += new System.EventHandler(this.btnRefresh2_Click);
+            // 
+            // toolStripTabItem2
+            // 
+            this.toolStripTabItem2.Name = "toolStripTabItem2";
+            // 
+            // 
+            // 
+            this.toolStripTabItem2.Panel.Name = "";
+            this.toolStripTabItem2.Panel.ScrollPosition = 0;
+            this.toolStripTabItem2.Panel.TabIndex = 3;
+            this.toolStripTabItem2.Panel.Text = "toolStripTabItem2";
+            this.toolStripTabItem2.Position = -1;
+            this.toolStripTabItem2.Size = new System.Drawing.Size(103, 19);
+            this.toolStripTabItem2.Text = "toolStripTabItem2";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(971, 474);
-            this.Controls.Add(this.tabControlMain);
+            this.ClientSize = new System.Drawing.Size(971, 485);
+            this.ControlBox = false;
+            this.Controls.Add(this.spcMainControl);
+            this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(979, 501);
             this.Name = "MainForm";
             this.Text = "Biology Project Database";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
-            this.tabControlMain.ResumeLayout(false);
-            this.tabExperiments.ResumeLayout(false);
-            this.tabR.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabControlMain2)).EndInit();
+            this.tabControlMain2.ResumeLayout(false);
+            this.tpDocuments.ResumeLayout(false);
+            this.spcDocuments.Panel1.ResumeLayout(false);
+            this.spcDocuments.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spcDocuments)).EndInit();
+            this.spcDocuments.ResumeLayout(false);
+            this.spcMainControl.Panel1.ResumeLayout(false);
+            this.spcMainControl.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spcMainControl)).EndInit();
+            this.spcMainControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControlMain;
-        private System.Windows.Forms.TabPage tabExperiments;
-        private System.Windows.Forms.TabPage tabData;
-        private System.Windows.Forms.TabPage tabAuthors;
-        private System.Windows.Forms.TabPage tabR;
-        private System.Windows.Forms.TabPage tabSetup;
-        private System.Windows.Forms.Panel pnlBrowser;
-        private System.Windows.Forms.TabPage tabRScripts;
-        private System.Windows.Forms.Panel pnlTabExperiment;
+        private Syncfusion.Windows.Forms.Tools.TabControlAdv tabControlMain2;
+        private Syncfusion.Windows.Forms.Tools.TabPageAdv tpData;
+        private Syncfusion.Windows.Forms.Tools.TabPageAdv tpSetup;
+        private Syncfusion.Windows.Forms.Tools.TabPageAdv tpRScripts;
+        private Syncfusion.Windows.Forms.Tools.TabPageAdv tpRStudio;
+        private Syncfusion.Windows.Forms.Tools.TabPageAdv tpExperiments;
+        private Syncfusion.Windows.Forms.Tools.SplitContainerAdv spcMainControl;
+        private Syncfusion.Windows.Forms.Tools.ToolStripTabItem toolStripTabItem2;
+        private Syncfusion.Windows.Forms.ButtonAdv btnRefresh2;
+        private Syncfusion.Windows.Forms.Tools.TabPageAdv tpDocuments;
+        private Syncfusion.Windows.Forms.Tools.SplitContainerAdv spcDocuments;
+        private Syncfusion.Windows.Forms.Diagram.Controls.DocumentExplorer documentExplorer1;
+        private Syncfusion.Windows.Forms.ButtonAdv btnExit;
+        private Gnostice.Documents.Controls.WinForms.DocumentViewer docViewer;
+
     }
 }

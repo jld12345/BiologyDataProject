@@ -34,15 +34,9 @@ namespace BiologyDepartment
             [ToolTip("Select Libraries to load.  Checking Include Base Libraries will load all supported libraries.")]
             [Description("Include Base Libraries")]
             Libraries,
-            [ToolTip("Select DLLs to load if the rCLR package is selected.  The defaualt is to select all.")]
-            [Description("Include .NET DLLs")]
-            DLLs,
             [ToolTip("If checked get the data as it is currently filtered, otherwise the raw data will be loaded.")]
             [Description("Get Filtered Data")]
             FilteredData,
-            [ToolTip("Saves the XML document if created.  The document will be saved to My Documents.")]
-            [Description("Save XML Document")]
-            XML,
             [ToolTip("Select basic tests to run.  Checking Include Base Tests will run all supported basic tests.")]
             [Description("Include Base Tests")]
             Tests,
@@ -54,28 +48,16 @@ namespace BiologyDepartment
 
         private enum BaseLibrary
         {
-            [ToolTip("Package for loading DLL's.")]
-            [Description("rCLR")]
-            rCLr,
-            [ToolTip("Package for reading and loading XML.")]
-            [Description("XML")]
-            XML,
             [ToolTip("Package for graphics.")]
-            [Description("ggPlot")]
-            ggPlot2
+            [Description("ggplot")]
+            ggplot2
         }
 
-        private enum BaseDLL
+        private enum BaseTests
         {
-            [ToolTip("Allows querying the ActiveDirectory.")]
-            [Description("ActiveDirectory")]
-            ActiveDirectoryClass,
-            [ToolTip("Allows for querying the database to get the data frame.")]
-            [Description("RClass")]
-            RClass,
-            [ToolTip("Required DLL if querying the database.")]
-            [Description("Npgsql")]
-            Npgsql
+            [ToolTip("Basic tests to run")]
+            [Description("summary")]
+            summary
         }
 
         #endregion 
@@ -114,16 +96,19 @@ namespace BiologyDepartment
                             node.Nodes.Add(child);
                         }
                         break;
-                    case "DLLs":
-                        var baseDLLs = Enum.GetValues(typeof(BaseDLL));
-                        foreach(var dll in baseDLLs)
+                    case "Tests":
+                        var baseTests = Enum.GetValues(typeof(BaseTests));
+                        foreach(var lib in baseTests)
                         {
                             TreeNode child = new TreeNode();
-                            child.Name = dll.ToString();
-                            var childList = GetNodeDescription(dll.ToString(), "BaseDLL");
-                            child.Text = childList[0];
-                            child.ToolTipText = childList[1];
-                            node.Nodes.Add(child);
+                            child.Name = lib.ToString();
+                            var childList = GetNodeDescription(lib.ToString(), "BaseTest");
+                            if (childList.Count > 0)
+                            {
+                                child.Text = childList[0];
+                                child.ToolTipText = childList[1];
+                                node.Nodes.Add(child);
+                            }
                         }
                         break;
                 }
@@ -154,16 +139,15 @@ namespace BiologyDepartment
                 result.Add(descAttribute != null ? descAttribute.Description : string.Empty);
                 result.Add(toolTipAttribute != null ? toolTipAttribute.DescriptionValue : string.Empty);
             }
-            else if (theEnum.Equals("BaseDLL"))
+            else if (theEnum.Equals("BaseTest"))
             {
-                var value = (BaseDLL)System.Enum.Parse(typeof(BaseDLL), theNode);
+                var value = (BaseTests)System.Enum.Parse(typeof(BaseTests), theNode);
                 var field = value.GetType().GetField(value.ToString());
                 descAttribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
                 toolTipAttribute = (ToolTipAttribute)Attribute.GetCustomAttribute(field, typeof(ToolTipAttribute));
                 result.Add(descAttribute != null ? descAttribute.Description : string.Empty);
                 result.Add(toolTipAttribute != null ? toolTipAttribute.DescriptionValue : string.Empty);
             }
-            
             return result;
         }
 
@@ -173,6 +157,7 @@ namespace BiologyDepartment
             {
                 case "Libraries":
                 case "DLLs":
+                case "Tests":
                     if (bSetParent)
                     {
                         bool bChildChecked = e.Node.Checked;
@@ -216,6 +201,14 @@ namespace BiologyDepartment
                         break;
                     case "Libraries":
                         sb.AppendLine("###Libraries to install");
+                        sb.AppendLine(@"if (!require(""jsonlite"", character.only=T, quietly=T)){");
+                        sb.AppendLine(@"install.packages(""jsonlite"", dependencies=TRUE)");
+                        sb.AppendLine(@"library(""jsonlite"", character.only=T)}");
+                        sb.AppendLine();
+                        sb.AppendLine(@"if (!require(""dplyr"", character.only=T, quietly=T)){");
+                        sb.AppendLine(@"install.packages(""dplyr"", dependencies=TRUE)");
+                        sb.AppendLine(@"library(""dplyr"", character.only=T)}");
+                        sb.AppendLine();
                         foreach(TreeNode child in node.Nodes)
                         {
                             if (!child.Checked)
@@ -231,59 +224,28 @@ namespace BiologyDepartment
                                 sb.AppendLine(@"library(""" + child.Name + @""", character.only = T)");
                         }
                         break;
-                    case "DLLs":
-                        sb.AppendLine("###DLL references to install");
-                        foreach(TreeNode sibling in node.Nodes)
-                        {
-                            if (!sibling.Checked)
-                                continue;
-                            sb.AppendLine();
-                            sb.AppendLine(@"clrLoadAssembly('C:\\BiologyDataProject.git\\trunk\\BiologyDepartment\\DLL Files\\" + sibling.Name + ".dll')");
-                            if (sibling.Name.Equals("ActiveDirectoryClass"))
-                            {
-                                sb.AppendLine("###Validates the ActiveDirectory user and gets the postgres database username and password");
-                                sb.AppendLine("activeDirectory <- clrNew('ActiveDirectory.daoActiveDirectory')");                            
-                                sb.AppendLine("clrCall(activeDirectory, 'ValidateCredentials', '" + GlobalVariables.ADUserName + "', '" + GlobalVariables.ADPass + "')");
-                                sb.AppendLine("dbUser <- clrGet(activeDirectory, 'DBUser')");
-                                sb.AppendLine("dbPass <- clrGet(activeDirectory, 'DBPass')");
-                            }
-                            else if(sibling.Name.Equals("RClass"))
-                            {
-                                sb.AppendLine("###Gets the Data for the dataframe");
-                                sb.AppendLine("rUtil <- clrNew('RClass.RClassUtil')");
-                                sb.AppendLine("clrSet(rUtil, 'DBPass', clrGet(activeDirectory, 'DBPass'))");
-                                sb.AppendLine("clrSet(rUtil, 'DBUser', clrGet(activeDirectory, 'DBUser'))");
-                                sb.AppendLine("clrSet(rUtil, 'ADUserName', clrGet(activeDirectory, 'ADUserName'))");
-                                sb.AppendLine("clrSet(rUtil, 'ADPass', clrGet(activeDirectory, 'ADPass'))");
-                                sb.AppendLine("clrSet(rUtil, 'ADUserGroup', clrGet(activeDirectory, 'ADUserGroup'))");
-                                sb.AppendLine("clrCall(rUtil, 'SetDao')");
-                            }
-
-                        }
-
-                        break;
-                    case "XML":
-                        sb.AppendLine("###XML file location");
-                        break;
                     case "Tests":
                         sb.AppendLine("###Tests to run");
+                        foreach (TreeNode child in node.Nodes)
+                        {
+                            if (!child.Checked)
+                                continue;
+                            switch(child.Name)
+                            { 
+                                case "summary":
+                                    sb.AppendLine("@theSummary <- summary(theData)");
+                                    sb.AppendLine("theSummary");
+                                    break;
+                            }
+                        }
                         break;
                     case "Plot":
                         sb.AppendLine("###Basic plots to run");
                         break;
                     case "FilteredData":
                         sb.AppendLine("###Get the data.");
-                        sb.AppendLine("dtExperiments <- clrCall(rUtil, 'GetExperiments', clrGet(activeDirectory, 'ADUserName'))");
-                        sb.AppendLine("xmlDoc <- clrCall(rUtil, 'GetXMLDoc', dtExperiments)");
-                        sb.AppendLine("df <- clrGet(xmlDoc, 'OuterXml')");
-                        sb.AppendLine("doc = xmlToDataFrame(xmlParseString(df))");
-                        sb.AppendLine("exID <- as.integer('1')");
-                        sb.AppendLine("sFilter <- ''");
-                        sb.AppendLine("dtData <- clrCall(rUtil, 'GetData', exID, '')");
-                        sb.AppendLine("rowCount <- clrCall(rUtil, 'RowCount', dtData )");
-                        sb.AppendLine("xmlDoc <- clrCall(rUtil, 'GetXMLDoc', dtData)");
-                        sb.AppendLine("df <- clrGet(xmlDoc, 'OuterXml')");
-                        sb.AppendLine("theData <- xmlToDataFrame(xmlParseString(df))");
+                        sb.AppendLine(@"theData <- rbind_all(fromJSON(""http://dwbtechnologies.ddns.net/api/experiment/1""))");
+
                         break;
                 }
 

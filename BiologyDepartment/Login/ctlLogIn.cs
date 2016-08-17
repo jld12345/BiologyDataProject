@@ -29,15 +29,13 @@ namespace BiologyDepartment
         {
             if (_daoAD.ValidateCredentials(txtUserName2.Text, txtPWord.Text))
             {
+                this.Parent.Hide();
                 GlobalVariables.ADUserName = _daoAD.ADUserName;
                 GlobalVariables.ADPass = _daoAD.ADPass;
                 GlobalVariables.dbPass = _daoAD.DBPass;
                 GlobalVariables.dbUser = _daoAD.DBUser;
                 GlobalVariables.ADUserGroup = _daoAD.ADUserGroup;
 
-                OnRaiseLoginEvent(new ValidLoginEventArgs(true));
-                this.btnLogin.Click -= this.btnLogin_Click;
-                this.btnCancel.Click -= this.btnCancel_Click;
             }
             else
                 MessageBox.Show("Username or Password incorrect.", "Username/Password Error", MessageBoxButtons.OK);
@@ -71,8 +69,13 @@ namespace BiologyDepartment
         {
             if (e.KeyChar == (char)Keys.Return)
             {
-                btnLogin.PerformClick();
+                btnLogin2.PerformClick();
             }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
     }

@@ -58,5 +58,41 @@ namespace BiologyDepartment.Properties {
                 this["MyRStudio"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.9")]
+        public string MyActiveDirectoryTest {
+            get {
+                return ((string)(this["MyActiveDirectoryTest"]));
+            }
+            set {
+                this["MyActiveDirectoryTest"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.9")]
+        public string MyPostgresTest {
+            get {
+                return ((string)(this["MyPostgresTest"]));
+            }
+            set {
+                this["MyPostgresTest"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.10:8787")]
+        public string MyRstudioTest {
+            get {
+                return ((string)(this["MyRstudioTest"]));
+            }
+            set {
+                this["MyRstudioTest"] = value;
+            }
+        }
     }
 }

@@ -186,6 +186,8 @@ namespace BiologyDepartment
         private void SetAuthors()
         {
             dsAuthor = _authors.getAuthors();
+            if (dsAuthor == null || dsAuthor.Tables.Count == 0 || dsAuthor.Tables[0] == null)
+                return;
             dtAuthor = dsAuthor.Tables[0];
 
             cbLName.DataSource = dtAuthor;

@@ -41,6 +41,8 @@ namespace BiologyDepartment
         {
             this.dgAuthorEx.SelectionChanged -= this.dgAuthorEx_SelectionChanged_1;
             dsAuthors = _daoAuthor.getAuthors(EX_ID);
+            if (dsAuthors == null || dsAuthors.Tables.Count == 0 || dsAuthors.Tables[0] == null)
+                return;
             dtAuthor = dsAuthors.Tables[0];
             if (dtAuthor.Rows.Count > 0)
             {

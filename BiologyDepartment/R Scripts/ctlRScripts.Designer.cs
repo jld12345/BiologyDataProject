@@ -38,8 +38,8 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClipBoard = new System.Windows.Forms.Button();
             this.btnSetScript = new System.Windows.Forms.Button();
-            this.rtbRScript = new System.Windows.Forms.RichTextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtScript = new ScintillaNET.Scintilla();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -64,7 +64,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.rtbRScript);
+            this.splitContainer1.Panel2.Controls.Add(this.txtScript);
             this.splitContainer1.Size = new System.Drawing.Size(1230, 608);
             this.splitContainer1.SplitterDistance = 593;
             this.splitContainer1.TabIndex = 0;
@@ -149,14 +149,13 @@
             this.btnSetScript.UseVisualStyleBackColor = true;
             this.btnSetScript.Click += new System.EventHandler(this.btnSetScript_Click);
             // 
-            // rtbRScript
+            // txtScript
             // 
-            this.rtbRScript.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbRScript.Location = new System.Drawing.Point(0, 0);
-            this.rtbRScript.Name = "rtbRScript";
-            this.rtbRScript.Size = new System.Drawing.Size(633, 608);
-            this.rtbRScript.TabIndex = 0;
-            this.rtbRScript.Text = "";
+            this.txtScript.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtScript.Location = new System.Drawing.Point(0, 0);
+            this.txtScript.Name = "txtScript";
+            this.txtScript.Size = new System.Drawing.Size(633, 608);
+            this.txtScript.TabIndex = 1;
             // 
             // ctlRScripts
             // 
@@ -180,7 +179,6 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.RichTextBox rtbRScript;
         private System.Windows.Forms.Button btnClipBoard;
         private System.Windows.Forms.Button btnSetScript;
         private System.Windows.Forms.Button btnRefresh;
@@ -190,5 +188,6 @@
         private System.Windows.Forms.CheckedListBox cblLatticeExtra;
         private System.Windows.Forms.TabPage tabGGPlot;
         private System.Windows.Forms.TabPage tabRBase;
+        private ScintillaNET.Scintilla txtScript;
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.IO;
+using ScintillaNET;
 
 namespace BiologyDepartment
 {
@@ -24,10 +25,17 @@ namespace BiologyDepartment
         private Data.DataUtil _dataUtil = new Data.DataUtil();
         private ctlGGPlot ggPlot = new ctlGGPlot();
         private ctlRBaseFunctions rBaseItems = new ctlRBaseFunctions();
+        private List<string> Keywords1 = null;
+        private List<string> Keywords2 = null;
+        private string AutoCompleteKeywords = null;
 
         public ctlRScripts()
         {
             InitializeComponent();
+            PrepareKeywords();
+            ConfigureRScriptSyntaxHighlight();
+            ConfigureRScriptAutoFolding();
+            ConifugreRScriptAutoComplete();
             
         }
 
@@ -46,25 +54,119 @@ namespace BiologyDepartment
             }
         }
 
+        private void PrepareKeywords()
+        {
+            Keywords1 = @"commandArgs detach length dev.off stop lm library predict lmer 
+           plot print display anova read.table read.csv complete.cases dim attach as.numeric seq max 
+           min data.frame lines curve as.integer levels nlevels ceiling sqrt ranef order
+           AIC summary str head png tryCatch par mfrow interaction.plot qqnorm qqline rbind_all 
+           install fromJSON".Split(new char[] { ' ', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            Keywords2 = @"TRUE FALSE if else for while in break continue function".Split(new char[] { ' ', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            List<string> keywords = Keywords1.ToList();
+            keywords.AddRange(Keywords2);
+            keywords.Sort();
+
+            AutoCompleteKeywords = string.Join(" ", keywords);
+        }
+
+        private void ConfigureRScriptSyntaxHighlight()
+        {
+
+            txtScript.StyleResetDefault();
+            txtScript.Styles[Style.Default].Font = "Consolas";
+            txtScript.Styles[Style.Default].Size = 10;
+            txtScript.StyleClearAll();
+
+            txtScript.Styles[Style.R.Default].ForeColor = Color.Brown;
+            txtScript.Styles[Style.R.Comment].ForeColor = Color.FromArgb(0, 128, 0); // Green
+            txtScript.Styles[Style.R.Number].ForeColor = Color.Olive;
+            txtScript.Styles[Style.R.BaseKWord].ForeColor = Color.Purple;
+            txtScript.Styles[Style.R.Identifier].ForeColor = Color.Black;
+            txtScript.Styles[Style.R.String].ForeColor = Color.FromArgb(163, 21, 21); // Red
+            txtScript.Styles[Style.R.KWord].ForeColor = Color.Blue;
+            txtScript.Styles[Style.R.OtherKWord].ForeColor = Color.Blue;
+            txtScript.Styles[Style.R.String2].ForeColor = Color.OrangeRed;
+            txtScript.Styles[Style.R.Operator].ForeColor = Color.Purple;
+
+
+            txtScript.Lexer = Lexer.R;
+
+            if(Keywords1 != null)
+                txtScript.SetKeywords(0, string.Join(" ", Keywords1));
+            if(Keywords2 != null)
+                txtScript.SetKeywords(1, string.Join(" ", Keywords2));
+        }
+
+        private void ConifugreRScriptAutoComplete()
+        {
+            txtScript.CharAdded += scintilla_CharAdded;
+        }
+
+        private void scintilla_CharAdded(object sender, CharAddedEventArgs e)
+        {
+            Scintilla scintilla = txtScript;
+
+            // Find the word start
+            var currentPos = scintilla.CurrentPosition;
+            var wordStartPos = scintilla.WordStartPosition(currentPos, true);
+
+            // Display the autocompletion list
+            var lenEntered = currentPos - wordStartPos;
+            if (lenEntered > 0)
+            {
+                scintilla.AutoCShow(lenEntered, AutoCompleteKeywords);
+            }
+        }
+
+        private void ConfigureRScriptAutoFolding()
+        {
+            Scintilla scintilla = txtScript;
+
+            // Instruct the lexer to calculate folding
+            scintilla.SetProperty("fold", "1");
+            scintilla.SetProperty("fold.compact", "1");
+
+            // Configure a margin to display folding symbols
+            scintilla.Margins[2].Type = MarginType.Symbol;
+            scintilla.Margins[2].Mask = Marker.MaskFolders;
+            scintilla.Margins[2].Sensitive = true;
+            scintilla.Margins[2].Width = 20;
+
+            // Set colors for all folding markers
+            for (int i = 25; i <= 31; i++)
+            {
+                scintilla.Markers[i].SetForeColor(SystemColors.ControlLightLight);
+                scintilla.Markers[i].SetBackColor(SystemColors.ControlDark);
+            }
+
+            // Configure folding markers with respective symbols
+            scintilla.Markers[Marker.Folder].Symbol = MarkerSymbol.BoxPlus;
+            scintilla.Markers[Marker.FolderOpen].Symbol = MarkerSymbol.BoxMinus;
+            scintilla.Markers[Marker.FolderEnd].Symbol = MarkerSymbol.BoxPlusConnected;
+            scintilla.Markers[Marker.FolderMidTail].Symbol = MarkerSymbol.TCorner;
+            scintilla.Markers[Marker.FolderOpenMid].Symbol = MarkerSymbol.BoxMinusConnected;
+            scintilla.Markers[Marker.FolderSub].Symbol = MarkerSymbol.VLine;
+            scintilla.Markers[Marker.FolderTail].Symbol = MarkerSymbol.LCorner;
+
+            // Enable automatic folding
+            scintilla.AutomaticFold = (AutomaticFold.Show | AutomaticFold.Click | AutomaticFold.Change);
+        }
+
         private void btnClipBoard_Click(object sender, EventArgs e)
         {
-            if (rtbRScript.Text != "")
-                Clipboard.SetDataObject(rtbRScript.Text);
+            if (txtScript.Text != "")
+                Clipboard.SetDataObject(txtScript.Text);
         }
 
         private void btnSetScript_Click(object sender, EventArgs e)
         {
-            /*Assembly thisExe = Assembly.GetExecutingAssembly();
-            using (Stream stream = thisExe.GetManifestResourceStream("BiologyDepartment.R_Scripts.RBaseScript.txt"))
-            {
-                using (var reader = new StreamReader(stream))
-                {
-                    rtbRScript.Text = reader.ReadToEnd();
-                }
-            }
-            rtbRScript.Text += ggPlot.GetRScript();*/
             rBaseItems.BuildStringSection();
-            rtbRScript.Text = rBaseItems.sbBase.ToString();  
+            
+            if(rBaseItems.sbBase != null)
+                txtScript.Text = rBaseItems.sbBase.ToString();
+            txtScript.Text += ggPlot.GetRScript();
         }
 
         private void PopulateForLatticeExtra()

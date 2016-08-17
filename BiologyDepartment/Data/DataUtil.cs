@@ -50,7 +50,8 @@ namespace BiologyDepartment.Data
             Trace.WriteLine("GetData start stopwatch");
             sw.Start();
             animalAgg = _daoData.BulkExport();
-            animalCols = _daoData.GetColumns();
+            _daoData.GetColumns();
+            animalCols = GlobalVariables.CustomColumns;
             int colPosition = 0;
             foreach (CustomColumns col in animalCols)
             {

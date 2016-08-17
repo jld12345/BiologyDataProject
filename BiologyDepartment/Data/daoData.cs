@@ -26,10 +26,9 @@ namespace BiologyDepartment
             return theData;
         }
 
-        public List<CustomColumns> GetColumns()
+        public void GetColumns()
         {
-            List<CustomColumns> theData = GlobalVariables.GlobalConnection.GetColumns();
-            return theData;
+            GlobalVariables.CustomColumns = GlobalVariables.GlobalConnection.GetColumns();
         }
 
         public DataSet getExData(int id)

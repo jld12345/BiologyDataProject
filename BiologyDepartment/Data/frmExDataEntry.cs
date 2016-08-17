@@ -290,7 +290,8 @@ namespace BiologyDepartment
             else if (originalPic != null)
                 row["1"] = originalPic;
 
-            dtReturn.Rows.Add(row);
+            if(row["DataID"] != DBNull.Value)
+                dtReturn.Rows.Add(row);
         }
 
         private void btnUpload_Click(object sender, EventArgs e)

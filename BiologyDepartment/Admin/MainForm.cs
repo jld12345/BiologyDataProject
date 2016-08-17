@@ -17,7 +17,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Runtime.InteropServices;
-using RDotNet;
+using Syncfusion.Windows.Forms.Tools;
+using BiologyDepartment.ExperimentsFolder;
+using BiologyDepartment.Login;
+using Gnostice;
+using Gnostice.Documents;
 
 namespace BiologyDepartment
 {
@@ -25,9 +29,9 @@ namespace BiologyDepartment
     public partial class MainForm : Form
     {
         ctlLogIn _ctlLogin = new ctlLogIn();
-        ctlExperiments _ctlExperiments;
-        ctlAnimalData _ctlAnimalData;
-        ctlAuthors _ctlAuthors;
+        ctlExperiments2 _ctlExperiments = new ctlExperiments2();
+        ctlAnimalData _ctlAnimalData = new ctlAnimalData();
+        ctlAuthors _ctlAuthors = new ctlAuthors();
         ctlRScripts _ctlRScripts;
         ctlSetup _ctlSetup;
         private bool bDataControlDirty = true;
@@ -40,155 +44,106 @@ namespace BiologyDepartment
 
         public MainForm()
         {
-            try
+            InitializeComponent();
+            GlobalVariables.GlobalConnection = new dbBioConnection();
+            using(LoginForm login = new LoginForm())
             {
-                GlobalVariables.GlobalConnection = new dbBioConnection();
-                this.Controls.Add(_ctlLogin);
-                this._ctlLogin.Parent = this;
-                InitializeComponent();
-                _ctlLogin.RaiseLoginEvent += LoginEventHandler;
-                _ctlLogin.Location = new System.Drawing.Point(this.Width / 2 - _ctlLogin.Width / 2, this.Height / 2 - _ctlLogin.Height / 2);
-                this.Controls.Add(tabControlMain);
-                this.tabControlMain.Hide();
-                this._ctlLogin.BringToFront();
-
+                login.ShowDialog();
             }
-            catch(Exception e)
-            {
-                MessageBox.Show(e.ToString());
-                return;
-            }
+            Initialize();
+            Gnostice.Documents.Framework.ActivateLicense("0A76-10E9-8F21-0CDD-2BC2-884A-BE40-989D-10F0-F5D2-EDF5-671D");
 
         }
-
-        private void LoginEventHandler(object sender, ValidLoginEventArgs e)
+        public void Initialize()
         {
-            this.Controls.Remove(_ctlLogin);
+            this.Show();
+            this.BringToFront();
             AddTabControls();
-            _ctlExperiments.Intialize();
-            this.tabControlMain.Show();
-            _ctlLogin.RaiseLoginEvent -= LoginEventHandler;
         }
 
         private void AddTabControls()
         {
-            foreach(TabPage page in tabControlMain.TabPages)
+            this.Controls.Add(spcMainControl);
+            foreach(TabPageAdv page in tabControlMain2.TabPages)
             {
                 switch(page.Name)
                 {
-                    case "tabExperiments":
-                        _ctlExperiments = new ctlExperiments();
-                        _ctlExperiments.Parent = tabExperiments;
-                        _ctlExperiments.ChangeExperimentEvent += _ctlExperiments_ChangeExperimentEvent;
-                        pnlTabExperiment.Controls.Add(_ctlExperiments);
+                    case "tpExperiments":
+                        
                         _ctlExperiments.Dock = DockStyle.Fill;
+                        _ctlExperiments.Initialize();
+                        _ctlExperiments.ChangeExperimentEvent += _ctlExperiments_ChangeExperimentEvent;
+                        tpExperiments.Controls.Add(_ctlExperiments);                        
                         break;
-                    case "tabData":
-                        _ctlAnimalData = new ctlAnimalData();
-                        tabData.Controls.Add(_ctlAnimalData);
+                    case "tpData":                        
+                        tpData.Controls.Add(_ctlAnimalData);
                         _ctlAnimalData.Dock = DockStyle.Fill;
-                        //_ctlAnimalData.CloseFormEvent += CloseAnimalDataEventHandler;
                         break;
-                    case "tabR":
+                    case "tpRStudio":
                         var browser = new CefSharp.WinForms.ChromiumWebBrowser(BiologyDepartment.Properties.Settings.Default.MyRStudio);   
-                    //var browser = new CefSharp.WinForms.ChromiumWebBrowser("http:71.45.10.32:1521")
+                        //var browser = new CefSharp.WinForms.ChromiumWebBrowser("http:71.45.10.32:1521")
                         {
                             Dock = DockStyle.Fill;
                         };
                         
-                        pnlBrowser.Controls.Add(browser);
+                        tpRStudio.Controls.Add(browser);
                         break;
-                    case "tabAuthors":
-                        _ctlAuthors = new ctlAuthors();
+                    case "tpAuthors":
+                        /*
                         tabAuthors.Controls.Add(_ctlAuthors);
-                        //_ctlAuthors.Dock = DockStyle.Fill;
+                        _ctlAuthors.Dock = DockStyle.Fill;*/
                         break;
-                    case "tabRScripts":
+                    case "tpRScripts":
                         _ctlRScripts = new ctlRScripts();
-                        tabRScripts.Controls.Add(_ctlRScripts);
-                        //_ctlRScripts.Dock = DockStyle.Fill;
+                        tpRScripts.Controls.Add(_ctlRScripts);
+                        _ctlRScripts.Dock = DockStyle.Fill;
                         break;
-                    case "tabSetup":
+                    case "tpSetup":
                         _ctlSetup = new ctlSetup();
-                        tabSetup.Controls.Add(_ctlSetup);
-                        //_ctlSetup.Dock = DockStyle.Fill;
+                        tpSetup.Controls.Add(_ctlSetup);
+                        _ctlSetup.Dock = DockStyle.Fill;
                         break;
                 }
                 
             }
         }
 
-        private void _ctlExperiments_ChangeExperimentEvent(object sender, ExperimentHasChanged e)
+        private void _ctlExperiments_ChangeExperimentEvent(object sender, ExperimentsFolder.ExperimentHasChanged e)
         {
             bDataControlDirty = true;
             bAuthorControlDirty = true;
         }
 
-        private void tabControlMain_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            Brush _textBrush;
- 
-            // Get the item from the collection.
-            TabPage _tabPage = tabControlMain.TabPages[e.Index];
-            
-            // Get the real bounds for the tab rectangle.
-            //tab1 = x=1473,y=76, w=125, h=50
-            //tab2 = x=1473,y=118, w=125, h=50
-            //tab3 = x=1473,y=168, w=125, h=50
-            //tab4 = x=1473,y=222, w=125, h=50
-            //tab5 = x=1473,y=264, w=125, h=50
-            //tab6 = x=1473,y=2, w=125, h=50
-            Rectangle _tabBounds = tabControlMain.GetTabRect(e.Index);
-            if (e.State == DrawItemState.Selected)
-            {
-                // Draw a different background color, and don't paint a focus rectangle.
-                _textBrush = new SolidBrush(Color.Red);
-                g.FillRectangle(Brushes.Gray, e.Bounds);
-            }
-            else
-            {
-                _textBrush = new System.Drawing.SolidBrush(e.ForeColor);
-                e.DrawBackground();
-            }
- 
-            // Use our own font.
-            Font _tabFont = new Font("Arial", (float)16.0, FontStyle.Bold, GraphicsUnit.Pixel);
- 
-            // Draw string. Center the text.
-            StringFormat _stringFlags = new StringFormat();
-            _stringFlags.Alignment = StringAlignment.Center;
-            _stringFlags.LineAlignment = StringAlignment.Center;
-            g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
-        }
-
         private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (tabControlMain.SelectedTab.Name)
+            switch (tabControlMain2.SelectedTab.Name)
             {
-                case "tabData":
+                case "tpData":
                     if (bDataControlDirty)
                     {
                         this.BeginInvoke(new MyDelegate(LoadData));
                         bDataControlDirty = false;
                     }
                     break;
-                case "tabAuthors":
+                case "tpAuthors":
                     if (bAuthorControlDirty)
                     {
                         this.BeginInvoke(new MyDelegate(LoadAuthors));
                         bAuthorControlDirty = false;
                     }
                     break;
-                case "tabRScripts":
+                case "tpRScripts":
                     _ctlRScripts.Initialize();
                     break;
-                case "tabSetup":
+                case "tpSetup":
                     if (bDataControlDirty)
                     {
                         this.BeginInvoke(new MyDelegate(LoadSetup));
                         bSetupControlDirty = false;
                     }
+                    break;
+                case "tpDocuments":
+                    docViewer.LoadDocument(@"C:\Users\James\Google Drive\Documents\Getting started with OneDrive.docx");
                     break;
             }
         }
@@ -201,9 +156,9 @@ namespace BiologyDepartment
 
             public void LoadAuthors()
             {
-                tabControlMain.TabPages["tabAuthors"].Controls.Remove(_ctlAuthors);
+                /*tabControlMain2.TabPages["tabAuthors"].Controls.Remove(_ctlAuthors);
                 _ctlAuthors.frmRefresh(GlobalVariables.Experiment.ID);
-                tabControlMain.TabPages["tabAuthors"].Controls.Add(_ctlAuthors);
+                tabControlMain2.TabPages["tabAuthors"].Controls.Add(_ctlAuthors);*/
             }
 
         public void LoadSetup()
@@ -214,18 +169,18 @@ namespace BiologyDepartment
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (tabControlMain.SelectedTab.Name)
+            switch (tabControlMain2.SelectedTab.Name)
             {
-                case "tabData":
+                case "tpData":
 
                     break;
-                case "tabAuthors":
+                case "tpAuthors":
 
                     break;
-                case "tabRScripts":
+                case "tpRScripts":
                     
                     break;
-                case "tabSetup":
+                case "tpSetup":
                     if (e.KeyCode == Keys.F5)
                     {
                         LoadSetup();
@@ -234,8 +189,15 @@ namespace BiologyDepartment
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void tspExit_Click(object sender, EventArgs e)
         {
+            Close();
+        }
+
+        private void btnRefresh2_Click(object sender, EventArgs e)
+        {
+            GlobalVariables.Experiment = null;
+            _ctlExperiments.Initialize();
         }
 
     }

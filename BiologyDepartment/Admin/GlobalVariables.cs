@@ -69,20 +69,32 @@ namespace BiologyDepartment
 
         private static NpgsqlConnection conn()
         {
-            if (con == null)
+            try
             {
-              con =  new NpgsqlConnection(BiologyDepartment.Properties.Settings.Default.MyPostgress +
-                                        @";Port=5432;
+                if (con == null)
+                {
+                    con = new NpgsqlConnection(BiologyDepartment.Properties.Settings.Default.MyPostgress +
+                                              @";Port=5432;
                                         User Id=" + dbUser + @";
                                         Password=" + dbPass + @";
                                         Database=BiologyProject;
                                         Pooling=false;
                                         CommandTimeout=300;
                                         Connection Lifetime=0");
+                }
+                if (con.State != System.Data.ConnectionState.Open)
+                    con.Open();
+                return con;
             }
-            if (con.State != System.Data.ConnectionState.Open)
-                con.Open();
-            return con; 
+            catch(Exception e)
+            {
+                if (con.State != System.Data.ConnectionState.Open)
+                {
+                    con.Open();
+                    return con;
+                }
+                return null;
+            }
         }
 
         public static string DataSource
@@ -235,5 +247,7 @@ namespace BiologyDepartment
 
         public static ADGV.AdvancedDataGridView FilteredGrid { get; set; }
 
+
+        public static List<CustomColumns> CustomColumns { get; set; }
     }
 }

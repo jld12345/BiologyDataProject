@@ -28,70 +28,107 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnLogin = new System.Windows.Forms.Button();
+            this.components = new System.ComponentModel.Container();
+            this.pnlLogin = new Syncfusion.Windows.Forms.Tools.GradientPanel();
+            this.btnExit = new Syncfusion.Windows.Forms.ButtonAdv();
+            this.btnCancel2 = new Syncfusion.Windows.Forms.ButtonAdv();
+            this.btnLogin2 = new Syncfusion.Windows.Forms.ButtonAdv();
             this.lblPassword = new System.Windows.Forms.Label();
             this.lblUserName2 = new System.Windows.Forms.Label();
             this.txtPWord = new System.Windows.Forms.TextBox();
             this.txtUserName2 = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlLogin)).BeginInit();
+            this.pnlLogin.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnCancel
+            // pnlLogin
             // 
-            this.btnCancel.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnCancel.Location = new System.Drawing.Point(204, 195);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 8;
-            this.btnCancel.Text = "CANCEL";
-            this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.pnlLogin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.pnlLogin.Controls.Add(this.btnExit);
+            this.pnlLogin.Controls.Add(this.btnCancel2);
+            this.pnlLogin.Controls.Add(this.btnLogin2);
+            this.pnlLogin.Controls.Add(this.lblPassword);
+            this.pnlLogin.Controls.Add(this.lblUserName2);
+            this.pnlLogin.Controls.Add(this.txtPWord);
+            this.pnlLogin.Controls.Add(this.txtUserName2);
+            this.pnlLogin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLogin.Location = new System.Drawing.Point(0, 0);
+            this.pnlLogin.Name = "pnlLogin";
+            this.pnlLogin.Size = new System.Drawing.Size(368, 280);
+            this.pnlLogin.TabIndex = 0;
             // 
-            // btnLogin
+            // btnExit
             // 
-            this.btnLogin.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.btnLogin.Location = new System.Drawing.Point(94, 195);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
-            this.btnLogin.TabIndex = 6;
-            this.btnLogin.Text = "LOGIN";
-            this.btnLogin.UseVisualStyleBackColor = false;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            this.btnExit.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Office2007;
+            this.btnExit.BeforeTouchSize = new System.Drawing.Size(75, 23);
+            this.btnExit.BorderStyleAdv = Syncfusion.Windows.Forms.ButtonAdvBorderStyle.Raised;
+            this.btnExit.IsBackStageButton = false;
+            this.btnExit.Location = new System.Drawing.Point(230, 164);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(75, 23);
+            this.btnExit.TabIndex = 20;
+            this.btnExit.Text = "Exit";
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // btnCancel2
+            // 
+            this.btnCancel2.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Office2007;
+            this.btnCancel2.BeforeTouchSize = new System.Drawing.Size(75, 23);
+            this.btnCancel2.BorderStyleAdv = Syncfusion.Windows.Forms.ButtonAdvBorderStyle.Raised;
+            this.btnCancel2.IsBackStageButton = false;
+            this.btnCancel2.Location = new System.Drawing.Point(149, 164);
+            this.btnCancel2.Name = "btnCancel2";
+            this.btnCancel2.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel2.TabIndex = 19;
+            this.btnCancel2.Text = "Reset";
+            this.btnCancel2.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // btnLogin2
+            // 
+            this.btnLogin2.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Office2007;
+            this.btnLogin2.BeforeTouchSize = new System.Drawing.Size(75, 23);
+            this.btnLogin2.BorderStyleAdv = Syncfusion.Windows.Forms.ButtonAdvBorderStyle.Raised;
+            this.btnLogin2.IsBackStageButton = false;
+            this.btnLogin2.Location = new System.Drawing.Point(68, 164);
+            this.btnLogin2.Name = "btnLogin2";
+            this.btnLogin2.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin2.TabIndex = 18;
+            this.btnLogin2.Text = "Login";
+            this.btnLogin2.Click += new System.EventHandler(this.btnLogin_Click);
+            this.btnLogin2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ctlLogIn_KeyPress);
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(94, 131);
+            this.lblPassword.Location = new System.Drawing.Point(90, 112);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(53, 13);
-            this.lblPassword.TabIndex = 9;
+            this.lblPassword.TabIndex = 17;
             this.lblPassword.Text = "Password";
             // 
             // lblUserName2
             // 
             this.lblUserName2.AutoSize = true;
-            this.lblUserName2.Location = new System.Drawing.Point(94, 66);
+            this.lblUserName2.Location = new System.Drawing.Point(90, 47);
             this.lblUserName2.Name = "lblUserName2";
             this.lblUserName2.Size = new System.Drawing.Size(60, 13);
-            this.lblUserName2.TabIndex = 7;
+            this.lblUserName2.TabIndex = 15;
             this.lblUserName2.Text = "User Name";
             // 
             // txtPWord
             // 
-            this.txtPWord.Location = new System.Drawing.Point(94, 147);
+            this.txtPWord.Location = new System.Drawing.Point(90, 128);
             this.txtPWord.Name = "txtPWord";
             this.txtPWord.PasswordChar = '*';
             this.txtPWord.Size = new System.Drawing.Size(185, 20);
-            this.txtPWord.TabIndex = 5;
-            this.txtPWord.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ctlLogIn_KeyPress);
+            this.txtPWord.TabIndex = 13;
             // 
             // txtUserName2
             // 
-            this.txtUserName2.Location = new System.Drawing.Point(94, 85);
+            this.txtUserName2.Location = new System.Drawing.Point(90, 66);
             this.txtUserName2.Name = "txtUserName2";
             this.txtUserName2.Size = new System.Drawing.Size(185, 20);
-            this.txtUserName2.TabIndex = 4;
-            this.txtUserName2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ctlLogIn_KeyPress);
+            this.txtUserName2.TabIndex = 12;
             // 
             // ctlLogIn
             // 
@@ -99,27 +136,27 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.lblPassword);
-            this.Controls.Add(this.lblUserName2);
-            this.Controls.Add(this.txtPWord);
-            this.Controls.Add(this.txtUserName2);
+            this.Controls.Add(this.pnlLogin);
             this.Name = "ctlLogIn";
             this.Size = new System.Drawing.Size(368, 280);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ctlLogIn_KeyPress);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlLogin)).EndInit();
+            this.pnlLogin.ResumeLayout(false);
+            this.pnlLogin.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnLogin;
+        private Syncfusion.Windows.Forms.Tools.GradientPanel pnlLogin;
+        private Syncfusion.Windows.Forms.ButtonAdv btnCancel2;
+        private Syncfusion.Windows.Forms.ButtonAdv btnLogin2;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblUserName2;
         private System.Windows.Forms.TextBox txtPWord;
         private System.Windows.Forms.TextBox txtUserName2;
+        private Syncfusion.Windows.Forms.ButtonAdv btnExit;
+
     }
 }

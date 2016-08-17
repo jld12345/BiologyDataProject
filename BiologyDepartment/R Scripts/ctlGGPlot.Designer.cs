@@ -96,7 +96,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblXAxis);
             this.splitContainer1.Panel2.Controls.Add(this.lblTitle);
             this.splitContainer1.Size = new System.Drawing.Size(579, 555);
-            this.splitContainer1.SplitterDistance = 247;
+            this.splitContainer1.SplitterDistance = 246;
             this.splitContainer1.TabIndex = 0;
             // 
             // splitContainer2
@@ -112,7 +112,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tvSummary);
-            this.splitContainer2.Size = new System.Drawing.Size(579, 247);
+            this.splitContainer2.Size = new System.Drawing.Size(579, 246);
             this.splitContainer2.SplitterDistance = 274;
             this.splitContainer2.TabIndex = 1;
             // 
@@ -123,7 +123,7 @@
             this.tvGGPlot2.Location = new System.Drawing.Point(0, 0);
             this.tvGGPlot2.Name = "tvGGPlot2";
             this.tvGGPlot2.ShowNodeToolTips = true;
-            this.tvGGPlot2.Size = new System.Drawing.Size(274, 247);
+            this.tvGGPlot2.Size = new System.Drawing.Size(274, 246);
             this.tvGGPlot2.TabIndex = 1;
             // 
             // tvSummary
@@ -131,7 +131,7 @@
             this.tvSummary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvSummary.Location = new System.Drawing.Point(0, 0);
             this.tvSummary.Name = "tvSummary";
-            this.tvSummary.Size = new System.Drawing.Size(301, 247);
+            this.tvSummary.Size = new System.Drawing.Size(301, 246);
             this.tvSummary.TabIndex = 0;
             // 
             // cmbPanels
@@ -239,6 +239,7 @@
             this.cmbXAxisData.Name = "cmbXAxisData";
             this.cmbXAxisData.Size = new System.Drawing.Size(145, 21);
             this.cmbXAxisData.TabIndex = 38;
+            this.cmbXAxisData.SelectedIndexChanged += new System.EventHandler(this.cmbXAxisData_SelectedIndexChanged);
             // 
             // txtBoxZAxisTitle
             // 
