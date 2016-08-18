@@ -15,6 +15,10 @@ namespace PostgresAPI
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
+                 name: "UserApi",
+                 routeTemplate: "api/{controller}/{user:string}/{id:int}");
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }

@@ -31,5 +31,16 @@ namespace PostgresAPI.Controllers
 
             return Ok(JObject.Parse(experiment.JSONB));
         }
+
+        public IHttpActionResult GetExperiment([FromUri]string sUser, [FromUri]int id)
+        {
+            Experiment experiment = dao.BulkExportJSON(id);
+            if (experiment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(JObject.Parse(experiment.JSONB));
+        }
     }
 }

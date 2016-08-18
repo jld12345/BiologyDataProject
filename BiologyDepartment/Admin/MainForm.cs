@@ -30,7 +30,6 @@ namespace BiologyDepartment
     {
         ctlLogIn _ctlLogin = new ctlLogIn();
         ctlExperiments2 _ctlExperiments = new ctlExperiments2();
-        ctlAnimalData _ctlAnimalData = new ctlAnimalData();
         ctlAuthors _ctlAuthors = new ctlAuthors();
         ctlRScripts _ctlRScripts;
         ctlSetup _ctlSetup;
@@ -56,8 +55,7 @@ namespace BiologyDepartment
         }
         public void Initialize()
         {
-            this.Show();
-            this.BringToFront();
+            this.WindowState = FormWindowState.Maximized;
             AddTabControls();
         }
 
@@ -74,10 +72,6 @@ namespace BiologyDepartment
                         _ctlExperiments.Initialize();
                         _ctlExperiments.ChangeExperimentEvent += _ctlExperiments_ChangeExperimentEvent;
                         tpExperiments.Controls.Add(_ctlExperiments);                        
-                        break;
-                    case "tpData":                        
-                        tpData.Controls.Add(_ctlAnimalData);
-                        _ctlAnimalData.Dock = DockStyle.Fill;
                         break;
                     case "tpRStudio":
                         var browser = new CefSharp.WinForms.ChromiumWebBrowser(BiologyDepartment.Properties.Settings.Default.MyRStudio);   
@@ -112,19 +106,21 @@ namespace BiologyDepartment
         {
             bDataControlDirty = true;
             bAuthorControlDirty = true;
+            SetRecord();
+        }
+
+        private void SetRecord()
+        {
+            txtCodeName.Text = GlobalVariables.Experiment.Alias;
+            txtProjectName.Text = GlobalVariables.Experiment.Title;
+            dtpStart.Value = Convert.ToDateTime(GlobalVariables.Experiment.SDate);
+            dtpEnd.Value = Convert.ToDateTime(GlobalVariables.Experiment.EDate);
         }
 
         private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (tabControlMain2.SelectedTab.Name)
             {
-                case "tpData":
-                    if (bDataControlDirty)
-                    {
-                        this.BeginInvoke(new MyDelegate(LoadData));
-                        bDataControlDirty = false;
-                    }
-                    break;
                 case "tpAuthors":
                     if (bAuthorControlDirty)
                     {
@@ -148,12 +144,6 @@ namespace BiologyDepartment
             }
         }
 
-            public void LoadData()
-            {
-                _ctlAnimalData.Initialize(GlobalVariables.Experiment.ID);
-                //tabControlMain.TabPages["tabData"].Controls.Add(_ctlAnimalData);
-            }
-
             public void LoadAuthors()
             {
                 /*tabControlMain2.TabPages["tabAuthors"].Controls.Remove(_ctlAuthors);
@@ -171,9 +161,6 @@ namespace BiologyDepartment
         {
             switch (tabControlMain2.SelectedTab.Name)
             {
-                case "tpData":
-
-                    break;
                 case "tpAuthors":
 
                     break;

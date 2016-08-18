@@ -72,8 +72,10 @@ namespace BiologyDepartment
                 GlobalVariables.AddImage("EditIcon16", Image.FromStream(file));
                 file = thisExe.GetManifestResourceStream("BiologyDepartment.Misc_Files.images.expand.png");
                 GlobalVariables.AddImage("Expand", Image.FromStream(file));
-                file = thisExe.GetManifestResourceStream("BiologyDepartment.Misc_Files.images.toggle.png");
-                GlobalVariables.AddImage("Toggle", Image.FromStream(file));
+                file = thisExe.GetManifestResourceStream("BiologyDepartment.Misc_Files.images.exit.png");
+                GlobalVariables.AddImage("ExitIcon", Image.FromStream(file));
+                file = thisExe.GetManifestResourceStream("BiologyDepartment.Misc_Files.images.refresh.png");
+                GlobalVariables.AddImage("RefreshIcon", Image.FromStream(file));
             }
         }
 

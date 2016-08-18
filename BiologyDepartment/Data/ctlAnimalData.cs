@@ -79,7 +79,7 @@ namespace BiologyDepartment
                 btnEdit.DataPropertyName = "EDIT";
                 dgExData.Columns.Insert(0, btnEdit);
                 dgExData.Columns["EDIT"].SortMode = DataGridViewColumnSortMode.Automatic;
-                //dgExData.DisableFilter(dgExData.Columns["EDIT"]);
+                dgExData.DisableFilter(dgExData.Columns["EDIT"]);
             }
 
             if (!dgExData.Columns.Contains("DELETE"))
@@ -93,7 +93,7 @@ namespace BiologyDepartment
                 btnDel.DataPropertyName = "DELETE";
                 dgExData.Columns.Insert(1, btnDel);
                 dgExData.Columns["DELETE"].SortMode = DataGridViewColumnSortMode.NotSortable;
-                //dgExData.DisableFilter(dgExData.Columns["DELETE"]);
+                dgExData.DisableFilter(dgExData.Columns["DELETE"]);
             }
 
             if (!dgExData.Columns.Contains("EXCLUDE"))
