@@ -15,6 +15,7 @@ namespace BiologyDepartment
         string exEDate = "";
         string exHypo = "";
         int nParentEx = 0;
+        string userAccess = "";
 
         public int ID
         {
@@ -56,6 +57,12 @@ namespace BiologyDepartment
         {
             get { return nParentEx; }
             set { nParentEx = value; }
+        }
+
+        public string UserAccess
+        {
+            get { return userAccess; }
+            set { userAccess = value; }
         }
 
     }

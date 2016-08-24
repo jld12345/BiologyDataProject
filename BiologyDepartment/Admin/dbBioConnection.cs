@@ -10,6 +10,7 @@ using System.Data;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using BiologyDepartment.ExperimentDocuments;
 
 namespace BiologyDepartment
 {
@@ -87,10 +88,12 @@ namespace BiologyDepartment
                 DataSet ds = new DataSet();
                 using (cmd)
                 {
-                    GlobalVariables.Connection.Close();
+                    if (GlobalVariables.Connection != null)
+                        GlobalVariables.Connection.Close();
+                    NpgsqlConnection con = GlobalVariables.Connection;
                     using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd))
                     {
-                        adapter.SelectCommand.Connection = GlobalVariables.Connection;
+                        adapter.SelectCommand.Connection = con;
                         adapter.SelectCommand.CommandText = cmd.CommandText;
                         adapter.Fill(ds);
                     }
@@ -116,10 +119,12 @@ namespace BiologyDepartment
             try
             {
                 DataSet ds = new DataSet();
-                GlobalVariables.Connection.Close();
+                if (GlobalVariables.Connection != null)
+                    GlobalVariables.Connection.Close();
+                NpgsqlConnection con = GlobalVariables.Connection;
                 using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(cmd))
                 {
-                    adapter.SelectCommand.Connection = GlobalVariables.Connection;
+                    adapter.SelectCommand.Connection = con;
                     adapter.SelectCommand.CommandText = cmd.CommandText;
                     adapter.Fill(ds);
                 }
@@ -146,7 +151,10 @@ namespace BiologyDepartment
             {
                 using (cmd)
                 {
-                    cmd.Connection = GlobalVariables.Connection;
+                    if (GlobalVariables.Connection != null)
+                        GlobalVariables.Connection.Close();
+                    NpgsqlConnection con = GlobalVariables.Connection;
+                    cmd.Connection = con;
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -165,7 +173,10 @@ namespace BiologyDepartment
                 int nReturn = 0;
                 using (cmd)
                 {
-                    cmd.Connection = GlobalVariables.Connection;
+                    if (GlobalVariables.Connection != null)
+                        GlobalVariables.Connection.Close();
+                    NpgsqlConnection con = GlobalVariables.Connection;
+                    cmd.Connection = con;
                     nReturn = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 return nReturn;
@@ -183,7 +194,10 @@ namespace BiologyDepartment
             {
                 using (cmd)
                 {
-                    cmd.Connection = GlobalVariables.Connection;
+                    if (GlobalVariables.Connection != null)
+                        GlobalVariables.Connection.Close();
+                    NpgsqlConnection con = GlobalVariables.Connection;
+                    cmd.Connection = con;
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -198,9 +212,11 @@ namespace BiologyDepartment
         public void UpdateFromDataGridView(DataTable dataSource, string sSelect)
         {
             DataTable dt = new DataTable();
-            using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sSelect, GlobalVariables.Connection))
+            if (GlobalVariables.Connection != null)
+                GlobalVariables.Connection.Close();
+            NpgsqlConnection con = GlobalVariables.Connection;
+            using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sSelect, con))
             {
-                GlobalVariables.Connection.Open();
                 adapter.Fill(dt);
                 dt = dataSource.Copy();
                 adapter.Update(dt);
@@ -213,7 +229,10 @@ namespace BiologyDepartment
             {
                 using (cmd)
                 {
-                    cmd.Connection = GlobalVariables.Connection;
+                    if (GlobalVariables.Connection != null)
+                        GlobalVariables.Connection.Close();
+                    NpgsqlConnection con = GlobalVariables.Connection;
+                    cmd.Connection = con;
                     cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -243,6 +262,8 @@ namespace BiologyDepartment
 
         public void BulkInsertData(List<string> ImportRows)
         {
+            if (GlobalVariables.Connection != null)
+                GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var writer = con.BeginBinaryImport
                 (@"COPY EXPERIMENT_DATA 
@@ -322,7 +343,8 @@ namespace BiologyDepartment
         {
             CustomColumns col;
             List<CustomColumns> colAgg = new List<CustomColumns>();
-            GlobalVariables.Connection.Close();
+            if (GlobalVariables.Connection != null)
+                GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
                 (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE
@@ -369,6 +391,41 @@ namespace BiologyDepartment
                 }
             }
             return sJson;
+        }
+
+        public List<PDFClass> BulkExportPDF()
+        {
+            PDFClass thePDF;
+            List<PDFClass> lstPDF = new List<PDFClass>();
+
+            if (GlobalVariables.Connection != null)
+                GlobalVariables.Connection.Close();
+            NpgsqlConnection con = GlobalVariables.Connection;
+
+            using (var reader = con.BeginBinaryExport
+                (@"COPY (SELECT PDF.EXPERIMENT_PDF_ID, PDF.EXPERIMENT_PDF_TITLE, PDF.EXPERIMENT_PDF_DESCRIPTION,
+                         PDF.EXPERIMENT_PDF 
+                         FROM EXPERIMENT_PDF PDF
+                         WHERE PDF.EXPERIMENT_ID = " + GlobalVariables.Experiment.ID + @"
+                        order by PDF.EXPERIMENT_PDF_ID asc) 
+                        TO STDOUT (FORMAT BINARY)"))
+            {
+                while (reader.StartRow() != -1)
+                {
+                    thePDF = new PDFClass();
+                    thePDF.EXPERIMENT_PDF_ID = reader.Read<int>(NpgsqlDbType.Integer);
+                    thePDF.EXPERIMENT_PDF_TITLE = reader.Read<string>(NpgsqlDbType.Varchar);
+                    thePDF.EXPERIMENT_PDF_DESCRIPTION = reader.Read<string>(NpgsqlDbType.Text);
+                    thePDF.EXPERIMENT_ID = GlobalVariables.Experiment.ID;
+                    if (!reader.IsNull)
+                        thePDF.EXPERIMENT_PDF = reader.Read<byte[]>(NpgsqlDbType.Bytea);
+                    else
+                        reader.Skip();
+                    lstPDF.Add(thePDF);
+
+                }
+            }
+            return lstPDF;
         }
     }
 }
