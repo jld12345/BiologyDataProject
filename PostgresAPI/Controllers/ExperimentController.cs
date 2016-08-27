@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Xml;
-using PostgresAPI.Models;
+using BiologyDepartmentModels;
 using PostgresAPI.DataAccessObject;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

@@ -39,6 +39,8 @@
     <Reference Include="ActiveDirectoryClass">
       <HintPath>..\BiologyDepartment\DLL Files\ActiveDirectoryClass.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
@@ -62,19 +64,24 @@
     <Compile Include="Active Directory\daoActiveDirectoryTests.cs" />
     <Compile Include="Experiments\daoExperimentsTests.cs" />
     <Compile Include="Experiments\ExperimentsUtilityTests.cs" />
+    <Compile Include="Models\SerializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BiologyDepartment\BiologyDepartment.csproj">
-      <Project>{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}</Project>
-      <Name>BiologyDepartment</Name>
-    </ProjectReference>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <ProjectReference Include="..\BiologyDepartment.Models\BiologyDepartmentModels.csproj">
+      <Project>{23069451-1a9e-4fdf-b7f8-e3eccf1ff617}</Project>
+      <Name>BiologyDepartmentModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BiologyDepartment\BiologyDepartment.csproj">
+      <Project>{63092bbc-e86f-4cbb-8ae7-39c30ce5e27f}</Project>
+      <Name>BiologyDepartment</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

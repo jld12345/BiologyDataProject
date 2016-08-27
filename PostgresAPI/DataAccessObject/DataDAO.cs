@@ -6,7 +6,7 @@ using System.Data;
 using System.Text;
 using Npgsql;
 using NpgsqlTypes;
-using PostgresAPI.Models;
+using BiologyDepartmentModels;
 using Newtonsoft.Json;
 
 namespace PostgresAPI.DataAccessObject
