@@ -110,5 +110,10 @@ namespace BiologyDepartment
             }
             return dtList;
         }
+
+        public bool DeleteExperiment(int ID)
+        {
+            return _daoExperiments.deleteRecord(ID, false);
+        }
     }
 }

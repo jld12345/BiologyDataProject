@@ -19,11 +19,14 @@ namespace BiologyDepartment
 
         public DataSet getExperiments()
         {
+            if (string.IsNullOrEmpty(GlobalVariables.ADUserName))
+                return null;
             NpgsqlCMD = new NpgsqlCommand();
             NpgsqlCMD.CommandText = @"Select ex.ex_id, ex.ex_alias, ex.ex_title, ex.ex_sdate,
                                       ex.ex_edate, ex.ex_hypothesis, 
                                       case  
                                             when ex.ex_parent_id is null then ex.ex_id
+                                            when ex.ex_parent_id = 0 then ex.ex_id
                                             else ex.ex_parent_id
                                       end as ex_parent_id, 
                                       ea.access_type as Permissions 
@@ -31,7 +34,8 @@ namespace BiologyDepartment
                                       where upper(ea.user_name) = :user_name
                                       and ex.ex_id = ea.ex_id
                                       and ((ex.ex_parent_id is null)
-                                            or (ex.ex_parent_id = ex.ex_id))
+                                            or (ex.ex_parent_id = ex.ex_id)
+                                            or (ex.ex_parent_id = 0))
                                       order by ex.ex_id";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
@@ -111,7 +115,7 @@ namespace BiologyDepartment
             if (e.ParentEx > 0)
                 NpgsqlCMD.Parameters[5].Value = e.ParentEx;
             else
-                NpgsqlCMD.Parameters[5].Value = null;
+                NpgsqlCMD.Parameters[5].Value = 0;
 
             NpgsqlParameter ExIDOutput = new NpgsqlParameter("id", NpgsqlDbType.Integer);
             ExIDOutput.Direction = ParameterDirection.Output;
@@ -131,7 +135,7 @@ namespace BiologyDepartment
 
             if (!bIsUnitTest)
             {
-                if (GlobalVariables.ADUserName.Equals("James"))
+                if (GlobalVariables.ADUserName.ToUpper().Equals("JAMES"))
                     daoPermissions.insertPermissions(id, GlobalVariables.ADUserName, "Owner");
                 else
                 {
@@ -170,7 +174,7 @@ namespace BiologyDepartment
             if (e.ParentEx > 0)
                 NpgsqlCMD.Parameters[6].Value = e.ParentEx;
             else
-                NpgsqlCMD.Parameters[6].Value = null;
+                NpgsqlCMD.Parameters[6].Value = e.ID;
 
             if (GlobalVariables.GlobalConnection.updateData(NpgsqlCMD) && !bIsUnitTest)
                 MessageBox.Show("Experiment successfully updated.", "Data Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -178,28 +182,52 @@ namespace BiologyDepartment
                 MessageBox.Show("Error updating experiment.", "Update Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public void deleteRecord(string id, bool bIsUnitTest)
+        public bool deleteRecord(int id, bool bIsUnitTest)
+        {
+            try
+            {
+                NpgsqlCMD = new NpgsqlCommand();
+                DialogResult mResult;
+                if (!bIsUnitTest)
+                    mResult = MessageBox.Show("Are you sure you wish to permantely delete this record?", "Delete Record Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                else
+                    mResult = DialogResult.Yes;
+
+                if (mResult == DialogResult.Yes)
+                {
+                    NpgsqlCMD.CommandText = "Delete from experiments where EX_ID = :exID";
+                    NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
+                    NpgsqlCMD.Parameters[0].Value = id;
+                    GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        public DataTable GetRecordsForComboBox()
         {
             NpgsqlCMD = new NpgsqlCommand();
-            DialogResult mResult;
-            if (!bIsUnitTest)
-                mResult = MessageBox.Show("Are you sure you wish to permantely delete this record?", "Delete Record Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            else
-                mResult = DialogResult.Yes;
+            NpgsqlCMD.CommandText = @"Select ex.ex_id, ex.ex_alias 
+                                      from experiments ex, experiment_access ea
+                                      where upper(ea.user_name) = :user_name
+                                      and ex.ex_id = ea.ex_id
+                                      order by ex.ex_id";
 
-            if (mResult == DialogResult.Yes)
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
+            DataSet ds = new DataSet();
+            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                NpgsqlCMD.CommandText = "Delete from experiments where EX_ID = :exID";
-                NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
-                NpgsqlCMD.Parameters[0].Value = Convert.ToInt32(id);
-                if(GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD) && !bIsUnitTest)
-                    MessageBox.Show("Data successfully deleted.", "Data Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else if(!bIsUnitTest)
-                    MessageBox.Show("Error deleting data.", "Delete Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return ds.Tables[0];
             }
-            else if(!bIsUnitTest)
-                MessageBox.Show("Delete process has been cancelled.", "Delete Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            else
+                return null;
         }
     }
 }

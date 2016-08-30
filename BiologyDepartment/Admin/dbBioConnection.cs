@@ -312,6 +312,8 @@ namespace BiologyDepartment
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
                 (@"COPY (SELECT ED.EXPERIMENT_DATA_ID, ED.EXCLUDE_ROW, ED.DATA_AGG, 
+                        CASE WHEN ED.EXCLUDE_ROW = 'Y' THEN TRUE
+                        ELSE FALSE END AS EXCLUDE, 
                         (SELECT DP.DATA_PICTURE FROM DATA_PICTURES DP
                          WHERE DP.TABLE_NAME = 'EXPERIMENT_DATA'
                          AND DP.TABLE_PRIMARY_KEY = ED.EXPERIMENT_DATA_ID) DATA_PICTURE
@@ -326,6 +328,7 @@ namespace BiologyDepartment
                     animal.DataID = reader.Read<int>(NpgsqlDbType.Integer);
                     animal.ExcludeRow = reader.Read<string>(NpgsqlDbType.Varchar);
                     animal.DataAgg = reader.Read<string>(NpgsqlDbType.Text);
+                    animal.Exclude = reader.Read<bool>(NpgsqlDbType.Boolean);
                     animal.ExID = GlobalVariables.Experiment.ID;
                     animal.GetAggData();
                     if (!reader.IsNull)
@@ -393,32 +396,33 @@ namespace BiologyDepartment
             return sJson;
         }
 
-        public List<PDFClass> BulkExportPDF()
+        public List<DocumentTreeNode> BulkExportPDF()
         {
-            PDFClass thePDF;
-            List<PDFClass> lstPDF = new List<PDFClass>();
+            DocumentTreeNode thePDF;
+            List<DocumentTreeNode> lstPDF = new List<DocumentTreeNode>();
 
-            if (GlobalVariables.Connection != null)
-                GlobalVariables.Connection.Close();
-            NpgsqlConnection con = GlobalVariables.Connection;
+            if (GlobalVariables.BackgroundConnection != null)
+                GlobalVariables.BackgroundConnection.Close();
+            NpgsqlConnection con = GlobalVariables.BackgroundConnection;
 
             using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT PDF.EXPERIMENT_PDF_ID, PDF.EXPERIMENT_PDF_TITLE, PDF.EXPERIMENT_PDF_DESCRIPTION,
-                         PDF.EXPERIMENT_PDF 
-                         FROM EXPERIMENT_PDF PDF
-                         WHERE PDF.EXPERIMENT_ID = " + GlobalVariables.Experiment.ID + @"
-                        order by PDF.EXPERIMENT_PDF_ID asc) 
+                (@"COPY (SELECT DOC.EXPERIMENT_DOCUMENT_ID, DOC.EXPERIMENT_DOCUMENT_TITLE, DOC.EXPERIMENT_DOCUMENT_DESCRIPTION,
+                         DOC.EXPERIMENT_DOCUMENT_TYPE, DOC.EXPERIMENT_DOCUMENT
+                         FROM EXPERIMENT_DOCUMENT DOC
+                         WHERE DOC.EXPERIMENT_ID = " + GlobalVariables.Experiment.ID + @"
+                        order by DOC.EXPERIMENT_DOCUMENT_ID asc) 
                         TO STDOUT (FORMAT BINARY)"))
             {
                 while (reader.StartRow() != -1)
                 {
-                    thePDF = new PDFClass();
-                    thePDF.EXPERIMENT_PDF_ID = reader.Read<int>(NpgsqlDbType.Integer);
-                    thePDF.EXPERIMENT_PDF_TITLE = reader.Read<string>(NpgsqlDbType.Varchar);
-                    thePDF.EXPERIMENT_PDF_DESCRIPTION = reader.Read<string>(NpgsqlDbType.Text);
-                    thePDF.EXPERIMENT_ID = GlobalVariables.Experiment.ID;
+                    thePDF = new DocumentTreeNode();
+                    thePDF.DocumentNode.DOCUMENT_ID = reader.Read<int>(NpgsqlDbType.Integer);
+                    thePDF.DocumentNode.DOCUMENT_TITLE = reader.Read<string>(NpgsqlDbType.Varchar);
+                    thePDF.DocumentNode.DOCUMENT_DESCRIPTION = reader.Read<string>(NpgsqlDbType.Text);
+                    thePDF.DocumentNode.EXPERIMENT_ID = GlobalVariables.Experiment.ID;
+                    thePDF.DocumentNode.DOCUMENT_TYPE = reader.Read<string>(NpgsqlDbType.Varchar);
                     if (!reader.IsNull)
-                        thePDF.EXPERIMENT_PDF = reader.Read<byte[]>(NpgsqlDbType.Bytea);
+                        thePDF.DocumentNode.DOCUMENT = reader.Read<byte[]>(NpgsqlDbType.Bytea);
                     else
                         reader.Skip();
                     lstPDF.Add(thePDF);

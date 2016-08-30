@@ -39,6 +39,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnSave = new Syncfusion.Windows.Forms.ButtonAdv();
             this.btnCancel = new Syncfusion.Windows.Forms.ButtonAdv();
+            this.cmbDocType = new Syncfusion.Windows.Forms.Tools.ComboBoxAdv();
+            this.label2 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDocType)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -74,7 +77,7 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(17, 41);
+            this.lblTitle.Location = new System.Drawing.Point(17, 84);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(49, 13);
             this.lblTitle.TabIndex = 14;
@@ -82,7 +85,7 @@
             // 
             // rtbTitle
             // 
-            this.rtbTitle.Location = new System.Drawing.Point(20, 58);
+            this.rtbTitle.Location = new System.Drawing.Point(20, 101);
             this.rtbTitle.Name = "rtbTitle";
             this.rtbTitle.Size = new System.Drawing.Size(533, 96);
             this.rtbTitle.TabIndex = 15;
@@ -90,7 +93,7 @@
             // 
             // rtbDescription
             // 
-            this.rtbDescription.Location = new System.Drawing.Point(23, 183);
+            this.rtbDescription.Location = new System.Drawing.Point(23, 226);
             this.rtbDescription.Name = "rtbDescription";
             this.rtbDescription.Size = new System.Drawing.Size(533, 96);
             this.rtbDescription.TabIndex = 17;
@@ -99,7 +102,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 166);
+            this.label1.Location = new System.Drawing.Point(20, 209);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 16;
@@ -127,11 +130,38 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // cmbDocType
+            // 
+            this.cmbDocType.BeforeTouchSize = new System.Drawing.Size(121, 21);
+            this.cmbDocType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbDocType.Items.AddRange(new object[] {
+            "PDF",
+            "DOCUMENT",
+            "SPREADSHEET",
+            "PRESENTATION",
+            "IMAGE",
+            "MISC"});
+            this.cmbDocType.Location = new System.Drawing.Point(103, 49);
+            this.cmbDocType.Name = "cmbDocType";
+            this.cmbDocType.Size = new System.Drawing.Size(121, 21);
+            this.cmbDocType.TabIndex = 20;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(14, 49);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 13);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "Document Type";
+            // 
             // frmAddDocument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 303);
+            this.ClientSize = new System.Drawing.Size(575, 333);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cmbDocType);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.rtbDescription);
@@ -143,6 +173,7 @@
             this.Controls.Add(this.label3);
             this.Name = "frmAddDocument";
             this.Text = "Add Document";
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDocType)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,5 +191,7 @@
         private System.Windows.Forms.Label label1;
         private Syncfusion.Windows.Forms.ButtonAdv btnSave;
         private Syncfusion.Windows.Forms.ButtonAdv btnCancel;
+        private Syncfusion.Windows.Forms.Tools.ComboBoxAdv cmbDocType;
+        private System.Windows.Forms.Label label2;
     }
 }

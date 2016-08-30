@@ -296,7 +296,7 @@ namespace BiologyDepartment
             }
             else if (bDelete)
             {
-                _daoExperiments.deleteRecord(txtExID.Text, false);
+                //_daoExperiments.deleteRecord(txtExID.Text, false);
                 bDelete = false;
             }
             else
@@ -379,7 +379,7 @@ namespace BiologyDepartment
         private void btnDelete_Click(object sender, EventArgs e)
         {
             //_daoAuthorEX.deleteAllRecords(Convert.ToInt32(cbExperiments.SelectedValue.ToString()));
-            _daoExperiments.deleteRecord(txtExID.Text, false);
+            //_daoExperiments.deleteRecord(txtExID.Text, false);
             frmRefresh();
         }
 

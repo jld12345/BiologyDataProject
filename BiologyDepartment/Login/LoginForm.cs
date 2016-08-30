@@ -13,6 +13,7 @@ namespace BiologyDepartment.Login
     public partial class LoginForm : Form
     {
         private ctlLogIn login = new ctlLogIn();
+        public bool bExitProgram = false;
         public LoginForm()
         {
             InitializeComponent();
@@ -24,6 +25,11 @@ namespace BiologyDepartment.Login
             login.Dock = DockStyle.Fill;
             this.Controls.Add(login);
             login.Show();
+        }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            bExitProgram = login.bExitProgram;
         }
     }
 }

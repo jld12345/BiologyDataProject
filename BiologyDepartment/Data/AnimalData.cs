@@ -16,6 +16,7 @@ namespace BiologyDepartment
         public DateTime DelDate { get; set; }
         public string DelUser { get; set; }
         public string ExcludeRow { get; set; }
+        public bool Exclude { get; set; }
         public string DataAgg { get; set; }
         public byte[] Picture { get; set; }
 

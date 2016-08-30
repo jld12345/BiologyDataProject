@@ -47,72 +47,8 @@ namespace BiologyDepartment
 
         public void Initialize()
         {
-            this.SuspendLayout();
             _daoSetup = new daoSetup();
-            pbImport.Image = imageList1.Images[0];
-            pbImport.Image.Tag = "down";
-            pnlImport2.Width = flowLayoutPanel1.Width;
-            pnlImport2.Height = 500;
-            pnlImport2.Hide();
-            pbShow.Image = imageList1.Images[0];
-            pbShow.Image.Tag = "down";
-            pnlShow2.Width = flowLayoutPanel1.Width;
-            pnlShow2.Height = 500;
-            pnlShow2.Hide();
-            this.ResumeLayout();
             bInitialize = true;
-        }
-
-        private void CollapsePanel(string sName)
-        {
-            switch (sName)
-            {
-                case "pnlImport":
-                    if (pbImport.Image.Tag.ToString().Equals("down"))
-                    {
-                        pbImport.Image = imageList1.Images[1];
-                        pbImport.Image.Tag = "up";
-                        pnlImport2.Show();
-                        pnlShow2.Hide();
-                        pbShow.Image = imageList1.Images[0];
-                        pbShow.Image.Tag = "down";
-                    }
-                    else
-                    {
-                        pbImport.Image = imageList1.Images[0];
-                        pbImport.Image.Tag = "down";
-                        pnlImport2.Hide();
-                    }
-                    break;
-                case "pnlShow":
-                    if (pbShow.Image.Tag.ToString().Equals("down"))
-                    {
-                        pbShow.Image = imageList1.Images[1];
-                        pbShow.Image.Tag = "up";
-                        pnlShow2.Show();
-                        pnlImport2.Hide();
-                        pbImport.Image = imageList1.Images[0];
-                        pbImport.Image.Tag = "down";
-                    }
-                    else
-                    {
-                        pbShow.Image = imageList1.Images[0];
-                        pbShow.Image.Tag = "down";
-                        pnlShow2.Hide();
-                    }
-                    break;
-
-            }
-        }
-
-        private void pbShow_Click(object sender, EventArgs e)
-        {
-            CollapsePanel("pnlShow");
-        }
-
-        private void pbImport_Click(object sender, EventArgs e)
-        {
-            CollapsePanel("pnlImport");
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -185,6 +121,8 @@ namespace BiologyDepartment
                 dtColumns.Columns.Add("custom_columns_id", typeof(string));
             if (!dtColumns.Columns.Contains("map_column"))
                 dtColumns.Columns.Add("map_column", typeof(string));
+            if (!dtColumns.Columns.Contains("map_column"))
+                dtColumns.Columns.Add("custom_column_comments", typeof(string));
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -219,7 +157,6 @@ namespace BiologyDepartment
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-
             dgExcelData.DataSource = _commonUtil.ValidateData((DataTable)dgExcelData.DataSource, dgColAdmin, true, false);
             sMapColumns.Clear();
         }
@@ -272,19 +209,20 @@ namespace BiologyDepartment
             //use column name as the property to bind it to the datatable.
             if (!dgColAdmin.Columns.Contains("custom_column_name"))
                 dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_column_name", "NAME", true, 1));
+            if (!dgColAdmin.Columns.Contains("custom_column_comments"))
+                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_column_comments", "comments", true, 2));
             if (!dgColAdmin.Columns.Contains("custom_column_data_type"))
-                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("custom_column_data_type", "TYPE", true, 2, theTypes));
+                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("custom_column_data_type", "TYPE", true, 3, theTypes));
             if (!dgColAdmin.Columns.Contains("map_column"))
-                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("map_column", "MAP COLUMN", true, 3, sMapColumns));
+                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("map_column", "MAP COLUMN", true, 4, sMapColumns));
             if(!dgColAdmin.Columns.Contains("custom_columns_id"))
-                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_columns_id", "ex_id", false, 4));
+                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_columns_id", "ex_id", false, 5));
             
             dgColAdmin.DataSource = dtColumns;
 
             dgColAdmin.Columns["custom_columns_id"].Visible = false;
-            dgColAdmin.Columns["custom_column_name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-            lblExperiment.Text = GlobalVariables.Experiment.Title;
+            dgColAdmin.Columns["custom_column_name"].MinimumWidth = 250;
+            dgColAdmin.Columns["custom_column_comments"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
         }
 
@@ -388,6 +326,16 @@ namespace BiologyDepartment
         private void cbHasHeaders_CheckedChanged(object sender, EventArgs e)
         {
             sMapColumns.Clear();
+        }
+
+        private void btnImport_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgColAdmin_Layout(object sender, LayoutEventArgs e)
+        {
+
         }
 
     }

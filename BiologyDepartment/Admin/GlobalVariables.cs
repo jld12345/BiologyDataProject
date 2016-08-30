@@ -32,6 +32,7 @@ namespace BiologyDepartment
         static Experiments _experiments = new Experiments();
         static ImageList imageList = new ImageList();
         static NpgsqlConnection con;
+        static NpgsqlConnection bgwCon;
 
         static dbBioConnection BioConnection;
 
@@ -66,6 +67,10 @@ namespace BiologyDepartment
         {
             get { return conn(); }
         }
+        public static NpgsqlConnection BackgroundConnection
+        {
+            get { return bgwConnection(); }
+        }
 
         private static NpgsqlConnection conn()
         {
@@ -82,6 +87,12 @@ namespace BiologyDepartment
                                         CommandTimeout=300;
                                         Connection Lifetime=0");
                 }
+                if(con.State == System.Data.ConnectionState.Connecting 
+                    || con.State == System.Data.ConnectionState.Executing 
+                    || con.State == System.Data.ConnectionState.Fetching)
+                {
+                    return bgwConnection();
+                }
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
                 return con;
@@ -92,6 +103,36 @@ namespace BiologyDepartment
                 {
                     con.Open();
                     return con;
+                }
+                return null;
+            }
+        }
+
+        private static NpgsqlConnection bgwConnection()
+        {
+            try
+            {
+                if (bgwCon == null)
+                {
+                    bgwCon = new NpgsqlConnection(BiologyDepartment.Properties.Settings.Default.MyPostgress +
+                                              @";Port=5432;
+                                        User Id=" + dbUser + @";
+                                        Password=" + dbPass + @";
+                                        Database=BiologyProject;
+                                        Pooling=false;
+                                        CommandTimeout=300;
+                                        Connection Lifetime=0");
+                }
+                if (bgwCon.State != System.Data.ConnectionState.Open)
+                    bgwCon.Open();
+                return bgwCon;
+            }
+            catch (Exception e)
+            {
+                if (bgwCon.State != System.Data.ConnectionState.Open)
+                {
+                    bgwCon.Open();
+                    return bgwCon;
                 }
                 return null;
             }

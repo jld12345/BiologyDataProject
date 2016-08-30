@@ -14,12 +14,31 @@ namespace BiologyDepartment.ExperimentDocuments
     public partial class frmAddDocument : Form
     {
         //PDFClass should work to load anything as a byte.
-        private PDFClass thePDF = new PDFClass();
-        private string sFilePath = "";
+        private DocumentClass thePDF = new DocumentClass();
+        private List<string> sFilePath = new List<string>();
+        private List<string> sFileName = new List<string>();
         private DocumentDAO daoDoc = new DocumentDAO();
-        public frmAddDocument()
+        private bool bIsEdit = false;
+
+        public frmAddDocument(bool bAllowMulti)
         {
             InitializeComponent();
+            openFileDialog1.Multiselect = bAllowMulti;
+            cmbDocType.SelectedIndex = 0;
+            rtbTitle.Enabled = false;
+        }
+
+        public frmAddDocument(bool bAllowMulti, DocumentClass docEdit)
+        {
+            InitializeComponent();
+            thePDF = docEdit;
+            openFileDialog1.Multiselect = bAllowMulti;
+            cmbDocType.SelectedText = thePDF.DOCUMENT_TYPE;
+            rtbDescription.Text = thePDF.DOCUMENT_DESCRIPTION;
+            rtbTitle.Text = thePDF.DOCUMENT_TITLE;
+            rtbTitle.Enabled = true;
+            btnBrowse.Enabled = false;
+            bIsEdit = true;
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -30,14 +49,14 @@ namespace BiologyDepartment.ExperimentDocuments
                 openFileDialog1.InitialDirectory = @"c:\";
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    if (openFileDialog1.FileName != "")
+                    int nCount = 0;
+                    foreach(string sName in openFileDialog1.FileNames)
                     {
-                        sFilePath = openFileDialog1.FileName;
-                        txtDocPath.Text = sFilePath;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Chose Excel sheet path..", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        sFilePath.Add(sName);
+                        sFileName.Add(openFileDialog1.SafeFileName[nCount].ToString());
+                        txtDocPath.Text += sName + ",";
+                        rtbTitle.Text += openFileDialog1.SafeFileName[nCount].ToString();
+                        nCount++;
                     }
                 }
             }
@@ -54,21 +73,46 @@ namespace BiologyDepartment.ExperimentDocuments
                 MessageBox.Show("Please enter title information.", "Title Null", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            thePDF.EXPERIMENT_PDF_TITLE = rtbTitle.Text;
-            thePDF.EXPERIMENT_PDF_DESCRIPTION = string.IsNullOrWhiteSpace(rtbDescription.Text) ? "Description not available." : rtbDescription.Text;
-            thePDF.EXPERIMENT_ID = GlobalVariables.Experiment.ID;
-
-            using (FileStream fileStream = new FileStream(sFilePath, FileMode.Open, FileAccess.Read))
+            int nCount = 0;
+            if (!bIsEdit)
             {
-                byte[] byteData = new byte[fileStream.Length];
-                fileStream.Read(byteData, 0, System.Convert.ToInt32(fileStream.Length));
-                thePDF.EXPERIMENT_PDF = byteData;
+                foreach (string sPath in sFilePath)
+                {
+                    thePDF.DOCUMENT_TITLE = sFileName[nCount];
+                    thePDF.DOCUMENT_DESCRIPTION = string.IsNullOrWhiteSpace(rtbDescription.Text) ? "Description not available." : rtbDescription.Text;
+                    thePDF.EXPERIMENT_ID = GlobalVariables.Experiment.ID;
+                    thePDF.DOCUMENT_TYPE = cmbDocType.SelectedItem.ToString();
+
+                    using (FileStream fileStream = new FileStream(sPath, FileMode.Open, FileAccess.Read))
+                    {
+                        byte[] byteData = new byte[fileStream.Length];
+                        fileStream.Read(byteData, 0, System.Convert.ToInt32(fileStream.Length));
+                        thePDF.DOCUMENT = byteData;
+                    }
+
+                    daoDoc.InsertPDF(thePDF);
+                    nCount++;
+                }
+                rtbDescription.Clear();
+                rtbTitle.Clear();
+                txtDocPath.Clear();
+                cmbDocType.SelectedIndex = 0;
             }
-            daoDoc.InsertPDF(thePDF);
+            else
+            {
+                thePDF.DOCUMENT_TITLE = rtbTitle.Text;
+                thePDF.DOCUMENT_DESCRIPTION = rtbDescription.Text;
+                thePDF.DOCUMENT_TYPE = cmbDocType.SelectedItem.ToString();
+                daoDoc.UpdatePDF(thePDF);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            if(bIsEdit)
+            {
+                Close();
+            }
             txtDocPath.Clear();
             rtbDescription.Clear();
             rtbTitle.Clear();

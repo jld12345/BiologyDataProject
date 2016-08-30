@@ -200,6 +200,10 @@
       <HintPath>..\packages\NetOffice.Excel.1.7.4-pre-jun-28-2015\lib\net45\ExcelApi.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="FileTypeDetective, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FileTypeDetective.1.0.0.0\lib\net40\FileTypeDetective.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Gnostice.Core, Version=16.5.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
       <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.5.0\lib\net40\Gnostice.Core.dll</HintPath>
       <Private>True</Private>
@@ -230,6 +234,9 @@
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MimeDetective">
+      <HintPath>..\..\..\Users\James\Downloads\Mime-Detective-master\Mime-Detective-master\MimeDetective\obj\Release\MimeDetective.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.EF6.2.0.12-pre4\lib\net45\Mono.Security.dll</HintPath>
@@ -286,16 +293,52 @@
     <Reference Include="ScintillaNET">
       <HintPath>DLL Files\ScintillaNET.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Chart.Base, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.Chart.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Chart.Windows, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.Chart.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Compression.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Diagram.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Diagram.Windows, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.ExcelChartToImageConverter.Wpf, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.ExcelChartToImageConverter.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.ExcelToPDFConverter.Base, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.ExcelToPDFConverter.Base.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Grid.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grid.Grouping.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grid.Grouping.Windows, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Grid.Windows, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grouping.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.OfficeChart.Base, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.OfficeChart.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.OfficeChartToImageConverter.Wpf, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.OfficeChartToImageConverter.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Pdf.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.PdfViewer.Windows, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Presentation.Base, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.Presentation.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PresentationToPdfConverter.Base, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.PresentationToPdfConverter.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.Wpf, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.SfChart.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Shared.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Shared.Windows, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.SpellChecker.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
@@ -304,6 +347,10 @@
     <Reference Include="Syncfusion.Tools.Windows, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.TreeMap.Windows, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.XlsIO.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.XlsIO.Windows, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Syncfusion\Essential Studio\14.2.0.28\precompiledassemblies\14.2.0.28\4.5\Syncfusion.XlsIO.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -346,7 +393,7 @@
     <Compile Include="ExperimentDocuments\frmAddDocument.Designer.cs">
       <DependentUpon>frmAddDocument.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExperimentDocuments\PDFClass.cs" />
+    <Compile Include="ExperimentDocuments\DocumentClass.cs" />
     <Compile Include="ExperimentsFolder\ctlExperiments2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -354,6 +401,12 @@
       <DependentUpon>ctlExperiments2.cs</DependentUpon>
     </Compile>
     <Compile Include="ExperimentsFolder\ExperimentsUtility.cs" />
+    <Compile Include="ExperimentsFolder\frmAddEditExperiment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExperimentsFolder\frmAddEditExperiment.Designer.cs">
+      <DependentUpon>frmAddEditExperiment.cs</DependentUpon>
+    </Compile>
     <Compile Include="ISettings.cs" />
     <Compile Include="Login\LoginForm.cs">
       <SubType>Form</SubType>
@@ -480,6 +533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ExperimentsFolder\ctlExperiments2.resx">
       <DependentUpon>ctlExperiments2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExperimentsFolder\frmAddEditExperiment.resx">
+      <DependentUpon>frmAddEditExperiment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\ctlLogIn.resx">
       <DependentUpon>ctlLogIn.cs</DependentUpon>
@@ -644,6 +700,19 @@
   <ItemGroup>
     <EmbeddedResource Include="Misc Files\images\exit.png" />
     <EmbeddedResource Include="Misc Files\images\refresh.png" />
+    <EmbeddedResource Include="Misc Files\images\AddExperiment.png" />
+    <EmbeddedResource Include="Misc Files\images\AddExperiment25.png" />
+    <EmbeddedResource Include="Misc Files\images\ClipboardExport.png" />
+    <EmbeddedResource Include="Misc Files\images\ClipboardExport2.png" />
+    <EmbeddedResource Include="Misc Files\images\ClipboardExport25.png" />
+    <EmbeddedResource Include="Misc Files\images\Delete-file-icon.png" />
+    <EmbeddedResource Include="Misc Files\images\DeleteFile20.png" />
+    <EmbeddedResource Include="Misc Files\images\documentaddicon.png" />
+    <EmbeddedResource Include="Misc Files\images\documentaddicon25.png" />
+    <EmbeddedResource Include="Misc Files\images\Edit-Document-icon.png" />
+    <EmbeddedResource Include="Misc Files\images\EditDoc25.png" />
+    <EmbeddedResource Include="Misc Files\images\ExperimentPermission.png" />
+    <EmbeddedResource Include="Misc Files\images\ExperimentPermission25.png" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />

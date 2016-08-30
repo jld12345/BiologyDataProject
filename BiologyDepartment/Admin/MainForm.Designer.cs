@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
-        {
+            {
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste spreadsheetCopyPaste1 = new Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste();
+            Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController formulaRangeSelectionController1 = new Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController();
             Gnostice.Documents.FormatterSettings formatterSettings1 = new Gnostice.Documents.FormatterSettings();
             Gnostice.Documents.TXTFormatterSettings txtFormatterSettings1 = new Gnostice.Documents.TXTFormatterSettings();
             Gnostice.Documents.PageSettings pageSettings1 = new Gnostice.Documents.PageSettings();
@@ -39,10 +41,22 @@
             Gnostice.Graphics.ResolutionSettings resolutionSettings1 = new Gnostice.Graphics.ResolutionSettings();
             Gnostice.Graphics.TextRenderingSettings textRenderingSettings1 = new Gnostice.Graphics.TextRenderingSettings();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo1 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo2 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo3 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo4 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo5 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo6 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo7 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo8 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv1 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv2 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv3 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv4 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo9 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo10 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo11 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
+            Syncfusion.Windows.Forms.Tools.ToolTipInfo toolTipInfo12 = new Syncfusion.Windows.Forms.Tools.ToolTipInfo();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv5 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv6 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv7 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
@@ -52,6 +66,7 @@
             this.tabControlMain2 = new Syncfusion.Windows.Forms.Tools.TabControlAdv();
             this.tpExperiments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.tpDocuments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.spreadsheetViewer = new Syncfusion.Windows.Forms.Spreadsheet.Spreadsheet();
             this.docViewer = new Gnostice.Documents.Controls.WinForms.DocumentViewer();
             this.tpSetup = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.tpRScripts = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
@@ -72,9 +87,23 @@
             this.btnRefresh2 = new Syncfusion.Windows.Forms.ButtonAdv();
             this.spcControl = new System.Windows.Forms.SplitContainer();
             this.spcExperimentDocs = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.btnPermissions = new System.Windows.Forms.Button();
+            this.btnDelExperiment = new System.Windows.Forms.Button();
+            this.btnEditExperiment = new System.Windows.Forms.Button();
+            this.btnAddExperiment = new System.Windows.Forms.Button();
             this.tvExperiments = new Syncfusion.Windows.Forms.Tools.TreeViewAdv();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnExportDoc = new System.Windows.Forms.Button();
+            this.btnDelDoc = new System.Windows.Forms.Button();
+            this.btnEditDoc = new System.Windows.Forms.Button();
+            this.btnAddDoc = new System.Windows.Forms.Button();
             this.tvDocuments = new Syncfusion.Windows.Forms.Tools.TreeViewAdv();
+            this.imageListAdv1 = new Syncfusion.Windows.Forms.Tools.ImageListAdv(this.components);
             this.toolStripTabItem2 = new Syncfusion.Windows.Forms.Tools.ToolStripTabItem();
+            this.bgwDocuments = new System.ComponentModel.BackgroundWorker();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.superToolTip1 = new Syncfusion.Windows.Forms.Tools.SuperToolTip(this);
             ((System.ComponentModel.ISupportInitialize)(this.tabControlMain2)).BeginInit();
             this.tabControlMain2.SuspendLayout();
             this.tpDocuments.SuspendLayout();
@@ -95,7 +124,15 @@
             this.spcExperimentDocs.Panel1.SuspendLayout();
             this.spcExperimentDocs.Panel2.SuspendLayout();
             this.spcExperimentDocs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tvExperiments)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tvDocuments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,8 +147,8 @@
             this.tabControlMain2.CloseButtonPressedForeColor = System.Drawing.Color.Empty;
             this.tabControlMain2.Controls.Add(this.tpExperiments);
             this.tabControlMain2.Controls.Add(this.tpDocuments);
-            this.tabControlMain2.Controls.Add(this.tpSetup);
             this.tabControlMain2.Controls.Add(this.tpRScripts);
+            this.tabControlMain2.Controls.Add(this.tpSetup);
             this.tabControlMain2.Controls.Add(this.tpRStudio);
             this.tabControlMain2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain2.FocusOnTabClick = false;
@@ -142,6 +179,7 @@
             // 
             // tpDocuments
             // 
+            this.tpDocuments.Controls.Add(this.spreadsheetViewer);
             this.tpDocuments.Controls.Add(this.docViewer);
             this.tpDocuments.Image = null;
             this.tpDocuments.ImageSize = new System.Drawing.Size(16, 16);
@@ -152,6 +190,35 @@
             this.tpDocuments.TabIndex = 6;
             this.tpDocuments.Text = "Documents";
             this.tpDocuments.ThemesEnabled = true;
+            // 
+            // spreadsheetViewer
+            // 
+            this.spreadsheetViewer.ActiveSheet = null;
+            this.spreadsheetViewer.AllowCellContextMenu = true;
+            this.spreadsheetViewer.AllowExtendRowColumnCount = true;
+            this.spreadsheetViewer.AllowFormulaRangeSelection = true;
+            this.spreadsheetViewer.AllowTabItemContextMenu = true;
+            this.spreadsheetViewer.AllowZooming = true;
+            spreadsheetCopyPaste1.AllowPasteOptionPopup = true;
+            spreadsheetCopyPaste1.DefaultPasteOption = Syncfusion.Windows.Forms.Spreadsheet.PasteOptions.Paste;
+            this.spreadsheetViewer.CopyPaste = spreadsheetCopyPaste1;
+            this.spreadsheetViewer.DefaultColumnCount = 101;
+            this.spreadsheetViewer.DefaultRowCount = 101;
+            this.spreadsheetViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spreadsheetViewer.FileName = "Book8";
+            this.spreadsheetViewer.FormulaBarVisibility = false;
+            formulaRangeSelectionController1.AllowMouseSelection = true;
+            formulaRangeSelectionController1.AllowSelectionOnEditing = true;
+            this.spreadsheetViewer.FormulaRangeSelectionController = formulaRangeSelectionController1;
+            this.spreadsheetViewer.IsCustomTabItemContextMenuEnabled = false;
+            this.spreadsheetViewer.Location = new System.Drawing.Point(0, 0);
+            this.spreadsheetViewer.Name = "spreadsheetViewer";
+            this.spreadsheetViewer.SelectedTabIndex = 0;
+            this.spreadsheetViewer.SelectedTabItem = null;
+            this.spreadsheetViewer.Size = new System.Drawing.Size(600, 379);
+            this.spreadsheetViewer.TabIndex = 4;
+            this.spreadsheetViewer.TabItemContextMenu = null;
+            this.spreadsheetViewer.Text = "spreadsheet1";
             // 
             // docViewer
             // 
@@ -209,7 +276,7 @@
             this.docViewer.Preferences.RenderingSettings = renderingSettings1;
             this.docViewer.Preferences.Units = Gnostice.Graphics.MeasurementUnit.Inches;
             this.docViewer.Size = new System.Drawing.Size(600, 379);
-            this.docViewer.TabIndex = 1;
+            this.docViewer.TabIndex = 3;
             this.docViewer.VScrollBar.LargeChange = 40;
             this.docViewer.VScrollBar.SmallChange = 20;
             this.docViewer.VScrollBar.Value = 0;
@@ -287,6 +354,7 @@
             this.btnExport.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
+            this.btnExport.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnExport.IsBackStageButton = false;
             this.btnExport.Location = new System.Drawing.Point(225, 0);
             this.btnExport.Name = "btnExport";
@@ -294,6 +362,11 @@
             this.btnExport.TabIndex = 36;
             this.btnExport.Text = "Export";
             this.btnExport.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            toolTipInfo1.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo1.Body.Text = "Bulk export documents.";
+            toolTipInfo1.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo1.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnExport, toolTipInfo1);
             this.btnExport.UseVisualStyle = true;
             // 
             // btnAddDocs
@@ -304,13 +377,19 @@
             this.btnAddDocs.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnAddDocs.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAddDocs.Image = ((System.Drawing.Image)(resources.GetObject("btnAddDocs.Image")));
+            this.btnAddDocs.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAddDocs.IsBackStageButton = false;
             this.btnAddDocs.Location = new System.Drawing.Point(150, 0);
             this.btnAddDocs.Name = "btnAddDocs";
             this.btnAddDocs.Size = new System.Drawing.Size(75, 91);
             this.btnAddDocs.TabIndex = 35;
-            this.btnAddDocs.Text = "Add Documents";
+            this.btnAddDocs.Text = "Bulk Import";
             this.btnAddDocs.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            toolTipInfo2.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo2.Body.Text = "Bulk import documents.";
+            toolTipInfo2.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo2.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnAddDocs, toolTipInfo2);
             this.btnAddDocs.UseVisualStyle = true;
             this.btnAddDocs.Click += new System.EventHandler(this.btnAddDocs_Click);
             // 
@@ -445,6 +524,7 @@
             this.btnExit.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
+            this.btnExit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnExit.IsBackStageButton = false;
             this.btnExit.Location = new System.Drawing.Point(75, 0);
             this.btnExit.Name = "btnExit";
@@ -452,6 +532,11 @@
             this.btnExit.TabIndex = 1;
             this.btnExit.Text = "Exit";
             this.btnExit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            toolTipInfo3.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo3.Body.Text = "Exit program";
+            toolTipInfo3.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo3.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnExit, toolTipInfo3);
             this.btnExit.UseVisualStyle = true;
             this.btnExit.Click += new System.EventHandler(this.tspExit_Click);
             // 
@@ -461,8 +546,10 @@
             this.btnRefresh2.BeforeTouchSize = new System.Drawing.Size(75, 91);
             this.btnRefresh2.BorderStyleAdv = Syncfusion.Windows.Forms.ButtonAdvBorderStyle.Raised;
             this.btnRefresh2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnRefresh2.Enabled = false;
             this.btnRefresh2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRefresh2.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh2.Image")));
+            this.btnRefresh2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnRefresh2.IsBackStageButton = false;
             this.btnRefresh2.Location = new System.Drawing.Point(0, 0);
             this.btnRefresh2.Name = "btnRefresh2";
@@ -470,6 +557,11 @@
             this.btnRefresh2.TabIndex = 0;
             this.btnRefresh2.Text = "Refresh";
             this.btnRefresh2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            toolTipInfo4.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo4.Body.Text = "Refresh Data";
+            toolTipInfo4.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo4.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnRefresh2, toolTipInfo4);
             this.btnRefresh2.UseVisualStyle = true;
             this.btnRefresh2.Click += new System.EventHandler(this.btnRefresh2_Click);
             // 
@@ -500,20 +592,104 @@
             // 
             // spcExperimentDocs.Panel1
             // 
-            this.spcExperimentDocs.Panel1.Controls.Add(this.tvExperiments);
+            this.spcExperimentDocs.Panel1.Controls.Add(this.splitContainer2);
             // 
             // spcExperimentDocs.Panel2
             // 
-            this.spcExperimentDocs.Panel2.Controls.Add(this.tvDocuments);
-            this.spcExperimentDocs.Panel2Collapsed = true;
+            this.spcExperimentDocs.Panel2.Controls.Add(this.splitContainer1);
             this.spcExperimentDocs.Size = new System.Drawing.Size(240, 383);
             this.spcExperimentDocs.SplitterDistance = 190;
             this.spcExperimentDocs.TabIndex = 38;
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.btnPermissions);
+            this.splitContainer2.Panel1.Controls.Add(this.btnDelExperiment);
+            this.splitContainer2.Panel1.Controls.Add(this.btnEditExperiment);
+            this.splitContainer2.Panel1.Controls.Add(this.btnAddExperiment);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.tvExperiments);
+            this.splitContainer2.Size = new System.Drawing.Size(240, 190);
+            this.splitContainer2.SplitterDistance = 36;
+            this.splitContainer2.TabIndex = 39;
+            // 
+            // btnPermissions
+            // 
+            this.btnPermissions.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPermissions.Image = ((System.Drawing.Image)(resources.GetObject("btnPermissions.Image")));
+            this.btnPermissions.Location = new System.Drawing.Point(0, 105);
+            this.btnPermissions.Name = "btnPermissions";
+            this.btnPermissions.Size = new System.Drawing.Size(36, 35);
+            this.btnPermissions.TabIndex = 3;
+            toolTipInfo5.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo5.Body.Text = "Set security permissions on experiment.";
+            toolTipInfo5.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo5.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnPermissions, toolTipInfo5);
+            this.btnPermissions.UseVisualStyleBackColor = true;
+            this.btnPermissions.Click += new System.EventHandler(this.btnPermissions_Click);
+            // 
+            // btnDelExperiment
+            // 
+            this.btnDelExperiment.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDelExperiment.Image = ((System.Drawing.Image)(resources.GetObject("btnDelExperiment.Image")));
+            this.btnDelExperiment.Location = new System.Drawing.Point(0, 70);
+            this.btnDelExperiment.Name = "btnDelExperiment";
+            this.btnDelExperiment.Size = new System.Drawing.Size(36, 35);
+            this.btnDelExperiment.TabIndex = 2;
+            toolTipInfo6.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo6.Body.Text = "Delete experiment.";
+            toolTipInfo6.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo6.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnDelExperiment, toolTipInfo6);
+            this.btnDelExperiment.UseVisualStyleBackColor = true;
+            this.btnDelExperiment.Click += new System.EventHandler(this.btnDelExperiment_Click);
+            // 
+            // btnEditExperiment
+            // 
+            this.btnEditExperiment.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnEditExperiment.Image = ((System.Drawing.Image)(resources.GetObject("btnEditExperiment.Image")));
+            this.btnEditExperiment.Location = new System.Drawing.Point(0, 35);
+            this.btnEditExperiment.Name = "btnEditExperiment";
+            this.btnEditExperiment.Size = new System.Drawing.Size(36, 35);
+            this.btnEditExperiment.TabIndex = 1;
+            toolTipInfo7.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo7.Body.Text = "Edit experiment information.";
+            toolTipInfo7.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo7.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnEditExperiment, toolTipInfo7);
+            this.btnEditExperiment.UseVisualStyleBackColor = true;
+            this.btnEditExperiment.Click += new System.EventHandler(this.btnEditExperiment_Click);
+            // 
+            // btnAddExperiment
+            // 
+            this.btnAddExperiment.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAddExperiment.Image = ((System.Drawing.Image)(resources.GetObject("btnAddExperiment.Image")));
+            this.btnAddExperiment.Location = new System.Drawing.Point(0, 0);
+            this.btnAddExperiment.Name = "btnAddExperiment";
+            this.btnAddExperiment.Size = new System.Drawing.Size(36, 35);
+            this.btnAddExperiment.TabIndex = 0;
+            toolTipInfo8.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo8.Body.Text = "Add new experiment.";
+            toolTipInfo8.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo8.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnAddExperiment, toolTipInfo8);
+            this.btnAddExperiment.UseVisualStyleBackColor = true;
+            this.btnAddExperiment.Click += new System.EventHandler(this.btnAddExperiment_Click);
+            // 
             // tvExperiments
             // 
             this.tvExperiments.AccelerateScrolling = Syncfusion.Windows.Forms.AccelerateScrollingBehavior.Immediate;
-            this.tvExperiments.BeforeTouchSize = new System.Drawing.Size(240, 383);
+            this.tvExperiments.BeforeTouchSize = new System.Drawing.Size(200, 190);
             this.tvExperiments.Border3DStyle = System.Windows.Forms.Border3DStyle.Bump;
             this.tvExperiments.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tvExperiments.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -533,38 +709,46 @@
             this.tvExperiments.Location = new System.Drawing.Point(0, 0);
             this.tvExperiments.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
             this.tvExperiments.Name = "tvExperiments";
+            treeNodeAdv1.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv1.ChildStyle.EnsureDefaultOptionedChild = true;
             treeNodeAdv1.EnsureDefaultOptionedChild = true;
+            treeNodeAdv1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv1.MultiLine = true;
             treeNodeAdv1.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv1.ShowLine = true;
-            treeNodeAdv1.Text = "Owner";
+            treeNodeAdv1.Text = "OWNER                         ";
+            treeNodeAdv2.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv2.ChildStyle.EnsureDefaultOptionedChild = true;
             treeNodeAdv2.EnsureDefaultOptionedChild = true;
+            treeNodeAdv2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv2.MultiLine = true;
             treeNodeAdv2.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv2.ShowLine = true;
-            treeNodeAdv2.Text = "Admin";
+            treeNodeAdv2.Text = "ADMIN                           ";
+            treeNodeAdv3.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv3.ChildStyle.EnsureDefaultOptionedChild = true;
             treeNodeAdv3.EnsureDefaultOptionedChild = true;
+            treeNodeAdv3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv3.MultiLine = true;
             treeNodeAdv3.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv3.ShowLine = true;
-            treeNodeAdv3.Text = "Add/Edit";
+            treeNodeAdv3.Text = "ADD-EDIT                      ";
+            treeNodeAdv4.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv4.ChildStyle.EnsureDefaultOptionedChild = true;
             treeNodeAdv4.EnsureDefaultOptionedChild = true;
+            treeNodeAdv4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv4.MultiLine = true;
             treeNodeAdv4.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv4.ShowLine = true;
-            treeNodeAdv4.Text = "View";
+            treeNodeAdv4.Text = "VIEW                             ";
             this.tvExperiments.Nodes.AddRange(new Syncfusion.Windows.Forms.Tools.TreeNodeAdv[] {
             treeNodeAdv1,
             treeNodeAdv2,
             treeNodeAdv3,
             treeNodeAdv4});
             this.tvExperiments.SelectedNodeForeColor = System.Drawing.SystemColors.HighlightText;
-            this.tvExperiments.Size = new System.Drawing.Size(240, 383);
-            this.tvExperiments.TabIndex = 36;
+            this.tvExperiments.Size = new System.Drawing.Size(200, 190);
+            this.tvExperiments.TabIndex = 37;
             this.tvExperiments.Text = "treeViewAdv1";
             // 
             // 
@@ -578,10 +762,99 @@
             this.tvExperiments.ToolTipControl.Text = "toolTip";
             this.tvExperiments.AfterSelect += new System.EventHandler(this.tvExperiments_AfterSelect);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnExportDoc);
+            this.splitContainer1.Panel1.Controls.Add(this.btnDelDoc);
+            this.splitContainer1.Panel1.Controls.Add(this.btnEditDoc);
+            this.splitContainer1.Panel1.Controls.Add(this.btnAddDoc);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.tvDocuments);
+            this.splitContainer1.Size = new System.Drawing.Size(240, 189);
+            this.splitContainer1.SplitterDistance = 36;
+            this.splitContainer1.TabIndex = 38;
+            // 
+            // btnExportDoc
+            // 
+            this.btnExportDoc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnExportDoc.Image = ((System.Drawing.Image)(resources.GetObject("btnExportDoc.Image")));
+            this.btnExportDoc.Location = new System.Drawing.Point(0, 105);
+            this.btnExportDoc.Name = "btnExportDoc";
+            this.btnExportDoc.Size = new System.Drawing.Size(36, 35);
+            this.btnExportDoc.TabIndex = 3;
+            toolTipInfo9.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo9.Body.Text = "Export document.";
+            toolTipInfo9.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo9.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnExportDoc, toolTipInfo9);
+            this.btnExportDoc.UseVisualStyleBackColor = true;
+            this.btnExportDoc.Click += new System.EventHandler(this.btnExportDoc_Click);
+            // 
+            // btnDelDoc
+            // 
+            this.btnDelDoc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDelDoc.Image = ((System.Drawing.Image)(resources.GetObject("btnDelDoc.Image")));
+            this.btnDelDoc.Location = new System.Drawing.Point(0, 70);
+            this.btnDelDoc.Name = "btnDelDoc";
+            this.btnDelDoc.Size = new System.Drawing.Size(36, 35);
+            this.btnDelDoc.TabIndex = 2;
+            toolTipInfo10.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo10.Body.Text = "Delete document.";
+            toolTipInfo10.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo10.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnDelDoc, toolTipInfo10);
+            this.btnDelDoc.UseVisualStyleBackColor = true;
+            this.btnDelDoc.Click += new System.EventHandler(this.btnDelDoc_Click);
+            // 
+            // btnEditDoc
+            // 
+            this.btnEditDoc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnEditDoc.Image = ((System.Drawing.Image)(resources.GetObject("btnEditDoc.Image")));
+            this.btnEditDoc.Location = new System.Drawing.Point(0, 35);
+            this.btnEditDoc.Name = "btnEditDoc";
+            this.btnEditDoc.Size = new System.Drawing.Size(36, 35);
+            this.btnEditDoc.TabIndex = 1;
+            toolTipInfo11.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo11.Body.Text = "Edit document information.";
+            toolTipInfo11.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo11.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnEditDoc, toolTipInfo11);
+            this.btnEditDoc.UseVisualStyleBackColor = true;
+            this.btnEditDoc.Click += new System.EventHandler(this.btnEditDoc_Click);
+            // 
+            // btnAddDoc
+            // 
+            this.btnAddDoc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAddDoc.Image = ((System.Drawing.Image)(resources.GetObject("btnAddDoc.Image")));
+            this.btnAddDoc.Location = new System.Drawing.Point(0, 0);
+            this.btnAddDoc.Name = "btnAddDoc";
+            this.btnAddDoc.Size = new System.Drawing.Size(36, 35);
+            this.btnAddDoc.TabIndex = 0;
+            toolTipInfo12.Body.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo12.Body.Text = "Add new document.";
+            toolTipInfo12.Footer.Size = new System.Drawing.Size(20, 20);
+            toolTipInfo12.Header.Size = new System.Drawing.Size(20, 20);
+            this.superToolTip1.SetToolTip(this.btnAddDoc, toolTipInfo12);
+            this.btnAddDoc.UseVisualStyleBackColor = true;
+            this.btnAddDoc.Click += new System.EventHandler(this.btnAddDoc_Click);
+            // 
             // tvDocuments
             // 
-            this.tvDocuments.BeforeTouchSize = new System.Drawing.Size(150, 46);
+            this.tvDocuments.AddSeparatorAtEnd = true;
+            this.tvDocuments.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tvDocuments.BeforeTouchSize = new System.Drawing.Size(200, 189);
+            this.tvDocuments.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tvDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvDocuments.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
             // 
             // 
             // 
@@ -595,42 +868,64 @@
             this.tvDocuments.Location = new System.Drawing.Point(0, 0);
             this.tvDocuments.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
             this.tvDocuments.Name = "tvDocuments";
+            treeNodeAdv5.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv5.ChildStyle.EnsureDefaultOptionedChild = true;
+            treeNodeAdv5.ClosedImgIndex = 16;
+            treeNodeAdv5.CollapseImageIndex = 16;
             treeNodeAdv5.EnsureDefaultOptionedChild = true;
+            treeNodeAdv5.ExpandImageIndex = 16;
+            treeNodeAdv5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv5.MultiLine = true;
+            treeNodeAdv5.OpenImgIndex = 16;
             treeNodeAdv5.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv5.ShowLine = true;
-            treeNodeAdv5.Text = "PDF";
+            treeNodeAdv5.Text = "PDF                           ";
+            treeNodeAdv5.TextColor = System.Drawing.Color.Black;
+            treeNodeAdv6.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv6.ChildStyle.EnsureDefaultOptionedChild = true;
             treeNodeAdv6.EnsureDefaultOptionedChild = true;
+            treeNodeAdv6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv6.MultiLine = true;
             treeNodeAdv6.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv6.ShowLine = true;
-            treeNodeAdv6.Text = "Word";
+            treeNodeAdv6.Text = "DOCUMENTS            ";
+            treeNodeAdv6.TextColor = System.Drawing.Color.Black;
+            treeNodeAdv7.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv7.ChildStyle.EnsureDefaultOptionedChild = true;
             treeNodeAdv7.EnsureDefaultOptionedChild = true;
+            treeNodeAdv7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv7.MultiLine = true;
             treeNodeAdv7.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv7.ShowLine = true;
-            treeNodeAdv7.Text = "Spreadsheet";
+            treeNodeAdv7.Text = "SPREADSHEET        ";
+            treeNodeAdv7.TextColor = System.Drawing.Color.Black;
+            treeNodeAdv8.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv8.ChildStyle.EnsureDefaultOptionedChild = true;
             treeNodeAdv8.EnsureDefaultOptionedChild = true;
+            treeNodeAdv8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv8.MultiLine = true;
             treeNodeAdv8.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv8.ShowLine = true;
-            treeNodeAdv8.Text = "Presentation";
+            treeNodeAdv8.Text = "PRESENTATION        ";
+            treeNodeAdv8.TextColor = System.Drawing.Color.Black;
+            treeNodeAdv9.Background = new Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.PatternStyle.None, System.Drawing.SystemColors.WindowText, System.Drawing.SystemColors.Control);
             treeNodeAdv9.ChildStyle.EnsureDefaultOptionedChild = true;
             treeNodeAdv9.EnsureDefaultOptionedChild = true;
+            treeNodeAdv9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv9.MultiLine = true;
             treeNodeAdv9.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv9.ShowLine = true;
-            treeNodeAdv9.Text = "Image";
+            treeNodeAdv9.Text = "IMAGE                       ";
+            treeNodeAdv9.TextColor = System.Drawing.Color.Black;
+            treeNodeAdv10.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv10.ChildStyle.EnsureDefaultOptionedChild = true;
             treeNodeAdv10.EnsureDefaultOptionedChild = true;
+            treeNodeAdv10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             treeNodeAdv10.MultiLine = true;
             treeNodeAdv10.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv10.ShowLine = true;
-            treeNodeAdv10.Text = "Misc";
+            treeNodeAdv10.Text = "MISC                         ";
+            treeNodeAdv10.TextColor = System.Drawing.Color.Black;
             this.tvDocuments.Nodes.AddRange(new Syncfusion.Windows.Forms.Tools.TreeNodeAdv[] {
             treeNodeAdv5,
             treeNodeAdv6,
@@ -638,10 +933,14 @@
             treeNodeAdv8,
             treeNodeAdv9,
             treeNodeAdv10});
-            this.tvDocuments.SelectedNodeForeColor = System.Drawing.SystemColors.HighlightText;
-            this.tvDocuments.Size = new System.Drawing.Size(150, 46);
+            this.tvDocuments.SelectedNodeBackground = new Syncfusion.Drawing.BrushInfo(System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(235)))), ((int)(((byte)(251))))));
+            this.tvDocuments.SelectedNodeForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
+            this.tvDocuments.ShowFocusRect = false;
+            this.tvDocuments.Size = new System.Drawing.Size(200, 189);
+            this.tvDocuments.Style = Syncfusion.Windows.Forms.Tools.TreeStyle.Office2007;
             this.tvDocuments.TabIndex = 37;
             this.tvDocuments.Text = "treeViewAdv1";
+            this.tvDocuments.ThemesEnabled = true;
             // 
             // 
             // 
@@ -652,6 +951,30 @@
             this.tvDocuments.ToolTipControl.Size = new System.Drawing.Size(41, 15);
             this.tvDocuments.ToolTipControl.TabIndex = 1;
             this.tvDocuments.ToolTipControl.Text = "toolTip";
+            this.tvDocuments.AfterSelect += new System.EventHandler(this.tvDocuments_AfterSelect);
+            // 
+            // imageListAdv1
+            // 
+            this.imageListAdv1.Images.AddRange(new System.Drawing.Image[] {
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images1"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images2"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images3"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images4"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images5"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images6"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images7"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images8"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images9"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images10"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images11"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images12"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images13"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images14"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images15"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images16"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images17"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images18")))});
             // 
             // toolStripTabItem2
             // 
@@ -667,6 +990,24 @@
             this.toolStripTabItem2.Size = new System.Drawing.Size(103, 19);
             this.toolStripTabItem2.Text = "toolStripTabItem2";
             // 
+            // bgwDocuments
+            // 
+            this.bgwDocuments.WorkerReportsProgress = true;
+            this.bgwDocuments.WorkerSupportsCancellation = true;
+            this.bgwDocuments.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwDocuments_DoWork);
+            this.bgwDocuments.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwDocuments_ProgressChanged);
+            this.bgwDocuments.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwDocuments_RunWorkerCompleted);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = resources.GetString("saveFileDialog1.Filter");
+            this.saveFileDialog1.InitialDirectory = "C:\\";
+            // 
+            // superToolTip1
+            // 
+            this.superToolTip1.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(158)))), ((int)(((byte)(218)))));
+            this.superToolTip1.VisualStyle = Syncfusion.Windows.Forms.Tools.SuperToolTip.Appearance.Metro;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -674,13 +1015,13 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(971, 485);
-            this.ControlBox = false;
             this.Controls.Add(this.spcMainControl);
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(979, 501);
             this.Name = "MainForm";
             this.Text = "Biology Project Database";
+            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.tabControlMain2)).EndInit();
@@ -704,7 +1045,15 @@
             this.spcExperimentDocs.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcExperimentDocs)).EndInit();
             this.spcExperimentDocs.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tvExperiments)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tvDocuments)).EndInit();
             this.ResumeLayout(false);
 
@@ -731,13 +1080,28 @@
         private Syncfusion.Windows.Forms.Tools.TextBoxExt txtProjectName;
         private Syncfusion.Windows.Forms.Tools.AutoLabel lblCodeName;
         private Syncfusion.Windows.Forms.Tools.TextBoxExt txtCodeName;
-        private Syncfusion.Windows.Forms.Tools.TreeViewAdv tvExperiments;
         private System.Windows.Forms.SplitContainer spcControl;
-        private Gnostice.Documents.Controls.WinForms.DocumentViewer docViewer;
         private Syncfusion.Windows.Forms.ButtonAdv btnExport;
         private Syncfusion.Windows.Forms.ButtonAdv btnAddDocs;
         private System.Windows.Forms.SplitContainer spcExperimentDocs;
         private Syncfusion.Windows.Forms.Tools.TreeViewAdv tvDocuments;
+        private Gnostice.Documents.Controls.WinForms.DocumentViewer docViewer;
+        private Syncfusion.Windows.Forms.Spreadsheet.Spreadsheet spreadsheetViewer;
+        private System.ComponentModel.BackgroundWorker bgwDocuments;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button btnDelDoc;
+        private System.Windows.Forms.Button btnEditDoc;
+        private System.Windows.Forms.Button btnAddDoc;
+        private Syncfusion.Windows.Forms.Tools.ImageListAdv imageListAdv1;
+        private System.Windows.Forms.Button btnExportDoc;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private Syncfusion.Windows.Forms.Tools.SuperToolTip superToolTip1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.Button btnPermissions;
+        private System.Windows.Forms.Button btnDelExperiment;
+        private System.Windows.Forms.Button btnEditExperiment;
+        private System.Windows.Forms.Button btnAddExperiment;
+        private Syncfusion.Windows.Forms.Tools.TreeViewAdv tvExperiments;
 
     }
 }

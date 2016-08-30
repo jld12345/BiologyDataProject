@@ -53,6 +53,18 @@ namespace BiologyDepartment.Data
             _daoData.GetColumns();
             animalCols = GlobalVariables.CustomColumns;
             int colPosition = 0;
+
+            if (!dtAnimals.Columns.Contains("EXCLUDE"))
+            {
+                DataColumn newCol = new DataColumn();
+                newCol.ColumnName = "EXCLUDE";
+                newCol.DataType = System.Type.GetType("System.Boolean");
+                newCol.Caption = "EXCLUDE";
+                dtAnimals.Columns.Add(newCol);
+                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
+                colPosition++;
+            }
+
             foreach (CustomColumns col in animalCols)
             {
                 DataColumn newCol = new DataColumn();
@@ -84,7 +96,7 @@ namespace BiologyDepartment.Data
                     colPosition++;
                 }
             }
-            
+
             if (!dtAnimals.Columns.Contains("DataID"))
             {
                 DataColumn newCol = new DataColumn();
@@ -107,18 +119,7 @@ namespace BiologyDepartment.Data
                 colPosition++;
             }
 
-            /*if(!dtAnimals.Columns.Contains("EDIT"))
-            {
-                DataColumn newCol = new DataColumn();
-                newCol.ColumnName = "EDIT";
-                newCol.DataType = System.Type.GetType("System.String");
-                newCol.Caption = "EDIT";
-                dtAnimals.Columns.Add(newCol);
-                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
-                colPosition++;
-            }
-
-            if (!dtAnimals.Columns.Contains("DELETE"))
+            /*if (!dtAnimals.Columns.Contains("DELETE"))
             {
                 DataColumn newCol = new DataColumn();
                 newCol.ColumnName = "DELETE";
@@ -134,6 +135,7 @@ namespace BiologyDepartment.Data
                 DataRow row = dtAnimals.NewRow();
                 row["DataID"] = animal.DataID;
                 row["ExcludeRow"] = animal.ExcludeRow;
+                row["EXCLUDE"] = animal.Exclude;
 
                 foreach (KeyValuePair<int, string> entry in animal.AggDictionary)
                 {
@@ -166,7 +168,7 @@ namespace BiologyDepartment.Data
             keys[0] = dtAnimals.Columns["DataID"];
             dtAnimals.PrimaryKey = keys;
             dtAnimals.AcceptChanges();
-            
+
             sw.Stop();
             Trace.WriteLine("Elapsed:  " + sw.Elapsed);
             return dtAnimals;
@@ -240,18 +242,18 @@ namespace BiologyDepartment.Data
 
             //Creating DataTable
             DataTable dt = new DataTable();
-            var temp  = (BindingSource)dgExData.DataSource;
+            var temp = (BindingSource)dgExData.DataSource;
             DataView dv = ((DataTable)temp.DataSource).AsDataView();
             dv.RowFilter = temp.Filter;
             dt = dv.ToTable();
 
             //Change the column name from the number used in the database to the column header name
-            foreach(DataColumn dc in dt.Columns)
+            foreach (DataColumn dc in dt.Columns)
             {
                 dc.ColumnName = dc.Caption;
             }
 
-            foreach(DataRow dr in dt.Rows)
+            foreach (DataRow dr in dt.Rows)
             {
                 if (dr["Data Picture"] == null)
                     continue;
@@ -275,7 +277,7 @@ namespace BiologyDepartment.Data
                 wb.Worksheets.Add(dt, "Data Export");
                 if (string.IsNullOrEmpty(sFileName))
                     sFileName = "C:\\tempExcel.xls";
-                    wb.SaveAs(sFileName);
+                wb.SaveAs(sFileName);
             }
         }
     }

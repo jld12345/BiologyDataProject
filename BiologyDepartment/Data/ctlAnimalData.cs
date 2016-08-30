@@ -48,25 +48,37 @@ namespace BiologyDepartment
         public ctlAnimalData()
         {
             InitializeComponent();
+            _bindingSource.ListChanged += new ListChangedEventHandler(bindingSource_ListChanged);
         }
 
         public void Initialize(int id)
         {
             intID = id;
+            dtAnimals = _dataUtil.GetData();
+            if (_bindingSource.DataSource == null)
+            {
+                if (dtAnimals == null || dtAnimals.Rows.Count == 0)
+                    return;
+                _bindingSource.DataSource = dtAnimals;
+                dgExData.DataSource = _bindingSource;
+            }
+            if (dtAnimals == null || dtAnimals.Rows.Count == 0)
+            {
+                if (dgExData.RowCount > 0)
+                {
+                    _bindingSource.DataSource = null;
+                    dgExData.DataSource = null;
+                    dgExData.DataBindings.Clear();
+                }
+                return;
+            }
             SetGrid();
             bIsInitialize = true;
+
         }
 
         private void SetGrid()
         {
-            _bindingSource = new BindingSource();
-            dtAnimals.Clear();
-            dgExData.DataSource = null;
-            _bindingSource.ListChanged -= new ListChangedEventHandler(bindingSource_ListChanged);
-            _bindingSource.ListChanged += new ListChangedEventHandler(bindingSource_ListChanged);
-            dtAnimals = _dataUtil.GetData();
-            _bindingSource.DataSource = dtAnimals;
-            dgExData.DataSource = _bindingSource;
 
             if (!dgExData.Columns.Contains("EDIT"))
             {
@@ -113,7 +125,7 @@ namespace BiologyDepartment
             dgExData.Columns["EXCLUDE"].Visible = true;
             dgExData.Columns["ExcludeRow"].Visible = false;
 
-            int nDisplay = 3;
+            int nDisplay = 2;
             foreach(DataColumn col in dtAnimals.Columns)
             {
                 dgExData.Columns[col.ColumnName].HeaderText = col.Caption;
@@ -122,11 +134,6 @@ namespace BiologyDepartment
             }
 
             this.searchToolBar.SetColumns(dgExData.Columns);
-
-            foreach(DataGridViewRow dgvr in dgExData.Rows)
-            {
-                _dataUtil.CheckExcludeState(dgvr.Index, bIsInitialize, ref dgExData);
-            }
 
             dgExData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtAnimals.AcceptChanges();
