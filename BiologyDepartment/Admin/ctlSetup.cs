@@ -138,15 +138,16 @@ namespace BiologyDepartment
                 int nColID = 0;
                 string sName = Convert.ToString(row.Cells["custom_column_name"].Value);
                 string sType = Convert.ToString(row.Cells["custom_column_data_type"].Value);
+                string sDesc = Convert.ToString(row.Cells["custom_columns_comments"].Value);
                 if (string.IsNullOrEmpty(sName) || string.IsNullOrEmpty(sType))
                     return;
                 int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
 
                 if (nColID > 0)
-                    _daoSetup.UpdateColumn(nColID, sName, sType);
+                    _daoSetup.UpdateColumn(nColID, sName, sType, sDesc);
                 else
                 {
-                    nColID = _daoSetup.InsertColumn(GlobalVariables.Experiment.ID, sName, sType);
+                    nColID = _daoSetup.InsertColumn(GlobalVariables.Experiment.ID, sName, sType, sDesc);
                     if (nColID > 0)
                         dgColAdmin.Rows[row.Index].Cells["custom_columns_id"].Value = nColID;
                 }

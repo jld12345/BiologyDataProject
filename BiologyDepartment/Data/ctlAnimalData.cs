@@ -54,6 +54,11 @@ namespace BiologyDepartment
         public void Initialize(int id)
         {
             intID = id;
+            dtAnimals = null;
+            _bindingSource.DataSource = null;
+            dgExData.DataSource = null;
+            dgExData.DataBindings.Clear();
+            dgExData.Columns.Clear();
             dtAnimals = _dataUtil.GetData();
             if (_bindingSource.DataSource == null)
             {
@@ -69,6 +74,7 @@ namespace BiologyDepartment
                     _bindingSource.DataSource = null;
                     dgExData.DataSource = null;
                     dgExData.DataBindings.Clear();
+                    dgExData.Columns.Clear();
                 }
                 return;
             }

@@ -68,8 +68,8 @@
             this.tpDocuments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.spreadsheetViewer = new Syncfusion.Windows.Forms.Spreadsheet.Spreadsheet();
             this.docViewer = new Gnostice.Documents.Controls.WinForms.DocumentViewer();
-            this.tpSetup = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.tpRScripts = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            this.tpSetup = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.tpRStudio = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.spcMainControl = new Syncfusion.Windows.Forms.Tools.SplitContainerAdv();
             this.btnExport = new Syncfusion.Windows.Forms.ButtonAdv();
@@ -93,13 +93,13 @@
             this.btnEditExperiment = new System.Windows.Forms.Button();
             this.btnAddExperiment = new System.Windows.Forms.Button();
             this.tvExperiments = new Syncfusion.Windows.Forms.Tools.TreeViewAdv();
+            this.imageListAdv1 = new Syncfusion.Windows.Forms.Tools.ImageListAdv(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.btnExportDoc = new System.Windows.Forms.Button();
             this.btnDelDoc = new System.Windows.Forms.Button();
             this.btnEditDoc = new System.Windows.Forms.Button();
             this.btnAddDoc = new System.Windows.Forms.Button();
             this.tvDocuments = new Syncfusion.Windows.Forms.Tools.TreeViewAdv();
-            this.imageListAdv1 = new Syncfusion.Windows.Forms.Tools.ImageListAdv(this.components);
             this.toolStripTabItem2 = new Syncfusion.Windows.Forms.Tools.ToolStripTabItem();
             this.bgwDocuments = new System.ComponentModel.BackgroundWorker();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -140,7 +140,7 @@
             // 
             this.tabControlMain2.ActiveTabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.tabControlMain2.Alignment = System.Windows.Forms.TabAlignment.Right;
-            this.tabControlMain2.BeforeTouchSize = new System.Drawing.Size(725, 383);
+            this.tabControlMain2.BeforeTouchSize = new System.Drawing.Size(1008, 383);
             this.tabControlMain2.BorderVisible = true;
             this.tabControlMain2.CloseButtonForeColor = System.Drawing.Color.Empty;
             this.tabControlMain2.CloseButtonHoverForeColor = System.Drawing.Color.Empty;
@@ -157,7 +157,7 @@
             this.tabControlMain2.MultilineText = true;
             this.tabControlMain2.Name = "tabControlMain2";
             this.tabControlMain2.RotateTextWhenVertical = true;
-            this.tabControlMain2.Size = new System.Drawing.Size(725, 383);
+            this.tabControlMain2.Size = new System.Drawing.Size(1008, 383);
             this.tabControlMain2.SizeMode = Syncfusion.Windows.Forms.Tools.TabSizeMode.Fixed;
             this.tabControlMain2.TabIndex = 0;
             this.tabControlMain2.TabPanelBackColor = System.Drawing.SystemColors.ControlLight;
@@ -172,7 +172,7 @@
             this.tpExperiments.Location = new System.Drawing.Point(3, 2);
             this.tpExperiments.Name = "tpExperiments";
             this.tpExperiments.ShowCloseButton = true;
-            this.tpExperiments.Size = new System.Drawing.Size(600, 379);
+            this.tpExperiments.Size = new System.Drawing.Size(883, 379);
             this.tpExperiments.TabIndex = 1;
             this.tpExperiments.Text = "Experiments";
             this.tpExperiments.ThemesEnabled = true;
@@ -186,7 +186,7 @@
             this.tpDocuments.Location = new System.Drawing.Point(3, 2);
             this.tpDocuments.Name = "tpDocuments";
             this.tpDocuments.ShowCloseButton = true;
-            this.tpDocuments.Size = new System.Drawing.Size(600, 379);
+            this.tpDocuments.Size = new System.Drawing.Size(883, 379);
             this.tpDocuments.TabIndex = 6;
             this.tpDocuments.Text = "Documents";
             this.tpDocuments.ThemesEnabled = true;
@@ -215,7 +215,7 @@
             this.spreadsheetViewer.Name = "spreadsheetViewer";
             this.spreadsheetViewer.SelectedTabIndex = 0;
             this.spreadsheetViewer.SelectedTabItem = null;
-            this.spreadsheetViewer.Size = new System.Drawing.Size(600, 379);
+            this.spreadsheetViewer.Size = new System.Drawing.Size(883, 379);
             this.spreadsheetViewer.TabIndex = 4;
             this.spreadsheetViewer.TabItemContextMenu = null;
             this.spreadsheetViewer.Text = "spreadsheet1";
@@ -275,7 +275,7 @@
             renderingSettings1.Text = textRenderingSettings1;
             this.docViewer.Preferences.RenderingSettings = renderingSettings1;
             this.docViewer.Preferences.Units = Gnostice.Graphics.MeasurementUnit.Inches;
-            this.docViewer.Size = new System.Drawing.Size(600, 379);
+            this.docViewer.Size = new System.Drawing.Size(883, 379);
             this.docViewer.TabIndex = 3;
             this.docViewer.VScrollBar.LargeChange = 40;
             this.docViewer.VScrollBar.SmallChange = 20;
@@ -284,18 +284,6 @@
             this.docViewer.Zoom.ZoomMode = Gnostice.Documents.Controls.WinForms.ZoomMode.ActualSize;
             this.docViewer.Zoom.ZoomPercent = 100D;
             // 
-            // tpSetup
-            // 
-            this.tpSetup.Image = null;
-            this.tpSetup.ImageSize = new System.Drawing.Size(16, 16);
-            this.tpSetup.Location = new System.Drawing.Point(3, 2);
-            this.tpSetup.Name = "tpSetup";
-            this.tpSetup.ShowCloseButton = true;
-            this.tpSetup.Size = new System.Drawing.Size(600, 379);
-            this.tpSetup.TabIndex = 3;
-            this.tpSetup.Text = "Setup";
-            this.tpSetup.ThemesEnabled = true;
-            // 
             // tpRScripts
             // 
             this.tpRScripts.Image = null;
@@ -303,10 +291,22 @@
             this.tpRScripts.Location = new System.Drawing.Point(3, 2);
             this.tpRScripts.Name = "tpRScripts";
             this.tpRScripts.ShowCloseButton = true;
-            this.tpRScripts.Size = new System.Drawing.Size(600, 379);
+            this.tpRScripts.Size = new System.Drawing.Size(883, 379);
             this.tpRScripts.TabIndex = 4;
             this.tpRScripts.Text = "RScripts";
             this.tpRScripts.ThemesEnabled = true;
+            // 
+            // tpSetup
+            // 
+            this.tpSetup.Image = null;
+            this.tpSetup.ImageSize = new System.Drawing.Size(16, 16);
+            this.tpSetup.Location = new System.Drawing.Point(3, 2);
+            this.tpSetup.Name = "tpSetup";
+            this.tpSetup.ShowCloseButton = true;
+            this.tpSetup.Size = new System.Drawing.Size(883, 379);
+            this.tpSetup.TabIndex = 3;
+            this.tpSetup.Text = "Setup";
+            this.tpSetup.ThemesEnabled = true;
             // 
             // tpRStudio
             // 
@@ -315,7 +315,7 @@
             this.tpRStudio.Location = new System.Drawing.Point(3, 2);
             this.tpRStudio.Name = "tpRStudio";
             this.tpRStudio.ShowCloseButton = true;
-            this.tpRStudio.Size = new System.Drawing.Size(600, 379);
+            this.tpRStudio.Size = new System.Drawing.Size(883, 379);
             this.tpRStudio.TabIndex = 5;
             this.tpRStudio.Text = "RStudio";
             this.tpRStudio.ThemesEnabled = true;
@@ -341,7 +341,7 @@
             // spcMainControl.Panel2
             // 
             this.spcMainControl.Panel2.Controls.Add(this.spcControl);
-            this.spcMainControl.Size = new System.Drawing.Size(971, 485);
+            this.spcMainControl.Size = new System.Drawing.Size(1254, 485);
             this.spcMainControl.SplitterDistance = 93;
             this.spcMainControl.TabIndex = 1;
             this.spcMainControl.Text = "spcMainControl";
@@ -404,7 +404,7 @@
             this.groupBox1.Controls.Add(this.lblStartDt);
             this.groupBox1.Controls.Add(this.txtProjectName);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox1.Location = new System.Drawing.Point(368, 0);
+            this.groupBox1.Location = new System.Drawing.Point(651, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(601, 91);
             this.groupBox1.TabIndex = 34;
@@ -579,7 +579,7 @@
             // spcControl.Panel2
             // 
             this.spcControl.Panel2.Controls.Add(this.tabControlMain2);
-            this.spcControl.Size = new System.Drawing.Size(969, 383);
+            this.spcControl.Size = new System.Drawing.Size(1252, 383);
             this.spcControl.SplitterDistance = 240;
             this.spcControl.TabIndex = 38;
             // 
@@ -692,6 +692,9 @@
             this.tvExperiments.BeforeTouchSize = new System.Drawing.Size(200, 190);
             this.tvExperiments.Border3DStyle = System.Windows.Forms.Border3DStyle.Bump;
             this.tvExperiments.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tvExperiments.ClosedImgIndex = 19;
+            this.tvExperiments.DefaultCollapseImageIndex = 19;
+            this.tvExperiments.DefaultExpandImageIndex = 19;
             this.tvExperiments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvExperiments.FullRowSelect = true;
             // 
@@ -709,36 +712,69 @@
             this.tvExperiments.Location = new System.Drawing.Point(0, 0);
             this.tvExperiments.MetroColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(165)))), ((int)(((byte)(220)))));
             this.tvExperiments.Name = "tvExperiments";
+            this.tvExperiments.NoChildrenImgIndex = 19;
+            this.tvExperiments.StateImageList = imageListAdv1.ToImageList();
             treeNodeAdv1.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv1.ChildStyle.EnsureDefaultOptionedChild = true;
+            treeNodeAdv1.ClosedImgIndex = 19;
+            treeNodeAdv1.CollapseImageIndex = 19;
             treeNodeAdv1.EnsureDefaultOptionedChild = true;
+            treeNodeAdv1.ExpandImageIndex = 19;
             treeNodeAdv1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNodeAdv1.Height = 20;
+            treeNodeAdv1.LeftImageIndices = new int[] {
+        19};
             treeNodeAdv1.MultiLine = true;
+            treeNodeAdv1.OpenImgIndex = 19;
             treeNodeAdv1.PlusMinusSize = new System.Drawing.Size(9, 9);
             treeNodeAdv1.ShowLine = true;
             treeNodeAdv1.Text = "OWNER                         ";
             treeNodeAdv2.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv2.ChildStyle.EnsureDefaultOptionedChild = true;
+            treeNodeAdv2.ClosedImgIndex = 19;
+            treeNodeAdv2.CollapseImageIndex = 19;
             treeNodeAdv2.EnsureDefaultOptionedChild = true;
+            treeNodeAdv2.ExpandImageIndex = 19;
             treeNodeAdv2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNodeAdv2.Height = 20;
+            treeNodeAdv2.LeftImageIndices = new int[] {
+        19};
             treeNodeAdv2.MultiLine = true;
+            treeNodeAdv2.OpenImgIndex = 19;
             treeNodeAdv2.PlusMinusSize = new System.Drawing.Size(9, 9);
+            treeNodeAdv2.RightImageIndices = new int[0];
             treeNodeAdv2.ShowLine = true;
             treeNodeAdv2.Text = "ADMIN                           ";
             treeNodeAdv3.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv3.ChildStyle.EnsureDefaultOptionedChild = true;
+            treeNodeAdv3.ClosedImgIndex = 19;
+            treeNodeAdv3.CollapseImageIndex = 19;
             treeNodeAdv3.EnsureDefaultOptionedChild = true;
+            treeNodeAdv3.ExpandImageIndex = 19;
             treeNodeAdv3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNodeAdv3.Height = 20;
+            treeNodeAdv3.LeftImageIndices = new int[] {
+        19};
             treeNodeAdv3.MultiLine = true;
+            treeNodeAdv3.OpenImgIndex = 19;
             treeNodeAdv3.PlusMinusSize = new System.Drawing.Size(9, 9);
+            treeNodeAdv3.RightImageIndices = new int[0];
             treeNodeAdv3.ShowLine = true;
             treeNodeAdv3.Text = "ADD-EDIT                      ";
             treeNodeAdv4.Background = new Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Control);
             treeNodeAdv4.ChildStyle.EnsureDefaultOptionedChild = true;
+            treeNodeAdv4.ClosedImgIndex = 19;
+            treeNodeAdv4.CollapseImageIndex = 19;
             treeNodeAdv4.EnsureDefaultOptionedChild = true;
+            treeNodeAdv4.ExpandImageIndex = 19;
             treeNodeAdv4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            treeNodeAdv4.Height = 20;
+            treeNodeAdv4.LeftImageIndices = new int[] {
+        19};
             treeNodeAdv4.MultiLine = true;
+            treeNodeAdv4.OpenImgIndex = 19;
             treeNodeAdv4.PlusMinusSize = new System.Drawing.Size(9, 9);
+            treeNodeAdv4.RightImageIndices = new int[0];
             treeNodeAdv4.ShowLine = true;
             treeNodeAdv4.Text = "VIEW                             ";
             this.tvExperiments.Nodes.AddRange(new Syncfusion.Windows.Forms.Tools.TreeNodeAdv[] {
@@ -746,6 +782,7 @@
             treeNodeAdv2,
             treeNodeAdv3,
             treeNodeAdv4});
+            this.tvExperiments.OpenImgIndex = 19;
             this.tvExperiments.SelectedNodeForeColor = System.Drawing.SystemColors.HighlightText;
             this.tvExperiments.Size = new System.Drawing.Size(200, 190);
             this.tvExperiments.TabIndex = 37;
@@ -761,6 +798,30 @@
             this.tvExperiments.ToolTipControl.TabIndex = 1;
             this.tvExperiments.ToolTipControl.Text = "toolTip";
             this.tvExperiments.AfterSelect += new System.EventHandler(this.tvExperiments_AfterSelect);
+            // 
+            // imageListAdv1
+            // 
+            this.imageListAdv1.Images.AddRange(new System.Drawing.Image[] {
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images1"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images2"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images3"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images4"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images5"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images6"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images7"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images8"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images9"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images10"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images11"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images12"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images13"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images14"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images15"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images16"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images17"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images18"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images19")))});
             // 
             // splitContainer1
             // 
@@ -953,29 +1014,6 @@
             this.tvDocuments.ToolTipControl.Text = "toolTip";
             this.tvDocuments.AfterSelect += new System.EventHandler(this.tvDocuments_AfterSelect);
             // 
-            // imageListAdv1
-            // 
-            this.imageListAdv1.Images.AddRange(new System.Drawing.Image[] {
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images1"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images2"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images3"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images4"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images5"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images6"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images7"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images8"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images9"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images10"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images11"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images12"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images13"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images14"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images15"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images16"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images17"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images18")))});
-            // 
             // toolStripTabItem2
             // 
             this.toolStripTabItem2.Name = "toolStripTabItem2";
@@ -1014,14 +1052,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(971, 485);
+            this.ClientSize = new System.Drawing.Size(1254, 485);
             this.Controls.Add(this.spcMainControl);
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(979, 501);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Biology Project Database";
-            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.tabControlMain2)).EndInit();

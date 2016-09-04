@@ -2,6 +2,7 @@
 using System.Data;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BiologyDepartment
 {
@@ -62,53 +63,46 @@ namespace BiologyDepartment
         {
             DataSet ds = new DataSet();
             DataTable dtChild = new DataTable();
+            DataTable dtGrandChild = new DataTable();
             DataTable dtParent = _daoExperiments.getExperiments().Tables[0];
+            string sSearch = "";
             dtParent.TableName = "Parent";
-            List<DataTable> dtList = new List<DataTable>();
-            nTableCount = 0;
-            dtList = GetDataTableList(dtParent);
-            ds.Tables.Add(dtParent.Copy());
-            for (int i = 0; i < dtList.Count; i++ )
+            var sParent = (from dr in dtParent.AsEnumerable()
+                           select dr["ex_id"]).Distinct();
+
+            foreach(var id in sParent)
             {
-                string sRelation = "Relation";
-                ds.Tables.Add(dtList[i].Copy());
-                
-                ds.Relations.Add(sRelation + i.ToString(), ds.Tables[i].Columns["ex_id"], ds.Tables[i+1].Columns["ex_parent_id"]);
-
+                sSearch += id+ ",";
             }
+            dtChild = GetDataTableList(sSearch.TrimEnd(','));
+            ds.Tables.Add(dtParent.Copy());
+            if (dtChild != null && dtChild.Rows.Count > 0)
+            {
+                dtChild.TableName = "Child";
+                ds.Tables.Add(dtChild.Copy());
+                ds.Relations.Add("ParentChild", ds.Tables[0].Columns["ex_id"], ds.Tables[1].Columns["ex_parent_id"]);
 
+                var sChild = (from dr in dtChild.AsEnumerable()
+                              select dr["ex_id"]).Distinct();
+                sSearch = "";
+                foreach (var id in sChild.ToList())
+                {
+                    sSearch += id + ",";
+                }
+                dtGrandChild = GetDataTableList(sSearch.TrimEnd(','));
+                if (dtGrandChild != null && dtGrandChild.Rows.Count > 0)
+                {
+                    dtGrandChild.TableName = "GrandChild";
+                    ds.Tables.Add(dtGrandChild.Copy());
+                    ds.Relations.Add("ChildGrandChild", ds.Tables[1].Columns["ex_id"], ds.Tables[2].Columns["ex_parent_id"]);
+                }
+            }
             return ds;
         }
 
-        private List<DataTable> GetDataTableList(DataTable dtSearch)
+        private DataTable GetDataTableList(string sSearch)
         {
-            List<DataTable> dtList = new List<DataTable>();
-            foreach (DataRow dr in dtSearch.Rows)
-            {
-                string sSearch = dr["ex_id"].ToString();
-                DataTable dtChild = _daoExperiments.getChildExpirements(sSearch);
-
-                if (dtChild != null && dtChild.Rows.Count > 0)
-                {
-                    if (nTableCount > 0)
-                        nTableCount++;
-                    dtChild.TableName = "Child" + nTableCount.ToString();
-                    dtList.Add(dtChild.Copy());
-
-                    foreach (DataRow child in dtChild.Rows)
-                    {                        
-                        sSearch = child["ex_id"].ToString();
-                        DataTable dtSibling = _daoExperiments.getChildExpirements(sSearch);
-                        if(dtSibling != null && dtSibling.Rows.Count > 0)
-                        {
-                            nTableCount++;
-                            dtSibling.TableName = "Child" + nTableCount.ToString();
-                            dtList.Add(dtSibling.Copy());
-                        }
-                    }
-                }
-            }
-            return dtList;
+            return _daoExperiments.getChildExpirements(sSearch);
         }
 
         public bool DeleteExperiment(int ID)

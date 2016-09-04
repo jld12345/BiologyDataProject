@@ -42,11 +42,9 @@ namespace BiologyDepartment
         ctlLogIn _ctlLogin = new ctlLogIn();
         private ctlAnimalData _ctlAnimalData = new ctlAnimalData();
         ctlAuthors _ctlAuthors = new ctlAuthors();
-        ctlRScripts _ctlRScripts;
-        ctlSetup _ctlSetup;
-        private bool bDataControlDirty = true;
+        ctlRScripts _ctlRScripts = new ctlRScripts();
+        ctlSetup _ctlSetup = new ctlSetup();
         private bool bAuthorControlDirty = true;
-        private bool bSetupControlDirty = true;
         private DataSet dsExperiments;
         private ExperimentsUtility utilExperiment = new ExperimentsUtility();
         private DocumentDAO daoDoc = new DocumentDAO();
@@ -78,8 +76,8 @@ namespace BiologyDepartment
         public void Initialize()
         {
             this.WindowState = FormWindowState.Maximized;
-            LoadData();
             AddTabControls();
+            LoadData();
             LoadFirstNode();
         }
 
@@ -195,25 +193,16 @@ namespace BiologyDepartment
                         _ctlAuthors.Dock = DockStyle.Fill;*/
                         break;
                     case "tpRScripts":
-                        _ctlRScripts = new ctlRScripts();
                         tpRScripts.Controls.Add(_ctlRScripts);
                         _ctlRScripts.Dock = DockStyle.Fill;
                         break;
                     case "tpSetup":
-                        _ctlSetup = new ctlSetup();
                         tpSetup.Controls.Add(_ctlSetup);
                         _ctlSetup.Dock = DockStyle.Fill;
                         break;
                 }
                 
             }
-        }
-
-        private void _ctlExperiments_ChangeExperimentEvent(object sender, ExperimentsFolder.ExperimentHasChanged e)
-        {
-            bDataControlDirty = true;
-            bAuthorControlDirty = true;
-            SetRecord();
         }
 
         private void SetRecord()
@@ -241,11 +230,6 @@ namespace BiologyDepartment
                     _ctlRScripts.Initialize();
                     break;
                 case "tpSetup":
-                    if (bDataControlDirty)
-                    {
-                        this.BeginInvoke(new MyDelegate(LoadSetup));
-                        bSetupControlDirty = false;
-                    }
                     break;
                 case "tpDocuments":
                     break;
@@ -263,6 +247,11 @@ namespace BiologyDepartment
         {
             _ctlSetup.LoadData();
             _ctlSetup.LoadGrid();
+        }
+
+        public void LoadExperimentData()
+        {
+            _ctlAnimalData.Initialize(GlobalVariables.Experiment.ID);
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -320,12 +309,17 @@ namespace BiologyDepartment
                 return;
             ExperimentTreeNode node = (ExperimentTreeNode)tvExperiments.SelectedNode;
             GlobalVariables.Experiment = node.ExperimentNode;
-            bDataControlDirty = true;
-            bAuthorControlDirty = true;
             SetRecord();
             if (!bgwDocuments.IsBusy)
                 bgwDocuments.RunWorkerAsync();
-            _ctlAnimalData.Initialize(GlobalVariables.Experiment.ID);
+            if (this.IsHandleCreated)
+            {
+                this.BeginInvoke(new MyDelegate(LoadSetup));
+                this.BeginInvoke(new MyDelegate(LoadExperimentData));
+            }
+            else
+                _ctlAnimalData.Initialize(GlobalVariables.Experiment.ID);
+
         }
 
         private void btnAddDocs_Click(object sender, EventArgs e)

@@ -102,7 +102,8 @@ namespace BiologyDepartment.ExperimentDocuments
             {
                 thePDF.DOCUMENT_TITLE = rtbTitle.Text;
                 thePDF.DOCUMENT_DESCRIPTION = rtbDescription.Text;
-                thePDF.DOCUMENT_TYPE = cmbDocType.SelectedItem.ToString();
+                if(cmbDocType.SelectedItem != null)
+                    thePDF.DOCUMENT_TYPE = cmbDocType.SelectedItem.ToString();
                 daoDoc.UpdatePDF(thePDF);
             }
         }
