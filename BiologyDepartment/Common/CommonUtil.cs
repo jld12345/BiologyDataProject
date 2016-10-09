@@ -227,26 +227,76 @@ namespace BiologyDepartment.Common
             }
         }
 
-        public string SerializeTableToJson(DataTable theTable)
+        public string SerializeTableToJson(DataTable theTable, DataTable theColumns)
         {
             try
             {
-                DataSet ds = new DataSet();
-                theTable.Columns.Remove("DATA PICTURE");
-                
-                ds.Tables.Add(theTable);
-                ds.AcceptChanges();
-
-                string sJson = JsonConvert.SerializeObject(ds, Formatting.Indented);
-                string sWriter = "";
-                using(System.IO.StringWriter writer = new System.IO.StringWriter())
+                if (!theTable.Columns.Contains("CREATED_DATE"))
+                    theTable.Columns.Add("CREATED_DATE");
+                if (!theTable.Columns.Contains("CREATED_USER"))
+                    theTable.Columns.Add("CREATED_USER");
+                if (!theTable.Columns.Contains("MODIFIED_DATE"))
+                    theTable.Columns.Add("MODIFIED_DATE");
+                if (!theTable.Columns.Contains("MODIFIED_USER"))
+                    theTable.Columns.Add("MODIFIED_USER");
+                if (!theTable.Columns.Contains("DELETED_DATE"))
+                    theTable.Columns.Add("DELETED_DATE");
+                if (!theTable.Columns.Contains("DELETED_USER"))
+                    theTable.Columns.Add("DELETED_USER");
+                if (!theTable.Columns.Contains("ROW_ID"))
+                    theTable.Columns.Add("ROW_ID");
+                DataTable dt = _daoData.GetBulkIDs(theTable.Rows.Count);
+                if (dt != null && dt.Rows.Count > 0 && theTable.Rows.Count == dt.Rows.Count)
                 {
-                    theTable.WriteXml(writer,false);
-                    sWriter = Convert.ToString(writer);
-                    
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        theTable.Rows[i]["ROW_ID"] = Convert.ToString(dt.Rows[i][0]);
+                        theTable.Rows[i]["CREATED_USER"] = GlobalVariables.ADUserName;
+                        theTable.Rows[i]["CREATED_DATE"] = DateTime.Now.ToShortDateString();
+                    }
                 }
-                _daoData.InsertJson(sJson, sWriter);        
-                return sJson;
+                theTable.TableName = "NewTable";
+                if (GlobalVariables.ExperimentData == null)
+                {
+                    DataSet ds = new DataSet();
+
+                    ds.Tables.Add(theTable.Copy());
+                    ds.AcceptChanges();
+
+                    string sJson = JsonConvert.SerializeObject(ds, Formatting.Indented);
+                    _daoData.InsertJson(sJson);
+                    return sJson;
+                }
+                else
+                {
+                    DataTable dtCopy = GlobalVariables.ExperimentData.JSONTable.Copy();
+                    dtCopy.TableName = "OldTable";
+                    foreach(DataColumn col in GlobalVariables.ExperimentData.JSONTable.Columns)
+                    {
+                        if(!theTable.Columns.Contains(col.ColumnName))
+                        {
+                            dtCopy.Columns.Remove(col.ColumnName);
+                            dtCopy.AcceptChanges();
+                        }
+
+                        dtCopy.AcceptChanges();
+                    }
+
+                    DataSet ds = new DataSet();
+                    ds.Tables.Add(theTable.Copy());
+                    ds.Tables.Add(dtCopy.Copy());
+                    string sJson = JsonConvert.SerializeObject(ds, Formatting.Indented);
+                    ds.Clear();
+                    ds = JsonConvert.DeserializeObject<DataSet>(sJson);
+                    DataTable newTable = ds.Tables[0].Copy();
+                    newTable.Merge(ds.Tables[1].Copy());
+                    GlobalVariables.ExperimentData.JSONTable = newTable;
+                    ds.Clear();
+                    ds.Tables.Remove("NewTable");
+                    ds.Tables.Remove("OldTable");
+                    ds.Tables.Add(newTable.Copy());
+                    return SerializeJson(ds);
+                }
             }
             catch(Exception e)
             {
@@ -254,7 +304,13 @@ namespace BiologyDepartment.Common
             }
         }
 
-
+        public string SerializeJson(DataSet theData)
+        {
+            String sJson = JsonConvert.SerializeObject(theData, Formatting.Indented);
+            _daoData.UpdateJson(sJson);
+            GlobalVariables.ExperimentData.JSON = sJson;
+            return sJson;
+        }
 
         public DataTable DeSerializeJsonToDataTable()
         {

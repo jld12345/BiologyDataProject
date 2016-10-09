@@ -71,7 +71,6 @@
             this.dgExData.TimeFilter = false;
             this.dgExData.SortStringChanged += new System.EventHandler(this.dataGridView_SortStringChanged);
             this.dgExData.FilterStringChanged += new System.EventHandler(this.dataGridView_FilterStringChanged);
-            this.dgExData.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellClick);
             this.dgExData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellContentClick);
             this.dgExData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellDoubleClick);
             // 

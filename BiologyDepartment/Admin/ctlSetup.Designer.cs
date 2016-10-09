@@ -265,7 +265,7 @@
             this.btnImportData.TabIndex = 18;
             this.btnImportData.Text = "Import Data";
             this.btnImportData.UseVisualStyle = true;
-            this.btnImportData.Click += new System.EventHandler(this.btnImport_Click_1);
+            this.btnImportData.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // btnClearData
             // 

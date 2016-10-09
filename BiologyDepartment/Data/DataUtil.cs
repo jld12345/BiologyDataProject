@@ -49,123 +49,13 @@ namespace BiologyDepartment.Data
             Stopwatch sw = new Stopwatch();
             Trace.WriteLine("GetData start stopwatch");
             sw.Start();
-            animalAgg = _daoData.BulkExport();
-            _daoData.GetColumns();
-            animalCols = GlobalVariables.CustomColumns;
-            int colPosition = 0;
+            _daoData.BulkExport();
+            dtAnimals = GlobalVariables.ExperimentData.JSONTable;
+            if (dtAnimals == null)
+                return null;
 
-            if (!dtAnimals.Columns.Contains("EXCLUDE"))
-            {
-                DataColumn newCol = new DataColumn();
-                newCol.ColumnName = "EXCLUDE";
-                newCol.DataType = System.Type.GetType("System.Boolean");
-                newCol.Caption = "EXCLUDE";
-                dtAnimals.Columns.Add(newCol);
-                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
-                colPosition++;
-            }
-
-            foreach (CustomColumns col in animalCols)
-            {
-                DataColumn newCol = new DataColumn();
-                if (!dtAnimals.Columns.Contains(Convert.ToString(col.ColID)))
-                {
-                    newCol.ColumnName = Convert.ToString(col.ColID);
-                    switch (col.ColDataType)
-                    {
-                        case "INTEGER":
-                            newCol.DataType = System.Type.GetType("System.Int32");
-                            break;
-                        case "DECIMAL":
-                            newCol.DataType = System.Type.GetType("System.Decimal");
-                            break;
-                        case "CHARACTER":
-                            newCol.DataType = System.Type.GetType("System.String");
-                            break;
-                        case "DATE/TIME":
-                            newCol.DataType = System.Type.GetType("System.DateTime");
-                            break;
-                        case "IMAGE":
-                        case "Byte[]":
-                            newCol.DataType = System.Type.GetType("System.Byte[]");
-                            break;
-                    }
-                    newCol.Caption = col.ColName;
-                    dtAnimals.Columns.Add(newCol);
-                    dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
-                    colPosition++;
-                }
-            }
-
-            if (!dtAnimals.Columns.Contains("DataID"))
-            {
-                DataColumn newCol = new DataColumn();
-                newCol.ColumnName = "DataID";
-                newCol.DataType = System.Type.GetType("System.Int32");
-                newCol.Caption = "RowID";
-                dtAnimals.Columns.Add(newCol);
-                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
-                colPosition++;
-            }
-
-            if (!dtAnimals.Columns.Contains("ExcludeRow"))
-            {
-                DataColumn newCol = new DataColumn();
-                newCol.ColumnName = "ExcludeRow";
-                newCol.DataType = System.Type.GetType("System.String");
-                newCol.Caption = "Exclude Row";
-                dtAnimals.Columns.Add(newCol);
-                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
-                colPosition++;
-            }
-
-            /*if (!dtAnimals.Columns.Contains("DELETE"))
-            {
-                DataColumn newCol = new DataColumn();
-                newCol.ColumnName = "DELETE";
-                newCol.DataType = System.Type.GetType("System.String");
-                newCol.Caption = "DELETE";
-                dtAnimals.Columns.Add(newCol);
-                dtAnimals.Columns[newCol.ColumnName].SetOrdinal(colPosition);
-                colPosition++;
-            }*/
-
-            foreach (AnimalData animal in animalAgg)
-            {
-                DataRow row = dtAnimals.NewRow();
-                row["DataID"] = animal.DataID;
-                row["ExcludeRow"] = animal.ExcludeRow;
-                row["EXCLUDE"] = animal.Exclude;
-
-                foreach (KeyValuePair<int, string> entry in animal.AggDictionary)
-                {
-                    string sType = Convert.ToString(dtAnimals.Columns[Convert.ToString(entry.Key)].DataType);
-                    if (string.IsNullOrEmpty(entry.Value))
-                        row[Convert.ToString(entry.Key)] = DBNull.Value;
-                    else
-                    {
-                        switch (sType)
-                        {
-                            case "System.String":
-                                row[Convert.ToString(entry.Key)] = Convert.ToString(entry.Value);
-                                break;
-                            case "System.Int32":
-                                row[Convert.ToString(entry.Key)] = Convert.ToInt32(entry.Value);
-                                break;
-                            case "System.Decimal":
-                                row[Convert.ToString(entry.Key)] = Convert.ToDecimal(entry.Value);
-                                break;
-                            case "System.DateTime":
-                                row[Convert.ToString(entry.Key)] = Convert.ToDateTime(entry.Value);
-                                break;
-                        }
-                    }
-                }
-                row["1"] = animal.Picture;
-                dtAnimals.Rows.Add(row);
-            }
             DataColumn[] keys = new DataColumn[1];
-            keys[0] = dtAnimals.Columns["DataID"];
+            keys[0] = dtAnimals.Columns["ROW_ID"];
             dtAnimals.PrimaryKey = keys;
             dtAnimals.AcceptChanges();
 

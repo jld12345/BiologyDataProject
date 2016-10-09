@@ -20,10 +20,9 @@ namespace BiologyDepartment
         {
         }
 
-        public List<AnimalData> BulkExport()
+        public void BulkExport()
         {
-            List<AnimalData> theData = GlobalVariables.GlobalConnection.BulkExportData();
-            return theData;
+            GlobalVariables.GlobalConnection.BulkExportData();
         }
 
         public void GetColumns()
@@ -121,13 +120,11 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[2].Value = pic;
 
 
-            if(GlobalVariables.GlobalConnection.insertData(NpgsqlCMD))
-                MessageBox.Show("Picture successfully inserted.", "Picture Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
+            if(!GlobalVariables.GlobalConnection.insertData(NpgsqlCMD))
                 MessageBox.Show("Error inserting picture.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public void UpdatePic(string TableName, int FishID, byte[] pic)
+        public void UpdatePic(string sTableName, int nRowID, byte[] pic)
         {
             NpgsqlCMD = new NpgsqlCommand();
 
@@ -140,15 +137,18 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tName", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tPK", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("pic", NpgsqlDbType.Bytea));
-            NpgsqlCMD.Parameters[0].Value = TableName;
-            NpgsqlCMD.Parameters[1].Value = FishID;
+            NpgsqlCMD.Parameters[0].Value = sTableName;
+            NpgsqlCMD.Parameters[1].Value = nRowID;
             NpgsqlCMD.Parameters[2].Value = pic;
 
 
-            if (GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
-                MessageBox.Show("Picture successfully inserted.", "Picture Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
+            if (!GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
                 MessageBox.Show("Error inserting picture.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public byte[] GetDataPicture(string sTableName, int nRowID)
+        {
+            return GlobalVariables.GlobalConnection.BulkExportDataPic(sTableName, nRowID);
         }
 
         public void UpdateDeleteRow(int nCoreID)
@@ -212,14 +212,54 @@ namespace BiologyDepartment
         }
 
 
-        public void InsertJson(string sJson, string theXML)
+        public void InsertJson(string sJson)
         {
-            GlobalVariables.GlobalConnection.BulkInsertJSON(sJson, theXML);
+            GlobalVariables.GlobalConnection.BulkInsertJSON(sJson);
         }
 
         public string RetrieveJson()
         {
             return GlobalVariables.GlobalConnection.BulkExportJSON();
+        }
+
+        public DataTable GetBulkIDs(int theRowCount)
+        {
+            NpgsqlCMD = new NpgsqlCommand();
+            NpgsqlCMD.CommandText = @"select nextval('EXPERIMENT_DATA_ID_SEQ') from generate_series(1,:lastRow)";
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("lastRow", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters[0].Value = theRowCount;
+            DataTable dt = GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
+            if (dt != null)
+            {
+                return dt;
+            }
+            else
+                return null;
+        }
+
+        public void UpdateJson(string sJson)
+        {
+            NpgsqlCMD = new NpgsqlCommand();
+
+            NpgsqlCMD.CommandText = @"  UPDATE EXPERIMENTS_JSONB
+                                        SET EXPERIMENTS_JSONB = :json,
+                                            MODIFIED_USER = :mod_user,
+                                            MODIFIED_DATE = :mod_date
+                                        WHERE EXPERIMENTS_ID = :exid
+                                        AND EXPERIMENTS_JSONB_ID = :jsonid";
+
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("jsonid", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("json", NpgsqlDbType.Jsonb));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_user", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_date", NpgsqlDbType.Date));
+            NpgsqlCMD.Parameters[0].Value = GlobalVariables.ExperimentData.ExperimentID;
+            NpgsqlCMD.Parameters[1].Value = GlobalVariables.ExperimentData.JsonID;
+            NpgsqlCMD.Parameters[2].Value = Newtonsoft.Json.Linq.JObject.Parse(sJson);
+            NpgsqlCMD.Parameters[3].Value = GlobalVariables.ADUserName;
+            NpgsqlCMD.Parameters[4].Value = DateTime.Now.ToShortDateString();
+
+            GlobalVariables.GlobalConnection.updateData(NpgsqlCMD);
         }
     }
 }

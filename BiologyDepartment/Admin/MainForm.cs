@@ -22,6 +22,7 @@ using Syncfusion.Windows.Forms.Tools;
 using BiologyDepartment.ExperimentsFolder;
 using BiologyDepartment.ExperimentDocuments;
 using BiologyDepartment.Login;
+using BiologyDepartment.R_Scripts;
 using Gnostice;
 using Gnostice.Documents;
 using Syncfusion.Windows.Forms.Grid;
@@ -40,9 +41,8 @@ namespace BiologyDepartment
     public partial class MainForm : Form
     {
         ctlLogIn _ctlLogin = new ctlLogIn();
-        private ctlAnimalData _ctlAnimalData = new ctlAnimalData();
         ctlAuthors _ctlAuthors = new ctlAuthors();
-        ctlRScripts _ctlRScripts = new ctlRScripts();
+        ctlApiCalls _ctlApiCalls = new ctlApiCalls();
         ctlSetup _ctlSetup = new ctlSetup();
         private bool bAuthorControlDirty = true;
         private DataSet dsExperiments;
@@ -175,8 +175,8 @@ namespace BiologyDepartment
                 switch(page.Name)
                 {
                     case "tpExperiments":                        
-                        _ctlAnimalData.Dock = DockStyle.Fill;
-                        tpExperiments.Controls.Add(_ctlAnimalData);                        
+                        GlobalVariables.ExperimentGrid.Dock = DockStyle.Fill;
+                        tpExperiments.Controls.Add(GlobalVariables.ExperimentGrid);                        
                         break;
                     case "tpRStudio":
                         var browser = new CefSharp.WinForms.ChromiumWebBrowser(BiologyDepartment.Properties.Settings.Default.MyRStudio);   
@@ -193,8 +193,9 @@ namespace BiologyDepartment
                         _ctlAuthors.Dock = DockStyle.Fill;*/
                         break;
                     case "tpRScripts":
-                        tpRScripts.Controls.Add(_ctlRScripts);
-                        _ctlRScripts.Dock = DockStyle.Fill;
+                        tpRScripts.Controls.Add(_ctlApiCalls);
+                        _ctlApiCalls.Dock = DockStyle.Fill;
+                        _ctlApiCalls.Initialize();
                         break;
                     case "tpSetup":
                         tpSetup.Controls.Add(_ctlSetup);
@@ -227,7 +228,7 @@ namespace BiologyDepartment
                     }
                     break;
                 case "tpRScripts":
-                    _ctlRScripts.Initialize();
+                    _ctlApiCalls.LoadGui();
                     break;
                 case "tpSetup":
                     break;
@@ -251,7 +252,7 @@ namespace BiologyDepartment
 
         public void LoadExperimentData()
         {
-            _ctlAnimalData.Initialize(GlobalVariables.Experiment.ID);
+            GlobalVariables.ExperimentGrid.Initialize(GlobalVariables.Experiment.ID);
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -307,6 +308,16 @@ namespace BiologyDepartment
             var nodeType = tvExperiments.SelectedNode.GetType();
             if (nodeType.Name.Equals("TreeNodeAdv"))
                 return;
+            if(GlobalVariables.ExperimentGrid.bDataDirty)
+            {
+                string sMessage = "There are unsaved edits or additions to this experiment.  To save these edits/additions, please click yes. \n";
+                sMessage += "Clicking No will cause all edits/additions to be removed. ";
+                DialogResult result = MessageBox.Show(sMessage, "Unsaved Edits/Additions", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if(result == DialogResult.Yes)
+                {
+                    GlobalVariables.ExperimentGrid.SaveData();
+                }
+            }
             ExperimentTreeNode node = (ExperimentTreeNode)tvExperiments.SelectedNode;
             GlobalVariables.Experiment = node.ExperimentNode;
             SetRecord();
@@ -318,7 +329,7 @@ namespace BiologyDepartment
                 this.BeginInvoke(new MyDelegate(LoadExperimentData));
             }
             else
-                _ctlAnimalData.Initialize(GlobalVariables.Experiment.ID);
+                GlobalVariables.ExperimentGrid.Initialize(GlobalVariables.Experiment.ID);
 
         }
 

@@ -35,12 +35,17 @@ namespace BiologyDepartment
         private daoData _daoData = new daoData();
         private DataUtil _dataUtil = new DataUtil();
         private int intID= 0;
-        private BindingSource _bindingSource = new BindingSource();
+        
         private List<AnimalData> animalAgg = new List<AnimalData>();
         private List<CustomColumns> animalCols = new List<CustomColumns>();
         private DataTable dtAnimals = new DataTable();
         private bool bIsInitialize = false;
         private CommonUtil _commonUtil = new CommonUtil();
+        public bool bDataDirty = false;
+        #endregion
+
+        #region Public Variables
+        public BindingSource _bindingSource = new BindingSource();
         #endregion
 
         public event EventHandler<CloseCtlAnimalData> CloseFormEvent;
@@ -129,7 +134,6 @@ namespace BiologyDepartment
             }
 
             dgExData.Columns["EXCLUDE"].Visible = true;
-            dgExData.Columns["ExcludeRow"].Visible = false;
 
             int nDisplay = 2;
             foreach(DataColumn col in dtAnimals.Columns)
@@ -200,11 +204,11 @@ namespace BiologyDepartment
 
         private void EditRow()
         {
-            string selectedrowindex = Convert.ToString(dgExData.SelectedRows[0].Cells["DataID"].Value);
+            string selectedrowindex = Convert.ToString(dgExData.SelectedRows[0].Cells["ROW_ID"].Value);
             var dtRow = dtAnimals.Rows
                               .Cast<DataRow>()
-                              .Where(x => x["DataID"].ToString().Equals(selectedrowindex)).ToList();
-            DataRow row = dtAnimals.Rows.Find(dtRow[0]["DataID"]);
+                              .Where(x => x["ROW_ID"].ToString().Equals(selectedrowindex)).ToList();
+            DataRow row = dtAnimals.Rows.Find(dtRow[0]["ROW_ID"]);
             DataRow newRow = dtAnimals.NewRow();
             int rowindex = dtAnimals.Rows.IndexOf(row);
             foreach (DataColumn col in dtAnimals.Columns)
@@ -223,9 +227,10 @@ namespace BiologyDepartment
                 {
                     foreach (DataColumn col in dtAnimals.Columns)
                     {
-                        dtAnimals.Rows[rowindex][col.ColumnName] = dtAnimals.Rows[rowindex][col.ColumnName];
+                        dtAnimals.Rows[rowindex][col.ColumnName] = dr[col.ColumnName];
                     }
                 }
+                bDataDirty = true;
             }
         }
 
@@ -330,44 +335,6 @@ namespace BiologyDepartment
             this.btnSearch.Checked = this.searchToolBar.Visible;
         }
 
-
-        private void dgExData_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            /*switch(e.ColumnIndex.ToString())
-            {
-                case "0":
-                    int selectedrowindex = dgExData.SelectedCells[0].RowIndex;
-                    int row = Convert.ToInt32(dgExData.Rows[selectedrowindex].Cells["FI_ID"].Value);
-                    using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(intID, row))
-                    {
-                        _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
-                        _frmFishData.ShowDialog();
-                    }
-                    break;
-                case "1":
-                    foreach (DataGridViewRow dgr in dgExData.SelectedRows)
-                        _daoData.UpdateDeleteRow(intID);
-                    break;
-                case "2":
-                    if (e.RowIndex == -1)
-                        break;
-                    if (dgExData.Rows[e.RowIndex].Cells["EXCLUDE_ROW"].Value.ToString().Equals("N"))
-                    {
-                        dgExData.Rows[e.RowIndex].Cells["EXCLUDE_ROW"].Value = 'Y';
-                        dgExData.Rows[e.RowIndex].Cells["EXCLUDE"].Value = true;
-                    }
-                    else
-                    {
-                        dgExData.Rows[e.RowIndex].Cells["EXCLUDE_ROW"].Value = 'N';
-                        dgExData.Rows[e.RowIndex].Cells["EXCLUDE"].Value = false;
-                    }
-
-                    _daoData.UpdateCore(intID, Convert.ToInt32(dgExData.Rows[e.RowIndex].Cells["FI_ID"].Value.ToString()), dgExData.Rows[e.RowIndex].Cells["EXCLUDE_ROW"].Value.ToString());
-                    break;
-                
-            }*/
-        }
-
         private void dgExData_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var dg = (DataGridView)sender;
@@ -375,10 +342,9 @@ namespace BiologyDepartment
             switch(dg.Columns[e.ColumnIndex].Name)
             {
                 case "DELETE":
-                    _daoData.UpdateDeleteRow(Convert.ToInt32(dtAnimals.Rows[e.RowIndex]["DataID"]));
                     dtAnimals.Rows.RemoveAt(e.RowIndex);
-                    //_daoData.UpdateDeleteRow(Convert.ToInt32(row["DataID"]));
-                    //dgExData.Rows.RemoveAt(e.RowIndex);
+                    bDataDirty = true;
+                    dtAnimals.AcceptChanges();
                     break;
                 case "EDIT":
                     EditRow();
@@ -391,41 +357,20 @@ namespace BiologyDepartment
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            DataTable dtAdded = dtAnimals.Clone();
-            DataTable dtModified = dtAnimals.Clone();
-            foreach (DataRow row in dtAnimals.Rows)
-            {
-                string sState = Convert.ToString(row.RowState);
-                switch (sState)
-                {
-                    case "Unchanged":
-                        break;
-                    case "Added":
-                        DataRow addRow = dtAdded.NewRow();
-                        foreach(DataColumn col in dtAnimals.Columns)
-                        {
-                            addRow[col.ColumnName] = row[col.ColumnName];
-                        }
-                        dtAdded.Rows.Add(addRow);
-                        break;
-                    case "Deleted":
-                        break;
-                    case "Modified":
-                        DataRow modRow = dtModified.NewRow();
-                        foreach(DataColumn col in dtAnimals.Columns)
-                        {
-                            modRow[col.ColumnName] = row[col.ColumnName];
-                        }
-                        dtModified.Rows.Add(modRow);
-                        break;
-                }
-            }
-            if(dtAdded.Rows.Count > 0)
-                _commonUtil.ValidateData(dtAdded, null, true, false);
-            if(dtModified.Rows.Count > 0)
-                _commonUtil.ValidateData(dtModified, null, true, true);
+            SaveData();
+        }
 
+        public void SaveData()
+        {
+            if(bDataDirty)
+            {
+                DataSet ds = new DataSet();
+                ds.Tables.Add(dtAnimals.Copy());
+                ds.AcceptChanges();
+                _commonUtil.SerializeJson(ds);
+            }
             dtAnimals.AcceptChanges();
+            bDataDirty = false;
         }
 
         private void btnJSON_Click(object sender, EventArgs e)
@@ -435,10 +380,6 @@ namespace BiologyDepartment
             {
                 dt.Columns[col.ColumnName].ColumnName = col.Caption;
             }
-            dt.TableName = "";
-            string sJson =_commonUtil.SerializeTableToJson(dt);
-            dt = _commonUtil.DeSerializeJsonToDataTable();
-
         }
 
     }

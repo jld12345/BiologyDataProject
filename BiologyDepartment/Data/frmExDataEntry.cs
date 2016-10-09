@@ -112,14 +112,10 @@ namespace BiologyDepartment
             dtReturn = row.Table.Clone();
 
             int i = 0;
+            originalPic = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(row["ROW_ID"]));
+            setPicBox(originalPic);
             foreach(DataColumn col in row.Table.Columns)
             {
-                if(col.Caption.Equals("Data Picture"))
-                {
-                    originalPic = row[col.ColumnName] as byte[];
-                    setPicBox(originalPic);
-                    continue;
-                }
                 Label lblTitle = new Label();
                 lblTitle.Name = col.ColumnName;
                 lblTitle.Text = col.Caption;
@@ -138,6 +134,11 @@ namespace BiologyDepartment
                 txtValue.BorderStyle = BorderStyle.FixedSingle;
                 txtValue.Width = 195;
                 txtValue.Height = 15;
+                if (col.ColumnName.ToUpper().Equals("ROW_ID") || col.ColumnName.ToUpper().Equals("CREATED_DATE")
+                    || col.ColumnName.ToUpper().Equals("CREATED_USER") || col.ColumnName.ToUpper().Equals("MODIFIED_DATE")
+                    || col.ColumnName.ToUpper().Equals("MODIFIED_USER") || col.ColumnName.ToUpper().Equals("DELETED_DATE")
+                    || col.ColumnName.ToUpper().Equals("DELETED_USER"))
+                    txtValue.Enabled = false;
                 pnlInput.Controls.Add(txtValue);
                 i = i + 25;
             }
@@ -285,12 +286,12 @@ namespace BiologyDepartment
                 byte[] photo_array = new byte[ms.Length];
                 ms.Position = 0;
                 ms.Read(photo_array, 0, photo_array.Length);
-                row["1"] = photo_array;
+                _daoData.InsertPic("EXPERIMENTS_JSONB", Convert.ToInt32(row["ROW_ID"]), photo_array);
             }
             else if (originalPic != null)
-                row["1"] = originalPic;
+                _daoData.InsertPic("EXPERIMENTs_JSONB", Convert.ToInt32(row["ROW_ID"]), originalPic);
 
-            if(row["DataID"] != DBNull.Value)
+            if(row["ROW_ID"] != DBNull.Value)
                 dtReturn.Rows.Add(row);
         }
 
@@ -309,26 +310,6 @@ namespace BiologyDepartment
         private void btnSave_Click(object sender, EventArgs e)
         {
             bSavePic = true;
-            /*if (theAnimal.GetCoreID() > 0)
-            {
-                _daoData.UpdateCore(theAnimal);
-                _daoData.UpdateExperimentData(theAnimal);
-            }
-            else
-            {
-                _daoData.InsertCore();
-                _daoData.InsertData();
-            }*/
-
-            /*if (pbImage.BackgroundImage != null)
-            {
-                MemoryStream ms = new MemoryStream();
-                pbImage.BackgroundImage.Save(ms, ImageFormat.Jpeg);
-                byte[] photo_array = new byte[ms.Length];
-                ms.Position = 0;
-                ms.Read(photo_array, 0, photo_array.Length);
-                //_daoData.UpdatePic("Fish_Weight_Length", theAnimal.GetCoreID(), photo_array);
-            }*/
         }
 
         private void pbImage_Paint(object sender, PaintEventArgs e)
@@ -471,8 +452,6 @@ namespace BiologyDepartment
             pbImage.BackgroundImage = new Bitmap(bmpOriginal, newSize);
                
         }
-
-       
 
     }
 }

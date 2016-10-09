@@ -266,7 +266,7 @@ namespace BiologyDepartment
                 GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var writer = con.BeginBinaryImport
-                (@"COPY EXPERIMENT_DATA 
+                (@"COPY EXPERIMENTS_JSONB 
                     (EX_ID, MODIFIED_DATE, MODIFIED_USER, DATA_AGG) 
                      FROM STDIN (FORMAT BINARY)"))
             {
@@ -282,64 +282,101 @@ namespace BiologyDepartment
             
         }
 
-        public void BulkInsertJSON(string sJson, string theXML)
+        public void BulkInsertJSON(string sJson)
         {
             if (GlobalVariables.Connection != null)
                 GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var writer = con.BeginBinaryImport
-                (@"COPY JSON_EXPERIMENTS
-                    (EX_ID, JSON_DATA, JSONB_DATA, EX_XML, EX_DATA) 
+                (@"COPY EXPERIMENTS_JSONB
+                    (	
+	                    EXPERIMENTS_ID,
+	                    EXPERIMENTS_JSONB,
+	                    CREATED_USER) 
                      FROM STDIN (FORMAT BINARY)"))
             {
                     writer.StartRow();
                     writer.Write(GlobalVariables.Experiment.ID, NpgsqlDbType.Integer);
-                    writer.Write(sJson, NpgsqlDbType.Json);
                     writer.Write(sJson, NpgsqlDbType.Jsonb);
-                    writer.Write(theXML, NpgsqlDbType.Xml);
-                    writer.Write(theXML, NpgsqlDbType.Text);
+                    writer.Write(GlobalVariables.ADUserName, NpgsqlDbType.Varchar);
             }
 
         }
 
-        public List<AnimalData> BulkExportData()
+        public void BulkExportData()
         {
-            AnimalData animal;
-            List<AnimalData> animalAgg = new List<AnimalData>();
+            Data.ExperimentData data = null; ;
 
             if(GlobalVariables.Connection != null)
                 GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT ED.EXPERIMENT_DATA_ID, ED.EXCLUDE_ROW, ED.DATA_AGG, 
-                        CASE WHEN ED.EXCLUDE_ROW = 'Y' THEN TRUE
-                        ELSE FALSE END AS EXCLUDE, 
-                        (SELECT DP.DATA_PICTURE FROM DATA_PICTURES DP
-                         WHERE DP.TABLE_NAME = 'EXPERIMENT_DATA'
-                         AND DP.TABLE_PRIMARY_KEY = ED.EXPERIMENT_DATA_ID) DATA_PICTURE
-                         FROM EXPERIMENT_DATA ED 
-                         WHERE ED.EX_ID = " + GlobalVariables.Experiment.ID + @"
-                        order by experiment_data_id asc) 
+                (@"COPY (SELECT EJ.EXPERIMENTS_JSONB_ID, EJ.EXPERIMENTS_ID, EJ.EXPERIMENTS_JSONB, EJ.CREATED_DATE,
+                        EJ.CREATED_USER, EJ.MODIFIED_DATE, EJ.MODIFIED_USER, EJ.DELETED_DATE, EJ.DELETED_USER
+                         FROM EXPERIMENTS_JSONB EJ 
+                         WHERE EJ.EXPERIMENTS_ID = " + GlobalVariables.Experiment.ID + @"
+                         AND EJ.DELETED_DATE IS NULL) 
                         TO STDOUT (FORMAT BINARY)"))
             {
                 while(reader.StartRow() != -1)
                 {
-                    animal = new AnimalData();
-                    animal.DataID = reader.Read<int>(NpgsqlDbType.Integer);
-                    animal.ExcludeRow = reader.Read<string>(NpgsqlDbType.Varchar);
-                    animal.DataAgg = reader.Read<string>(NpgsqlDbType.Text);
-                    animal.Exclude = reader.Read<bool>(NpgsqlDbType.Boolean);
-                    animal.ExID = GlobalVariables.Experiment.ID;
-                    animal.GetAggData();
+                    data = new Data.ExperimentData();
+                    data.JsonID = reader.Read<int>(NpgsqlDbType.Integer);
+                    data.ExperimentID = reader.Read<int>(NpgsqlDbType.Integer);
+                    data.JSON = reader.Read<string>(NpgsqlDbType.Jsonb);
+                    data.CreateDate = reader.Read<DateTime>(NpgsqlDbType.Date);
+                    data.CreatedUser = reader.Read<string>(NpgsqlDbType.Varchar);
                     if (!reader.IsNull)
-                        animal.Picture = reader.Read<byte[]>(NpgsqlDbType.Bytea);
+                        data.ModifiedDate = reader.Read<DateTime>(NpgsqlDbType.Date);
                     else
                         reader.Skip();
-                    animalAgg.Add(animal);
+                    if (!reader.IsNull)
+                        data.ModifiedUser = reader.Read<string>(NpgsqlDbType.Varchar);
+                    else
+                        reader.Skip();
+                    if (!reader.IsNull)
+                        data.DeletedDate = reader.Read<DateTime>(NpgsqlDbType.Date);
+                    else
+                        reader.Skip();
+                    if (!reader.IsNull)
+                        data.DeletedUser = reader.Read<string>(NpgsqlDbType.Varchar);
+                    else
+                        reader.Skip();
 
                 }
             }
-            return animalAgg;
+            if (data != null)
+            {
+                GlobalVariables.ExperimentData = data;
+                GlobalVariables.ExperimentData.DeSerializeJsonToDataTable();                
+            }
+            else
+                GlobalVariables.ExperimentData = new Data.ExperimentData();
+        }
+
+        public byte[] BulkExportDataPic(string sTableName, int nRowID)
+        {
+            byte[] dataPic = null;
+
+            if (GlobalVariables.BackgroundConnection != null)
+                GlobalVariables.BackgroundConnection.Close();
+            NpgsqlConnection con = GlobalVariables.BackgroundConnection;
+
+            using (var reader = con.BeginBinaryExport
+                (@"COPY (SELECT DATA_PICTURE FROM DATA_PICTURES
+                         WHERE TABLE_NAME = '" + sTableName +@"'
+                         AND TABLE_PRIMARY_KEY = " + nRowID + @") 
+                        TO STDOUT (FORMAT BINARY)"))
+            {
+                while (reader.StartRow() != -1)
+                {
+                    if (!reader.IsNull)
+                        dataPic = reader.Read<byte[]>(NpgsqlDbType.Bytea);
+                    else
+                        reader.Skip();
+                }
+            }
+            return dataPic;
         }
 
         public List<CustomColumns> GetColumns()
@@ -430,6 +467,11 @@ namespace BiologyDepartment
                 }
             }
             return lstPDF;
+        }
+
+        internal void BulkUpdateJSON(string sJson)
+        {
+            throw new NotImplementedException();
         }
     }
 }

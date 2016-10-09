@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button1 = new System.Windows.Forms.Button();
             this.tcMain = new System.Windows.Forms.TabControl();
             this.tabRBase = new System.Windows.Forms.TabPage();
             this.tabGGPlot = new System.Windows.Forms.TabPage();
@@ -38,8 +39,8 @@
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClipBoard = new System.Windows.Forms.Button();
             this.btnSetScript = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.txtScript = new ScintillaNET.Scintilla();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -57,6 +58,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.tcMain);
             this.splitContainer1.Panel1.Controls.Add(this.btnRefresh);
             this.splitContainer1.Panel1.Controls.Add(this.btnClipBoard);
@@ -68,6 +70,16 @@
             this.splitContainer1.Size = new System.Drawing.Size(1230, 608);
             this.splitContainer1.SplitterDistance = 593;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(440, 555);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(98, 40);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "test post";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tcMain
             // 
@@ -189,5 +201,6 @@
         private System.Windows.Forms.TabPage tabGGPlot;
         private System.Windows.Forms.TabPage tabRBase;
         private ScintillaNET.Scintilla txtScript;
+        private System.Windows.Forms.Button button1;
     }
 }

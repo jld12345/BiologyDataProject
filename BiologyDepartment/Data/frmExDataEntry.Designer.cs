@@ -36,7 +36,6 @@
             this.cbResolution = new System.Windows.Forms.ComboBox();
             this.lblVideo = new System.Windows.Forms.Label();
             this.lblRes = new System.Windows.Forms.Label();
-            this.btnExit = new System.Windows.Forms.Button();
             this.btnUpload = new System.Windows.Forms.Button();
             this.fdUploadPic = new System.Windows.Forms.OpenFileDialog();
             this.pbImage = new System.Windows.Forms.Panel();
@@ -69,7 +68,7 @@
             // pbVideo
             // 
             this.pbVideo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbVideo.Location = new System.Drawing.Point(417, 16);
+            this.pbVideo.Location = new System.Drawing.Point(6, 15);
             this.pbVideo.Name = "pbVideo";
             this.pbVideo.Size = new System.Drawing.Size(230, 182);
             this.pbVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -78,7 +77,7 @@
             // 
             // btnPic
             // 
-            this.btnPic.Location = new System.Drawing.Point(252, 56);
+            this.btnPic.Location = new System.Drawing.Point(252, 114);
             this.btnPic.Name = "btnPic";
             this.btnPic.Size = new System.Drawing.Size(71, 37);
             this.btnPic.TabIndex = 19;
@@ -88,7 +87,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(252, 96);
+            this.btnSave.Location = new System.Drawing.Point(252, 157);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(71, 36);
             this.btnSave.TabIndex = 20;
@@ -98,7 +97,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(329, 95);
+            this.btnClear.Location = new System.Drawing.Point(329, 155);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(74, 38);
             this.btnClear.TabIndex = 21;
@@ -118,7 +117,7 @@
             // cbResolution
             // 
             this.cbResolution.FormattingEnabled = true;
-            this.cbResolution.Location = new System.Drawing.Point(181, 33);
+            this.cbResolution.Location = new System.Drawing.Point(252, 73);
             this.cbResolution.Name = "cbResolution";
             this.cbResolution.Size = new System.Drawing.Size(65, 21);
             this.cbResolution.TabIndex = 39;
@@ -136,25 +135,15 @@
             // lblRes
             // 
             this.lblRes.AutoSize = true;
-            this.lblRes.Location = new System.Drawing.Point(178, 16);
+            this.lblRes.Location = new System.Drawing.Point(252, 57);
             this.lblRes.Name = "lblRes";
             this.lblRes.Size = new System.Drawing.Size(57, 13);
             this.lblRes.TabIndex = 41;
             this.lblRes.Text = "Resolution";
             // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(332, 139);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(71, 33);
-            this.btnExit.TabIndex = 42;
-            this.btnExit.Text = "EXIT";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
             // btnUpload
             // 
-            this.btnUpload.Location = new System.Drawing.Point(329, 56);
+            this.btnUpload.Location = new System.Drawing.Point(329, 114);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(74, 37);
             this.btnUpload.TabIndex = 44;
@@ -213,22 +202,22 @@
             // 
             // txtCalibration
             // 
-            this.txtCalibration.Location = new System.Drawing.Point(13, 33);
+            this.txtCalibration.Location = new System.Drawing.Point(445, 32);
             this.txtCalibration.Name = "txtCalibration";
             this.txtCalibration.Size = new System.Drawing.Size(65, 20);
             this.txtCalibration.TabIndex = 48;
             // 
             // txtMeasure
             // 
-            this.txtMeasure.Location = new System.Drawing.Point(16, 113);
+            this.txtMeasure.Location = new System.Drawing.Point(448, 112);
             this.txtMeasure.Name = "txtMeasure";
-            this.txtMeasure.Size = new System.Drawing.Size(68, 20);
+            this.txtMeasure.Size = new System.Drawing.Size(199, 20);
             this.txtMeasure.TabIndex = 49;
             // 
             // lblCalibration
             // 
             this.lblCalibration.AutoSize = true;
-            this.lblCalibration.Location = new System.Drawing.Point(10, 17);
+            this.lblCalibration.Location = new System.Drawing.Point(442, 16);
             this.lblCalibration.Name = "lblCalibration";
             this.lblCalibration.Size = new System.Drawing.Size(56, 13);
             this.lblCalibration.TabIndex = 50;
@@ -237,7 +226,7 @@
             // lblMeasure
             // 
             this.lblMeasure.AutoSize = true;
-            this.lblMeasure.Location = new System.Drawing.Point(10, 95);
+            this.lblMeasure.Location = new System.Drawing.Point(442, 94);
             this.lblMeasure.Name = "lblMeasure";
             this.lblMeasure.Size = new System.Drawing.Size(74, 13);
             this.lblMeasure.TabIndex = 51;
@@ -246,7 +235,7 @@
             // cmbMeasurement
             // 
             this.cmbMeasurement.FormattingEnabled = true;
-            this.cmbMeasurement.Location = new System.Drawing.Point(16, 72);
+            this.cmbMeasurement.Location = new System.Drawing.Point(448, 71);
             this.cmbMeasurement.Name = "cmbMeasurement";
             this.cmbMeasurement.Size = new System.Drawing.Size(68, 21);
             this.cmbMeasurement.TabIndex = 52;
@@ -254,7 +243,7 @@
             // lblPer
             // 
             this.lblPer.AutoSize = true;
-            this.lblPer.Location = new System.Drawing.Point(13, 56);
+            this.lblPer.Location = new System.Drawing.Point(445, 55);
             this.lblPer.Name = "lblPer";
             this.lblPer.Size = new System.Drawing.Size(51, 13);
             this.lblPer.TabIndex = 53;
@@ -262,7 +251,7 @@
             // 
             // btnCalibrate
             // 
-            this.btnCalibrate.Location = new System.Drawing.Point(16, 139);
+            this.btnCalibrate.Location = new System.Drawing.Point(551, 29);
             this.btnCalibrate.Name = "btnCalibrate";
             this.btnCalibrate.Size = new System.Drawing.Size(74, 24);
             this.btnCalibrate.TabIndex = 54;
@@ -272,7 +261,7 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(16, 169);
+            this.btnReset.Location = new System.Drawing.Point(448, 168);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(74, 25);
             this.btnReset.TabIndex = 55;
@@ -283,7 +272,7 @@
             // btnLineColor
             // 
             this.btnLineColor.BackColor = System.Drawing.Color.Yellow;
-            this.btnLineColor.Location = new System.Drawing.Point(88, 33);
+            this.btnLineColor.Location = new System.Drawing.Point(520, 32);
             this.btnLineColor.Name = "btnLineColor";
             this.btnLineColor.Size = new System.Drawing.Size(25, 20);
             this.btnLineColor.TabIndex = 56;
@@ -293,7 +282,7 @@
             // cbLineWidth
             // 
             this.cbLineWidth.FormattingEnabled = true;
-            this.cbLineWidth.Location = new System.Drawing.Point(96, 72);
+            this.cbLineWidth.Location = new System.Drawing.Point(528, 71);
             this.cbLineWidth.Name = "cbLineWidth";
             this.cbLineWidth.Size = new System.Drawing.Size(74, 21);
             this.cbLineWidth.TabIndex = 57;
@@ -301,7 +290,7 @@
             // lblLineSize
             // 
             this.lblLineSize.AutoSize = true;
-            this.lblLineSize.Location = new System.Drawing.Point(93, 56);
+            this.lblLineSize.Location = new System.Drawing.Point(525, 55);
             this.lblLineSize.Name = "lblLineSize";
             this.lblLineSize.Size = new System.Drawing.Size(58, 13);
             this.lblLineSize.TabIndex = 58;
@@ -309,7 +298,7 @@
             // 
             // btnResetLine
             // 
-            this.btnResetLine.Location = new System.Drawing.Point(96, 138);
+            this.btnResetLine.Location = new System.Drawing.Point(528, 168);
             this.btnResetLine.Name = "btnResetLine";
             this.btnResetLine.Size = new System.Drawing.Size(74, 25);
             this.btnResetLine.TabIndex = 59;
@@ -323,7 +312,6 @@
             this.groupBox1.Controls.Add(this.lblRes);
             this.groupBox1.Controls.Add(this.btnLineColor);
             this.groupBox1.Controls.Add(this.btnUpload);
-            this.groupBox1.Controls.Add(this.btnExit);
             this.groupBox1.Controls.Add(this.cbLineWidth);
             this.groupBox1.Controls.Add(this.btnClear);
             this.groupBox1.Controls.Add(this.lblLineSize);
@@ -375,8 +363,9 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pbImage);
+            this.DoubleBuffered = true;
             this.Name = "frmExDataEntry";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter Data";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFishData_FormClosing);
             this.Load += new System.EventHandler(this.frmFishData_Load);
@@ -402,7 +391,6 @@
         private System.Windows.Forms.ComboBox cbResolution;
         private System.Windows.Forms.Label lblVideo;
         private System.Windows.Forms.Label lblRes;
-        private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.OpenFileDialog fdUploadPic;
         private System.Windows.Forms.Panel pbImage;

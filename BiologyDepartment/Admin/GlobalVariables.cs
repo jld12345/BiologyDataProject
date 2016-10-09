@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Npgsql;
 using NpgsqlTypes;
 using RDotNet;
+using BiologyDepartment.Data;
 
 namespace BiologyDepartment
 {
@@ -33,6 +34,8 @@ namespace BiologyDepartment
         static ImageList imageList = new ImageList();
         static NpgsqlConnection con;
         static NpgsqlConnection bgwCon;
+        static ExperimentData theData;
+        static ctlAnimalData _ctlAnimalData = new ctlAnimalData();
 
         static dbBioConnection BioConnection;
 
@@ -85,7 +88,7 @@ namespace BiologyDepartment
                                         Database=BiologyProject;
                                         Pooling=false;
                                         CommandTimeout=300;
-                                        Connection Lifetime=0");
+                                        Connection Idle Lifetime=0");
                 }
                 if(con.State == System.Data.ConnectionState.Connecting 
                     || con.State == System.Data.ConnectionState.Executing 
@@ -121,7 +124,7 @@ namespace BiologyDepartment
                                         Database=BiologyProject;
                                         Pooling=false;
                                         CommandTimeout=300;
-                                        Connection Lifetime=0");
+                                        Connection Idle Lifetime=0");
                 }
                 if (bgwCon.State != System.Data.ConnectionState.Open)
                     bgwCon.Open();
@@ -290,5 +293,22 @@ namespace BiologyDepartment
 
 
         public static List<CustomColumns> CustomColumns { get; set; }
+
+        public static ExperimentData ExperimentData
+        {
+            get 
+            {
+                if (theData != null)
+                    return theData;
+                else
+                    return null;
+            }
+            set { theData = value; }
+        }
+
+        public static ctlAnimalData ExperimentGrid
+        {
+            get { return _ctlAnimalData; }
+        }
     }
 }

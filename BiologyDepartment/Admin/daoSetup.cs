@@ -66,7 +66,7 @@ namespace BiologyDepartment
         public DataTable GetExperimentColumns(int EXID)
         {
             NpgsqlCMD = new NpgsqlCommand();    
-            NpgsqlCMD.CommandText = @"SELECT * FROM EXPERIMENT_CUSTOM_COLUMNS
+            NpgsqlCMD.CommandText = @"SELECT *, '' map_column FROM EXPERIMENT_CUSTOM_COLUMNS
                                       WHERE EX_ID = :id";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));

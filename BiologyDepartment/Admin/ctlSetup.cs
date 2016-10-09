@@ -112,6 +112,17 @@ namespace BiologyDepartment
         public void LoadData()
         {
             dtColumns = _daoSetup.GetExperimentColumns(GlobalVariables.Experiment.ID);
+            if(sMapColumns.Count > 0)
+            {
+                foreach(string map in sMapColumns)
+                {
+                    foreach(DataRow dr in dtColumns.Rows)
+                    {
+                        if (dr["custom_column_name"].ToString().Equals(map))
+                            dr["map_column"] = map;
+                    }
+                }
+            }
 
             if (!dtColumns.Columns.Contains("custom_column_name"))
                 dtColumns.Columns.Add("custom_column_name", typeof(string));
@@ -138,7 +149,9 @@ namespace BiologyDepartment
                 int nColID = 0;
                 string sName = Convert.ToString(row.Cells["custom_column_name"].Value);
                 string sType = Convert.ToString(row.Cells["custom_column_data_type"].Value);
-                string sDesc = Convert.ToString(row.Cells["custom_columns_comments"].Value);
+                string sDesc = "";
+                if(row.Cells["custom_column_comments"].Value != DBNull.Value)
+                    sDesc = Convert.ToString(row.Cells["custom_column_comments"].Value);
                 if (string.IsNullOrEmpty(sName) || string.IsNullOrEmpty(sType))
                     return;
                 int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
@@ -153,13 +166,66 @@ namespace BiologyDepartment
                 }
             }
 
-            MapColumns();
+            MapColumns(true);
         }
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            dgExcelData.DataSource = _commonUtil.ValidateData((DataTable)dgExcelData.DataSource, dgColAdmin, true, false);
-            sMapColumns.Clear();
+            DataTable dt = (DataTable)dgExcelData.DataSource;
+            DataTable dtColumns = (DataTable)dgColAdmin.DataSource;
+            List<string> lstColRemove = new List<string>();
+            List<string> lstCol = new List<string>();
+
+            foreach(DataRow dr in dtColumns.Rows)
+            {
+                if(dt.Columns.Contains(Convert.ToString(dr["map_column"])))
+                { 
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        if (col.ColumnName.Equals(Convert.ToString(dr["map_column"])))
+                        {
+                            col.ColumnName = Convert.ToString(dr["custom_column_name"]);
+                            continue;
+                        }
+                    }
+                }
+            }
+            DataTable dtCopy = dt.Copy();
+            foreach(DataColumn col in dt.Columns)
+            {
+                bool bExists = false;
+                foreach(DataRow dr in dtColumns.Rows)
+                {
+                    if (col.ColumnName.Equals(Convert.ToString(dr["custom_column_name"])))
+                    {
+                        bExists = true;
+                        if(col.DataType.ToString().Equals("Object"))
+                        {
+                            dtCopy.Columns.Remove(col.ColumnName);
+                            dtCopy.Columns.Add(col.ColumnName, typeof(string));
+                            lstColRemove.Add(col.ColumnName);
+                        }
+                    }
+                }
+                if (!bExists)
+                {
+                    dtCopy.Columns.Remove(col.ColumnName);
+                    dtCopy.AcceptChanges();
+                }
+            }
+            if (lstColRemove.Count > 0)
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    foreach (string col in lstColRemove)
+                        dtCopy.Rows[i][col] = dt.Rows[i][col];
+                }
+            }
+
+            _commonUtil.SerializeTableToJson(dtCopy, dtColumns);
+            GlobalVariables.ExperimentGrid.Initialize(GlobalVariables.Experiment.ID);
+            //dgExcelData.DataSource = _commonUtil.ValidateData((DataTable)dgExcelData.DataSource, dgColAdmin, true, false);
+            //sMapColumns.Clear();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -192,7 +258,7 @@ namespace BiologyDepartment
                 }
             }
 
-            MapColumns();
+            MapColumns(true);
 
             if(lstExistingCols.Count > 0)
             {
@@ -274,10 +340,10 @@ namespace BiologyDepartment
 
         private void btnMapData_Click(object sender, EventArgs e)
         {
-            MapColumns();
+            MapColumns(false);
         }
 
-        private void MapColumns()
+        private void MapColumns(bool bIsImport)
         {
             foreach (DataGridViewColumn dgCol in dgExcelData.Columns)
             {
@@ -287,9 +353,10 @@ namespace BiologyDepartment
                     sMapColumns.Add(dgCol.Index.ToString());
             }
 
-            Refresh();
+            if(!bIsImport)
+                Refresh();
 
-            foreach(string sCol in sMapColumns)
+            /*foreach(string sCol in sMapColumns)
             {
                 foreach (DataGridViewRow row in dgColAdmin.Rows)
                 {
@@ -310,6 +377,7 @@ namespace BiologyDepartment
                                 if (DateTime.TryParse(tempString, out tempDate))
                                     row.Cells["custom_column_data_type"].Value = "DATE_TIME";
                                 else if (Int32.TryParse(tempString, out tempInt))
+
                                     row.Cells["custom_column_data_type"].Value = "INTEGER";
                                 else if (Double.TryParse(tempString, out tempDouble))
                                     row.Cells["custom_column_data_type"].Value = "DECIMAL";
@@ -321,17 +389,12 @@ namespace BiologyDepartment
                         break;
                     }
                 }
-            }
+            }*/
         }
 
         private void cbHasHeaders_CheckedChanged(object sender, EventArgs e)
         {
             sMapColumns.Clear();
-        }
-
-        private void btnImport_Click_1(object sender, EventArgs e)
-        {
-
         }
 
         private void dgColAdmin_Layout(object sender, LayoutEventArgs e)
