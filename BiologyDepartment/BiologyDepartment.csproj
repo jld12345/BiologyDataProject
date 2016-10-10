@@ -177,28 +177,12 @@
     <Reference Include="DynamicInterop">
       <HintPath>..\packages\DynamicInterop.0.7.1.0\lib\net40\DynamicInterop.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Excel, Version=2.1.2.3, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net20\Excel.dll</HintPath>
+    <Reference Include="Excel, Version=2.1.2.4, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader-Dev.1.0.0.0\lib\net45\Excel.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Excel.Helper, Version=1.0.1.0, Culture=neutral, PublicKeyToken=ab40b1b8217243eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelDataReaderHelper.1.0.3.0\lib\Excel.Helper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ExcelApi, Version=1.7.4.0, Culture=neutral, PublicKeyToken=26cf6d85ba68fa54, processorArchitecture=MSIL">
-      <HintPath>..\packages\NetOffice.Excel.1.7.4-pre-jun-28-2015\lib\net45\ExcelApi.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="FileTypeDetective, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FileTypeDetective.1.0.0.0\lib\net40\FileTypeDetective.dll</HintPath>
@@ -255,9 +239,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Npgsql, Version=3.1.8.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Npgsql.3.1.8\lib\net451\Npgsql.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Npgsql, Version=2.2.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Npgsql.3.1.7\lib\net45\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
@@ -385,9 +369,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
-    <Reference Include="VBIDEApi, Version=1.7.4.0, Culture=neutral, PublicKeyToken=a3637beacf571e8a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -442,30 +423,6 @@
     </Compile>
     <Compile Include="Misc Files\DataGridImageButton.cs" />
     <Compile Include="Misc Files\DataGridViewColumnType.cs" />
-    <Compile Include="R Scripts\ctlApiCalls.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="R Scripts\ctlApiCalls.Designer.cs">
-      <DependentUpon>ctlApiCalls.cs</DependentUpon>
-    </Compile>
-    <Compile Include="R Scripts\ctlGGPlot.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="R Scripts\ctlGGPlot.Designer.cs">
-      <DependentUpon>ctlGGPlot.cs</DependentUpon>
-    </Compile>
-    <Compile Include="R Scripts\ctlRBaseFunctions.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="R Scripts\ctlRBaseFunctions.Designer.cs">
-      <DependentUpon>ctlRBaseFunctions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="R Scripts\ctlRScripts.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="R Scripts\ctlRScripts.Designer.cs">
-      <DependentUpon>ctlRScripts.cs</DependentUpon>
-    </Compile>
     <Compile Include="Admin\ctlSetup.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -516,8 +473,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="R Scripts\GGPlotUtilcs.cs" />
-    <Compile Include="R Scripts\RStatistics.cs" />
     <Compile Include="Login\ctlLogIn.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -537,6 +492,24 @@
     <Compile Include="Admin\UserPermissions.Designer.cs">
       <DependentUpon>UserPermissions.cs</DependentUpon>
     </Compile>
+    <Compile Include="R_Scripts\ctlApiCalls.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="R_Scripts\ctlApiCalls.Designer.cs" />
+    <Compile Include="R_Scripts\ctlGGPlot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="R_Scripts\ctlGGPlot.Designer.cs" />
+    <Compile Include="R_Scripts\ctlRBaseFunctions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="R_Scripts\ctlRBaseFunctions.Designer.cs" />
+    <Compile Include="R_Scripts\ctlRScripts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="R_Scripts\ctlRScripts.Designer.cs" />
+    <Compile Include="R_Scripts\GGPlotUtilcs.cs" />
+    <Compile Include="R_Scripts\RStatistics.cs" />
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="Author\ctlAuthors.resx">
       <DependentUpon>ctlAuthors.cs</DependentUpon>
@@ -558,18 +531,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="R Scripts\ctlApiCalls.resx">
-      <DependentUpon>ctlApiCalls.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="R Scripts\ctlGGPlot.resx">
-      <DependentUpon>ctlGGPlot.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="R Scripts\ctlRBaseFunctions.resx">
-      <DependentUpon>ctlRBaseFunctions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="R Scripts\ctlRScripts.resx">
-      <DependentUpon>ctlRScripts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin\ctlSetup.resx">
       <DependentUpon>ctlSetup.cs</DependentUpon>
@@ -605,6 +566,10 @@
     <EmbeddedResource Include="Admin\UserPermissions.resx">
       <DependentUpon>UserPermissions.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="R_Scripts\ctlApiCalls.resx" />
+    <EmbeddedResource Include="R_Scripts\ctlGGPlot.resx" />
+    <EmbeddedResource Include="R_Scripts\ctlRBaseFunctions.resx" />
+    <EmbeddedResource Include="R_Scripts\ctlRScripts.resx" />
     <None Include="Admin\AnimalXMLSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1503,7 +1468,6 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
-    <EmbeddedResource Include="R Scripts\RBaseScript.txt" />
     <EmbeddedResource Include="Misc Files\images\addicon.png" />
     <EmbeddedResource Include="Misc Files\images\deleteicon.png" />
     <EmbeddedResource Include="Misc Files\images\editicon.png" />
