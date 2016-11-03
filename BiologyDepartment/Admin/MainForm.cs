@@ -536,6 +536,11 @@ namespace BiologyDepartment
             }
         }
 
+        private void btnSearchEx_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
     }
