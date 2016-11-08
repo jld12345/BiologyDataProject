@@ -152,7 +152,7 @@ namespace BiologyDepartment
         private void btnAdd_Click(object sender, EventArgs e)
         {
             DataRow newRow = dtAnimals.NewRow();
-            using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(ref newRow))
+            using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(true, ref newRow))
             {
                 _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
                 _frmFishData.ShowDialog();
@@ -215,7 +215,7 @@ namespace BiologyDepartment
             {
                 newRow[col.ColumnName] = dtRow[0][col.ColumnName];
             }
-            using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(ref newRow))
+            using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(false, ref newRow))
             {
                 _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
                 _frmFishData.ShowDialog();

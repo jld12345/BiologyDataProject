@@ -13,6 +13,7 @@ using System.IO;
 using BiologyDepartment.Misc_Files;
 using BiologyDepartment.Common;
 using System.Diagnostics;
+
 namespace BiologyDepartment
 {
     public partial class ctlSetup : UserControl
@@ -111,7 +112,7 @@ namespace BiologyDepartment
 
         public void LoadData()
         {
-            dtColumns = _daoSetup.GetExperimentColumns(GlobalVariables.Experiment.ID);
+            dtColumns = _daoSetup.GetExperimentColumns(GlobalVariables.ExperimentNode.ExperimentNode.ID);
             if(sMapColumns.Count > 0)
             {
                 foreach(string map in sMapColumns)

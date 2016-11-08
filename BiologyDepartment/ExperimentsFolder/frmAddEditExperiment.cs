@@ -31,9 +31,11 @@ namespace BiologyDepartment.ExperimentsFolder
             }
             else
             {
+                DataRow emptyRow = dtParents.NewRow();
                 cmbParents.ValueMember = "EX_ID";
                 cmbParents.DisplayMember = "EX_ALIAS";
                 cmbParents.DataSource = dtParents;
+                dtParents.Rows.InsertAt(emptyRow, 0);
             }
             if (node != null)
             {

@@ -25,7 +25,7 @@ namespace BiologyDepartment.ExperimentDocuments
             InitializeComponent();
             openFileDialog1.Multiselect = bAllowMulti;
             cmbDocType.SelectedIndex = 0;
-            rtbTitle.Enabled = false;
+            rtbTitle.Enabled = true;
         }
 
         public frmAddDocument(bool bAllowMulti, DocumentClass docEdit)
@@ -37,7 +37,7 @@ namespace BiologyDepartment.ExperimentDocuments
             rtbDescription.Text = thePDF.DOCUMENT_DESCRIPTION;
             rtbTitle.Text = thePDF.DOCUMENT_TITLE;
             rtbTitle.Enabled = true;
-            btnBrowse.Enabled = false;
+            btnBrowse.Enabled = true;
             bIsEdit = true;
         }
 
@@ -80,7 +80,7 @@ namespace BiologyDepartment.ExperimentDocuments
                 {
                     thePDF.DOCUMENT_TITLE = sFileName[nCount];
                     thePDF.DOCUMENT_DESCRIPTION = string.IsNullOrWhiteSpace(rtbDescription.Text) ? "Description not available." : rtbDescription.Text;
-                    thePDF.EXPERIMENT_ID = GlobalVariables.Experiment.ID;
+                    thePDF.EXPERIMENT_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID;
                     thePDF.DOCUMENT_TYPE = cmbDocType.SelectedItem.ToString();
 
                     using (FileStream fileStream = new FileStream(sPath, FileMode.Open, FileAccess.Read))

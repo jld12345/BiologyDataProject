@@ -160,9 +160,9 @@
     <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
       <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
     </Reference>
-    <Reference Include="ClosedXML, Version=0.75.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLL Files\ClosedXML.dll</HintPath>
+    <Reference Include="ClosedXML, Version=0.80.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.80.1\lib\net40-client\ClosedXML.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="ComponentFactory.Krypton.Ribbon">
       <HintPath>..\..\..\Users\James\Downloads\ComponentFactory.Krypton.Ribbon.dll</HintPath>
@@ -177,12 +177,15 @@
     <Reference Include="DynamicInterop">
       <HintPath>..\packages\DynamicInterop.0.7.1.0\lib\net40\DynamicInterop.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Excel, Version=2.1.2.4, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelDataReader-Dev.1.0.0.0\lib\net45\Excel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Excel, Version=2.1.2.3, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
     </Reference>
     <Reference Include="FileTypeDetective, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FileTypeDetective.1.0.0.0\lib\net40\FileTypeDetective.dll</HintPath>
@@ -218,6 +221,18 @@
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\Microsoft.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Vsa, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="MimeDetective">
@@ -267,6 +282,14 @@
       <HintPath>..\packages\NetOffice.Core.1.7.4-pre-jun-28-2015\lib\net45\OfficeApi.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="PCLStorage, Version=0.9.6.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\PCLStorage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions, Version=0.9.6.0, Culture=neutral, PublicKeyToken=286fe515a2c35b64, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\PCLStorage.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="RDotNet">
@@ -291,10 +314,10 @@
     <Reference Include="Syncfusion.ExcelChartToImageConverter.Wpf, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.ExcelToPDFConverter.Base, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Gauge.Windows, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.Grid.Base, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Grid.Base, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grid.Grouping.Base, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grid.Grouping.Windows, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
-    <Reference Include="Syncfusion.Grid.Windows, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Grid.Windows, Version=14.2450.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.GridConverter.Windows, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.GridHelperClasses.Windows, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Grouping.Base, Version=14.2460.0.28, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
@@ -372,6 +395,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\dlgExperimentSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\dlgExperimentSearch.Designer.cs">
+      <DependentUpon>dlgExperimentSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Author\Author.cs" />
     <Compile Include="Author_EX\author_ex.cs" />
     <Compile Include="Common\CommonUtil.cs" />
@@ -466,12 +501,6 @@
     </Compile>
     <Compile Include="Misc Files\BioDept.cs" />
     <Compile Include="Admin\GlobalVariables.cs" />
-    <Compile Include="Admin\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Admin\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Login\ctlLogIn.cs">
       <SubType>UserControl</SubType>
@@ -496,6 +525,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="R_Scripts\ctlApiCalls.Designer.cs" />
+    <Compile Include="R_Scripts\ctlApiCalls2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="R_Scripts\ctlApiCalls2.Designer.cs">
+      <DependentUpon>ctlApiCalls2.cs</DependentUpon>
+    </Compile>
     <Compile Include="R_Scripts\ctlGGPlot.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -509,8 +544,15 @@
     </Compile>
     <Compile Include="R_Scripts\ctlRScripts.Designer.cs" />
     <Compile Include="R_Scripts\GGPlotUtilcs.cs" />
+    <Compile Include="R_Scripts\RDao.cs" />
     <Compile Include="R_Scripts\RStatistics.cs" />
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="Admin\dlgExperimentSearch.resx">
+      <DependentUpon>dlgExperimentSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Author\ctlAuthors.resx">
       <DependentUpon>ctlAuthors.cs</DependentUpon>
     </EmbeddedResource>
@@ -547,9 +589,6 @@
     <EmbeddedResource Include="Data\frmExDataEntry.resx">
       <DependentUpon>frmExDataEntry.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Admin\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -567,6 +606,9 @@
       <DependentUpon>UserPermissions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="R_Scripts\ctlApiCalls.resx" />
+    <EmbeddedResource Include="R_Scripts\ctlApiCalls2.resx">
+      <DependentUpon>ctlApiCalls2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="R_Scripts\ctlGGPlot.resx" />
     <EmbeddedResource Include="R_Scripts\ctlRBaseFunctions.resx" />
     <EmbeddedResource Include="R_Scripts\ctlRScripts.resx" />
@@ -697,6 +739,12 @@
     <EmbeddedResource Include="Misc Files\images\EditDoc25.png" />
     <EmbeddedResource Include="Misc Files\images\ExperimentPermission.png" />
     <EmbeddedResource Include="Misc Files\images\ExperimentPermission25.png" />
+    <None Include="Misc Files\images\AddExperiment48.png" />
+    <None Include="Misc Files\images\DeleteFile48.png" />
+    <None Include="Misc Files\images\EditDoc48.png" />
+    <None Include="Misc Files\images\ExperimentPermission48.png" />
+    <None Include="Misc Files\images\folder48.png" />
+    <None Include="Misc Files\images\search48.png" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />

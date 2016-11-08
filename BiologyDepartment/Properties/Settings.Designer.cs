@@ -49,7 +49,7 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http:dwbtechnologies.ddns.net:8787")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http:dwbtechnologies.ddns.net:8787/rstudio")]
         public string MyRStudio {
             get {
                 return ((string)(this["MyRStudio"]));

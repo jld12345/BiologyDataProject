@@ -9,7 +9,7 @@
       <Value Profile="(Default)">Server=dwbtechnologies.ddns.net</Value>
     </Setting>
     <Setting Name="MyRStudio" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http:dwbtechnologies.ddns.net:8787</Value>
+      <Value Profile="(Default)">http:dwbtechnologies.ddns.net:8787/rstudio</Value>
     </Setting>
     <Setting Name="MyActiveDirectoryTest" Type="System.String" Scope="User">
       <Value Profile="(Default)">192.168.0.9</Value>

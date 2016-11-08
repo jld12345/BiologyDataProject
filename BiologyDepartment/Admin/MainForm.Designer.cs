@@ -54,23 +54,23 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.superToolTip1 = new Syncfusion.Windows.Forms.Tools.SuperToolTip(this);
             this.ribbonControlAdv1 = new Syncfusion.Windows.Forms.Tools.RibbonControlAdv();
-            this.toolStripEx1 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
             this.toolStripTabItem1 = new Syncfusion.Windows.Forms.Tools.ToolStripTabItem();
             this.toolStripEx2 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
-            this.toolStripEx3 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
-            this.toolStripEx4 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
-            this.btnExit2 = new System.Windows.Forms.ToolStripButton();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
-            this.btnSecurityEx = new System.Windows.Forms.ToolStripButton();
-            this.btnDelEx = new System.Windows.Forms.ToolStripButton();
-            this.btnEditEx = new System.Windows.Forms.ToolStripButton();
-            this.btnAddEx = new System.Windows.Forms.ToolStripButton();
+            this.btnExit2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripEx3 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
             this.btnSearchEx = new System.Windows.Forms.ToolStripButton();
-            this.btnExportDoc2 = new System.Windows.Forms.ToolStripButton();
-            this.btnBulkAddDoc = new System.Windows.Forms.ToolStripButton();
-            this.btnDelDoc2 = new System.Windows.Forms.ToolStripButton();
-            this.btnEditDoc2 = new System.Windows.Forms.ToolStripButton();
+            this.btnAddEx = new System.Windows.Forms.ToolStripButton();
+            this.btnEditEx = new System.Windows.Forms.ToolStripButton();
+            this.btnDelEx = new System.Windows.Forms.ToolStripButton();
+            this.btnSecurityEx = new System.Windows.Forms.ToolStripButton();
+            this.toolStripEx4 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
             this.btnAddDoc2 = new System.Windows.Forms.ToolStripButton();
+            this.btnEditDoc2 = new System.Windows.Forms.ToolStripButton();
+            this.btnDelDoc2 = new System.Windows.Forms.ToolStripButton();
+            this.btnBulkAddDoc = new System.Windows.Forms.ToolStripButton();
+            this.btnExportDoc2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripEx1 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
             this.tabControlMain2 = new Syncfusion.Windows.Forms.Tools.TabControlAdv();
             this.tpExperiments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             this.tpDocuments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
@@ -214,19 +214,6 @@
             this.ribbonControlAdv1.TabIndex = 3;
             this.ribbonControlAdv1.Text = "ribbonControlAdv1";
             // 
-            // toolStripEx1
-            // 
-            this.toolStripEx1.AutoSize = false;
-            this.toolStripEx1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStripEx1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.toolStripEx1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.toolStripEx1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripEx1.Image = null;
-            this.toolStripEx1.Location = new System.Drawing.Point(0, 1);
-            this.toolStripEx1.Name = "toolStripEx1";
-            this.toolStripEx1.Size = new System.Drawing.Size(212, 60);
-            this.toolStripEx1.TabIndex = 0;
-            // 
             // toolStripTabItem1
             // 
             this.toolStripTabItem1.AutoSize = false;
@@ -262,6 +249,32 @@
             this.toolStripEx2.Size = new System.Drawing.Size(173, 105);
             this.toolStripEx2.TabIndex = 0;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.AutoSize = false;
+            this.btnRefresh.Image = global::BiologyDepartment.Properties.Resources.refresh;
+            this.btnRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 75);
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh2_Click);
+            // 
+            // btnExit2
+            // 
+            this.btnExit2.AutoSize = false;
+            this.btnExit2.Image = global::BiologyDepartment.Properties.Resources.exit;
+            this.btnExit2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnExit2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExit2.Name = "btnExit2";
+            this.btnExit2.Size = new System.Drawing.Size(75, 75);
+            this.btnExit2.Text = "Exit";
+            this.btnExit2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnExit2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExit2.Click += new System.EventHandler(this.tspExit_Click);
+            // 
             // toolStripEx3
             // 
             this.toolStripEx3.AutoSize = false;
@@ -281,6 +294,71 @@
             this.toolStripEx3.Size = new System.Drawing.Size(433, 105);
             this.toolStripEx3.TabIndex = 1;
             this.toolStripEx3.Text = "Experiments";
+            // 
+            // btnSearchEx
+            // 
+            this.btnSearchEx.AutoSize = false;
+            this.btnSearchEx.Image = global::BiologyDepartment.Properties.Resources.search48;
+            this.btnSearchEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSearchEx.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSearchEx.Name = "btnSearchEx";
+            this.btnSearchEx.Size = new System.Drawing.Size(75, 75);
+            this.btnSearchEx.Text = "Search";
+            this.btnSearchEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSearchEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSearchEx.Click += new System.EventHandler(this.btnSearchEx_Click);
+            // 
+            // btnAddEx
+            // 
+            this.btnAddEx.AutoSize = false;
+            this.btnAddEx.Image = global::BiologyDepartment.Properties.Resources.AddExperiment48;
+            this.btnAddEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnAddEx.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAddEx.Name = "btnAddEx";
+            this.btnAddEx.Size = new System.Drawing.Size(75, 75);
+            this.btnAddEx.Text = "Add";
+            this.btnAddEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAddEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnAddEx.Click += new System.EventHandler(this.btnAddExperiment_Click);
+            // 
+            // btnEditEx
+            // 
+            this.btnEditEx.AutoSize = false;
+            this.btnEditEx.Image = global::BiologyDepartment.Properties.Resources.EditDoc48;
+            this.btnEditEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnEditEx.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEditEx.Name = "btnEditEx";
+            this.btnEditEx.Size = new System.Drawing.Size(75, 75);
+            this.btnEditEx.Text = "Edit";
+            this.btnEditEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnEditEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnEditEx.Click += new System.EventHandler(this.btnEditExperiment_Click);
+            // 
+            // btnDelEx
+            // 
+            this.btnDelEx.AutoSize = false;
+            this.btnDelEx.Image = global::BiologyDepartment.Properties.Resources.DeleteFile48;
+            this.btnDelEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnDelEx.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelEx.Name = "btnDelEx";
+            this.btnDelEx.Size = new System.Drawing.Size(75, 75);
+            this.btnDelEx.Text = "Delete";
+            this.btnDelEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDelEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDelEx.Click += new System.EventHandler(this.btnDelExperiment_Click);
+            // 
+            // btnSecurityEx
+            // 
+            this.btnSecurityEx.AutoSize = false;
+            this.btnSecurityEx.Image = global::BiologyDepartment.Properties.Resources.ExperimentPermission48;
+            this.btnSecurityEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnSecurityEx.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSecurityEx.Name = "btnSecurityEx";
+            this.btnSecurityEx.Size = new System.Drawing.Size(75, 75);
+            this.btnSecurityEx.Text = "Security";
+            this.btnSecurityEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSecurityEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSecurityEx.Click += new System.EventHandler(this.btnPermissions_Click);
             // 
             // toolStripEx4
             // 
@@ -302,135 +380,18 @@
             this.toolStripEx4.TabIndex = 2;
             this.toolStripEx4.Text = "Documents";
             // 
-            // btnExit2
+            // btnAddDoc2
             // 
-            this.btnExit2.AutoSize = false;
-            this.btnExit2.Image = global::BiologyDepartment.Properties.Resources.exit;
-            this.btnExit2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnExit2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnExit2.Name = "btnExit2";
-            this.btnExit2.Size = new System.Drawing.Size(75, 75);
-            this.btnExit2.Text = "Exit";
-            this.btnExit2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnExit2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnExit2.Click += new System.EventHandler(this.tspExit_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.AutoSize = false;
-            this.btnRefresh.Image = global::BiologyDepartment.Properties.Resources.refresh;
-            this.btnRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 75);
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh2_Click);
-            // 
-            // btnSecurityEx
-            // 
-            this.btnSecurityEx.AutoSize = false;
-            this.btnSecurityEx.Image = global::BiologyDepartment.Properties.Resources.ExperimentPermission48;
-            this.btnSecurityEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSecurityEx.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSecurityEx.Name = "btnSecurityEx";
-            this.btnSecurityEx.Size = new System.Drawing.Size(75, 75);
-            this.btnSecurityEx.Text = "Security";
-            this.btnSecurityEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSecurityEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSecurityEx.Click += new System.EventHandler(this.btnPermissions_Click);
-            // 
-            // btnDelEx
-            // 
-            this.btnDelEx.AutoSize = false;
-            this.btnDelEx.Image = global::BiologyDepartment.Properties.Resources.DeleteFile48;
-            this.btnDelEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnDelEx.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelEx.Name = "btnDelEx";
-            this.btnDelEx.Size = new System.Drawing.Size(75, 75);
-            this.btnDelEx.Text = "Delete";
-            this.btnDelEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDelEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDelEx.Click += new System.EventHandler(this.btnDelExperiment_Click);
-            // 
-            // btnEditEx
-            // 
-            this.btnEditEx.AutoSize = false;
-            this.btnEditEx.Image = global::BiologyDepartment.Properties.Resources.EditDoc48;
-            this.btnEditEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnEditEx.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEditEx.Name = "btnEditEx";
-            this.btnEditEx.Size = new System.Drawing.Size(75, 75);
-            this.btnEditEx.Text = "Edit";
-            this.btnEditEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnEditEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnEditEx.Click += new System.EventHandler(this.btnEditExperiment_Click);
-            // 
-            // btnAddEx
-            // 
-            this.btnAddEx.AutoSize = false;
-            this.btnAddEx.Image = global::BiologyDepartment.Properties.Resources.AddExperiment48;
-            this.btnAddEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnAddEx.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAddEx.Name = "btnAddEx";
-            this.btnAddEx.Size = new System.Drawing.Size(75, 75);
-            this.btnAddEx.Text = "Add";
-            this.btnAddEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnAddEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnAddEx.Click += new System.EventHandler(this.btnAddExperiment_Click);
-            // 
-            // btnSearchEx
-            // 
-            this.btnSearchEx.AutoSize = false;
-            this.btnSearchEx.Image = global::BiologyDepartment.Properties.Resources.refresh;
-            this.btnSearchEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSearchEx.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSearchEx.Name = "btnSearchEx";
-            this.btnSearchEx.Size = new System.Drawing.Size(75, 75);
-            this.btnSearchEx.Text = "Search";
-            this.btnSearchEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSearchEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSearchEx.Click += new System.EventHandler(this.btnSearchEx_Click);
-            // 
-            // btnExportDoc2
-            // 
-            this.btnExportDoc2.AutoSize = false;
-            this.btnExportDoc2.Image = global::BiologyDepartment.Properties.Resources.ClipboardExport2;
-            this.btnExportDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnExportDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnExportDoc2.Name = "btnExportDoc2";
-            this.btnExportDoc2.Size = new System.Drawing.Size(75, 75);
-            this.btnExportDoc2.Text = "Export";
-            this.btnExportDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnExportDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnExportDoc2.Click += new System.EventHandler(this.btnExportDoc_Click);
-            // 
-            // btnBulkAddDoc
-            // 
-            this.btnBulkAddDoc.AutoSize = false;
-            this.btnBulkAddDoc.Image = global::BiologyDepartment.Properties.Resources.folder48;
-            this.btnBulkAddDoc.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnBulkAddDoc.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBulkAddDoc.Name = "btnBulkAddDoc";
-            this.btnBulkAddDoc.Size = new System.Drawing.Size(75, 75);
-            this.btnBulkAddDoc.Text = "Bulk Import";
-            this.btnBulkAddDoc.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnBulkAddDoc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnBulkAddDoc.Click += new System.EventHandler(this.btnAddDocs_Click);
-            // 
-            // btnDelDoc2
-            // 
-            this.btnDelDoc2.AutoSize = false;
-            this.btnDelDoc2.Image = global::BiologyDepartment.Properties.Resources.DeleteFile48;
-            this.btnDelDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnDelDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelDoc2.Name = "btnDelDoc2";
-            this.btnDelDoc2.Size = new System.Drawing.Size(75, 75);
-            this.btnDelDoc2.Text = "Delete";
-            this.btnDelDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDelDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDelDoc2.Click += new System.EventHandler(this.btnDelDoc_Click);
+            this.btnAddDoc2.AutoSize = false;
+            this.btnAddDoc2.Image = global::BiologyDepartment.Properties.Resources.documentaddicon;
+            this.btnAddDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnAddDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAddDoc2.Name = "btnAddDoc2";
+            this.btnAddDoc2.Size = new System.Drawing.Size(75, 75);
+            this.btnAddDoc2.Text = "Add";
+            this.btnAddDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAddDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnAddDoc2.Click += new System.EventHandler(this.btnAddDoc_Click);
             // 
             // btnEditDoc2
             // 
@@ -445,18 +406,57 @@
             this.btnEditDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnEditDoc2.Click += new System.EventHandler(this.btnEditDoc_Click);
             // 
-            // btnAddDoc2
+            // btnDelDoc2
             // 
-            this.btnAddDoc2.AutoSize = false;
-            this.btnAddDoc2.Image = global::BiologyDepartment.Properties.Resources.documentaddicon;
-            this.btnAddDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnAddDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnAddDoc2.Name = "btnAddDoc2";
-            this.btnAddDoc2.Size = new System.Drawing.Size(75, 75);
-            this.btnAddDoc2.Text = "Add";
-            this.btnAddDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnAddDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnAddDoc2.Click += new System.EventHandler(this.btnAddDoc_Click);
+            this.btnDelDoc2.AutoSize = false;
+            this.btnDelDoc2.Image = global::BiologyDepartment.Properties.Resources.DeleteFile48;
+            this.btnDelDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnDelDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelDoc2.Name = "btnDelDoc2";
+            this.btnDelDoc2.Size = new System.Drawing.Size(75, 75);
+            this.btnDelDoc2.Text = "Delete";
+            this.btnDelDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDelDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDelDoc2.Click += new System.EventHandler(this.btnDelDoc_Click);
+            // 
+            // btnBulkAddDoc
+            // 
+            this.btnBulkAddDoc.AutoSize = false;
+            this.btnBulkAddDoc.Image = global::BiologyDepartment.Properties.Resources.folder48;
+            this.btnBulkAddDoc.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnBulkAddDoc.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBulkAddDoc.Name = "btnBulkAddDoc";
+            this.btnBulkAddDoc.Size = new System.Drawing.Size(75, 75);
+            this.btnBulkAddDoc.Text = "Bulk Import";
+            this.btnBulkAddDoc.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnBulkAddDoc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnBulkAddDoc.Click += new System.EventHandler(this.btnAddDocs_Click);
+            // 
+            // btnExportDoc2
+            // 
+            this.btnExportDoc2.AutoSize = false;
+            this.btnExportDoc2.Image = global::BiologyDepartment.Properties.Resources.ClipboardExport2;
+            this.btnExportDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnExportDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExportDoc2.Name = "btnExportDoc2";
+            this.btnExportDoc2.Size = new System.Drawing.Size(75, 75);
+            this.btnExportDoc2.Text = "Export";
+            this.btnExportDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnExportDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExportDoc2.Click += new System.EventHandler(this.btnExportDoc_Click);
+            // 
+            // toolStripEx1
+            // 
+            this.toolStripEx1.AutoSize = false;
+            this.toolStripEx1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripEx1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.toolStripEx1.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.toolStripEx1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripEx1.Image = null;
+            this.toolStripEx1.Location = new System.Drawing.Point(0, 1);
+            this.toolStripEx1.Name = "toolStripEx1";
+            this.toolStripEx1.Size = new System.Drawing.Size(212, 60);
+            this.toolStripEx1.TabIndex = 0;
             // 
             // tabControlMain2
             // 
@@ -634,6 +634,7 @@
             this.tvDocuments.ToolTipControl.Size = new System.Drawing.Size(41, 15);
             this.tvDocuments.ToolTipControl.TabIndex = 1;
             this.tvDocuments.ToolTipControl.Text = "toolTip";
+            this.tvDocuments.AfterSelect += new System.EventHandler(this.tvDocuments_AfterSelect);
             // 
             // docViewer
             // 
@@ -712,7 +713,7 @@
             this.spreadsheetViewer.DefaultColumnCount = 101;
             this.spreadsheetViewer.DefaultRowCount = 101;
             this.spreadsheetViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.spreadsheetViewer.FileName = "Book4";
+            this.spreadsheetViewer.FileName = "Book6";
             this.spreadsheetViewer.FormulaBarVisibility = false;
             formulaRangeSelectionController1.AllowMouseSelection = true;
             formulaRangeSelectionController1.AllowSelectionOnEditing = true;

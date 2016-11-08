@@ -36,6 +36,7 @@ namespace BiologyDepartment
         static NpgsqlConnection bgwCon;
         static ExperimentData theData;
         static ctlAnimalData _ctlAnimalData = new ctlAnimalData();
+        static ExperimentTreeNode SelectedExperiment = new ExperimentTreeNode();
 
         static dbBioConnection BioConnection;
 
@@ -309,6 +310,12 @@ namespace BiologyDepartment
         public static ctlAnimalData ExperimentGrid
         {
             get { return _ctlAnimalData; }
+        }
+
+        public static ExperimentTreeNode ExperimentNode
+        {
+            get { return SelectedExperiment; }
+            set { SelectedExperiment = value; }
         }
     }
 }

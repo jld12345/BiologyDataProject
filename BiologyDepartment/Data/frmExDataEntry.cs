@@ -18,30 +18,35 @@ namespace BiologyDepartment
 {
     public partial class frmExDataEntry : Form
     {
-        public static frmExDataEntry inst;
+        #region Private Variables
         private AnimalData theAnimal;
         private daoData _daoData = new daoData();
         private VideoCaptureDevice videoSource;
         private FilterInfoCollection captureDevice;
         private double dLineLength = 0;
         private double dCalLength = 0;
-        private Point oldPoint = new Point(0,0);
-        private Point newPoint = new Point(0,0);
+        private Point oldPoint = new Point(0, 0);
+        private Point newPoint = new Point(0, 0);
         private Point mouseDownPosition = Point.Empty;
         private Point mouseMovePosition = Point.Empty;
         private Dictionary<Point, Point> Circles = new Dictionary<Point, Point>();
         private List<Point> pointLine = new List<Point>();
         private List<Point> pointCalibrate = new List<Point>();
         private Bitmap bmpOriginal;
-        public DataTable dtReturn = new DataTable();
         private bool bSavePic = false;
         private byte[] originalPic;
+        #endregion
 
+        #region Public Variables
+        public static frmExDataEntry inst;
+        public DataTable dtReturn = new DataTable();
+        #endregion
+
+        #region Public Methods
         public frmExDataEntry()
         {
             InitializeComponent();
             theAnimal = new AnimalData();
-            btnClear.Enabled = true;
             SetMeasurements();
             SetLineWidthCombo();
         }
@@ -50,20 +55,18 @@ namespace BiologyDepartment
         {
             InitializeComponent();
             theAnimal = new AnimalData();
-            btnClear.Enabled = true;
             SetMeasurements();
             SetLineWidthCombo();
         }
 
-        public frmExDataEntry(ref DataRow row)
+        public frmExDataEntry(bool IsAdd, ref DataRow row)
         {
             InitializeComponent();
             theAnimal = new AnimalData();
             SetMeasurements();
             SetLineWidthCombo();
             SetFields(ref row);
-            
-            btnClear.Enabled = false;
+            SetButtons(IsAdd);
         }
 
         public static frmExDataEntry CreateInstance()
@@ -93,11 +96,11 @@ namespace BiologyDepartment
             return inst;
         }
 
-        public static frmExDataEntry CreateInstance(ref DataRow row)
+        public static frmExDataEntry CreateInstance(bool IsAdd, ref DataRow row)
         {
             if (inst == null || inst.IsDisposed)
             {
-                inst = new frmExDataEntry(ref row);
+                inst = new frmExDataEntry(IsAdd, ref row);
             }
             else
             {
@@ -106,15 +109,20 @@ namespace BiologyDepartment
 
             return inst;
         }
+        #endregion
 
+        #region Private Methods
         private void SetFields(ref DataRow row)
         {
             dtReturn = row.Table.Clone();
 
             int i = 0;
-            originalPic = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(row["ROW_ID"]));
-            setPicBox(originalPic);
-            foreach(DataColumn col in row.Table.Columns)
+            if (row["ROW_ID"] != DBNull.Value)
+            {
+                originalPic = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(row["ROW_ID"]));
+                setPicBox(originalPic);
+            }
+            foreach (DataColumn col in row.Table.Columns)
             {
                 Label lblTitle = new Label();
                 lblTitle.Name = col.ColumnName;
@@ -144,6 +152,11 @@ namespace BiologyDepartment
             }
         }
 
+        private void SetButtons(bool IsAdd)
+        {
+            btnAdd.Visible = IsAdd;
+        }
+
         private void frmFishData_Load(object sender, EventArgs e)
         {
             this.pbImage.BackgroundImageLayout = ImageLayout.Center;
@@ -152,8 +165,8 @@ namespace BiologyDepartment
 
             //Check if atleast one video source is available
 
-                //For example use first video device. You may check if this is your webcam.
-                cbCaptureDevice.Items.Clear();
+            //For example use first video device. You may check if this is your webcam.
+            cbCaptureDevice.Items.Clear();
 
             if (captureDevice.Count > 0)
             {
@@ -161,16 +174,16 @@ namespace BiologyDepartment
 
                 foreach (FilterInfo device in captureDevice)
                 {
-                    if(!(cbCaptureDevice.Items.Contains(device.Name)))
+                    if (!(cbCaptureDevice.Items.Contains(device.Name)))
                         cbCaptureDevice.Items.Add(device.Name);
                 }
 
                 cbCaptureDevice.SelectedItem = 0;
             }
-            
+
         }
 
-        void videoSource_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
+        private void videoSource_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
             //Cast the frame as Bitmap object and don't forget to use ".Clone()" otherwise
             //you'll probably get access violation exceptions
@@ -255,14 +268,7 @@ namespace BiologyDepartment
 
         private void frmFishData_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //Stop and free the webcam object if application is closing
-            if (videoSource != null && videoSource.IsRunning)
-            {
-                videoSource.SignalToStop();
-                videoSource.Stop();
-                videoSource = null;
-            }
-            AddRowToReturnTable();
+
         }
 
         private void AddRowToReturnTable()
@@ -272,7 +278,7 @@ namespace BiologyDepartment
             {
                 if (con.GetType() == typeof(TextBox))
                 {
-                    if(string.IsNullOrEmpty(con.Text))
+                    if (string.IsNullOrEmpty(con.Text))
                         row[con.Name] = DBNull.Value;
                     else
                         row[con.Name] = con.Text;
@@ -291,7 +297,7 @@ namespace BiologyDepartment
             else if (originalPic != null)
                 _daoData.InsertPic("EXPERIMENTs_JSONB", Convert.ToInt32(row["ROW_ID"]), originalPic);
 
-            if(row["ROW_ID"] != DBNull.Value)
+            if (row["ROW_ID"] != DBNull.Value)
                 dtReturn.Rows.Add(row);
         }
 
@@ -315,20 +321,20 @@ namespace BiologyDepartment
         private void pbImage_Paint(object sender, PaintEventArgs e)
         {
             Pen p = new Pen(btnLineColor.BackColor, Convert.ToInt32(cbLineWidth.SelectedItem));
-            
+
             var g = e.Graphics;
 
-            if(pointLine.Count > 1 && !string.IsNullOrEmpty(txtCalibration.Text.ToString()))
+            if (pointLine.Count > 1 && !string.IsNullOrEmpty(txtCalibration.Text.ToString()))
             {
                 dLineLength = 0;
 
                 for (int i = 0; i < pointLine.Count - 1; i++)
                 {
-                   g.DrawLine(p, pointLine[i], pointLine[i + 1]);
+                    g.DrawLine(p, pointLine[i], pointLine[i + 1]);
 
-                   dLineLength += Math.Sqrt(Math.Pow((pointLine[i+1].Y - pointLine[i].Y), 2) + 
-                       Math.Pow((pointLine[i + 1].X - pointLine[i].X), 2));
-                }             
+                    dLineLength += Math.Sqrt(Math.Pow((pointLine[i + 1].Y - pointLine[i].Y), 2) +
+                        Math.Pow((pointLine[i + 1].X - pointLine[i].X), 2));
+                }
             }
 
             if (pointCalibrate.Count > 1)
@@ -355,7 +361,7 @@ namespace BiologyDepartment
 
             pbImage.Invalidate();
         }
-        
+
         private void SetMeasurements()
         {
             cmbMeasurement.Items.Add("INCH");
@@ -413,6 +419,12 @@ namespace BiologyDepartment
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            if (videoSource != null && videoSource.IsRunning)
+            {
+                videoSource.SignalToStop();
+                videoSource.Stop();
+                videoSource = null;
+            }
             this.Close();
         }
 
@@ -427,7 +439,6 @@ namespace BiologyDepartment
         private void pbImage_MouseEnter(object sender, EventArgs e)
         {
             pbImage.Cursor = Cursors.Cross;
-           
         }
 
         private void pbImage_MouseLeave(object sender, EventArgs e)
@@ -450,8 +461,32 @@ namespace BiologyDepartment
 
             Size newSize = new Size((int)(bmpOriginal.Width * udZoom.Value / 100), (int)(bmpOriginal.Height * udZoom.Value / 100));
             pbImage.BackgroundImage = new Bitmap(bmpOriginal, newSize);
-               
+
         }
+
+        private void btnSaveExit_Click(object sender, EventArgs e)
+        {
+            //Stop and free the webcam object if application is closing
+            if (videoSource != null && videoSource.IsRunning)
+            {
+                videoSource.SignalToStop();
+                videoSource.Stop();
+                videoSource = null;
+            }
+            AddRowToReturnTable();
+            this.Close();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            AddRowToReturnTable();
+            foreach (Control c in pnlInput.Controls)
+            {
+                if (c is TextBox)
+                    c.Text = "";
+            } 
+        }
+        #endregion
 
     }
 }

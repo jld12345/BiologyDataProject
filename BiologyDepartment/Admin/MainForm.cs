@@ -23,6 +23,7 @@ using BiologyDepartment.ExperimentsFolder;
 using BiologyDepartment.ExperimentDocuments;
 using BiologyDepartment.Login;
 using BiologyDepartment.R_Scripts;
+using BiologyDepartment.Admin;
 using Gnostice;
 using Gnostice.Documents;
 using Syncfusion.Windows.Forms.Grid;
@@ -40,9 +41,10 @@ namespace BiologyDepartment
 
     public partial class MainForm : Form
     {
+        #region Private Variables
         ctlLogIn _ctlLogin = new ctlLogIn();
         ctlAuthors _ctlAuthors = new ctlAuthors();
-        ctlApiCalls _ctlApiCalls = new ctlApiCalls();
+        ctlApiCalls2 _ctlApiCalls = new ctlApiCalls2();
         ctlSetup _ctlSetup = new ctlSetup();
         private bool bAuthorControlDirty = true;
         private DataSet dsExperiments;
@@ -51,13 +53,19 @@ namespace BiologyDepartment
         private IPresentation presentation;
         private PdfDocument PDFdocument;
         private bool bExitProgram = false;
-        
         private MemoryStream mStream;
-
+        #endregion
+        #region Public Variables
+        #endregion
+        #region Delegates
         public delegate void MyDelegate();
+        #endregion
+        #region DLLImports
         [DllImport("user32.dll")]
         private static extern long SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+        #endregion
 
+        #region Public Methods
         public MainForm()
         {
             InitializeComponent();
@@ -77,99 +85,26 @@ namespace BiologyDepartment
         {
             this.WindowState = FormWindowState.Maximized;
             AddTabControls();
-            LoadData();
-            LoadFirstNode();
         }
 
-        private void LoadFirstNode()
+        public void LoadAuthors()
         {
-            if (tvExperiments.Nodes[0].Nodes.Count > 0)
-                tvExperiments.SelectedNode = tvExperiments.Nodes[0].Nodes[0];
-            else if (tvExperiments.Nodes[1].Nodes.Count > 0)
-                tvExperiments.SelectedNode = tvExperiments.Nodes[1].Nodes[0];
-            else if (tvExperiments.Nodes[2].Nodes.Count > 0)
-                tvExperiments.SelectedNode = tvExperiments.Nodes[2].Nodes[0];
-            else if (tvExperiments.Nodes[3].Nodes.Count > 0)
-                tvExperiments.SelectedNode = tvExperiments.Nodes[3].Nodes[0];
-
+            /*tabControlMain2.TabPages["tabAuthors"].Controls.Remove(_ctlAuthors);
+            _ctlAuthors.frmRefresh(GlobalVariables.Experiment.ID);
+            tabControlMain2.TabPages["tabAuthors"].Controls.Add(_ctlAuthors);*/
         }
 
-        private void LoadData()
+        public void LoadSetup()
         {
-            dsExperiments = utilExperiment.GetExperimentsDataSet();
-
-            foreach (DataRow row in dsExperiments.Tables[0].Rows)
-            {
-                ExperimentTreeNode node = new ExperimentTreeNode();
-                node.ExperimentNode.ID = Convert.ToInt32(row["ex_id"]);
-                node.ExperimentNode.Alias = Convert.ToString(row["ex_alias"]);
-                node.ExperimentNode.Title = Convert.ToString(row["ex_title"]);
-                node.ExperimentNode.SDate = Convert.ToString(row["ex_sdate"]);
-                node.ExperimentNode.EDate = Convert.ToString(row["ex_edate"]);
-                node.ExperimentNode.Hypo = Convert.ToString(row["ex_hypothesis"]);
-                node.ExperimentNode.UserAccess = Convert.ToString(row["Permissions"]);
-                node.Text = node.ExperimentNode.Title;
-                if (dsExperiments.Tables.Count > 1 && dsExperiments.Tables[1].Rows.Count > 0)
-                {
-                    foreach (DataRow childRow in dsExperiments.Tables[1].Rows)
-                    {
-                        if (Convert.ToInt32(childRow["ex_parent_id"]) == node.ExperimentNode.ID)
-                        {
-                            ExperimentTreeNode childNode = new ExperimentTreeNode();
-                            childNode.ExperimentNode.ID = Convert.ToInt32(childRow["ex_id"]);
-                            childNode.ExperimentNode.Alias = Convert.ToString(childRow["ex_alias"]);
-                            childNode.ExperimentNode.Title = Convert.ToString(childRow["ex_title"]);
-                            childNode.ExperimentNode.SDate = Convert.ToString(childRow["ex_sdate"]);
-                            childNode.ExperimentNode.EDate = Convert.ToString(childRow["ex_edate"]);
-                            childNode.ExperimentNode.Hypo = Convert.ToString(childRow["ex_hypothesis"]);
-                            childNode.ExperimentNode.ParentEx = Convert.ToInt32(childRow["ex_parent_id"]);
-                            childNode.Text = childNode.ExperimentNode.Title;
-                            if (dsExperiments.Tables.Count > 2 && dsExperiments.Tables[2].Rows.Count > 0)
-                            {
-                                foreach (DataRow grandChildRow in dsExperiments.Tables[2].Rows)
-                                {
-                                    if (Convert.ToInt32(grandChildRow["ex_parent_id"]) == childNode.ExperimentNode.ID)
-                                    {
-                                        ExperimentTreeNode grandChildNode = new ExperimentTreeNode();
-                                        grandChildNode.ExperimentNode.ID = Convert.ToInt32(grandChildRow["ex_id"]);
-                                        grandChildNode.ExperimentNode.Alias = Convert.ToString(grandChildRow["ex_alias"]);
-                                        grandChildNode.ExperimentNode.Title = Convert.ToString(grandChildRow["ex_title"]);
-                                        grandChildNode.ExperimentNode.SDate = Convert.ToString(grandChildRow["ex_sdate"]);
-                                        grandChildNode.ExperimentNode.EDate = Convert.ToString(grandChildRow["ex_edate"]);
-                                        grandChildNode.ExperimentNode.Hypo = Convert.ToString(grandChildRow["ex_hypothesis"]);
-                                        grandChildNode.ExperimentNode.ParentEx = Convert.ToInt32(grandChildRow["ex_parent_id"]);
-                                        grandChildNode.Text = grandChildNode.ExperimentNode.Title;
-                                        childNode.Nodes.Add(grandChildNode);
-                                    }
-                                }
-                            }
-                            node.Nodes.Add(childNode);
-                        }
-                    }
-                }
-                switch(Convert.ToString(row["Permissions"]))
-                {
-                    case "Owner":
-                        tvExperiments.Nodes[0].Nodes.Add(node);
-                        break;
-                    case "Admin":
-                        tvExperiments.Nodes[1].Nodes.Add(node);
-                        break;
-                    case "Add/Edit":
-                        tvExperiments.Nodes[2].Nodes.Add(node);
-                        break;
-                    case "View":
-                        tvExperiments.Nodes[3].Nodes.Add(node);
-                        break;
-                }
-                
-            }
-
+            _ctlSetup.LoadData();
+            _ctlSetup.LoadGrid();
         }
+
+        #endregion
+        #region Private Methods
 
         private void AddTabControls()
         {
-            this.Controls.Add(spcMainControl);
             foreach(TabPageAdv page in tabControlMain2.TabPages)
             {
                 switch(page.Name)
@@ -206,14 +141,6 @@ namespace BiologyDepartment
             }
         }
 
-        private void SetRecord()
-        {
-            txtCodeName.Text = GlobalVariables.Experiment.Alias;
-            txtProjectName.Text = GlobalVariables.Experiment.Title;
-            dtpStart.Value = Convert.ToDateTime(GlobalVariables.Experiment.SDate);
-            dtpEnd.Value = Convert.ToDateTime(GlobalVariables.Experiment.EDate);
-        }
-
         private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (tabControlMain2.SelectedTab.Name)
@@ -235,24 +162,6 @@ namespace BiologyDepartment
                 case "tpDocuments":
                     break;
             }
-        }
-
-            public void LoadAuthors()
-            {
-                /*tabControlMain2.TabPages["tabAuthors"].Controls.Remove(_ctlAuthors);
-                _ctlAuthors.frmRefresh(GlobalVariables.Experiment.ID);
-                tabControlMain2.TabPages["tabAuthors"].Controls.Add(_ctlAuthors);*/
-            }
-
-        public void LoadSetup()
-        {
-            _ctlSetup.LoadData();
-            _ctlSetup.LoadGrid();
-        }
-
-        public void LoadExperimentData()
-        {
-            GlobalVariables.ExperimentGrid.Initialize(GlobalVariables.Experiment.ID);
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -282,56 +191,9 @@ namespace BiologyDepartment
         private void btnRefresh2_Click(object sender, EventArgs e)
         {
             GlobalVariables.Experiment = null;
-            tvExperiments.SelectedNode = null;
-            for(int i = 0; i < tvExperiments.Nodes.Count; i++)
-            {
-                tvExperiments.Nodes[i].Nodes.Clear();
-            }
             Initialize();
         }
 
-        private void tvExperiments_AfterSelect(object sender, EventArgs e)
-        {
-            if (tvExperiments.SelectedNode == null)
-                return;
-
-            if (tvExperiments.SelectedNode.HasChildren)
-            {
-                if (tvExperiments.SelectedNode.Expanded)
-                    tvExperiments.SelectedNode.CollapseAll();
-                else
-                    tvExperiments.SelectedNode.Expand();
-
-                if (tvExperiments.SelectedNode.Parent == null)
-                    return;
-            }
-            var nodeType = tvExperiments.SelectedNode.GetType();
-            if (nodeType.Name.Equals("TreeNodeAdv"))
-                return;
-            if(GlobalVariables.ExperimentGrid.bDataDirty)
-            {
-                string sMessage = "There are unsaved edits or additions to this experiment.  To save these edits/additions, please click yes. \n";
-                sMessage += "Clicking No will cause all edits/additions to be removed. ";
-                DialogResult result = MessageBox.Show(sMessage, "Unsaved Edits/Additions", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if(result == DialogResult.Yes)
-                {
-                    GlobalVariables.ExperimentGrid.SaveData();
-                }
-            }
-            ExperimentTreeNode node = (ExperimentTreeNode)tvExperiments.SelectedNode;
-            GlobalVariables.Experiment = node.ExperimentNode;
-            SetRecord();
-            if (!bgwDocuments.IsBusy)
-                bgwDocuments.RunWorkerAsync();
-            if (this.IsHandleCreated)
-            {
-                this.BeginInvoke(new MyDelegate(LoadSetup));
-                this.BeginInvoke(new MyDelegate(LoadExperimentData));
-            }
-            else
-                GlobalVariables.ExperimentGrid.Initialize(GlobalVariables.Experiment.ID);
-
-        }
 
         private void btnAddDocs_Click(object sender, EventArgs e)
         {
@@ -447,7 +309,7 @@ namespace BiologyDepartment
             spreadsheetViewer.Visible = false;
             tvDocuments.Nodes[0].CollapseImageIndex = 16;
             tvDocuments.Nodes[0].ExpandImageIndex = 16;
-            btnRefresh2.Enabled = true;
+            btnRefresh.Enabled = true;
         }
 
         private void btnAddDoc_Click(object sender, EventArgs e)
@@ -501,14 +363,13 @@ namespace BiologyDepartment
                 if (frm.ExperimentNode.ExperimentNode.ID > 0)
                 {
                     frm.ExperimentNode.Text = frm.ExperimentNode.ExperimentNode.Alias;
-                    tvExperiments.Nodes[0].Nodes.Add(frm.ExperimentNode);
                 }
             }
         }
 
         private void btnEditExperiment_Click(object sender, EventArgs e)
         {
-            ExperimentTreeNode node = (ExperimentTreeNode)tvExperiments.ActiveNode;
+            ExperimentTreeNode node = GlobalVariables.ExperimentNode;
             using (frmAddEditExperiment frm = new frmAddEditExperiment())
             {
                 frm.Initialize(node);
@@ -525,7 +386,7 @@ namespace BiologyDepartment
         private void btnDelExperiment_Click(object sender, EventArgs e)
         {
             utilExperiment.DeleteExperiment(GlobalVariables.Experiment.ID);
-            btnRefresh2.PerformClick();
+            btnRefresh.PerformClick();
         }
 
         private void btnPermissions_Click(object sender, EventArgs e)
@@ -538,9 +399,22 @@ namespace BiologyDepartment
 
         private void btnSearchEx_Click(object sender, EventArgs e)
         {
-
+            using(dlgExperimentSearch dlg = new dlgExperimentSearch())
+            {
+                dlg.Initialize();
+                dlg.ShowDialog();
+                if (dlg.ExperimentLoaded)
+                {
+                    if (!bgwDocuments.IsBusy)
+                        bgwDocuments.RunWorkerAsync();
+                    if (this.IsHandleCreated)
+                    {
+                        this.BeginInvoke(new MyDelegate(LoadSetup));
+                    }
+                }
+            }
         }
-
+        #endregion
 
 
     }

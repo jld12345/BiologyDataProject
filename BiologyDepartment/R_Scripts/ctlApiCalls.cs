@@ -21,11 +21,16 @@ namespace BiologyDepartment.R_Scripts
     public partial class ctlApiCalls : UserControl
     {
         #region Private Variables
+        private DataSet dsRScripts;
+        private RDao rDAO = new RDao();
         private List<string> lstApiCalls;
         private List<string> lstApiRespone;
         private bool bIsInitialzied = false;
         HttpClient httpClient;
         #endregion
+        private SplitContainer spMainLayout;
+        private SplitContainer spLeftLayout;
+        private GridControl dgRScripts;
 
         #region Public Variables
         public Task taskLoad;
@@ -57,24 +62,24 @@ namespace BiologyDepartment.R_Scripts
 
         public async Task PostRScript(string jsonData)
         {
-            string uri = "http://192.168.0.19/ocpu/user/james/library/ApiCalls/R/" + lstBoxApiCalls.SelectedItem.ToString();
+            /*string uri = "http://192.168.0.19/ocpu/user/james/library/ApiCalls/R/" + lstBoxApiCalls.SelectedItem.ToString();
             HttpResponseMessage response = await httpClient.PostAsJsonAsync(uri, jsonData);
             response.EnsureSuccessStatusCode();
-            var temp = response.Headers.Location;
+            var temp = response.Headers.Location;*/
         }
 
 
         public void LoadGui()
         {
-            if(lstBoxApiCalls.Items.Count == 0 && lstApiCalls != null && lstApiCalls.Count > 0)
+            /*if(lstBoxApiCalls.Items.Count == 0 && lstApiCalls != null && lstApiCalls.Count > 0)
                 lstBoxApiCalls.DataSource = lstApiCalls;
 
-            lstBoxApiCalls.Refresh();
+            lstBoxApiCalls.Refresh();*/
         }
 
         private void btnCallFunction_Click(object sender, EventArgs e)
         {
-            tabControlAdv1.TabPages.Clear();
+            /*tabControlAdv1.TabPages.Clear();
             string url = "http://192.168.0.19/ocpu/user/james/library/ApiCalls/R/" + lstBoxApiCalls.SelectedItem.ToString();
             string jsonData = "";
             string postData = "";
@@ -138,15 +143,15 @@ namespace BiologyDepartment.R_Scripts
                     page.Controls.Add(browser);
                     page.Dock = DockStyle.Fill;
                     page.Text = "Graphic " + count.ToString();
-                    string width = (splitContainer1.Panel2.Width - 100).ToString();
-                    string height = (splitContainer1.Panel2.Height - 100).ToString();
+                    string width = (spMainLayout.Panel2.Width - 100).ToString();
+                    string height = (spMainLayout.Panel2.Height - 100).ToString();
                     browser.Navigate("http://192.168.0.19" + s + "//png?width="+width + "&height=" +height);
                     tabControlAdv1.TabPages.Add(page);
                     count++;
                 }
 
             }
-            tabControlAdv1.Refresh();
+            tabControlAdv1.Refresh();*/
         }
 
         private void GetApiCallResults(string sApiCall)
@@ -169,6 +174,11 @@ namespace BiologyDepartment.R_Scripts
                     }*/
                 
             }
+        }
+
+        private void dgRScripts_Layout(object sender, LayoutEventArgs e)
+        {
+
         }
     }
 }

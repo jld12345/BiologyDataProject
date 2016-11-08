@@ -314,7 +314,7 @@ namespace BiologyDepartment
                 (@"COPY (SELECT EJ.EXPERIMENTS_JSONB_ID, EJ.EXPERIMENTS_ID, EJ.EXPERIMENTS_JSONB, EJ.CREATED_DATE,
                         EJ.CREATED_USER, EJ.MODIFIED_DATE, EJ.MODIFIED_USER, EJ.DELETED_DATE, EJ.DELETED_USER
                          FROM EXPERIMENTS_JSONB EJ 
-                         WHERE EJ.EXPERIMENTS_ID = " + GlobalVariables.Experiment.ID + @"
+                         WHERE EJ.EXPERIMENTS_ID = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
                          AND EJ.DELETED_DATE IS NULL) 
                         TO STDOUT (FORMAT BINARY)"))
             {
@@ -446,7 +446,7 @@ namespace BiologyDepartment
                 (@"COPY (SELECT DOC.EXPERIMENT_DOCUMENT_ID, DOC.EXPERIMENT_DOCUMENT_TITLE, DOC.EXPERIMENT_DOCUMENT_DESCRIPTION,
                          DOC.EXPERIMENT_DOCUMENT_TYPE, DOC.EXPERIMENT_DOCUMENT
                          FROM EXPERIMENT_DOCUMENT DOC
-                         WHERE DOC.EXPERIMENT_ID = " + GlobalVariables.Experiment.ID + @"
+                         WHERE DOC.EXPERIMENT_ID = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
                         order by DOC.EXPERIMENT_DOCUMENT_ID asc) 
                         TO STDOUT (FORMAT BINARY)"))
             {
@@ -456,7 +456,7 @@ namespace BiologyDepartment
                     thePDF.DocumentNode.DOCUMENT_ID = reader.Read<int>(NpgsqlDbType.Integer);
                     thePDF.DocumentNode.DOCUMENT_TITLE = reader.Read<string>(NpgsqlDbType.Varchar);
                     thePDF.DocumentNode.DOCUMENT_DESCRIPTION = reader.Read<string>(NpgsqlDbType.Text);
-                    thePDF.DocumentNode.EXPERIMENT_ID = GlobalVariables.Experiment.ID;
+                    thePDF.DocumentNode.EXPERIMENT_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID;
                     thePDF.DocumentNode.DOCUMENT_TYPE = reader.Read<string>(NpgsqlDbType.Varchar);
                     if (!reader.IsNull)
                         thePDF.DocumentNode.DOCUMENT = reader.Read<byte[]>(NpgsqlDbType.Bytea);
