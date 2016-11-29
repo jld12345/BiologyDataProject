@@ -96,6 +96,7 @@
             this.toolStripEx1.Name = "toolStripEx1";
             this.toolStripEx1.Size = new System.Drawing.Size(983, 48);
             this.toolStripEx1.TabIndex = 63;
+            this.toolStripEx1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripEx1_ItemClicked);
             // 
             // btnSaveExit
             // 

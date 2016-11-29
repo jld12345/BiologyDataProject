@@ -11,6 +11,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using BiologyDepartment.ExperimentDocuments;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace BiologyDepartment
 {
@@ -282,7 +285,7 @@ namespace BiologyDepartment
             
         }
 
-        public void BulkInsertJSON(string sJson)
+        public void BulkInsertJSON(List<JObject> rowArray)
         {
             if (GlobalVariables.Connection != null)
                 GlobalVariables.Connection.Close();
@@ -295,54 +298,33 @@ namespace BiologyDepartment
 	                    CREATED_USER) 
                      FROM STDIN (FORMAT BINARY)"))
             {
+                foreach (JObject row in rowArray)
+                {
                     writer.StartRow();
                     writer.Write(GlobalVariables.Experiment.ID, NpgsqlDbType.Integer);
-                    writer.Write(sJson, NpgsqlDbType.Jsonb);
+                    writer.Write(row.ToString(), NpgsqlDbType.Jsonb);
                     writer.Write(GlobalVariables.ADUserName, NpgsqlDbType.Varchar);
+                }
             }
 
         }
 
         public void BulkExportData()
         {
-            Data.ExperimentData data = null; ;
+            Data.ExperimentData data = new Data.ExperimentData();
 
             if(GlobalVariables.Connection != null)
                 GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT EJ.EXPERIMENTS_JSONB_ID, EJ.EXPERIMENTS_ID, EJ.EXPERIMENTS_JSONB, EJ.CREATED_DATE,
-                        EJ.CREATED_USER, EJ.MODIFIED_DATE, EJ.MODIFIED_USER, EJ.DELETED_DATE, EJ.DELETED_USER
-                         FROM EXPERIMENTS_JSONB EJ 
-                         WHERE EJ.EXPERIMENTS_ID = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
-                         AND EJ.DELETED_DATE IS NULL) 
+                (@"COPY (select to_jsonb((select json_agg(experiments_jsonb) from experiments_jsonb
+                        where experiments_id = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
+                         and deleted_date is null))) 
                         TO STDOUT (FORMAT BINARY)"))
             {
                 while(reader.StartRow() != -1)
                 {
-                    data = new Data.ExperimentData();
-                    data.JsonID = reader.Read<int>(NpgsqlDbType.Integer);
-                    data.ExperimentID = reader.Read<int>(NpgsqlDbType.Integer);
                     data.JSON = reader.Read<string>(NpgsqlDbType.Jsonb);
-                    data.CreateDate = reader.Read<DateTime>(NpgsqlDbType.Date);
-                    data.CreatedUser = reader.Read<string>(NpgsqlDbType.Varchar);
-                    if (!reader.IsNull)
-                        data.ModifiedDate = reader.Read<DateTime>(NpgsqlDbType.Date);
-                    else
-                        reader.Skip();
-                    if (!reader.IsNull)
-                        data.ModifiedUser = reader.Read<string>(NpgsqlDbType.Varchar);
-                    else
-                        reader.Skip();
-                    if (!reader.IsNull)
-                        data.DeletedDate = reader.Read<DateTime>(NpgsqlDbType.Date);
-                    else
-                        reader.Skip();
-                    if (!reader.IsNull)
-                        data.DeletedUser = reader.Read<string>(NpgsqlDbType.Varchar);
-                    else
-                        reader.Skip();
-
                 }
             }
             if (data != null)
@@ -388,7 +370,8 @@ namespace BiologyDepartment
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
                 (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE
-                        FROM EXPERIMENT_CUSTOM_COLUMNS WHERE EX_ID = " + GlobalVariables.Experiment.ID + @") 
+                        FROM EXPERIMENT_CUSTOM_COLUMNS WHERE EX_ID = " + GlobalVariables.Experiment.ID + @"
+                        ORDER BY CUSTOM_COLUMNS_ID) 
                         TO STDOUT (FORMAT BINARY)"))
             {
                 while (reader.StartRow() != -1)

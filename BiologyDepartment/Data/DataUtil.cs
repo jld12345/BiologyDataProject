@@ -50,12 +50,12 @@ namespace BiologyDepartment.Data
             Trace.WriteLine("GetData start stopwatch");
             sw.Start();
             _daoData.BulkExport();
-            dtAnimals = GlobalVariables.ExperimentData.JSONTable;
+            dtAnimals = GlobalVariables.ExperimentData.JSONTable.Copy();
             if (dtAnimals == null)
                 return null;
 
             DataColumn[] keys = new DataColumn[1];
-            keys[0] = dtAnimals.Columns["ROW_ID"];
+            keys[0] = dtAnimals.Columns["EXPERIMENTS_JSONB_ID"];
             dtAnimals.PrimaryKey = keys;
             dtAnimals.AcceptChanges();
 

@@ -42,6 +42,7 @@ namespace BiologyDepartment
         private bool bIsInitialize = false;
         private CommonUtil _commonUtil = new CommonUtil();
         public bool bDataDirty = false;
+        private DataColumn[] keys = new DataColumn[1];
         #endregion
 
         #region Public Variables
@@ -69,6 +70,8 @@ namespace BiologyDepartment
             {
                 if (dtAnimals == null || dtAnimals.Rows.Count == 0)
                     return;
+                keys[0] = dtAnimals.Columns["EXPERIMENTS_JSONB_ID"];
+                dtAnimals.PrimaryKey = keys;
                 _bindingSource.DataSource = dtAnimals;
                 dgExData.DataSource = _bindingSource;
             }
@@ -204,11 +207,12 @@ namespace BiologyDepartment
 
         private void EditRow()
         {
-            string selectedrowindex = Convert.ToString(dgExData.SelectedRows[0].Cells["ROW_ID"].Value);
+            string selectedrowindex = Convert.ToString(dgExData.SelectedRows[0].Cells["EXPERIMENTS_JSONB_ID"].Value);
+
             var dtRow = dtAnimals.Rows
                               .Cast<DataRow>()
-                              .Where(x => x["ROW_ID"].ToString().Equals(selectedrowindex)).ToList();
-            DataRow row = dtAnimals.Rows.Find(dtRow[0]["ROW_ID"]);
+                              .Where(x => x["EXPERIMENTS_JSONB_ID"].ToString().Equals(selectedrowindex)).ToList();
+            DataRow row = dtAnimals.Rows.Find(dtRow[0]["EXPERIMENTS_JSONB_ID"]);
             DataRow newRow = dtAnimals.NewRow();
             int rowindex = dtAnimals.Rows.IndexOf(row);
             foreach (DataColumn col in dtAnimals.Columns)
@@ -230,6 +234,7 @@ namespace BiologyDepartment
                         dtAnimals.Rows[rowindex][col.ColumnName] = dr[col.ColumnName];
                     }
                 }
+                btnSave.PerformClick();
                 bDataDirty = true;
             }
         }
@@ -362,14 +367,21 @@ namespace BiologyDepartment
 
         public void SaveData()
         {
-            if(bDataDirty)
+            DataTable dt = dtAnimals.GetChanges();
+            foreach(DataRow dr in dt.Rows)
             {
-                DataSet ds = new DataSet();
-                ds.Tables.Add(dtAnimals.Copy());
-                ds.AcceptChanges();
-                _commonUtil.SerializeJson(ds);
+                int nJsonID = Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]);
+                string action = "";
+                if (dr.RowState == DataRowState.Modified)
+                    action = "MODIFIED";
+                else if(dr.RowState == DataRowState.Added)
+                    action = "ADDED";
+                else if(dr.RowState == DataRowState.Deleted)
+                    action = "DELETED";
+
+                _commonUtil.SerializeJson(dr, nJsonID, action);
             }
-            dtAnimals.AcceptChanges();
+            Initialize(GlobalVariables.Experiment.ID);
             bDataDirty = false;
         }
 

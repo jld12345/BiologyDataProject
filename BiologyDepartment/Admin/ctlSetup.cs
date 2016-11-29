@@ -177,6 +177,7 @@ namespace BiologyDepartment
             List<string> lstColRemove = new List<string>();
             List<string> lstCol = new List<string>();
 
+
             foreach(DataRow dr in dtColumns.Rows)
             {
                 if(dt.Columns.Contains(Convert.ToString(dr["map_column"])))
@@ -256,6 +257,7 @@ namespace BiologyDepartment
                     dr["custom_column_name"] = dgCol.HeaderText;
                     dr["custom_column_data_type"] = "CHARACTER";
                     dtColumns.Rows.Add(dr);
+                    dtColumns.AcceptChanges();
                 }
             }
 
@@ -350,47 +352,12 @@ namespace BiologyDepartment
             {
                 if (cbHasHeaders.Checked && !sMapColumns.Contains(dgCol.HeaderText))
                     sMapColumns.Add(dgCol.HeaderText);
-                else if (!sMapColumns.Contains(dgCol.Index.ToString()))
+                else if (!sMapColumns.Contains(dgCol.Index.ToString()) && !cbHasHeaders.Checked)
                     sMapColumns.Add(dgCol.Index.ToString());
             }
 
             if(!bIsImport)
                 Refresh();
-
-            /*foreach(string sCol in sMapColumns)
-            {
-                foreach (DataGridViewRow row in dgColAdmin.Rows)
-                {
-                    if (row.Cells["custom_column_name"].Value != null &&
-                        Convert.ToString(row.Cells["custom_column_name"].Value).ToUpper().Equals(sCol.ToUpper()))
-                    {
-                        row.Cells["map_column"].Value = sCol;
-                        if (dgExcelData.Rows.Count > 0)
-                        {
-                            DataGridViewRow tempRow = dgExcelData.Rows[0];
-                            if (row.Cells["custom_column_data_type"].Value == DBNull.Value)
-                            {
-                                string tempString = Convert.ToString(tempRow.Cells[sCol].Value);
-                                DateTime tempDate;
-                                double tempDouble = 0;
-                                int tempInt = 0;
-
-                                if (DateTime.TryParse(tempString, out tempDate))
-                                    row.Cells["custom_column_data_type"].Value = "DATE_TIME";
-                                else if (Int32.TryParse(tempString, out tempInt))
-
-                                    row.Cells["custom_column_data_type"].Value = "INTEGER";
-                                else if (Double.TryParse(tempString, out tempDouble))
-                                    row.Cells["custom_column_data_type"].Value = "DECIMAL";
-                                else
-                                    row.Cells["custom_column_data_type"].Value = "CHARACTER";
-                            }
-                        }
-
-                        break;
-                    }
-                }
-            }*/
         }
 
         private void cbHasHeaders_CheckedChanged(object sender, EventArgs e)

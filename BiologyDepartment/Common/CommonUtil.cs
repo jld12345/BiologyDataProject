@@ -13,6 +13,10 @@ using System.IO;
 using BiologyDepartment.Misc_Files;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Utilities;
+
 using Excel;
 
 namespace BiologyDepartment.Common
@@ -228,76 +232,81 @@ namespace BiologyDepartment.Common
             }
         }
 
+        public string SerializeRowToJson(DataRow theRow)
+        {
+            try
+            {
+                List<JObject> rowArray = new List<JObject>();
+                if (GlobalVariables.CustomColumns == null)
+                    GlobalVariables.CustomColumns = GlobalVariables.GlobalConnection.GetColumns();
+
+                    JTokenWriter writer = new JTokenWriter();
+                    writer.WriteStartObject();
+                    foreach (CustomColumns col in GlobalVariables.CustomColumns)
+                    {
+                        writer.WritePropertyName(col.ColName.ToUpper());
+                        if (theRow.Table.Columns.Contains(col.ColName))
+                        {
+                            if (!string.IsNullOrEmpty(Convert.ToString(theRow[col.ColName])))
+                                writer.WriteValue(theRow[col.ColName].ToString());
+                            else
+                                writer.WriteNull();
+                        }
+                        else
+                            writer.WriteNull();
+                    }
+
+                    writer.WritePropertyName("EXPERIMENTS_JSONB_ID");
+                    writer.WriteValue(theRow["EXPERIMENTS_JSONB_ID"]);
+
+                    writer.WriteEndObject();
+                    rowArray.Add((JObject)writer.Token);
+
+                //_daoData.UpdateJson(rowArray);
+
+                return rowArray[0].ToString();
+            }
+            catch (Exception e)
+            {
+                return "Could not parse to JSON.";
+            }
+        }
+
         public string SerializeTableToJson(DataTable theTable, DataTable theColumns)
         {
             try
             {
-                if (!theTable.Columns.Contains("CREATED_DATE"))
-                    theTable.Columns.Add("CREATED_DATE");
-                if (!theTable.Columns.Contains("CREATED_USER"))
-                    theTable.Columns.Add("CREATED_USER");
-                if (!theTable.Columns.Contains("MODIFIED_DATE"))
-                    theTable.Columns.Add("MODIFIED_DATE");
-                if (!theTable.Columns.Contains("MODIFIED_USER"))
-                    theTable.Columns.Add("MODIFIED_USER");
-                if (!theTable.Columns.Contains("DELETED_DATE"))
-                    theTable.Columns.Add("DELETED_DATE");
-                if (!theTable.Columns.Contains("DELETED_USER"))
-                    theTable.Columns.Add("DELETED_USER");
-                if (!theTable.Columns.Contains("ROW_ID"))
-                    theTable.Columns.Add("ROW_ID");
-                DataTable dt = _daoData.GetBulkIDs(theTable.Rows.Count);
-                if (dt != null && dt.Rows.Count > 0 && theTable.Rows.Count == dt.Rows.Count)
-                {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        theTable.Rows[i]["ROW_ID"] = Convert.ToString(dt.Rows[i][0]);
-                        theTable.Rows[i]["CREATED_USER"] = GlobalVariables.ADUserName;
-                        theTable.Rows[i]["CREATED_DATE"] = DateTime.Now.ToShortDateString();
-                    }
-                }
-                theTable.TableName = "NewTable";
-                if (GlobalVariables.ExperimentData == null)
-                {
-                    DataSet ds = new DataSet();
+                List<JObject> rowArray = new List<JObject>();
+                if(GlobalVariables.CustomColumns == null)
+                    GlobalVariables.CustomColumns = GlobalVariables.GlobalConnection.GetColumns();
 
-                    ds.Tables.Add(theTable.Copy());
-                    ds.AcceptChanges();
-
-                    string sJson = JsonConvert.SerializeObject(ds, Formatting.Indented);
-                    _daoData.InsertJson(sJson);
-                    return sJson;
-                }
-                else
+                foreach(DataRow dr in theTable.Rows)
                 {
-                    DataTable dtCopy = GlobalVariables.ExperimentData.JSONTable.Copy();
-                    dtCopy.TableName = "OldTable";
-                    foreach(DataColumn col in GlobalVariables.ExperimentData.JSONTable.Columns)
+                    string rowValues = "";
+                    JTokenWriter writer = new JTokenWriter();
+                    writer.WriteStartObject();
+                    foreach (CustomColumns col in GlobalVariables.CustomColumns)
                     {
-                        if(!theTable.Columns.Contains(col.ColumnName))
+                        writer.WritePropertyName(col.ColName.ToUpper());
+                        if (dr.Table.Columns.Contains(col.ColName))
                         {
-                            dtCopy.Columns.Remove(col.ColumnName);
-                            dtCopy.AcceptChanges();
+                            if (!string.IsNullOrEmpty(Convert.ToString(dr[col.ColName])))
+                                writer.WriteValue(dr[col.ColName].ToString());
+                            else
+                                writer.WriteNull();
                         }
-
-                        dtCopy.AcceptChanges();
+                        else
+                            writer.WriteNull();
                     }
-
-                    DataSet ds = new DataSet();
-                    ds.Tables.Add(theTable.Copy());
-                    ds.Tables.Add(dtCopy.Copy());
-                    string sJson = JsonConvert.SerializeObject(ds, Formatting.Indented);
-                    ds.Clear();
-                    ds = JsonConvert.DeserializeObject<DataSet>(sJson);
-                    DataTable newTable = ds.Tables[0].Copy();
-                    newTable.Merge(ds.Tables[1].Copy());
-                    GlobalVariables.ExperimentData.JSONTable = newTable;
-                    ds.Clear();
-                    ds.Tables.Remove("NewTable");
-                    ds.Tables.Remove("OldTable");
-                    ds.Tables.Add(newTable.Copy());
-                    return SerializeJson(ds);
+                    writer.WritePropertyName("EXPERIMENTS_JSONB_ID");
+                    writer.WriteNull();
+                    writer.WriteEndObject();
+                    rowArray.Add((JObject)writer.Token);
                 }
+
+                _daoData.InsertJson(rowArray);
+                
+                return string.Empty;
             }
             catch(Exception e)
             {
@@ -305,12 +314,15 @@ namespace BiologyDepartment.Common
             }
         }
 
-        public string SerializeJson(DataSet theData)
+        public void SerializeJson(DataRow theData, int nJsonID, string sAction)
         {
-            String sJson = JsonConvert.SerializeObject(theData, Formatting.Indented);
-            _daoData.UpdateJson(sJson);
-            GlobalVariables.ExperimentData.JSON = sJson;
-            return sJson;
+            String sJson = SerializeRowToJson(theData);
+            if (sAction.Equals("MODIFIED"))
+                _daoData.UpdateJson(sJson, nJsonID);
+            else if (sAction.Equals("ADDED"))
+                _daoData.InsertJson(sJson, nJsonID);
+            else
+                _daoData.DeleteJson(sJson, nJsonID);
         }
 
         public DataTable DeSerializeJsonToDataTable()

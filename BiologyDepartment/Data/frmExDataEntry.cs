@@ -117,9 +117,9 @@ namespace BiologyDepartment
             dtReturn = row.Table.Clone();
 
             int i = 0;
-            if (row["ROW_ID"] != DBNull.Value)
+            if (row["EXPERIMENTS_JSONB_ID"] != DBNull.Value)
             {
-                originalPic = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(row["ROW_ID"]));
+                originalPic = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]));
                 setPicBox(originalPic);
             }
             foreach (DataColumn col in row.Table.Columns)
@@ -285,6 +285,9 @@ namespace BiologyDepartment
                 }
             }
 
+            if (row["EXPERIMENTS_JSONB_ID"] == DBNull.Value)
+                row["EXPERIMENTS_JSONB_ID"] = _daoData.GetBulkIDs(1).Rows[0][0];
+
             if (pbImage.BackgroundImage != null && bSavePic)
             {
                 MemoryStream ms = new MemoryStream();
@@ -292,12 +295,12 @@ namespace BiologyDepartment
                 byte[] photo_array = new byte[ms.Length];
                 ms.Position = 0;
                 ms.Read(photo_array, 0, photo_array.Length);
-                _daoData.InsertPic("EXPERIMENTS_JSONB", Convert.ToInt32(row["ROW_ID"]), photo_array);
+                _daoData.InsertPic("EXPERIMENTS_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), photo_array);
             }
             else if (originalPic != null)
-                _daoData.InsertPic("EXPERIMENTs_JSONB", Convert.ToInt32(row["ROW_ID"]), originalPic);
+                _daoData.InsertPic("EXPERIMENTs_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), originalPic);
 
-            if (row["ROW_ID"] != DBNull.Value)
+            if (row["EXPERIMENTS_JSONB_ID"] != DBNull.Value)
                 dtReturn.Rows.Add(row);
         }
 
@@ -487,6 +490,11 @@ namespace BiologyDepartment
             } 
         }
         #endregion
+
+        private void toolStripEx1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
 
     }
 }
