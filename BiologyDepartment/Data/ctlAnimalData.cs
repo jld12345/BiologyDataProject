@@ -59,36 +59,39 @@ namespace BiologyDepartment
 
         public void Initialize(int id)
         {
+            this.SuspendLayout();
             intID = id;
             dtAnimals = null;
             _bindingSource.DataSource = null;
+            _bindingSource.Clear();
             dgExData.DataSource = null;
             dgExData.DataBindings.Clear();
             dgExData.Columns.Clear();
+            dtAnimals = new DataTable();
             dtAnimals = _dataUtil.GetData();
             if (_bindingSource.DataSource == null)
             {
-                if (dtAnimals == null || dtAnimals.Rows.Count == 0)
+                if (dtAnimals == null)
                     return;
+
+                _bindingSource.DataSource = null;
+                dgExData.DataSource = null;
+                dgExData.DataBindings.Clear();
+                dgExData.Columns.Clear();
+                dgExData.Rows.Clear();
+
                 keys[0] = dtAnimals.Columns["EXPERIMENTS_JSONB_ID"];
                 dtAnimals.PrimaryKey = keys;
+                dtAnimals.AcceptChanges();
+
                 _bindingSource.DataSource = dtAnimals;
                 dgExData.DataSource = _bindingSource;
+
             }
-            if (dtAnimals == null || dtAnimals.Rows.Count == 0)
-            {
-                if (dgExData.RowCount > 0)
-                {
-                    _bindingSource.DataSource = null;
-                    dgExData.DataSource = null;
-                    dgExData.DataBindings.Clear();
-                    dgExData.Columns.Clear();
-                }
-                return;
-            }
+
             SetGrid();
             bIsInitialize = true;
-
+            this.ResumeLayout();
         }
 
         private void SetGrid()
@@ -122,27 +125,16 @@ namespace BiologyDepartment
                 dgExData.DisableFilter(dgExData.Columns["DELETE"]);
             }
 
-            if (!dgExData.Columns.Contains("EXCLUDE"))
-            {
-                DataGridViewCheckBoxColumn chkExclude = new DataGridViewCheckBoxColumn();
-                chkExclude.HeaderText = "EXCLUDE";
-                chkExclude.Name = "EXCLUDE";
-                chkExclude.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-                chkExclude.FlatStyle = FlatStyle.Standard;
-                chkExclude.ThreeState = false;
-                chkExclude.DataPropertyName = "EXCLUDE";
-                dgExData.Columns.Insert(2, chkExclude);
-                dgExData.Columns["EXCLUDE"].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dgExData.DisableFilter(dgExData.Columns["EXCLUDE"]);  
-            }
 
-            dgExData.Columns["EXCLUDE"].Visible = true;
+            if(dgExData.Columns.Contains("DATA PICTURE"))
+                dgExData.Columns["DATA PICTURE"].Visible = false;
 
             int nDisplay = 2;
             foreach(DataColumn col in dtAnimals.Columns)
             {
                 dgExData.Columns[col.ColumnName].HeaderText = col.Caption;
-                dgExData.Columns[col.ColumnName].DisplayIndex = nDisplay;
+                dgExData.Columns[col.ColumnName].DisplayIndex = nDisplay; 
+
                 nDisplay++;
             }
 
@@ -150,6 +142,7 @@ namespace BiologyDepartment
 
             dgExData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtAnimals.AcceptChanges();
+            dgExData.Refresh();
         }     
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -174,7 +167,7 @@ namespace BiologyDepartment
                     dtAnimals.Rows.Add(newRow);
                 }
             }
-            
+            SaveData(0);
         }
 
         private void setButtons()
@@ -236,6 +229,7 @@ namespace BiologyDepartment
                 }
                 btnSave.PerformClick();
                 bDataDirty = true;
+                _commonUtil.DeleteDataLock(GlobalVariables.Experiment.ID, Convert.ToInt32(selectedrowindex), "EXPERIMENTS_JSONB");
             }
         }
 
@@ -343,16 +337,34 @@ namespace BiologyDepartment
         private void dgExData_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var dg = (DataGridView)sender;
-
+            int nRow = Convert.ToInt32(dtAnimals.Rows[e.RowIndex]["EXPERIMENTS_JSONB_ID"]);
             switch(dg.Columns[e.ColumnIndex].Name)
             {
                 case "DELETE":
-                    dtAnimals.Rows.RemoveAt(e.RowIndex);
-                    bDataDirty = true;
-                    dtAnimals.AcceptChanges();
+                    if (!_commonUtil.DataLockExists(GlobalVariables.Experiment.ID, nRow, "EXPERIMENTS_JSONB"))
+                    {
+                        dtAnimals.Rows[e.RowIndex].Delete();
+                        SaveData(nRow);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The row you are trying to delete is currently locked by another user and cannot be edited at this time.", "Row Locked",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
                     break;
                 case "EDIT":
-                    EditRow();
+                    
+                    if(!_commonUtil.DataLockExists(GlobalVariables.Experiment.ID, nRow, "EXPERIMENTS_JSONB"))
+                    {
+                        _commonUtil.CreateDataLock(GlobalVariables.Experiment.ID, nRow, "EXPERIMENTS_JSONB", "EDIT");
+                        EditRow();
+                    }
+                    else
+                    {
+                        MessageBox.Show("The row you are trying to edit is currently locked by another user and cannot be edited at this time.", "Row Locked",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     break;
                 case "EXCLUDE":
                     _dataUtil.CheckExcludeState(e.RowIndex, bIsInitialize, ref dgExData);
@@ -362,15 +374,18 @@ namespace BiologyDepartment
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SaveData();
+            SaveData(0);
         }
 
-        public void SaveData()
+        public void SaveData(int nJsonID)
         {
             DataTable dt = dtAnimals.GetChanges();
+            if (dt == null)
+                return;
             foreach(DataRow dr in dt.Rows)
             {
-                int nJsonID = Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]);
+                if(nJsonID == 0)
+                    nJsonID = Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]);
                 string action = "";
                 if (dr.RowState == DataRowState.Modified)
                     action = "MODIFIED";

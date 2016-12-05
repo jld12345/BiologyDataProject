@@ -53,7 +53,7 @@ namespace BiologyDepartment.ExperimentsFolder
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (cmbParents.SelectedValue != null)
+            if (cmbParents.SelectedValue != null && cmbParents.SelectedIndex > 0)
                 ExperimentNode.ExperimentNode.ParentEx = Convert.ToInt32(cmbParents.SelectedValue.ToString());
             ExperimentNode.ExperimentNode.Alias = txtShortName.Text;
             ExperimentNode.ExperimentNode.Title = rtbOfficialName.Text;

@@ -49,8 +49,21 @@ namespace BiologyDepartment.Data
             Stopwatch sw = new Stopwatch();
             Trace.WriteLine("GetData start stopwatch");
             sw.Start();
+            GlobalVariables.ExperimentData = null;
             _daoData.BulkExport();
-            dtAnimals = GlobalVariables.ExperimentData.JSONTable.Copy();
+            if (GlobalVariables.ExperimentData == null || GlobalVariables.ExperimentData.JSONTable == null)
+            {
+                _daoData.GetColumns();
+                if(GlobalVariables.CustomColumns == null || GlobalVariables.CustomColumns.Count == 0)
+                    return null;
+                foreach (CustomColumns c in GlobalVariables.CustomColumns)
+                {
+                    dtAnimals.Columns.Add(c.ColName, typeof(string));
+                }
+                dtAnimals.Columns.Add("EXPERIMENTS_JSONB_ID", typeof(string));
+            }
+            else
+                dtAnimals = GlobalVariables.ExperimentData.JSONTable.Copy();
             if (dtAnimals == null)
                 return null;
 

@@ -145,7 +145,8 @@ namespace BiologyDepartment
                 if (col.ColumnName.ToUpper().Equals("ROW_ID") || col.ColumnName.ToUpper().Equals("CREATED_DATE")
                     || col.ColumnName.ToUpper().Equals("CREATED_USER") || col.ColumnName.ToUpper().Equals("MODIFIED_DATE")
                     || col.ColumnName.ToUpper().Equals("MODIFIED_USER") || col.ColumnName.ToUpper().Equals("DELETED_DATE")
-                    || col.ColumnName.ToUpper().Equals("DELETED_USER"))
+                    || col.ColumnName.ToUpper().Equals("DELETED_USER") || col.ColumnName.ToUpper().Equals("EXPERIMENTS_JSONB_ID")
+                    || col.ColumnName.ToUpper().Equals("DATA PICTURE"))
                     txtValue.Enabled = false;
                 pnlInput.Controls.Add(txtValue);
                 i = i + 25;

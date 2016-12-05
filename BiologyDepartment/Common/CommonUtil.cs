@@ -334,5 +334,20 @@ namespace BiologyDepartment.Common
             else
                 return null;
         }
+
+        public bool DataLockExists(int ExperimentID, int RowID, string TableName)
+        {
+            return _daoData.DataLockExists(ExperimentID, RowID, TableName);
+        }
+
+        public void CreateDataLock(int ExperimentID, int RowID, string TableName, string LockType)
+        {
+            _daoData.CreateDataLock(ExperimentID, RowID, TableName, LockType);
+        }
+
+        public void DeleteDataLock(int ExperimentID, int RowID, string TableName)
+        {
+            _daoData.DeleteDataLock(ExperimentID, RowID, TableName);
+        }
     }
 }

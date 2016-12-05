@@ -323,9 +323,7 @@ namespace BiologyDepartment
                         TO STDOUT (FORMAT BINARY)"))
             {
                 while(reader.StartRow() != -1)
-                {
                     data.JSON = reader.Read<string>(NpgsqlDbType.Jsonb);
-                }
             }
             if (data != null)
             {
@@ -370,7 +368,7 @@ namespace BiologyDepartment
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
                 (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE
-                        FROM EXPERIMENT_CUSTOM_COLUMNS WHERE EX_ID = " + GlobalVariables.Experiment.ID + @"
+                        FROM EXPERIMENT_CUSTOM_COLUMNS WHERE EX_ID = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
                         ORDER BY CUSTOM_COLUMNS_ID) 
                         TO STDOUT (FORMAT BINARY)"))
             {
@@ -380,16 +378,11 @@ namespace BiologyDepartment
                     col.ColID = reader.Read<int>(NpgsqlDbType.Integer);
                     col.ColName = reader.Read<string>(NpgsqlDbType.Varchar);
                     col.ColDataType = reader.Read<string>(NpgsqlDbType.Varchar);
-                    col.EX_ID = GlobalVariables.Experiment.ID;
+                    col.EX_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID;
 
                     colAgg.Add(col);
                 }
-                col = new CustomColumns();
-                col.ColID = 1;
-                col.ColName = "Data Picture";
-                col.ColDataType = "Byte[]";
-                col.EX_ID = GlobalVariables.Experiment.ID;
-                colAgg.Add(col);
+
             }
             return colAgg;
         }

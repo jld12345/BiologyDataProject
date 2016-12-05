@@ -26,7 +26,14 @@ namespace BiologyDepartment
 
         public void BulkExport()
         {
-            GlobalVariables.GlobalConnection.BulkExportData();
+            NpgsqlCMD = new NpgsqlCommand();
+            NpgsqlCMD.CommandText = @"  SELECT COUNT(1) FROM EXPERIMENTS_JSONB
+                                        WHERE experiments_id = :exid";
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters[0].Value = GlobalVariables.ExperimentNode.ExperimentNode.ID;
+
+            if (GlobalVariables.GlobalConnection.IntScalar(NpgsqlCMD) > 0)
+                GlobalVariables.GlobalConnection.BulkExportData();
         }
 
         public void GetColumns()
@@ -229,7 +236,7 @@ namespace BiologyDepartment
         public DataTable GetBulkIDs(int theRowCount)
         {
             NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"select nextval('EXPERIMENT_DATA_ID_SEQ') from generate_series(1,:lastRow)";
+            NpgsqlCMD.CommandText = @"select nextval('EXPERIMENTS_JSONB_ID_SEQ') from generate_series(1,:lastRow)";
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("lastRow", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = theRowCount;
             DataTable dt = GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
@@ -271,8 +278,7 @@ namespace BiologyDepartment
             NpgsqlCMD = new NpgsqlCommand();
 
             NpgsqlCMD.CommandText = @"  UPDATE EXPERIMENTS_JSONB
-                                        SET EXPERIMENTS_JSONB = :json,
-                                            MODIFIED_USER = :mod_user,
+                                        SET MODIFIED_USER = :mod_user,
                                             MODIFIED_DATE = :mod_date,
                                             DELETED_USER  = :mod_user,
                                             DELETED_DATE  = :mod_date
@@ -281,14 +287,12 @@ namespace BiologyDepartment
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("jsonid", NpgsqlDbType.Integer));
-            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("json", NpgsqlDbType.Jsonb));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_user", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_date", NpgsqlDbType.Date));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.Experiment.ID;
             NpgsqlCMD.Parameters[1].Value = nJsonID;
-            NpgsqlCMD.Parameters[2].Value = Newtonsoft.Json.Linq.JObject.Parse(sJson);
-            NpgsqlCMD.Parameters[3].Value = GlobalVariables.ADUserName;
-            NpgsqlCMD.Parameters[4].Value = DateTime.Now.ToShortDateString();
+            NpgsqlCMD.Parameters[2].Value = GlobalVariables.ADUserName;
+            NpgsqlCMD.Parameters[3].Value = DateTime.Now.ToShortDateString();
 
             GlobalVariables.GlobalConnection.updateData(NpgsqlCMD);
         }
@@ -310,6 +314,68 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[3].Value = GlobalVariables.ADUserName;
 
             GlobalVariables.GlobalConnection.insertData(NpgsqlCMD);
+        }
+
+        public bool DataLockExists(int ExperimentID, int RowID, string TableName)
+        {
+            NpgsqlCMD = new NpgsqlCommand();
+
+            NpgsqlCMD.CommandText = @"  SELECT COUNT(1) FROM EXPERIMENTS_ROW_LOCK
+                                        WHERE EXPERIMENT_ID = :exid
+                                        AND DATA_ROW_ID = :rowID
+                                        AND DATA_ROW_TABLE = :tableName";
+
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rowID", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tableName", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters[0].Value = ExperimentID;
+            NpgsqlCMD.Parameters[1].Value = RowID;
+            NpgsqlCMD.Parameters[2].Value = TableName;
+
+            if (GlobalVariables.GlobalConnection.IntScalar(NpgsqlCMD) > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public void CreateDataLock(int ExperimentID, int RowID, string TableName, string LockType)
+        {
+            NpgsqlCMD = new NpgsqlCommand();
+
+            NpgsqlCMD.CommandText = @"  INSERT INTO EXPERIMENTS_ROW_LOCK(EXPERIMENT_ID, DATA_ROW_ID, DATA_ROW_TABLE, DATA_LOCK_TYPE, DATA_LOCK_USER)
+                                        VALUES(:exid, :rowID, :tableName, :lockType, :userName)";
+
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rowID", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tableName", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("lockType", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("userName", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters[0].Value = ExperimentID;
+            NpgsqlCMD.Parameters[1].Value = RowID;
+            NpgsqlCMD.Parameters[2].Value = TableName;
+            NpgsqlCMD.Parameters[3].Value = LockType;
+            NpgsqlCMD.Parameters[4].Value = GlobalVariables.ADUserName;
+
+            GlobalVariables.GlobalConnection.insertData(NpgsqlCMD);
+        }
+
+        public void DeleteDataLock(int ExperimentID, int RowID, string TableName)
+        {
+            NpgsqlCMD = new NpgsqlCommand();
+
+            NpgsqlCMD.CommandText = @"  DELETE FROM EXPERIMENTS_ROW_LOCK
+                                        WHERE EXPERIMENT_ID = :exid
+                                        AND DATA_ROW_ID = :rowID
+                                        AND DATA_ROW_TABLE = :tableName";
+
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rowID", NpgsqlDbType.Integer));
+            NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tableName", NpgsqlDbType.Varchar));
+            NpgsqlCMD.Parameters[0].Value = ExperimentID;
+            NpgsqlCMD.Parameters[1].Value = RowID;
+            NpgsqlCMD.Parameters[2].Value = TableName;
+
+            GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD);
         }
     }
 }
