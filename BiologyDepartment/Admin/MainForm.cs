@@ -413,6 +413,9 @@ namespace BiologyDepartment
                     }
                 }
             }
+                tabControlMain2.TabPages[3].Enabled = (GlobalVariables.Experiment.UserAccess.ToUpper().Equals("BOB")
+                    || GlobalVariables.Experiment.UserAccess.ToUpper().Equals("ADMIN")) ? true:false;
+
         }
         #endregion
 
