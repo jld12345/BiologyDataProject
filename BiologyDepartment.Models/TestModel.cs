@@ -1,8 +1,8 @@
-﻿using BiologyDepartmentModels.Utilities;
+﻿using PostgresApi.Utilities;
 using Newtonsoft.Json;
 using System;
 
-namespace BiologyDepartmentModels
+namespace PostgresApi
 {
     [JsonObject]
     public class TestModel

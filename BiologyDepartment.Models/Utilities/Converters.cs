@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Converters;
 
-namespace BiologyDepartmentModels.Utilities
+namespace PostgresApi.Utilities
 {
     internal class DateTimeConverter : IsoDateTimeConverter
     {

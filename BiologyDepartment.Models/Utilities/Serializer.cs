@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace BiologyDepartmentModels.Utilities
+namespace PostgresApi.Utilities
 {
     /// <summary>
     ///	A serialization class that's meant to abstract the rest of the application
