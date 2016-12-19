@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Xml;
-using BiologyDepartmentModels;
+using PostgresAPI.Models;
 using PostgresAPI.DataAccessObject;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,24 +23,24 @@ namespace PostgresAPI.Controllers
 
         public IHttpActionResult GetExperiment(int id)
         {
-            Experiment experiment = dao.BulkExportJSON(id);
+            Experiment experiment = dao.BulkExportData(id);
             if (experiment == null)
             {
                 return NotFound();
             }
-
-            return Ok(JObject.Parse(experiment.JSONB));
+            experiment.SerializeDataToJSON();
+            return Ok(JObject.Parse(experiment.JSONTableSerialized));
         }
 
         public IHttpActionResult GetExperiment([FromUri]string sUser, [FromUri]int id)
         {
-            Experiment experiment = dao.BulkExportJSON(id);
+            Experiment experiment = dao.BulkExportData(id);
             if (experiment == null)
             {
                 return NotFound();
             }
-
-            return Ok(JObject.Parse(experiment.JSONB));
+            experiment.SerializeDataToJSON();
+            return Ok(JObject.Parse(experiment.JSONTableSerialized));
         }
     }
 }
