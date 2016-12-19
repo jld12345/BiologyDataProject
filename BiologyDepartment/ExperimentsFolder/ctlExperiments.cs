@@ -86,7 +86,7 @@ namespace BiologyDepartment
             bLoad = true;
             GlobalVariables.DataLoading.ProgressBarStep(50);
             GlobalVariables.GlobalConnection = new dbBioConnection();
-            dsExperiments = exUtil.GetExperimentsDataSet();
+            dsExperiments = exUtil.GetExperimentsDataSet(string.Empty);
             dtExperiments = dsExperiments.Tables[0];
             SetComboBox();
             SetExperiment();
@@ -350,7 +350,7 @@ namespace BiologyDepartment
         public void frmRefresh()
         {
             bLoad = true;
-            dsExperiments = exUtil.GetExperimentsDataSet();
+            dsExperiments = exUtil.GetExperimentsDataSet(string.Empty);
             btnNew.Text = "New Experiment";
             btnDelete.Text = "Delete";
             SetComboBox();

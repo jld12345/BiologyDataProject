@@ -328,7 +328,8 @@ namespace BiologyDepartment
             if (data != null)
             {
                 GlobalVariables.ExperimentData = data;
-                GlobalVariables.ExperimentData.DeSerializeJsonToDataTable();                
+                GlobalVariables.ExperimentData.DeSerializeJsonToDataTable();
+                GlobalVariables.ExperimentData.TableRow = 0;
             }
             else
                 GlobalVariables.ExperimentData = new Data.ExperimentData();
@@ -367,7 +368,7 @@ namespace BiologyDepartment
                 GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE
+                (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE, CUSTOM_COLUMN_FORMULA
                         FROM EXPERIMENT_CUSTOM_COLUMNS WHERE EX_ID = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
                         ORDER BY CUSTOM_COLUMNS_ID) 
                         TO STDOUT (FORMAT BINARY)"))
@@ -379,6 +380,10 @@ namespace BiologyDepartment
                     col.ColName = reader.Read<string>(NpgsqlDbType.Varchar);
                     col.ColDataType = reader.Read<string>(NpgsqlDbType.Varchar);
                     col.EX_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID;
+                    if (!reader.IsNull)
+                        col.Formula = reader.Read<string>(NpgsqlDbType.Varchar);
+                    else
+                        reader.Skip();
 
                     colAgg.Add(col);
                 }

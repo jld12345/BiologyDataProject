@@ -83,9 +83,13 @@ namespace BiologyDepartment
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            txtUserName.Text = "";
-            cmbPermissions.SelectedItem = 0;
-            isAdding = true;
+            if(_daoAD.IsUserExisiting(txtUserName.Text) && !string.IsNullOrEmpty(cmbPermissions.SelectedItem.ToString()))
+            {
+                _permissions.insertPermissions(exID, txtUserName.Text, cmbPermissions.SelectedItem.ToString());
+                txtUserName.Text = "";
+                cmbPermissions.SelectedItem = 0;
+                isAdding = true;
+            }
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -124,5 +128,6 @@ namespace BiologyDepartment
         {
             this.Close();
         }
+
     }
 }

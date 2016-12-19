@@ -37,7 +37,8 @@ namespace BiologyDepartment
             "DECIMAL", 
             "INTEGER", 
             "DATE_TIME",
-            "IMAGE" 
+            "IMAGE", 
+            "FORMULA"
         });
 
         public ctlSetup()
@@ -133,8 +134,10 @@ namespace BiologyDepartment
                 dtColumns.Columns.Add("custom_columns_id", typeof(string));
             if (!dtColumns.Columns.Contains("map_column"))
                 dtColumns.Columns.Add("map_column", typeof(string));
-            if (!dtColumns.Columns.Contains("map_column"))
+            if (!dtColumns.Columns.Contains("custom_column_comments"))
                 dtColumns.Columns.Add("custom_column_comments", typeof(string));
+            if(!dtColumns.Columns.Contains("custom_column_formula"))
+                dtColumns.Columns.Add("custom_column_formula", typeof(string));
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -151,23 +154,30 @@ namespace BiologyDepartment
                 string sName = Convert.ToString(row.Cells["custom_column_name"].Value);
                 string sType = Convert.ToString(row.Cells["custom_column_data_type"].Value);
                 string sDesc = "";
+                string sFormula = "";
                 if(row.Cells["custom_column_comments"].Value != DBNull.Value)
                     sDesc = Convert.ToString(row.Cells["custom_column_comments"].Value);
+                if(row.Cells["custom_column_formula"].Value != DBNull.Value)
+                    sFormula = Convert.ToString(row.Cells["custom_column_formula"].Value);
                 if (string.IsNullOrEmpty(sName) || string.IsNullOrEmpty(sType))
                     return;
                 int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
 
+
                 if (nColID > 0)
-                    _daoSetup.UpdateColumn(nColID, sName, sType, sDesc);
+                    _daoSetup.UpdateColumn(nColID, sName, sType, sDesc, sFormula);
                 else
                 {
-                    nColID = _daoSetup.InsertColumn(GlobalVariables.Experiment.ID, sName, sType, sDesc);
+                    nColID = _daoSetup.InsertColumn(GlobalVariables.Experiment.ID, sName, sType, sDesc, sFormula);
                     if (nColID > 0)
                         dgColAdmin.Rows[row.Index].Cells["custom_columns_id"].Value = nColID;
                 }
             }
 
             MapColumns(true);
+            dgColAdmin.DataSource = null;
+            LoadData();
+            LoadGrid();
         }
 
         private void btnImport_Click(object sender, EventArgs e)
@@ -281,17 +291,20 @@ namespace BiologyDepartment
                 dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_column_name", "NAME", true, 1));
             if (!dgColAdmin.Columns.Contains("custom_column_comments"))
                 dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_column_comments", "comments", true, 2));
+            if (!dgColAdmin.Columns.Contains("custom_column_formula"))
+                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_column_formula", "formula", true, 3));
             if (!dgColAdmin.Columns.Contains("custom_column_data_type"))
-                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("custom_column_data_type", "TYPE", true, 3, theTypes));
+                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("custom_column_data_type", "TYPE", true, 4, theTypes));
             if (!dgColAdmin.Columns.Contains("map_column"))
-                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("map_column", "MAP COLUMN", true, 4, sMapColumns));
+                dgColAdmin.Columns.Add(dgColumnType.AddComboBoxColumns("map_column", "MAP COLUMN", true, 5, sMapColumns));
             if(!dgColAdmin.Columns.Contains("custom_columns_id"))
-                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_columns_id", "ex_id", false, 5));
+                dgColAdmin.Columns.Add(dgColumnType.AddTextColumn("custom_columns_id", "ex_id", false, 6));
             
             dgColAdmin.DataSource = dtColumns;
 
             dgColAdmin.Columns["custom_columns_id"].Visible = false;
             dgColAdmin.Columns["custom_column_name"].MinimumWidth = 250;
+            dgColAdmin.Columns["custom_column_formula"].MinimumWidth = 250;
             dgColAdmin.Columns["custom_column_comments"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
         }

@@ -59,12 +59,15 @@ namespace BiologyDepartment
             return bReturn;
         }
 
-        public DataSet GetExperimentsDataSet()
+        public DataSet GetExperimentsDataSet(string sCriteria)
         {
             DataSet ds = new DataSet();
             DataTable dtChild = new DataTable();
             DataTable dtGrandChild = new DataTable();
-            DataTable dtParent = _daoExperiments.getExperiments().Tables[0];
+            ds = _daoExperiments.getExperiments(sCriteria);
+            if (ds == null)
+                return null;
+            DataTable dtParent = ds.Tables[0];
             string sSearch = "";
             dtParent.TableName = "Parent";
             var sParent = (from dr in dtParent.AsEnumerable()
@@ -75,7 +78,7 @@ namespace BiologyDepartment
                 sSearch += id+ ",";
             }
             dtChild = GetDataTableList(sSearch.TrimEnd(','));
-            ds.Tables.Add(dtParent.Copy());
+            //ds.Tables.Add(dtParent.Copy());
             if (dtChild != null && dtChild.Rows.Count > 0)
             {
                 dtChild.TableName = "Child";

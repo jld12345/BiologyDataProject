@@ -85,6 +85,7 @@ namespace BiologyDepartment
                 dtAnimals.AcceptChanges();
 
                 _bindingSource.DataSource = dtAnimals;
+                _bindingSource.Filter = GlobalVariables.ExperimentData.TableFilter;
                 dgExData.DataSource = _bindingSource;
 
             }
@@ -143,6 +144,7 @@ namespace BiologyDepartment
             dgExData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtAnimals.AcceptChanges();
             dgExData.Refresh();
+            dgExData.Rows[GlobalVariables.ExperimentData.TableRow].Selected = true;
         }     
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -201,7 +203,8 @@ namespace BiologyDepartment
         private void EditRow()
         {
             string selectedrowindex = Convert.ToString(dgExData.SelectedRows[0].Cells["EXPERIMENTS_JSONB_ID"].Value);
-
+            GlobalVariables.ExperimentData.TableRow = dgExData.SelectedRows[0].Index;
+            GlobalVariables.ExperimentData.TableFilter = _bindingSource.Filter;
             var dtRow = dtAnimals.Rows
                               .Cast<DataRow>()
                               .Where(x => x["EXPERIMENTS_JSONB_ID"].ToString().Equals(selectedrowindex)).ToList();
@@ -218,13 +221,17 @@ namespace BiologyDepartment
                 _frmFishData.ShowDialog();
                 DataTable dtReturn = _frmFishData.dtReturn;
                 if (dtReturn == null)
+                {
+                    _commonUtil.DeleteDataLock(GlobalVariables.Experiment.ID, Convert.ToInt32(selectedrowindex), "EXPERIMENTS_JSONB");
                     return;
+                }
 
                 foreach(DataRow dr in dtReturn.Rows)
                 {
                     foreach (DataColumn col in dtAnimals.Columns)
                     {
-                        dtAnimals.Rows[rowindex][col.ColumnName] = dr[col.ColumnName];
+                        if(!dtAnimals.Columns[col.ColumnName].ReadOnly)
+                            dtAnimals.Rows[rowindex][col.ColumnName] = dr[col.ColumnName];
                     }
                 }
                 btnSave.PerformClick();
@@ -336,12 +343,14 @@ namespace BiologyDepartment
 
         private void dgExData_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+                return;
             var dg = (DataGridView)sender;
             int nRow = Convert.ToInt32(dtAnimals.Rows[e.RowIndex]["EXPERIMENTS_JSONB_ID"]);
             switch(dg.Columns[e.ColumnIndex].Name)
             {
                 case "DELETE":
-                    if (!_commonUtil.DataLockExists(GlobalVariables.Experiment.ID, nRow, "EXPERIMENTS_JSONB"))
+                    if (!_commonUtil.DataLockExists(GlobalVariables.ExperimentNode.ExperimentNode.ID, nRow, "EXPERIMENTS_JSONB"))
                     {
                         dtAnimals.Rows[e.RowIndex].Delete();
                         SaveData(nRow);
@@ -355,9 +364,9 @@ namespace BiologyDepartment
                     break;
                 case "EDIT":
                     
-                    if(!_commonUtil.DataLockExists(GlobalVariables.Experiment.ID, nRow, "EXPERIMENTS_JSONB"))
+                    if(!_commonUtil.DataLockExists(GlobalVariables.ExperimentNode.ExperimentNode.ID, nRow, "EXPERIMENTS_JSONB"))
                     {
-                        _commonUtil.CreateDataLock(GlobalVariables.Experiment.ID, nRow, "EXPERIMENTS_JSONB", "EDIT");
+                        _commonUtil.CreateDataLock(GlobalVariables.ExperimentNode.ExperimentNode.ID, nRow, "EXPERIMENTS_JSONB", "EDIT");
                         EditRow();
                     }
                     else
@@ -384,7 +393,7 @@ namespace BiologyDepartment
                 return;
             foreach(DataRow dr in dt.Rows)
             {
-                if(nJsonID == 0)
+                if(nJsonID >= 0)
                     nJsonID = Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]);
                 string action = "";
                 if (dr.RowState == DataRowState.Modified)
@@ -396,7 +405,7 @@ namespace BiologyDepartment
 
                 _commonUtil.SerializeJson(dr, nJsonID, action);
             }
-            Initialize(GlobalVariables.Experiment.ID);
+            Initialize(GlobalVariables.ExperimentNode.ExperimentNode.ID);
             bDataDirty = false;
         }
 

@@ -37,6 +37,7 @@
             this.lblUserName2 = new System.Windows.Forms.Label();
             this.txtPWord = new System.Windows.Forms.TextBox();
             this.txtUserName2 = new System.Windows.Forms.TextBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pnlLogin)).BeginInit();
             this.pnlLogin.SuspendLayout();
             this.SuspendLayout();
@@ -44,6 +45,7 @@
             // pnlLogin
             // 
             this.pnlLogin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.pnlLogin.Controls.Add(this.linkLabel1);
             this.pnlLogin.Controls.Add(this.btnExit);
             this.pnlLogin.Controls.Add(this.btnCancel2);
             this.pnlLogin.Controls.Add(this.btnLogin2);
@@ -130,6 +132,17 @@
             this.txtUserName2.Size = new System.Drawing.Size(185, 20);
             this.txtUserName2.TabIndex = 12;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(68, 194);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(152, 13);
+            this.linkLabel1.TabIndex = 21;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "I don\'t remember my password.";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // ctlLogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -157,6 +170,7 @@
         private System.Windows.Forms.TextBox txtPWord;
         private System.Windows.Forms.TextBox txtUserName2;
         private Syncfusion.Windows.Forms.ButtonAdv btnExit;
+        private System.Windows.Forms.LinkLabel linkLabel1;
 
     }
 }

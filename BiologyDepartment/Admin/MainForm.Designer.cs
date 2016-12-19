@@ -204,6 +204,7 @@
             this.ribbonControlAdv1.OfficeMenu.Name = "OfficeMenu";
             this.ribbonControlAdv1.OfficeMenu.ShowItemToolTips = true;
             this.ribbonControlAdv1.OfficeMenu.Size = new System.Drawing.Size(12, 65);
+            this.ribbonControlAdv1.OfficeMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ribbonControlAdv1_OfficeMenu_ItemClicked);
             this.ribbonControlAdv1.QuickPanelImageLayout = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ribbonControlAdv1.RibbonHeaderImage = Syncfusion.Windows.Forms.Tools.RibbonHeaderImage.None;
             this.ribbonControlAdv1.SelectedTab = this.toolStripTabItem1;
@@ -702,6 +703,7 @@
             // 
             // spreadsheetViewer
             // 
+            this.spreadsheetViewer.ActiveSheet = null;
             this.spreadsheetViewer.AllowCellContextMenu = true;
             this.spreadsheetViewer.AllowExtendRowColumnCount = true;
             this.spreadsheetViewer.AllowFormulaRangeSelection = true;

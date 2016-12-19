@@ -94,7 +94,7 @@
             this.btnClearAll});
             this.toolStripEx1.Location = new System.Drawing.Point(0, 0);
             this.toolStripEx1.Name = "toolStripEx1";
-            this.toolStripEx1.Size = new System.Drawing.Size(983, 48);
+            this.toolStripEx1.Size = new System.Drawing.Size(1051, 48);
             this.toolStripEx1.TabIndex = 63;
             this.toolStripEx1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripEx1_ItemClicked);
             // 
@@ -223,7 +223,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 48);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(983, 720);
+            this.panel1.Size = new System.Drawing.Size(1051, 720);
             this.panel1.TabIndex = 64;
             // 
             // groupBox2
@@ -232,7 +232,7 @@
             this.groupBox2.Controls.Add(this.pnlInput);
             this.groupBox2.Location = new System.Drawing.Point(9, -10);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(306, 741);
+            this.groupBox2.Size = new System.Drawing.Size(370, 741);
             this.groupBox2.TabIndex = 65;
             this.groupBox2.TabStop = false;
             // 
@@ -242,7 +242,7 @@
             this.pnlInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlInput.Location = new System.Drawing.Point(3, 16);
             this.pnlInput.Name = "pnlInput";
-            this.pnlInput.Size = new System.Drawing.Size(300, 722);
+            this.pnlInput.Size = new System.Drawing.Size(364, 722);
             this.pnlInput.TabIndex = 0;
             // 
             // groupBox1
@@ -261,9 +261,9 @@
             this.groupBox1.Controls.Add(this.cmbMeasurement);
             this.groupBox1.Controls.Add(this.lblCalibration);
             this.groupBox1.Controls.Add(this.txtCalibration);
-            this.groupBox1.Location = new System.Drawing.Point(321, -9);
+            this.groupBox1.Location = new System.Drawing.Point(386, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(653, 204);
+            this.groupBox1.Size = new System.Drawing.Size(653, 195);
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             // 
@@ -272,7 +272,7 @@
             this.pbVideo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbVideo.Location = new System.Drawing.Point(6, 15);
             this.pbVideo.Name = "pbVideo";
-            this.pbVideo.Size = new System.Drawing.Size(230, 182);
+            this.pbVideo.Size = new System.Drawing.Size(230, 174);
             this.pbVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbVideo.TabIndex = 0;
             this.pbVideo.TabStop = false;
@@ -396,7 +396,7 @@
             this.pbImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbImage.Controls.Add(this.lblZoom);
             this.pbImage.Controls.Add(this.udZoom);
-            this.pbImage.Location = new System.Drawing.Point(320, 201);
+            this.pbImage.Location = new System.Drawing.Point(385, 201);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(654, 530);
             this.pbImage.TabIndex = 63;
@@ -443,7 +443,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(983, 768);
+            this.ClientSize = new System.Drawing.Size(1051, 768);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStripEx1);
             this.DoubleBuffered = true;

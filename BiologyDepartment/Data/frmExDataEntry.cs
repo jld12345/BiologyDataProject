@@ -130,13 +130,13 @@ namespace BiologyDepartment
                 lblTitle.Location = new Point(0, i);
                 lblTitle.Visible = true;
                 lblTitle.BorderStyle = BorderStyle.FixedSingle;
-                lblTitle.Width = 100;
+                lblTitle.Width = 150;
                 lblTitle.Height = 20;
                 pnlInput.Controls.Add(lblTitle);
 
                 TextBox txtValue = new TextBox();
                 txtValue.Name = col.ColumnName;
-                txtValue.Location = new Point(105, i);
+                txtValue.Location = new Point(lblTitle.Width + 5, i);
                 txtValue.Text = Convert.ToString(row[col.ColumnName]);
                 txtValue.Visible = true;
                 txtValue.BorderStyle = BorderStyle.FixedSingle;

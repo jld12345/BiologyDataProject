@@ -17,6 +17,7 @@ namespace BiologyDepartment
         int nParentEx = 0;
         string userAccess = "";
 
+
         public int ID
         {
             get { return exID; }

@@ -45,7 +45,8 @@ namespace BiologyDepartment.Data
             List<AnimalData> animalAgg = new List<AnimalData>();
             List<CustomColumns> animalCols = new List<CustomColumns>();
             DataTable dtAnimals = new DataTable();
-
+            string tableFilter = (GlobalVariables.ExperimentData != null) ? GlobalVariables.ExperimentData.TableFilter : string.Empty;
+            int tableRow = (GlobalVariables.ExperimentData != null) ? GlobalVariables.ExperimentData.TableRow : 0;
             Stopwatch sw = new Stopwatch();
             Trace.WriteLine("GetData start stopwatch");
             sw.Start();
@@ -54,16 +55,41 @@ namespace BiologyDepartment.Data
             if (GlobalVariables.ExperimentData == null || GlobalVariables.ExperimentData.JSONTable == null)
             {
                 _daoData.GetColumns();
-                if(GlobalVariables.CustomColumns == null || GlobalVariables.CustomColumns.Count == 0)
+                if (GlobalVariables.CustomColumns == null || GlobalVariables.CustomColumns.Count == 0)
                     return null;
                 foreach (CustomColumns c in GlobalVariables.CustomColumns)
                 {
                     dtAnimals.Columns.Add(c.ColName, typeof(string));
                 }
+                foreach (CustomColumns c in GlobalVariables.CustomColumns)
+                {
+                    if (c.ColDataType.ToUpper().Equals("FORMULA"))
+                        dtAnimals.Columns[c.ColName].Expression = c.Formula;
+                }
                 dtAnimals.Columns.Add("EXPERIMENTS_JSONB_ID", typeof(string));
             }
             else
+            {
                 dtAnimals = GlobalVariables.ExperimentData.JSONTable.Copy();
+
+                if (GlobalVariables.CustomColumns == null || GlobalVariables.CustomColumns.Count == 0)
+                {
+                    _daoData.GetColumns();
+                    if (GlobalVariables.CustomColumns == null || GlobalVariables.CustomColumns.Count == 0)
+                        return null;
+                }
+                foreach (CustomColumns c in GlobalVariables.CustomColumns)
+                {
+                    if (c.ColDataType.ToUpper().Equals("FORMULA"))
+                    {
+                        dtAnimals.Columns[c.ColName].DefaultValue = 0;
+
+                        dtAnimals.Columns[c.ColName].Expression = c.Formula;
+                    }
+                }
+            }
+            GlobalVariables.ExperimentData.TableRow = tableRow;
+            GlobalVariables.ExperimentData.TableFilter = tableFilter;
             if (dtAnimals == null)
                 return null;
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using BiologyDepartment.Admin;
 
 namespace BiologyDepartment
 {
@@ -89,6 +90,14 @@ namespace BiologyDepartment
         {
             bExitProgram = true;
             Application.Exit();
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using(frmChangePassword frm = new frmChangePassword())
+            {
+                frm.ShowDialog();
+            }
         }
 
     }

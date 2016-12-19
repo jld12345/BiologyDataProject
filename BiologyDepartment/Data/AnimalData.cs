@@ -61,6 +61,7 @@ namespace BiologyDepartment
         public string ColName { get; set; }
         public string ColDataType { get; set; }
         public int EX_ID { get; set; }
+        public string Formula { get; set; }
 
         public CustomColumns() { }
     }

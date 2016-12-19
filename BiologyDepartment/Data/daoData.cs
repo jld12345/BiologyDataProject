@@ -264,7 +264,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("json", NpgsqlDbType.Jsonb));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_user", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_date", NpgsqlDbType.Date));
-            NpgsqlCMD.Parameters[0].Value = GlobalVariables.Experiment.ID;
+            NpgsqlCMD.Parameters[0].Value = GlobalVariables.ExperimentNode.ExperimentNode.ID;
             NpgsqlCMD.Parameters[1].Value = nJsonID;
             NpgsqlCMD.Parameters[2].Value = Newtonsoft.Json.Linq.JObject.Parse(sJson);
             NpgsqlCMD.Parameters[3].Value = GlobalVariables.ADUserName;

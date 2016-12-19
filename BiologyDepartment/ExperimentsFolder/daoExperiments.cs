@@ -17,7 +17,7 @@ namespace BiologyDepartment
             daoPermissions = new daoEXPermissions();
         }
 
-        public DataSet getExperiments()
+        public DataSet getExperiments(string sCriteria)
         {
             if (string.IsNullOrEmpty(GlobalVariables.ADUserName))
                 return null;
@@ -36,13 +36,14 @@ namespace BiologyDepartment
                                       and ((ex.ex_parent_id is null)
                                             or (ex.ex_parent_id = ex.ex_id)
                                             or (ex.ex_parent_id = 0))
+                                      " + sCriteria + @" 
                                       order by ex.ex_id";
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
             DataSet ds = new DataSet();
             ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
-            if (ds.Tables[0].Rows.Count > 0)
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
                 return ds;
             }

@@ -54,6 +54,9 @@ namespace BiologyDepartment
         private PdfDocument PDFdocument;
         private bool bExitProgram = false;
         private MemoryStream mStream;
+        private ToolStripDropDown dropDown;
+        private ToolStripButton btnChangePassword;
+        private ToolStripPanelItem dropDownPanel;
         #endregion
         #region Public Variables
         #endregion
@@ -84,6 +87,7 @@ namespace BiologyDepartment
         public void Initialize()
         {
             this.WindowState = FormWindowState.Maximized;
+            AddDropDownRibbonItems();
             AddTabControls();
         }
 
@@ -413,12 +417,48 @@ namespace BiologyDepartment
                     }
                 }
             }
-                tabControlMain2.TabPages[3].Enabled = (GlobalVariables.Experiment.UserAccess.ToUpper().Equals("BOB")
+                tabControlMain2.TabPages[3].TabVisible = (GlobalVariables.Experiment.UserAccess.ToUpper().Equals("OWNER")
                     || GlobalVariables.Experiment.UserAccess.ToUpper().Equals("ADMIN")) ? true:false;
 
         }
         #endregion
 
+        private void ribbonControlAdv1_OfficeMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void AddDropDownRibbonItems()
+        {
+            dropDown = new ToolStripDropDown();
+            dropDownPanel = new ToolStripPanelItem();
+
+            btnChangePassword = new ToolStripButton("C&hange Password");
+            btnChangePassword.Click += btnChangePassword_Click;
+            
+            dropDownPanel.Items.Add(btnChangePassword);
+
+            foreach (ToolStripButton btn in dropDownPanel.Items)
+            {
+                btn.AutoSize = false;
+                btn.Size = new Size(170, 35);
+                btn.ImageAlign = ContentAlignment.MiddleLeft;
+                btn.TextAlign = ContentAlignment.MiddleLeft;
+                btn.ImageScaling = ToolStripItemImageScaling.None;
+
+            }
+
+            dropDown.Items.Add(dropDownPanel);
+            this.ribbonControlAdv1.MenuButtonDropDown = dropDown;
+        }
+
+        void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            using(frmChangePassword frm = new frmChangePassword())
+            {
+                frm.ShowDialog();
+            }
+        }
 
     }
 
