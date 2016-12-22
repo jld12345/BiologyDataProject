@@ -1,0 +1,32 @@
+﻿2016-12-21 17:56:42> Program: Starting Squirrel Updater: --releasify ExperimentDatabaseDeploy.1.0.0.nupkg
+2016-12-21 17:56:42> Program: Bootstrapper EXE found at:C:\Users\James\Documents\New folder\trunk\packages\squirrel.windows.1.5.1\tools\Setup.exe
+2016-12-21 17:56:44> Program: Creating release package: C:\Users\James\Documents\New folder\trunk\Releases\ExperimentDatabaseDeploy.1.0.0.nupkg
+2016-12-21 17:56:44> Unhandled exception: System.InvalidOperationException: The input package file C:\Users\James\Documents\New folder\trunk\Releases\ExperimentDatabaseDeploy.1.0.0.nupkg targets multiple platforms - .NETFramework,Version=v4.0; .NETFramework,Version=v4.5;  - and cannot be transformed into a release package.
+   at Squirrel.ReleasePackage.CreateReleasePackage(String outputFile, String packagesRootDir, Func`2 releaseNotesProcessor, Action`1 contentsPostProcessHook)
+   at Squirrel.Update.Program.Releasify(String package, String targetDir, String packagesDir, String bootstrapperExe, String backgroundGif, String signingOpts, String baseUrl, String setupIcon, Boolean generateMsi)
+   at Squirrel.Update.Program.executeCommandLine(String[] args)
+   at Squirrel.Update.Program.main(String[] args)
+2016-12-21 18:14:31> Program: Starting Squirrel Updater: --releasify ExperimentDatabaseDeploy.1.0.0.nupkg
+2016-12-21 18:14:31> Program: Bootstrapper EXE found at:C:\Users\James\Documents\New folder\trunk\packages\squirrel.windows.1.5.1\tools\Setup.exe
+2016-12-21 18:14:33> Program: Creating release package: C:\Users\James\Documents\New folder\trunk\Releases\ExperimentDatabaseDeploy.1.0.0.nupkg
+2016-12-21 18:14:33> Unhandled exception: System.InvalidOperationException: The input package file C:\Users\James\Documents\New folder\trunk\Releases\ExperimentDatabaseDeploy.1.0.0.nupkg targets multiple platforms - .NETFramework,Version=v4.0; .NETFramework,Version=v4.5;  - and cannot be transformed into a release package.
+   at Squirrel.ReleasePackage.CreateReleasePackage(String outputFile, String packagesRootDir, Func`2 releaseNotesProcessor, Action`1 contentsPostProcessHook)
+   at Squirrel.Update.Program.Releasify(String package, String targetDir, String packagesDir, String bootstrapperExe, String backgroundGif, String signingOpts, String baseUrl, String setupIcon, Boolean generateMsi)
+   at Squirrel.Update.Program.executeCommandLine(String[] args)
+   at Squirrel.Update.Program.main(String[] args)
+2016-12-21 18:15:42> Program: Starting Squirrel Updater: --releasify ExperimentDatabaseDeploy.1.0.0.nupkg
+2016-12-21 18:15:42> Program: Bootstrapper EXE found at:C:\Users\James\Documents\New folder\trunk\packages\squirrel.windows.1.5.1\tools\Setup.exe
+2016-12-21 18:15:44> Program: Creating release package: C:\Users\James\Documents\New folder\trunk\Releases\ExperimentDatabaseDeploy.1.0.0.nupkg
+2016-12-21 18:15:44> Unhandled exception: System.InvalidOperationException: The input package file C:\Users\James\Documents\New folder\trunk\Releases\ExperimentDatabaseDeploy.1.0.0.nupkg targets multiple platforms - .NETFramework,Version=v4.0; .NETFramework,Version=v4.5;  - and cannot be transformed into a release package.
+   at Squirrel.ReleasePackage.CreateReleasePackage(String outputFile, String packagesRootDir, Func`2 releaseNotesProcessor, Action`1 contentsPostProcessHook)
+   at Squirrel.Update.Program.Releasify(String package, String targetDir, String packagesDir, String bootstrapperExe, String backgroundGif, String signingOpts, String baseUrl, String setupIcon, Boolean generateMsi)
+   at Squirrel.Update.Program.executeCommandLine(String[] args)
+   at Squirrel.Update.Program.main(String[] args)
+2016-12-21 18:18:16> Program: Starting Squirrel Updater: --releasify ExperimentDatabaseDeploy.1.0.0.nupkg
+2016-12-21 18:18:16> Program: Bootstrapper EXE found at:C:\Users\James\Documents\New folder\trunk\packages\squirrel.windows.1.5.1\tools\Setup.exe
+2016-12-21 18:18:19> Program: Creating release package: C:\Users\James\Documents\New folder\trunk\Releases\ExperimentDatabaseDeploy.1.0.0.nupkg
+2016-12-21 18:18:19> Unhandled exception: System.InvalidOperationException: The input package file C:\Users\James\Documents\New folder\trunk\Releases\ExperimentDatabaseDeploy.1.0.0.nupkg targets multiple platforms - .NETFramework,Version=v4.0; .NETFramework,Version=v4.5;  - and cannot be transformed into a release package.
+   at Squirrel.ReleasePackage.CreateReleasePackage(String outputFile, String packagesRootDir, Func`2 releaseNotesProcessor, Action`1 contentsPostProcessHook)
+   at Squirrel.Update.Program.Releasify(String package, String targetDir, String packagesDir, String bootstrapperExe, String backgroundGif, String signingOpts, String baseUrl, String setupIcon, Boolean generateMsi)
+   at Squirrel.Update.Program.executeCommandLine(String[] args)
+   at Squirrel.Update.Program.main(String[] args)
