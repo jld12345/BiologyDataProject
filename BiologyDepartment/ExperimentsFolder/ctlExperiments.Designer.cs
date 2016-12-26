@@ -164,7 +164,7 @@
             this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnNew
             // 
@@ -176,7 +176,7 @@
             this.btnNew.TabIndex = 9;
             this.btnNew.Text = "New Experiment";
             this.btnNew.UseVisualStyleBackColor = false;
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click_1);
+            this.btnNew.Click += new System.EventHandler(this.BtnNew_Click_1);
             // 
             // gbInfo
             // 
@@ -348,8 +348,8 @@
             this.dgExperiments.Size = new System.Drawing.Size(1002, 199);
             this.dgExperiments.TabIndex = 18;
             this.dgExperiments.Visible = false;
-            this.dgExperiments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExperiments_CellContentClick);
-            this.dgExperiments.SelectionChanged += new System.EventHandler(this.dgExperiments_SelectionChanged);
+            this.dgExperiments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgExperiments_CellContentClick);
+            this.dgExperiments.SelectionChanged += new System.EventHandler(this.DgExperiments_SelectionChanged);
             // 
             // btnCancel
             // 
@@ -361,7 +361,7 @@
             this.btnCancel.TabIndex = 16;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // ctlExperiments
             // 

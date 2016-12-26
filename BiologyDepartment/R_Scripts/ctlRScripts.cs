@@ -27,7 +27,7 @@ namespace BiologyDepartment
         string sPlot = "";
         private bool bLoad = true;
         private Data.DataUtil _dataUtil = new Data.DataUtil();
-        private ctlGGPlot ggPlot = new ctlGGPlot();
+        private CtlGGPlot ggPlot = new CtlGGPlot();
         private ctlRBaseFunctions rBaseItems = new ctlRBaseFunctions();
         private List<string> Keywords1 = null;
         private List<string> Keywords2 = null;

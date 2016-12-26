@@ -58,7 +58,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = id;
             ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -131,7 +131,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[2].Value = pic;
 
 
-            if(!GlobalVariables.GlobalConnection.insertData(NpgsqlCMD))
+            if(!GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD))
                 MessageBox.Show("Error inserting picture.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -153,7 +153,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[2].Value = pic;
 
 
-            if (!GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
+            if (!GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD))
                 MessageBox.Show("Error inserting picture.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -176,7 +176,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("therow", nCoreID));
             NpgsqlCMD.Parameters[0].Value = sName;
             NpgsqlCMD.Parameters[1].Value = nCoreID;
-            GlobalVariables.GlobalConnection.updateData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD);
 
         }
 
@@ -204,7 +204,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[2].Value = theAnimal.DataAgg;
             NpgsqlCMD.Parameters[4].Value = DateTime.Now.ToLongDateString();
             NpgsqlCMD.Parameters[5].Value = theAnimal.DataID;
-            GlobalVariables.GlobalConnection.updateData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD);
         }
 
         public NpgsqlDataAdapter DataAdapterCustom(int intID)
@@ -239,7 +239,7 @@ namespace BiologyDepartment
             NpgsqlCMD.CommandText = @"select nextval('EXPERIMENTS_JSONB_ID_SEQ') from generate_series(1,:lastRow)";
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("lastRow", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = theRowCount;
-            DataTable dt = GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
+            DataTable dt = GlobalVariables.GlobalConnection.ReadDataTable(NpgsqlCMD);
             if (dt != null)
             {
                 return dt;
@@ -270,7 +270,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[3].Value = GlobalVariables.ADUserName;
             NpgsqlCMD.Parameters[4].Value = DateTime.Now.ToShortDateString();
 
-            GlobalVariables.GlobalConnection.updateData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD);
         }
 
         public void DeleteJson(string sJson, int nJsonID)
@@ -294,7 +294,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[2].Value = GlobalVariables.ADUserName;
             NpgsqlCMD.Parameters[3].Value = DateTime.Now.ToShortDateString();
 
-            GlobalVariables.GlobalConnection.updateData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD);
         }
 
         public void InsertJson(string sJson, int nJsonID)
@@ -313,7 +313,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[2].Value = Newtonsoft.Json.Linq.JObject.Parse(sJson);
             NpgsqlCMD.Parameters[3].Value = GlobalVariables.ADUserName;
 
-            GlobalVariables.GlobalConnection.insertData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD);
         }
 
         public bool DataLockExists(int ExperimentID, int RowID, string TableName)
@@ -356,7 +356,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[3].Value = LockType;
             NpgsqlCMD.Parameters[4].Value = GlobalVariables.ADUserName;
 
-            GlobalVariables.GlobalConnection.insertData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD);
         }
 
         public void DeleteDataLock(int ExperimentID, int RowID, string TableName)
@@ -375,7 +375,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[1].Value = RowID;
             NpgsqlCMD.Parameters[2].Value = TableName;
 
-            GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.DeleteData(NpgsqlCMD);
         }
     }
 }

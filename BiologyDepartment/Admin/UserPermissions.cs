@@ -71,7 +71,7 @@ namespace BiologyDepartment
             
         }
 
-        private void dgUsers_SelectionChanged(object sender, EventArgs e)
+        private void DgUsers_SelectionChanged(object sender, EventArgs e)
         {
             foreach(DataGridViewRow row in dgUsers.SelectedRows)
             {
@@ -81,7 +81,7 @@ namespace BiologyDepartment
 
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             if(_daoAD.IsUserExisiting(txtUserName.Text) && !string.IsNullOrEmpty(cmbPermissions.SelectedItem.ToString()))
             {
@@ -92,13 +92,13 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnRemove_Click(object sender, EventArgs e)
+        private void BtnRemove_Click(object sender, EventArgs e)
         {
             _permissions.DeletePermission(exID, txtUserName.Text);
             LoadUsers(exID);
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             if (_daoAD.IsUserExisiting(txtUserName.Text))
             {
@@ -118,13 +118,13 @@ namespace BiologyDepartment
             isAdding = false;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             LoadUsers(exID);
             isAdding = false;
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }

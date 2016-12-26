@@ -31,7 +31,7 @@ namespace BiologyDepartment.R_Scripts
                                        from r_scripts
                                        where is_active = 'Y'";
             ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;

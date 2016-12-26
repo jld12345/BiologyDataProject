@@ -27,7 +27,7 @@ namespace BiologyDepartment
             NpgsqlCMD = new NpgsqlCommand();
             NpgsqlCMD.CommandText = @"Select AU.* from AUTHORS AU";
             DataSet ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -54,7 +54,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", EX_ID));
 
             DataSet ds= new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -72,7 +72,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[0].Value = rec;
 
             DataSet ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -100,7 +100,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[4].Value = a.Association;
             NpgsqlCMD.Parameters[5].Value = a.Department;
 
-            if(GlobalVariables.GlobalConnection.insertData(NpgsqlCMD))
+            if(GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD))
                 MessageBox.Show("Author record has been inserted.", "Author Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Author record has not been inserted.", "Author Not Inserted", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -133,7 +133,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[5].Value = a.Department;
             NpgsqlCMD.Parameters[6].Value = a.ID;
 
-            if(GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
+            if(GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD))
                 MessageBox.Show("Author record has been updated.", "Author Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Author record has not been inserted.", "Author Not Updated", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -148,7 +148,7 @@ namespace BiologyDepartment
                 NpgsqlCMD.CommandText = "Delete from AUTHORS where AUTHOR_ID = :authID";
                 NpgsqlCMD.Parameters.Add(new NpgsqlParameter("authID", NpgsqlDbType.Integer));
                 NpgsqlCMD.Parameters[0].Value = id;
-                if(GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD))
+                if(GlobalVariables.GlobalConnection.DeleteData(NpgsqlCMD))
                     MessageBox.Show("Author record has been deleted.", "Author Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                     MessageBox.Show("Author record has not been deleted.", "Author Not Deleted", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -176,7 +176,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[2].Value = pic;
 
 
-            if(GlobalVariables.GlobalConnection.insertData(NpgsqlCMD))
+            if(GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD))
                 MessageBox.Show("Picture successfully inserted.", "Picture Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Error inserting picture.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -200,7 +200,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[2].Value = pic;
 
 
-            if (GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
+            if (GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD))
                 MessageBox.Show("Picture successfully inserted.", "Picture Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Error inserting picture.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);

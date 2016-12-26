@@ -47,9 +47,9 @@ namespace BiologyDepartment
         public void Intialize()
         {
             bLoad = true;
-            GlobalVariables.GlobalConnection = new dbBioConnection();
+            GlobalVariables.GlobalConnection = new DbBioConnection();
             LoadImages();
-            frmRefresh();
+            FrmRefresh();
         }
 
         private void LoadImages()
@@ -82,17 +82,17 @@ namespace BiologyDepartment
         private void DataLoading_Shown(object sender, EventArgs e)
         {
             GlobalVariables.DataLoading.ProgressBarStep(15);
-            this.dgExperiments.SelectionChanged -= this.dgExperiments_SelectionChanged;
+            this.dgExperiments.SelectionChanged -= this.DgExperiments_SelectionChanged;
             bLoad = true;
             GlobalVariables.DataLoading.ProgressBarStep(50);
-            GlobalVariables.GlobalConnection = new dbBioConnection();
+            GlobalVariables.GlobalConnection = new DbBioConnection();
             dsExperiments = exUtil.GetExperimentsDataSet(string.Empty);
             dtExperiments = dsExperiments.Tables[0];
             SetComboBox();
             SetExperiment();
-            setGrid();
+            SetGrid();
             GlobalVariables.DataLoading.ProgressBarStep(75);
-            this.dgExperiments.SelectionChanged += new System.EventHandler(this.dgExperiments_SelectionChanged);
+            this.dgExperiments.SelectionChanged += new System.EventHandler(this.DgExperiments_SelectionChanged);
 
             GlobalVariables.DataLoading.ProgressBarStep(100);
             GlobalVariables.DataLoading.Hide();
@@ -119,7 +119,7 @@ namespace BiologyDepartment
             exUtil.SetExperiment(exp);
         }
 
-        private void enableListBox()
+        private void EnableListBox()
         {
             txtBoxList.Clear();
             txtBoxList.Add(txtSName.Text);
@@ -182,7 +182,7 @@ namespace BiologyDepartment
             SetExperiment();
         }
 
-        private void setGrid()
+        private void SetGrid()
         {
             bLoad = true;
             lstBindSource.Clear();
@@ -190,18 +190,22 @@ namespace BiologyDepartment
             for (int i = 0; i < dsExperiments.Tables.Count; i++)
             {
                 DataGridView dgv = new DataGridView();
-                BindingSource theBind = new BindingSource();
-                theBind.DataSource = dsExperiments.Tables[i];
+                BindingSource theBind = new BindingSource()
+                {
+                    DataSource = dsExperiments.Tables[i]
+                };
                 dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
                 if (!dgv.Columns.Contains("showChild"))
                 {
-                    DataGridViewImageColumn btnChild = new DataGridViewImageColumn();
-                    btnChild.Name = "showChild";
-                    btnChild.HeaderText = "";
-                    btnChild.ReadOnly = false;
-                    btnChild.Tag = "Expand";
-                    btnChild.Image = GlobalVariables.Images.Images["Expand"];
+                    DataGridViewImageColumn btnChild = new DataGridViewImageColumn()
+                    {
+                        Name = "showChild",
+                        HeaderText = "",
+                        ReadOnly = false,
+                        Tag = "Expand",
+                        Image = GlobalVariables.Images.Images["Expand"]
+                    };
                     dgv.Columns.Insert(0, btnChild);
                 }
 
@@ -216,7 +220,7 @@ namespace BiologyDepartment
                 lstDGV[i].AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 lstDGV[i].ScrollBars = ScrollBars.Both;
                 lstDGV[i].ClearSelection();
-                lstDGV[i].SelectionChanged += new System.EventHandler(this.dgExperiments_SelectionChanged);
+                lstDGV[i].SelectionChanged += new System.EventHandler(this.DgExperiments_SelectionChanged);
                 splitContainer1.Panel2.Controls.Add(lstDGV[i]);
                 lstDGV[i].Visible = false;
 
@@ -226,7 +230,7 @@ namespace BiologyDepartment
             dgExperiments.Visible = false;
         }
 
-        private void enableControls(bool bEnable)
+        private void EnableControls(bool bEnable)
         {
             sDatePicker.Enabled = bEnable;
             txtOfficialName.Enabled = bEnable;
@@ -247,29 +251,29 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnNew_Click(object sender, EventArgs e)
+        private void BtnNew_Click(object sender, EventArgs e)
         {
             if (btnNew.Text.Equals("New Experiment"))
             {
-                enableControls(true);
+                EnableControls(true);
                 sDatePicker.Value = DateTime.Now;
                 txtOfficialName.Text = "";
                 txtSName.Text = "";
                 eDatePicker.Value = DateTime.Now;
                 rtxtHypo.Text = "";
                 btnNew.Text = "Cancel";
-                enableListBox();
+                EnableListBox();
             }
             else
             {
-                frmRefresh();
+                FrmRefresh();
             }
 
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
-            enableListBox();
+            EnableListBox();
 
             foreach (string txtBox in txtBoxList)
             {
@@ -308,7 +312,7 @@ namespace BiologyDepartment
                     SetOldExperiment(true);
             }
 
-            frmRefresh();
+            FrmRefresh();
 
         }
 
@@ -347,7 +351,7 @@ namespace BiologyDepartment
 
         }
 
-        public void frmRefresh()
+        public void FrmRefresh()
         {
             bLoad = true;
             dsExperiments = exUtil.GetExperimentsDataSet(string.Empty);
@@ -355,9 +359,9 @@ namespace BiologyDepartment
             btnDelete.Text = "Delete";
             SetComboBox();
             SetRecord(0);
-            setGrid();
-            enableControls(false);
-            enableListBox();
+            SetGrid();
+            EnableControls(false);
+            EnableListBox();
             bEdit = false;
             bDelete = false;
             bIsNew = false;
@@ -369,26 +373,26 @@ namespace BiologyDepartment
             lstDGV[0].Visible = true;
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void BtnEdit_Click(object sender, EventArgs e)
         {
-            enableControls(true);
+            EnableControls(true);
             btnNew.Text = "Cancel";
             bEdit = true;
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             //_daoAuthorEX.deleteAllRecords(Convert.ToInt32(cbExperiments.SelectedValue.ToString()));
             //_daoExperiments.deleteRecord(txtExID.Text, false);
-            frmRefresh();
+            FrmRefresh();
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            frmRefresh();
+            FrmRefresh();
         }
 
-        private void dgExperiments_SelectionChanged(object sender, EventArgs e)
+        private void DgExperiments_SelectionChanged(object sender, EventArgs e)
         {
             if (bLoad)
                 return;
@@ -400,17 +404,10 @@ namespace BiologyDepartment
 
         protected virtual void OnExperimentChangedEvent(ExperimentHasChanged e)
         {
-            EventHandler<ExperimentHasChanged> handler = ChangeExperimentEvent;
-
-            // Event will be null if there are no subscribers 
-            if (handler != null)
-            {
-                // Use the () operator to raise the event.
-                handler(this, e);
-            }
+            ChangeExperimentEvent?.Invoke(this, e);
         }
 
-        private void btnNew_Click_1(object sender, EventArgs e)
+        private void BtnNew_Click_1(object sender, EventArgs e)
         {
             bIsNew = true;
             txtOfficialName.Clear();
@@ -421,7 +418,7 @@ namespace BiologyDepartment
             btnSave.Enabled = true;
         }
 
-        private void dgExperiments_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgExperiments_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewEditButtonCell buttonCell = (DataGridViewEditButtonCell)dgExperiments.Rows[e.RowIndex].Cells[e.ColumnIndex];
             if (buttonCell.Enabled)
@@ -505,7 +502,7 @@ namespace BiologyDepartment
             lstDGV[Convert.ToInt32(grid.Name)].Rows[e.RowIndex].Selected = true;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
 
         }

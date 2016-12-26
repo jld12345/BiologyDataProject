@@ -41,7 +41,7 @@ namespace BiologyDepartment.ExperimentDocuments
             bIsEdit = true;
         }
 
-        private void btnBrowse_Click(object sender, EventArgs e)
+        private void BtnBrowse_Click(object sender, EventArgs e)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace BiologyDepartment.ExperimentDocuments
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             if(string.IsNullOrEmpty(rtbTitle.Text))
             {
@@ -108,7 +108,7 @@ namespace BiologyDepartment.ExperimentDocuments
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             if(bIsEdit)
             {

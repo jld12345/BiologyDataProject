@@ -15,7 +15,7 @@ namespace BiologyDepartment.Admin
     public partial class frmChangePassword : Form
     {
         #region Private Variables
-        private daoActiveDirectory _daoAD = new daoActiveDirectory();
+        private DaoActiveDirectory _daoAD = new DaoActiveDirectory();
         #endregion
         public frmChangePassword()
         {

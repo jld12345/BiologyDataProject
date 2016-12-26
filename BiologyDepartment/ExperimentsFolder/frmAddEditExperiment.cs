@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace BiologyDepartment.ExperimentsFolder
 {
-    public partial class frmAddEditExperiment : Form
+    public partial class FrmAddEditExperiment : Form
     {
         public ExperimentTreeNode ExperimentNode = new ExperimentTreeNode();
         private bool bIsEdit = false;
         private daoExperiments daoEx = new daoExperiments();
         private DataTable dtParents;
 
-        public frmAddEditExperiment()
+        public FrmAddEditExperiment()
         {
             InitializeComponent();
         }
@@ -51,7 +51,7 @@ namespace BiologyDepartment.ExperimentsFolder
             }            
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             if (cmbParents.SelectedValue != null && cmbParents.SelectedIndex > 0)
                 ExperimentNode.ExperimentNode.ParentEx = Convert.ToInt32(cmbParents.SelectedValue.ToString());
@@ -71,7 +71,7 @@ namespace BiologyDepartment.ExperimentsFolder
             this.Close();
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void BtnClear_Click(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace BiologyDepartment
 {
-    public partial class ctlGGPlot : UserControl
+    public partial class CtlGGPlot : UserControl
     {
         private enum GGPlot2
         {
@@ -79,7 +79,7 @@ namespace BiologyDepartment
             StatYDensity
         }
 
-        public ctlGGPlot()
+        public CtlGGPlot()
         {
             InitializeComponent();
         }
@@ -447,17 +447,17 @@ namespace BiologyDepartment
 
             var field = value.GetType().GetField(value.ToString());
             attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
-            result = attribute != null ? attribute.Description : string.Empty;
+            result = attribute?.Description;
 
             return result;
         }
 
-        private void tvGGPlot2_AfterSelect(object sender, TreeViewEventArgs e)
+        private void TvGGPlot2_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
         }
 
-        private void cmbXAxisData_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbXAxisData_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

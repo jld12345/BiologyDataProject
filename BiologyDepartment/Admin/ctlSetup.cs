@@ -53,7 +53,7 @@ namespace BiologyDepartment
             bInitialize = true;
         }
 
-        private void btnBrowse_Click(object sender, EventArgs e)
+        private void BtnBrowse_Click(object sender, EventArgs e)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace BiologyDepartment
 
         
 
-        private void cmbWorksheets_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbWorksheets_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!bInitialize)
                 return;
@@ -140,7 +140,7 @@ namespace BiologyDepartment
                 dtColumns.Columns.Add("custom_column_formula", typeof(string));
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void BtnUpdate_Click(object sender, EventArgs e)
         {    
             if(dgColAdmin.SelectedRows.Count == 0)
             {
@@ -150,7 +150,6 @@ namespace BiologyDepartment
             }
             foreach (DataGridViewRow row in dgColAdmin.SelectedRows)
             {
-                int nColID = 0;
                 string sName = Convert.ToString(row.Cells["custom_column_name"].Value);
                 string sType = Convert.ToString(row.Cells["custom_column_data_type"].Value);
                 string sDesc = "";
@@ -161,7 +160,7 @@ namespace BiologyDepartment
                     sFormula = Convert.ToString(row.Cells["custom_column_formula"].Value);
                 if (string.IsNullOrEmpty(sName) || string.IsNullOrEmpty(sType))
                     return;
-                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
+                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out int nColID);
 
 
                 if (nColID > 0)
@@ -180,7 +179,7 @@ namespace BiologyDepartment
             LoadGrid();
         }
 
-        private void btnImport_Click(object sender, EventArgs e)
+        private void BtnImport_Click(object sender, EventArgs e)
         {
             DataTable dt = (DataTable)dgExcelData.DataSource;
             DataTable dtColumns = (DataTable)dgColAdmin.DataSource;
@@ -240,13 +239,13 @@ namespace BiologyDepartment
             //sMapColumns.Clear();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             dgExcelData.DataSource = "";
             sMapColumns.Clear();
         }
 
-        private void btnImportCol_Click(object sender, EventArgs e)
+        private void BtnImportCol_Click(object sender, EventArgs e)
         {
             List<string> lstExistingCols = new List<string>();
             //Loop through Excel sheet columns and add to Column Admin
@@ -309,7 +308,7 @@ namespace BiologyDepartment
 
         }
 
-        private void ctlSetup_KeyPress(object sender, KeyPressEventArgs e)
+        private void CtlSetup_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(e.KeyChar == (char)Keys.F5)
             {
@@ -323,13 +322,12 @@ namespace BiologyDepartment
             LoadGrid();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             List<DataGridViewRow> lstRows = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in dgColAdmin.SelectedRows)
             {
-                int nColID = 0;
-                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
+                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out int nColID);
                 if (nColID > 0)
                 {
                     _daoSetup.DeleteColumn(nColID);
@@ -348,13 +346,13 @@ namespace BiologyDepartment
                 dgColAdmin.Rows.Remove(row);
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void BtnRefresh_Click(object sender, EventArgs e)
         {
             Refresh();
             sMapColumns.Clear();
         }
 
-        private void btnMapData_Click(object sender, EventArgs e)
+        private void BtnMapData_Click(object sender, EventArgs e)
         {
             MapColumns(false);
         }
@@ -373,12 +371,12 @@ namespace BiologyDepartment
                 Refresh();
         }
 
-        private void cbHasHeaders_CheckedChanged(object sender, EventArgs e)
+        private void CbHasHeaders_CheckedChanged(object sender, EventArgs e)
         {
             sMapColumns.Clear();
         }
 
-        private void dgColAdmin_Layout(object sender, LayoutEventArgs e)
+        private void DgColAdmin_Layout(object sender, LayoutEventArgs e)
         {
 
         }

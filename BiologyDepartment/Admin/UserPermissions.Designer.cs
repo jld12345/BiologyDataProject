@@ -53,7 +53,7 @@
             this.dgUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgUsers.Size = new System.Drawing.Size(403, 256);
             this.dgUsers.TabIndex = 0;
-            this.dgUsers.SelectionChanged += new System.EventHandler(this.dgUsers_SelectionChanged);
+            this.dgUsers.SelectionChanged += new System.EventHandler(this.DgUsers_SelectionChanged);
             // 
             // btnSave
             // 
@@ -63,7 +63,7 @@
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnCancel
             // 
@@ -73,7 +73,7 @@
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnExit
             // 
@@ -83,7 +83,7 @@
             this.btnExit.TabIndex = 3;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // lblUserName
             // 
@@ -109,7 +109,7 @@
             this.btnAdd.TabIndex = 7;
             this.btnAdd.Text = "Add New User";
             this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // cmbPermissions
             // 
@@ -141,7 +141,7 @@
             this.btnRemove.TabIndex = 10;
             this.btnRemove.Text = "Remove User";
             this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.btnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
             // 
             // UserPermissions
             // 

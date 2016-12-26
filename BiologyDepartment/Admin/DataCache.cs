@@ -264,7 +264,7 @@ namespace BiologyDepartment
             {
                 using (NpgsqlCMD = new NpgsqlCommand())
                 {
-                    if (GlobalVariables.GlobalConnection.checkForSQLInjection(selectWhere))
+                    if (GlobalVariables.GlobalConnection.CheckForSQLInjection(selectWhere))
                         selectWhere = "";
 
                     // Retrieve the row count from the database.
@@ -359,7 +359,7 @@ namespace BiologyDepartment
                     "Column {0} must contain unique values.", columnToSortBy));
             }
 
-            if (GlobalVariables.GlobalConnection.checkForSQLInjection(selectWhere))
+            if (GlobalVariables.GlobalConnection.CheckForSQLInjection(selectWhere))
                 selectWhere = "";
 
             // Retrieve the specified number of rows from the database, starting 
@@ -387,7 +387,7 @@ namespace BiologyDepartment
                 theQuery = theQuery.Replace("Order By t1.fi_id", "Order By t1.color");
                 
                 DataTable testTable = new DataTable();
-                table = GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
+                table = GlobalVariables.GlobalConnection.ReadDataTable(NpgsqlCMD);
                 GlobalVariables.StatsQuery = theQuery;
             
             return table;

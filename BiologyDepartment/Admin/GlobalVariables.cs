@@ -35,10 +35,10 @@ namespace BiologyDepartment
         static NpgsqlConnection con;
         static NpgsqlConnection bgwCon;
         static ExperimentData theData;
-        static ctlAnimalData _ctlAnimalData = new ctlAnimalData();
+        static CtlAnimalData _ctlAnimalData = new CtlAnimalData();
         static ExperimentTreeNode SelectedExperiment = new ExperimentTreeNode();
 
-        static dbBioConnection BioConnection;
+        static DbBioConnection BioConnection;
 
         /// <summary>
         /// Access routine for global variable.
@@ -202,7 +202,7 @@ namespace BiologyDepartment
             }
         }
 
-        public static dbBioConnection GlobalConnection
+        public static DbBioConnection GlobalConnection
         {
             get
             {
@@ -307,7 +307,7 @@ namespace BiologyDepartment
             set { theData = value; }
         }
 
-        public static ctlAnimalData ExperimentGrid
+        public static CtlAnimalData ExperimentGrid
         {
             get { return _ctlAnimalData; }
         }

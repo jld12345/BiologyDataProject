@@ -1,6 +1,6 @@
 ﻿namespace BiologyDepartment.R_Scripts
 {
-    partial class ctlApiCalls2
+    partial class CtlApiCalls2
     {
         /// <summary> 
         /// Required designer variable.
@@ -117,8 +117,8 @@
             this.dgRScripts.UnHideColsOnDblClick = false;
             this.dgRScripts.UseListChangedEvent = true;
             this.dgRScripts.UseRightToLeftCompatibleTextBox = true;
-            this.dgRScripts.CellButtonClicked += new Syncfusion.Windows.Forms.Grid.GridCellButtonClickedEventHandler(this.dgRScripts_CellButtonClicked);
-            this.dgRScripts.Layout += new System.Windows.Forms.LayoutEventHandler(this.dgRScripts_Layout);
+            this.dgRScripts.CellButtonClicked += new Syncfusion.Windows.Forms.Grid.GridCellButtonClickedEventHandler(this.DgRScripts_CellButtonClicked);
+            this.dgRScripts.Layout += new System.Windows.Forms.LayoutEventHandler(this.DgRScripts_Layout);
             // 
             // tcScriptInput
             // 

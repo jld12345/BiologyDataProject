@@ -21,14 +21,14 @@ using ActiveDs;
 
 namespace BiologyDepartment.Active_Directory
 {
-        public class daoActiveDirectory
+        public class DaoActiveDirectory
         {
 
             #region Private Variables
             private PrincipalContext _PrincipalContext = null;
             #endregion
             #region Public Variables
-            public PrincipalContext principalContext { get { return _PrincipalContext; } }
+            public PrincipalContext PrincipalContext { get { return _PrincipalContext; } }
             public UserPrincipal user = null;
             #endregion
 
@@ -204,10 +204,11 @@ namespace BiologyDepartment.Active_Directory
 
                     using (DirectoryEntry e = new DirectoryEntry("LDAP://" + GlobalVariables.ActiveDirectoryConnection, GlobalVariables.ADUserName, GlobalVariables.ADPass, AuthenticationTypes.Secure))
                     {
-                        DirectorySearcher search = new DirectorySearcher(e);
-                        search.Filter = "(&(objectClass=user)(sAMAccountName=" + GlobalVariables.ADUserName + "))";
-
-                        SearchResult sr = search.FindOne();
+                    DirectorySearcher search = new DirectorySearcher(e)
+                    {
+                        Filter = "(&(objectClass=user)(sAMAccountName=" + GlobalVariables.ADUserName + "))"
+                    };
+                    SearchResult sr = search.FindOne();
                         if (sr != null)
                         {
                             e2 = sr.GetDirectoryEntry();
@@ -319,13 +320,15 @@ namespace BiologyDepartment.Active_Directory
             {
                 if (!IsUserExisiting(sUserName))
                 {
-                    UserPrincipal theUser = new UserPrincipal(_PrincipalContext, sUserName, sPassword, true /*Enabled or not*/);
+                UserPrincipal theUser = new UserPrincipal(_PrincipalContext, sUserName, sPassword, true /*Enabled or not*/)
+                {
 
                     //User Log on Name
-                    theUser.UserPrincipalName = sUserName;
-                    theUser.GivenName = sGivenName;
-                    theUser.Surname = sSurname;
-                    theUser.Save();
+                    UserPrincipalName = sUserName,
+                    GivenName = sGivenName,
+                    Surname = sSurname
+                };
+                theUser.Save();
 
                     return theUser;
                 }
@@ -370,11 +373,13 @@ namespace BiologyDepartment.Active_Directory
             /// <returns>Retruns the GroupPrincipal object</returns>
             public GroupPrincipal CreateNewGroup(string sOU, string sGroupName, string sDescription, GroupScope oGroupScope, bool bSecurityGroup)
             {
-                GroupPrincipal theGroup = new GroupPrincipal(_PrincipalContext, sGroupName);
-                theGroup.Description = sDescription;
-                theGroup.GroupScope = oGroupScope;
-                theGroup.IsSecurityGroup = bSecurityGroup;
-                theGroup.Save();
+            GroupPrincipal theGroup = new GroupPrincipal(_PrincipalContext, sGroupName)
+            {
+                Description = sDescription,
+                GroupScope = oGroupScope,
+                IsSecurityGroup = bSecurityGroup
+            };
+            theGroup.Save();
 
                 return theGroup;
             }

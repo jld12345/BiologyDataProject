@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props')" />
-  <Import Project="..\packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\cef.sdk.3.2785.1486\build\cef.sdk.props" Condition="Exists('..\packages\cef.sdk.3.2785.1486\build\cef.sdk.props')" />
+  <Import Project="..\packages\CefSharp.WinForms.53.0.1\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.53.0.1\build\CefSharp.WinForms.props')" />
+  <Import Project="..\packages\CefSharp.Common.53.0.1\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.53.0.1\build\CefSharp.Common.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -26,8 +27,8 @@
     </TargetFrameworkProfile>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>C:\TestProject\</PublishUrl>
-    <Install>true</Install>
+    <PublishUrl>C:\Publish\</PublishUrl>
+    <Install>false</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
@@ -35,16 +36,17 @@
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>false</MapFileExtensions>
+    <MapFileExtensions>true</MapFileExtensions>
     <TargetCulture>en</TargetCulture>
-    <ProductName>Biology Department Database Access</ProductName>
+    <ProductName>EDS</ProductName>
     <PublisherName>James Davis</PublisherName>
     <MinimumRequiredVersion>1.0.0.1</MinimumRequiredVersion>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>13</ApplicationRevision>
-    <ApplicationVersion>1.0.0.13</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -122,7 +124,7 @@
     <ManifestKeyFile>BiologyDepartment_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -169,9 +171,8 @@
     <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
       <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
     </Reference>
-    <Reference Include="ClosedXML, Version=0.80.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
-      <HintPath>..\packages\ClosedXML.0.80.1\lib\net40-client\ClosedXML.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ClosedXML, Version=0.85.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.85.0\lib\net40\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="ComponentFactory.Krypton.Ribbon">
       <HintPath>..\..\..\Users\James\Downloads\ComponentFactory.Krypton.Ribbon.dll</HintPath>
@@ -200,33 +201,27 @@
       <HintPath>..\packages\FileTypeDetective.1.0.0.0\lib\net40\FileTypeDetective.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Gnostice.Core, Version=16.5.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.5.0\lib\net40\Gnostice.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Gnostice.Core, Version=16.6.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.6.1\lib\net40\Gnostice.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Gnostice.Free.Documents, Version=16.5.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.5.0\lib\net40\Gnostice.Free.Documents.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Gnostice.Free.Documents, Version=16.6.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.6.1\lib\net40\Gnostice.Free.Documents.dll</HintPath>
     </Reference>
-    <Reference Include="Gnostice.Free.Documents.Controls.WinForms, Version=16.5.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.5.0\lib\net40\Gnostice.Free.Documents.Controls.WinForms.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Gnostice.Free.Documents.Controls.WinForms, Version=16.6.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.6.1\lib\net40\Gnostice.Free.Documents.Controls.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Gnostice.XtremeFontEngine.4.0, Version=1.0.1810.392, Culture=neutral, PublicKeyToken=461de9da64be3a84, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.5.0\lib\net40\Gnostice.XtremeFontEngine.4.0.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Gnostice.XtremeFontEngine.4.0, Version=1.0.1863.418, Culture=neutral, PublicKeyToken=461de9da64be3a84, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.6.1\lib\net40\Gnostice.XtremeFontEngine.4.0.dll</HintPath>
     </Reference>
-    <Reference Include="Gnostice.XtremeImageEngine, Version=12.0.1511.103, Culture=neutral, PublicKeyToken=67e9a3a7c22f1690, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.5.0\lib\net40\Gnostice.XtremeImageEngine.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Gnostice.XtremeImageEngine, Version=12.0.1546.117, Culture=neutral, PublicKeyToken=67e9a3a7c22f1690, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.6.1\lib\net40\Gnostice.XtremeImageEngine.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ionic.Zlib, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.5.0\lib\net40\Ionic.Zlib.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.16.6.1\lib\net40\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -263,9 +258,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Npgsql, Version=2.2.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Npgsql.3.1.7\lib\net45\Npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=3.1.9.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.9\lib\net451\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="OfficeApi, Version=1.7.4.0, Culture=neutral, PublicKeyToken=7c1c3e9d16cace88, processorArchitecture=MSIL">
       <HintPath>..\packages\NetOffice.Core.1.7.4-pre-jun-28-2015\lib\net45\OfficeApi.dll</HintPath>
@@ -348,6 +342,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.DirectoryServices.Protocols" />
@@ -355,7 +352,9 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Management.Instrumentation" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.0\lib\net46\System.Net.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -369,6 +368,20 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net46\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net46\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -439,9 +452,7 @@
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\LoginUtility.cs" />
-    <Compile Include="Misc Files\CalendarColumn.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Misc Files\CalendarColumn.cs" />
     <Compile Include="Author\ctlAuthors.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -543,6 +554,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="R_Scripts\ctlRScripts.Designer.cs" />
+    <Compile Include="R_Scripts\GGPlot.cs" />
     <Compile Include="R_Scripts\GGPlotUtilcs.cs" />
     <Compile Include="R_Scripts\RDao.cs" />
     <Compile Include="R_Scripts\RStatistics.cs" />
@@ -654,638 +666,363 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0,KB2468871">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29 and Update for .NET Framework 4 %28KB2468871%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client,KB2468871">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29 and Update for .NET Framework 4 %28KB2468871%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.1 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>true</Install>
+      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
-      <Visible>False</Visible>
-      <ProductName>Microsoft Visual Studio 2010 Tools for Office Runtime %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 4.5</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <PublishFile Include="BiologyDepartment.pdb">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Auto</PublishState>
-      <IncludeHash>False</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="DynamicInterop">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="stdole">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.BulletGraph.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Calculate.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Chart.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Chart.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Compression.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Diagram.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Diagram.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.DocIO.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.DocIO.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Edit.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.ExcelChartToImageConverter.Wpf">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.ExcelToPDFConverter.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Gauge.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Grid.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Grid.Grouping.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Grid.Grouping.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Grid.Grouping.Windows.XmlSerializers">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Grid.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Grid.Windows.XmlSerializers">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.GridConverter.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.GridHelperClasses.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Grouping.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Grouping.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.HTMLUI.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.HTMLUI.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Linq.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.MIME.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.OfficeChart.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.OfficeChartToImageConverter.Wpf">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Pdf.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.PdfViewer.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.PivotAnalysis.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.PivotAnalysis.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.PivotChart.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Presentation.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.PresentationToPdfConverter.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.ProjIO.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Schedule.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Schedule.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Scripting.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.SfBarcode.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.SfChart.WPF">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Shared.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Shared.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.SpellChecker.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Spreadsheet.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Tools.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.Tools.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.TreeMap.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.XlsIO.Base">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="Syncfusion.XlsIO.Windows">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="System.Net.Http.Extensions">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="System.Net.Http.Formatting">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="System.Net.Http.Primitives">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\angular-csp.css" />
+    <Content Include="Scripts\i18n\angular-locale_agq-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_agq.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-001.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-ae.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-bh.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-dj.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-dz.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-eg.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-eh.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-er.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-iq.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-jo.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-kw.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-lb.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-ly.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-mr.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-om.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-ps.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-qa.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-sa.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-sd.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-so.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-ss.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-sy.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-td.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-tn.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar-ye.js" />
+    <Content Include="Scripts\i18n\angular-locale_ar.js" />
+    <Content Include="Scripts\i18n\angular-locale_as-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_as.js" />
+    <Content Include="Scripts\i18n\angular-locale_bas-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_bas.js" />
+    <Content Include="Scripts\i18n\angular-locale_bem-zm.js" />
+    <Content Include="Scripts\i18n\angular-locale_bem.js" />
+    <Content Include="Scripts\i18n\angular-locale_bm.js" />
+    <Content Include="Scripts\i18n\angular-locale_bn-bd.js" />
+    <Content Include="Scripts\i18n\angular-locale_bn-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_bn.js" />
+    <Content Include="Scripts\i18n\angular-locale_brx-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_brx.js" />
+    <Content Include="Scripts\i18n\angular-locale_bs-cyrl-ba.js" />
+    <Content Include="Scripts\i18n\angular-locale_bs-cyrl.js" />
+    <Content Include="Scripts\i18n\angular-locale_bs-latn-ba.js" />
+    <Content Include="Scripts\i18n\angular-locale_bs-latn.js" />
+    <Content Include="Scripts\i18n\angular-locale_bs.js" />
+    <Content Include="Scripts\i18n\angular-locale_ca-ad.js" />
+    <Content Include="Scripts\i18n\angular-locale_ca-es-valencia.js" />
+    <Content Include="Scripts\i18n\angular-locale_ca-es.js" />
+    <Content Include="Scripts\i18n\angular-locale_ca-fr.js" />
+    <Content Include="Scripts\i18n\angular-locale_ca-it.js" />
+    <Content Include="Scripts\i18n\angular-locale_ca.js" />
+    <Content Include="Scripts\i18n\angular-locale_chr-us.js" />
+    <Content Include="Scripts\i18n\angular-locale_chr.js" />
+    <Content Include="Scripts\i18n\angular-locale_de-be.js" />
+    <Content Include="Scripts\i18n\angular-locale_de-ch.js" />
+    <Content Include="Scripts\i18n\angular-locale_de-de.js" />
+    <Content Include="Scripts\i18n\angular-locale_de-li.js" />
+    <Content Include="Scripts\i18n\angular-locale_de-lu.js" />
+    <Content Include="Scripts\i18n\angular-locale_de.js" />
+    <Content Include="Scripts\i18n\angular-locale_dje-ne.js" />
+    <Content Include="Scripts\i18n\angular-locale_dje.js" />
+    <Content Include="Scripts\i18n\angular-locale_dsb-de.js" />
+    <Content Include="Scripts\i18n\angular-locale_dsb.js" />
+    <Content Include="Scripts\i18n\angular-locale_dua-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_dua.js" />
+    <Content Include="Scripts\i18n\angular-locale_dyo-sn.js" />
+    <Content Include="Scripts\i18n\angular-locale_dyo.js" />
+    <Content Include="Scripts\i18n\angular-locale_dz-bt.js" />
+    <Content Include="Scripts\i18n\angular-locale_dz.js" />
+    <Content Include="Scripts\i18n\angular-locale_ee-gh.js" />
+    <Content Include="Scripts\i18n\angular-locale_ee.js" />
+    <Content Include="Scripts\i18n\angular-locale_el-cy.js" />
+    <Content Include="Scripts\i18n\angular-locale_el-gr.js" />
+    <Content Include="Scripts\i18n\angular-locale_el.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-001.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-ag.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-as.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-bb.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-bm.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-bs.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-bw.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-bz.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-ca.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-dm.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-er.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-fj.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-fm.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-gd.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-gh.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-gm.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-gu.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-gy.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-hk.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-iso.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-jm.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-ki.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-kn.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-ky.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-lc.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-lr.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-ls.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-mh.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-mo.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-mp.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-mw.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-my.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-na.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-ng.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-nz.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-pg.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-ph.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-pk.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-pr.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-pw.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-sb.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-sd.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-sg.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-sl.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-ss.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-sz.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-tc.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-to.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-tt.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-um.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-us.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-vc.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-vg.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-vi.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-vu.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-ws.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-za.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-zm.js" />
+    <Content Include="Scripts\i18n\angular-locale_en-zw.js" />
+    <Content Include="Scripts\i18n\angular-locale_en.js" />
+    <Content Include="Scripts\i18n\angular-locale_eo-001.js" />
+    <Content Include="Scripts\i18n\angular-locale_eo.js" />
+    <Content Include="Scripts\i18n\angular-locale_eu-es.js" />
+    <Content Include="Scripts\i18n\angular-locale_eu.js" />
+    <Content Include="Scripts\i18n\angular-locale_ewo-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_ewo.js" />
+    <Content Include="Scripts\i18n\angular-locale_fa-ir.js" />
+    <Content Include="Scripts\i18n\angular-locale_fa.js" />
+    <Content Include="Scripts\i18n\angular-locale_ff-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_ff-gn.js" />
+    <Content Include="Scripts\i18n\angular-locale_ff-sn.js" />
+    <Content Include="Scripts\i18n\angular-locale_ff.js" />
+    <Content Include="Scripts\i18n\angular-locale_fi-fi.js" />
+    <Content Include="Scripts\i18n\angular-locale_fi.js" />
+    <Content Include="Scripts\i18n\angular-locale_fil-ph.js" />
+    <Content Include="Scripts\i18n\angular-locale_fil.js" />
+    <Content Include="Scripts\i18n\angular-locale_fr-ca.js" />
+    <Content Include="Scripts\i18n\angular-locale_fur-it.js" />
+    <Content Include="Scripts\i18n\angular-locale_fur.js" />
+    <Content Include="Scripts\i18n\angular-locale_ga-ie.js" />
+    <Content Include="Scripts\i18n\angular-locale_ga.js" />
+    <Content Include="Scripts\i18n\angular-locale_gd-gb.js" />
+    <Content Include="Scripts\i18n\angular-locale_gd.js" />
+    <Content Include="Scripts\i18n\angular-locale_gsw-ch.js" />
+    <Content Include="Scripts\i18n\angular-locale_gsw-fr.js" />
+    <Content Include="Scripts\i18n\angular-locale_gsw-li.js" />
+    <Content Include="Scripts\i18n\angular-locale_gsw.js" />
+    <Content Include="Scripts\i18n\angular-locale_haw-us.js" />
+    <Content Include="Scripts\i18n\angular-locale_haw.js" />
+    <Content Include="Scripts\i18n\angular-locale_he-il.js" />
+    <Content Include="Scripts\i18n\angular-locale_he.js" />
+    <Content Include="Scripts\i18n\angular-locale_hi-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_hi.js" />
+    <Content Include="Scripts\i18n\angular-locale_hsb-de.js" />
+    <Content Include="Scripts\i18n\angular-locale_hsb.js" />
+    <Content Include="Scripts\i18n\angular-locale_hu-hu.js" />
+    <Content Include="Scripts\i18n\angular-locale_hu.js" />
+    <Content Include="Scripts\i18n\angular-locale_id-id.js" />
+    <Content Include="Scripts\i18n\angular-locale_id.js" />
+    <Content Include="Scripts\i18n\angular-locale_ig-ng.js" />
+    <Content Include="Scripts\i18n\angular-locale_ig.js" />
+    <Content Include="Scripts\i18n\angular-locale_in.js" />
+    <Content Include="Scripts\i18n\angular-locale_is-is.js" />
+    <Content Include="Scripts\i18n\angular-locale_is.js" />
+    <Content Include="Scripts\i18n\angular-locale_iw.js" />
+    <Content Include="Scripts\i18n\angular-locale_ja-jp.js" />
+    <Content Include="Scripts\i18n\angular-locale_ja.js" />
+    <Content Include="Scripts\i18n\angular-locale_kea-cv.js" />
+    <Content Include="Scripts\i18n\angular-locale_kea.js" />
+    <Content Include="Scripts\i18n\angular-locale_khq-ml.js" />
+    <Content Include="Scripts\i18n\angular-locale_khq.js" />
+    <Content Include="Scripts\i18n\angular-locale_kkj-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_kkj.js" />
+    <Content Include="Scripts\i18n\angular-locale_kok-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_kok.js" />
+    <Content Include="Scripts\i18n\angular-locale_ks.js" />
+    <Content Include="Scripts\i18n\angular-locale_ksf-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_ksf.js" />
+    <Content Include="Scripts\i18n\angular-locale_ksh-de.js" />
+    <Content Include="Scripts\i18n\angular-locale_ksh.js" />
+    <Content Include="Scripts\i18n\angular-locale_kw-gb.js" />
+    <Content Include="Scripts\i18n\angular-locale_kw.js" />
+    <Content Include="Scripts\i18n\angular-locale_lb-lu.js" />
+    <Content Include="Scripts\i18n\angular-locale_lb.js" />
+    <Content Include="Scripts\i18n\angular-locale_lkt-us.js" />
+    <Content Include="Scripts\i18n\angular-locale_lkt.js" />
+    <Content Include="Scripts\i18n\angular-locale_ln-ao.js" />
+    <Content Include="Scripts\i18n\angular-locale_ln-cd.js" />
+    <Content Include="Scripts\i18n\angular-locale_ln-cf.js" />
+    <Content Include="Scripts\i18n\angular-locale_ln-cg.js" />
+    <Content Include="Scripts\i18n\angular-locale_ln.js" />
+    <Content Include="Scripts\i18n\angular-locale_lo-la.js" />
+    <Content Include="Scripts\i18n\angular-locale_lo.js" />
+    <Content Include="Scripts\i18n\angular-locale_lt-lt.js" />
+    <Content Include="Scripts\i18n\angular-locale_lt.js" />
+    <Content Include="Scripts\i18n\angular-locale_lu-cd.js" />
+    <Content Include="Scripts\i18n\angular-locale_lu.js" />
+    <Content Include="Scripts\i18n\angular-locale_mfe-mu.js" />
+    <Content Include="Scripts\i18n\angular-locale_mfe.js" />
+    <Content Include="Scripts\i18n\angular-locale_mg-mg.js" />
+    <Content Include="Scripts\i18n\angular-locale_mg.js" />
+    <Content Include="Scripts\i18n\angular-locale_mgo-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_mgo.js" />
+    <Content Include="Scripts\i18n\angular-locale_mk-mk.js" />
+    <Content Include="Scripts\i18n\angular-locale_mk.js" />
+    <Content Include="Scripts\i18n\angular-locale_mr-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_mr.js" />
+    <Content Include="Scripts\i18n\angular-locale_ms.js" />
+    <Content Include="Scripts\i18n\angular-locale_mt-mt.js" />
+    <Content Include="Scripts\i18n\angular-locale_mt.js" />
+    <Content Include="Scripts\i18n\angular-locale_mua-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_mua.js" />
+    <Content Include="Scripts\i18n\angular-locale_my-mm.js" />
+    <Content Include="Scripts\i18n\angular-locale_my.js" />
+    <Content Include="Scripts\i18n\angular-locale_naq-na.js" />
+    <Content Include="Scripts\i18n\angular-locale_naq.js" />
+    <Content Include="Scripts\i18n\angular-locale_nd-zw.js" />
+    <Content Include="Scripts\i18n\angular-locale_nd.js" />
+    <Content Include="Scripts\i18n\angular-locale_ne-np.js" />
+    <Content Include="Scripts\i18n\angular-locale_ne.js" />
+    <Content Include="Scripts\i18n\angular-locale_nmg-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_nmg.js" />
+    <Content Include="Scripts\i18n\angular-locale_om-et.js" />
+    <Content Include="Scripts\i18n\angular-locale_om.js" />
+    <Content Include="Scripts\i18n\angular-locale_or-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_or.js" />
+    <Content Include="Scripts\i18n\angular-locale_pa-guru-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_pa-guru.js" />
+    <Content Include="Scripts\i18n\angular-locale_pa.js" />
+    <Content Include="Scripts\i18n\angular-locale_pl-pl.js" />
+    <Content Include="Scripts\i18n\angular-locale_pl.js" />
+    <Content Include="Scripts\i18n\angular-locale_ps-af.js" />
+    <Content Include="Scripts\i18n\angular-locale_ps.js" />
+    <Content Include="Scripts\i18n\angular-locale_rm-ch.js" />
+    <Content Include="Scripts\i18n\angular-locale_rm.js" />
+    <Content Include="Scripts\i18n\angular-locale_rn-bi.js" />
+    <Content Include="Scripts\i18n\angular-locale_rn.js" />
+    <Content Include="Scripts\i18n\angular-locale_rw-rw.js" />
+    <Content Include="Scripts\i18n\angular-locale_rw.js" />
+    <Content Include="Scripts\i18n\angular-locale_se-fi.js" />
+    <Content Include="Scripts\i18n\angular-locale_se-no.js" />
+    <Content Include="Scripts\i18n\angular-locale_se-se.js" />
+    <Content Include="Scripts\i18n\angular-locale_se.js" />
+    <Content Include="Scripts\i18n\angular-locale_seh-mz.js" />
+    <Content Include="Scripts\i18n\angular-locale_seh.js" />
+    <Content Include="Scripts\i18n\angular-locale_ses-ml.js" />
+    <Content Include="Scripts\i18n\angular-locale_ses.js" />
+    <Content Include="Scripts\i18n\angular-locale_sg-cf.js" />
+    <Content Include="Scripts\i18n\angular-locale_sg.js" />
+    <Content Include="Scripts\i18n\angular-locale_shi-latn-ma.js" />
+    <Content Include="Scripts\i18n\angular-locale_shi-latn.js" />
+    <Content Include="Scripts\i18n\angular-locale_shi-tfng-ma.js" />
+    <Content Include="Scripts\i18n\angular-locale_shi-tfng.js" />
+    <Content Include="Scripts\i18n\angular-locale_shi.js" />
+    <Content Include="Scripts\i18n\angular-locale_smn-fi.js" />
+    <Content Include="Scripts\i18n\angular-locale_smn.js" />
+    <Content Include="Scripts\i18n\angular-locale_sn-zw.js" />
+    <Content Include="Scripts\i18n\angular-locale_sn.js" />
+    <Content Include="Scripts\i18n\angular-locale_so-dj.js" />
+    <Content Include="Scripts\i18n\angular-locale_so-et.js" />
+    <Content Include="Scripts\i18n\angular-locale_so-so.js" />
+    <Content Include="Scripts\i18n\angular-locale_so.js" />
+    <Content Include="Scripts\i18n\angular-locale_sw-cd.js" />
+    <Content Include="Scripts\i18n\angular-locale_te-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_te.js" />
+    <Content Include="Scripts\i18n\angular-locale_th-th.js" />
+    <Content Include="Scripts\i18n\angular-locale_th.js" />
+    <Content Include="Scripts\i18n\angular-locale_ti-er.js" />
+    <Content Include="Scripts\i18n\angular-locale_ti-et.js" />
+    <Content Include="Scripts\i18n\angular-locale_ti.js" />
+    <Content Include="Scripts\i18n\angular-locale_tl.js" />
+    <Content Include="Scripts\i18n\angular-locale_to-to.js" />
+    <Content Include="Scripts\i18n\angular-locale_to.js" />
+    <Content Include="Scripts\i18n\angular-locale_twq-ne.js" />
+    <Content Include="Scripts\i18n\angular-locale_twq.js" />
+    <Content Include="Scripts\i18n\angular-locale_ur-in.js" />
+    <Content Include="Scripts\i18n\angular-locale_vai-latn-lr.js" />
+    <Content Include="Scripts\i18n\angular-locale_vai-latn.js" />
+    <Content Include="Scripts\i18n\angular-locale_vai-vaii-lr.js" />
+    <Content Include="Scripts\i18n\angular-locale_vai-vaii.js" />
+    <Content Include="Scripts\i18n\angular-locale_vai.js" />
+    <Content Include="Scripts\i18n\angular-locale_wae-ch.js" />
+    <Content Include="Scripts\i18n\angular-locale_wae.js" />
+    <Content Include="Scripts\i18n\angular-locale_yav-cm.js" />
+    <Content Include="Scripts\i18n\angular-locale_yav.js" />
+    <Content Include="Scripts\i18n\angular-locale_yo-bj.js" />
+    <Content Include="Scripts\i18n\angular-locale_yo-ng.js" />
+    <Content Include="Scripts\i18n\angular-locale_yo.js" />
+    <Content Include="Scripts\i18n\angular-locale_zgh-ma.js" />
+    <Content Include="Scripts\i18n\angular-locale_zgh.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-cn.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hans-cn.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hans-hk.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hans-mo.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hans-sg.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hans.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hant-hk.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hant-mo.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hant-tw.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hant.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-hk.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh-tw.js" />
+    <Content Include="Scripts\i18n\angular-locale_zh.js" />
+    <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
+    <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <EmbeddedResource Include="Misc Files\images\exit.png" />
     <EmbeddedResource Include="Misc Files\images\refresh.png" />
     <EmbeddedResource Include="Misc Files\images\AddExperiment.png" />
@@ -1313,7 +1050,6 @@
     <Content Include="Scripts\angular-aria.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
-    <Content Include="Scripts\angular-csp.css" />
     <Content Include="Scripts\angular-loader.js" />
     <Content Include="Scripts\angular-loader.min.js" />
     <Content Include="Scripts\angular-message-format.js" />
@@ -1334,50 +1070,16 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
-    <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
-    <Content Include="Scripts\i18n\angular-locale_aa-et.js" />
-    <Content Include="Scripts\i18n\angular-locale_aa.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
     <Content Include="Scripts\i18n\angular-locale_af.js" />
-    <Content Include="Scripts\i18n\angular-locale_agq-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_agq.js" />
     <Content Include="Scripts\i18n\angular-locale_ak-gh.js" />
     <Content Include="Scripts\i18n\angular-locale_ak.js" />
     <Content Include="Scripts\i18n\angular-locale_am-et.js" />
     <Content Include="Scripts\i18n\angular-locale_am.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-001.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-ae.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-bh.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-dj.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-dz.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-eg.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-eh.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-er.js" />
     <Content Include="Scripts\i18n\angular-locale_ar-il.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-iq.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-jo.js" />
     <Content Include="Scripts\i18n\angular-locale_ar-km.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-kw.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-lb.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-ly.js" />
     <Content Include="Scripts\i18n\angular-locale_ar-ma.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-mr.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-om.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-ps.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-qa.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-sa.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-sd.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-so.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-ss.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-sy.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-td.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-tn.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar-ye.js" />
-    <Content Include="Scripts\i18n\angular-locale_ar.js" />
-    <Content Include="Scripts\i18n\angular-locale_as-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_as.js" />
     <Content Include="Scripts\i18n\angular-locale_asa-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_asa.js" />
     <Content Include="Scripts\i18n\angular-locale_ast-es.js" />
@@ -1387,47 +1089,20 @@
     <Content Include="Scripts\i18n\angular-locale_az-latn-az.js" />
     <Content Include="Scripts\i18n\angular-locale_az-latn.js" />
     <Content Include="Scripts\i18n\angular-locale_az.js" />
-    <Content Include="Scripts\i18n\angular-locale_bas-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_bas.js" />
     <Content Include="Scripts\i18n\angular-locale_be-by.js" />
     <Content Include="Scripts\i18n\angular-locale_be.js" />
-    <Content Include="Scripts\i18n\angular-locale_bem-zm.js" />
-    <Content Include="Scripts\i18n\angular-locale_bem.js" />
     <Content Include="Scripts\i18n\angular-locale_bez-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_bez.js" />
     <Content Include="Scripts\i18n\angular-locale_bg-bg.js" />
     <Content Include="Scripts\i18n\angular-locale_bg.js" />
-    <Content Include="Scripts\i18n\angular-locale_bm-latn-ml.js" />
-    <Content Include="Scripts\i18n\angular-locale_bm-latn.js" />
     <Content Include="Scripts\i18n\angular-locale_bm-ml.js" />
-    <Content Include="Scripts\i18n\angular-locale_bm.js" />
-    <Content Include="Scripts\i18n\angular-locale_bn-bd.js" />
-    <Content Include="Scripts\i18n\angular-locale_bn-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_bn.js" />
     <Content Include="Scripts\i18n\angular-locale_bo-cn.js" />
     <Content Include="Scripts\i18n\angular-locale_bo-in.js" />
     <Content Include="Scripts\i18n\angular-locale_bo.js" />
     <Content Include="Scripts\i18n\angular-locale_br-fr.js" />
     <Content Include="Scripts\i18n\angular-locale_br.js" />
-    <Content Include="Scripts\i18n\angular-locale_brx-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_brx.js" />
-    <Content Include="Scripts\i18n\angular-locale_bs-cyrl-ba.js" />
-    <Content Include="Scripts\i18n\angular-locale_bs-cyrl.js" />
-    <Content Include="Scripts\i18n\angular-locale_bs-latn-ba.js" />
-    <Content Include="Scripts\i18n\angular-locale_bs-latn.js" />
-    <Content Include="Scripts\i18n\angular-locale_bs.js" />
-    <Content Include="Scripts\i18n\angular-locale_byn-er.js" />
-    <Content Include="Scripts\i18n\angular-locale_byn.js" />
-    <Content Include="Scripts\i18n\angular-locale_ca-ad.js" />
-    <Content Include="Scripts\i18n\angular-locale_ca-es-valencia.js" />
-    <Content Include="Scripts\i18n\angular-locale_ca-es.js" />
-    <Content Include="Scripts\i18n\angular-locale_ca-fr.js" />
-    <Content Include="Scripts\i18n\angular-locale_ca-it.js" />
-    <Content Include="Scripts\i18n\angular-locale_ca.js" />
     <Content Include="Scripts\i18n\angular-locale_cgg-ug.js" />
     <Content Include="Scripts\i18n\angular-locale_cgg.js" />
-    <Content Include="Scripts\i18n\angular-locale_chr-us.js" />
-    <Content Include="Scripts\i18n\angular-locale_chr.js" />
     <Content Include="Scripts\i18n\angular-locale_ckb-arab-iq.js" />
     <Content Include="Scripts\i18n\angular-locale_ckb-arab-ir.js" />
     <Content Include="Scripts\i18n\angular-locale_ckb-arab.js" />
@@ -1446,127 +1121,43 @@
     <Content Include="Scripts\i18n\angular-locale_dav-ke.js" />
     <Content Include="Scripts\i18n\angular-locale_dav.js" />
     <Content Include="Scripts\i18n\angular-locale_de-at.js" />
-    <Content Include="Scripts\i18n\angular-locale_de-be.js" />
-    <Content Include="Scripts\i18n\angular-locale_de-ch.js" />
-    <Content Include="Scripts\i18n\angular-locale_de-de.js" />
-    <Content Include="Scripts\i18n\angular-locale_de-li.js" />
-    <Content Include="Scripts\i18n\angular-locale_de-lu.js" />
-    <Content Include="Scripts\i18n\angular-locale_de.js" />
-    <Content Include="Scripts\i18n\angular-locale_dje-ne.js" />
-    <Content Include="Scripts\i18n\angular-locale_dje.js" />
-    <Content Include="Scripts\i18n\angular-locale_dsb-de.js" />
-    <Content Include="Scripts\i18n\angular-locale_dsb.js" />
-    <Content Include="Scripts\i18n\angular-locale_dua-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_dua.js" />
-    <Content Include="Scripts\i18n\angular-locale_dyo-sn.js" />
-    <Content Include="Scripts\i18n\angular-locale_dyo.js" />
-    <Content Include="Scripts\i18n\angular-locale_dz-bt.js" />
-    <Content Include="Scripts\i18n\angular-locale_dz.js" />
     <Content Include="Scripts\i18n\angular-locale_ebu-ke.js" />
     <Content Include="Scripts\i18n\angular-locale_ebu.js" />
-    <Content Include="Scripts\i18n\angular-locale_ee-gh.js" />
     <Content Include="Scripts\i18n\angular-locale_ee-tg.js" />
-    <Content Include="Scripts\i18n\angular-locale_ee.js" />
-    <Content Include="Scripts\i18n\angular-locale_el-cy.js" />
-    <Content Include="Scripts\i18n\angular-locale_el-gr.js" />
-    <Content Include="Scripts\i18n\angular-locale_el.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-001.js" />
     <Content Include="Scripts\i18n\angular-locale_en-150.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-ag.js" />
     <Content Include="Scripts\i18n\angular-locale_en-ai.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-as.js" />
     <Content Include="Scripts\i18n\angular-locale_en-au.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-bb.js" />
     <Content Include="Scripts\i18n\angular-locale_en-be.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-bm.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-bs.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-bw.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-bz.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-ca.js" />
     <Content Include="Scripts\i18n\angular-locale_en-cc.js" />
     <Content Include="Scripts\i18n\angular-locale_en-ck.js" />
     <Content Include="Scripts\i18n\angular-locale_en-cm.js" />
     <Content Include="Scripts\i18n\angular-locale_en-cx.js" />
     <Content Include="Scripts\i18n\angular-locale_en-dg.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-dm.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-er.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-fj.js" />
     <Content Include="Scripts\i18n\angular-locale_en-fk.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-fm.js" />
     <Content Include="Scripts\i18n\angular-locale_en-gb.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-gd.js" />
     <Content Include="Scripts\i18n\angular-locale_en-gg.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-gh.js" />
     <Content Include="Scripts\i18n\angular-locale_en-gi.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-gm.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-gu.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-gy.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-hk.js" />
     <Content Include="Scripts\i18n\angular-locale_en-ie.js" />
     <Content Include="Scripts\i18n\angular-locale_en-im.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-in.js" />
     <Content Include="Scripts\i18n\angular-locale_en-io.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-iso.js" />
     <Content Include="Scripts\i18n\angular-locale_en-je.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-jm.js" />
     <Content Include="Scripts\i18n\angular-locale_en-ke.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-ki.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-kn.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-ky.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-lc.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-lr.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-ls.js" />
     <Content Include="Scripts\i18n\angular-locale_en-mg.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-mh.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-mo.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-mp.js" />
     <Content Include="Scripts\i18n\angular-locale_en-ms.js" />
     <Content Include="Scripts\i18n\angular-locale_en-mt.js" />
     <Content Include="Scripts\i18n\angular-locale_en-mu.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-mw.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-my.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-na.js" />
     <Content Include="Scripts\i18n\angular-locale_en-nf.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-ng.js" />
     <Content Include="Scripts\i18n\angular-locale_en-nr.js" />
     <Content Include="Scripts\i18n\angular-locale_en-nu.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-nz.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-pg.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-ph.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-pk.js" />
     <Content Include="Scripts\i18n\angular-locale_en-pn.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-pr.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-pw.js" />
     <Content Include="Scripts\i18n\angular-locale_en-rw.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-sb.js" />
     <Content Include="Scripts\i18n\angular-locale_en-sc.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-sd.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-sg.js" />
     <Content Include="Scripts\i18n\angular-locale_en-sh.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-sl.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-ss.js" />
     <Content Include="Scripts\i18n\angular-locale_en-sx.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-sz.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-tc.js" />
     <Content Include="Scripts\i18n\angular-locale_en-tk.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-to.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-tt.js" />
     <Content Include="Scripts\i18n\angular-locale_en-tv.js" />
     <Content Include="Scripts\i18n\angular-locale_en-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_en-ug.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-um.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-us.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-vc.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-vg.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-vi.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-vu.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-ws.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-zm.js" />
-    <Content Include="Scripts\i18n\angular-locale_en-zw.js" />
-    <Content Include="Scripts\i18n\angular-locale_en.js" />
-    <Content Include="Scripts\i18n\angular-locale_eo-001.js" />
-    <Content Include="Scripts\i18n\angular-locale_eo.js" />
     <Content Include="Scripts\i18n\angular-locale_es-419.js" />
     <Content Include="Scripts\i18n\angular-locale_es-ar.js" />
     <Content Include="Scripts\i18n\angular-locale_es-bo.js" />
@@ -1596,22 +1187,8 @@
     <Content Include="Scripts\i18n\angular-locale_es.js" />
     <Content Include="Scripts\i18n\angular-locale_et-ee.js" />
     <Content Include="Scripts\i18n\angular-locale_et.js" />
-    <Content Include="Scripts\i18n\angular-locale_eu-es.js" />
-    <Content Include="Scripts\i18n\angular-locale_eu.js" />
-    <Content Include="Scripts\i18n\angular-locale_ewo-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_ewo.js" />
     <Content Include="Scripts\i18n\angular-locale_fa-af.js" />
-    <Content Include="Scripts\i18n\angular-locale_fa-ir.js" />
-    <Content Include="Scripts\i18n\angular-locale_fa.js" />
-    <Content Include="Scripts\i18n\angular-locale_ff-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_ff-gn.js" />
     <Content Include="Scripts\i18n\angular-locale_ff-mr.js" />
-    <Content Include="Scripts\i18n\angular-locale_ff-sn.js" />
-    <Content Include="Scripts\i18n\angular-locale_ff.js" />
-    <Content Include="Scripts\i18n\angular-locale_fi-fi.js" />
-    <Content Include="Scripts\i18n\angular-locale_fi.js" />
-    <Content Include="Scripts\i18n\angular-locale_fil-ph.js" />
-    <Content Include="Scripts\i18n\angular-locale_fil.js" />
     <Content Include="Scripts\i18n\angular-locale_fo-fo.js" />
     <Content Include="Scripts\i18n\angular-locale_fo.js" />
     <Content Include="Scripts\i18n\angular-locale_fr-be.js" />
@@ -1619,7 +1196,6 @@
     <Content Include="Scripts\i18n\angular-locale_fr-bi.js" />
     <Content Include="Scripts\i18n\angular-locale_fr-bj.js" />
     <Content Include="Scripts\i18n\angular-locale_fr-bl.js" />
-    <Content Include="Scripts\i18n\angular-locale_fr-ca.js" />
     <Content Include="Scripts\i18n\angular-locale_fr-cd.js" />
     <Content Include="Scripts\i18n\angular-locale_fr-cf.js" />
     <Content Include="Scripts\i18n\angular-locale_fr-cg.js" />
@@ -1661,64 +1237,28 @@
     <Content Include="Scripts\i18n\angular-locale_fr-wf.js" />
     <Content Include="Scripts\i18n\angular-locale_fr-yt.js" />
     <Content Include="Scripts\i18n\angular-locale_fr.js" />
-    <Content Include="Scripts\i18n\angular-locale_fur-it.js" />
-    <Content Include="Scripts\i18n\angular-locale_fur.js" />
     <Content Include="Scripts\i18n\angular-locale_fy-nl.js" />
     <Content Include="Scripts\i18n\angular-locale_fy.js" />
-    <Content Include="Scripts\i18n\angular-locale_ga-ie.js" />
-    <Content Include="Scripts\i18n\angular-locale_ga.js" />
-    <Content Include="Scripts\i18n\angular-locale_gd-gb.js" />
-    <Content Include="Scripts\i18n\angular-locale_gd.js" />
     <Content Include="Scripts\i18n\angular-locale_gl-es.js" />
     <Content Include="Scripts\i18n\angular-locale_gl.js" />
-    <Content Include="Scripts\i18n\angular-locale_gsw-ch.js" />
-    <Content Include="Scripts\i18n\angular-locale_gsw-fr.js" />
-    <Content Include="Scripts\i18n\angular-locale_gsw-li.js" />
-    <Content Include="Scripts\i18n\angular-locale_gsw.js" />
     <Content Include="Scripts\i18n\angular-locale_gu-in.js" />
     <Content Include="Scripts\i18n\angular-locale_gu.js" />
     <Content Include="Scripts\i18n\angular-locale_guz-ke.js" />
     <Content Include="Scripts\i18n\angular-locale_guz.js" />
     <Content Include="Scripts\i18n\angular-locale_gv-im.js" />
     <Content Include="Scripts\i18n\angular-locale_gv.js" />
-    <Content Include="Scripts\i18n\angular-locale_ha-latn-gh.js" />
-    <Content Include="Scripts\i18n\angular-locale_ha-latn-ne.js" />
-    <Content Include="Scripts\i18n\angular-locale_ha-latn-ng.js" />
-    <Content Include="Scripts\i18n\angular-locale_ha-latn.js" />
     <Content Include="Scripts\i18n\angular-locale_ha.js" />
-    <Content Include="Scripts\i18n\angular-locale_haw-us.js" />
-    <Content Include="Scripts\i18n\angular-locale_haw.js" />
-    <Content Include="Scripts\i18n\angular-locale_he-il.js" />
-    <Content Include="Scripts\i18n\angular-locale_he.js" />
-    <Content Include="Scripts\i18n\angular-locale_hi-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_hi.js" />
     <Content Include="Scripts\i18n\angular-locale_hr-ba.js" />
     <Content Include="Scripts\i18n\angular-locale_hr-hr.js" />
     <Content Include="Scripts\i18n\angular-locale_hr.js" />
-    <Content Include="Scripts\i18n\angular-locale_hsb-de.js" />
-    <Content Include="Scripts\i18n\angular-locale_hsb.js" />
-    <Content Include="Scripts\i18n\angular-locale_hu-hu.js" />
-    <Content Include="Scripts\i18n\angular-locale_hu.js" />
     <Content Include="Scripts\i18n\angular-locale_hy-am.js" />
     <Content Include="Scripts\i18n\angular-locale_hy.js" />
-    <Content Include="Scripts\i18n\angular-locale_ia-fr.js" />
-    <Content Include="Scripts\i18n\angular-locale_ia.js" />
-    <Content Include="Scripts\i18n\angular-locale_id-id.js" />
-    <Content Include="Scripts\i18n\angular-locale_id.js" />
-    <Content Include="Scripts\i18n\angular-locale_ig-ng.js" />
-    <Content Include="Scripts\i18n\angular-locale_ig.js" />
     <Content Include="Scripts\i18n\angular-locale_ii-cn.js" />
     <Content Include="Scripts\i18n\angular-locale_ii.js" />
-    <Content Include="Scripts\i18n\angular-locale_in.js" />
-    <Content Include="Scripts\i18n\angular-locale_is-is.js" />
-    <Content Include="Scripts\i18n\angular-locale_is.js" />
     <Content Include="Scripts\i18n\angular-locale_it-ch.js" />
     <Content Include="Scripts\i18n\angular-locale_it-it.js" />
     <Content Include="Scripts\i18n\angular-locale_it-sm.js" />
     <Content Include="Scripts\i18n\angular-locale_it.js" />
-    <Content Include="Scripts\i18n\angular-locale_iw.js" />
-    <Content Include="Scripts\i18n\angular-locale_ja-jp.js" />
-    <Content Include="Scripts\i18n\angular-locale_ja.js" />
     <Content Include="Scripts\i18n\angular-locale_jgo-cm.js" />
     <Content Include="Scripts\i18n\angular-locale_jgo.js" />
     <Content Include="Scripts\i18n\angular-locale_jmc-tz.js" />
@@ -1731,17 +1271,9 @@
     <Content Include="Scripts\i18n\angular-locale_kam.js" />
     <Content Include="Scripts\i18n\angular-locale_kde-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_kde.js" />
-    <Content Include="Scripts\i18n\angular-locale_kea-cv.js" />
-    <Content Include="Scripts\i18n\angular-locale_kea.js" />
-    <Content Include="Scripts\i18n\angular-locale_khq-ml.js" />
-    <Content Include="Scripts\i18n\angular-locale_khq.js" />
     <Content Include="Scripts\i18n\angular-locale_ki-ke.js" />
     <Content Include="Scripts\i18n\angular-locale_ki.js" />
-    <Content Include="Scripts\i18n\angular-locale_kk-cyrl-kz.js" />
-    <Content Include="Scripts\i18n\angular-locale_kk-cyrl.js" />
     <Content Include="Scripts\i18n\angular-locale_kk.js" />
-    <Content Include="Scripts\i18n\angular-locale_kkj-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_kkj.js" />
     <Content Include="Scripts\i18n\angular-locale_kl-gl.js" />
     <Content Include="Scripts\i18n\angular-locale_kl.js" />
     <Content Include="Scripts\i18n\angular-locale_kln-ke.js" />
@@ -1753,41 +1285,13 @@
     <Content Include="Scripts\i18n\angular-locale_ko-kp.js" />
     <Content Include="Scripts\i18n\angular-locale_ko-kr.js" />
     <Content Include="Scripts\i18n\angular-locale_ko.js" />
-    <Content Include="Scripts\i18n\angular-locale_kok-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_kok.js" />
-    <Content Include="Scripts\i18n\angular-locale_ks-arab-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_ks-arab.js" />
-    <Content Include="Scripts\i18n\angular-locale_ks.js" />
     <Content Include="Scripts\i18n\angular-locale_ksb-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_ksb.js" />
-    <Content Include="Scripts\i18n\angular-locale_ksf-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_ksf.js" />
-    <Content Include="Scripts\i18n\angular-locale_ksh-de.js" />
-    <Content Include="Scripts\i18n\angular-locale_ksh.js" />
-    <Content Include="Scripts\i18n\angular-locale_kw-gb.js" />
-    <Content Include="Scripts\i18n\angular-locale_kw.js" />
-    <Content Include="Scripts\i18n\angular-locale_ky-cyrl-kg.js" />
-    <Content Include="Scripts\i18n\angular-locale_ky-cyrl.js" />
     <Content Include="Scripts\i18n\angular-locale_ky.js" />
     <Content Include="Scripts\i18n\angular-locale_lag-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_lag.js" />
-    <Content Include="Scripts\i18n\angular-locale_lb-lu.js" />
-    <Content Include="Scripts\i18n\angular-locale_lb.js" />
     <Content Include="Scripts\i18n\angular-locale_lg-ug.js" />
     <Content Include="Scripts\i18n\angular-locale_lg.js" />
-    <Content Include="Scripts\i18n\angular-locale_lkt-us.js" />
-    <Content Include="Scripts\i18n\angular-locale_lkt.js" />
-    <Content Include="Scripts\i18n\angular-locale_ln-ao.js" />
-    <Content Include="Scripts\i18n\angular-locale_ln-cd.js" />
-    <Content Include="Scripts\i18n\angular-locale_ln-cf.js" />
-    <Content Include="Scripts\i18n\angular-locale_ln-cg.js" />
-    <Content Include="Scripts\i18n\angular-locale_ln.js" />
-    <Content Include="Scripts\i18n\angular-locale_lo-la.js" />
-    <Content Include="Scripts\i18n\angular-locale_lo.js" />
-    <Content Include="Scripts\i18n\angular-locale_lt-lt.js" />
-    <Content Include="Scripts\i18n\angular-locale_lt.js" />
-    <Content Include="Scripts\i18n\angular-locale_lu-cd.js" />
-    <Content Include="Scripts\i18n\angular-locale_lu.js" />
     <Content Include="Scripts\i18n\angular-locale_luo-ke.js" />
     <Content Include="Scripts\i18n\angular-locale_luo.js" />
     <Content Include="Scripts\i18n\angular-locale_luy-ke.js" />
@@ -1799,44 +1303,15 @@
     <Content Include="Scripts\i18n\angular-locale_mas.js" />
     <Content Include="Scripts\i18n\angular-locale_mer-ke.js" />
     <Content Include="Scripts\i18n\angular-locale_mer.js" />
-    <Content Include="Scripts\i18n\angular-locale_mfe-mu.js" />
-    <Content Include="Scripts\i18n\angular-locale_mfe.js" />
-    <Content Include="Scripts\i18n\angular-locale_mg-mg.js" />
-    <Content Include="Scripts\i18n\angular-locale_mg.js" />
     <Content Include="Scripts\i18n\angular-locale_mgh-mz.js" />
     <Content Include="Scripts\i18n\angular-locale_mgh.js" />
-    <Content Include="Scripts\i18n\angular-locale_mgo-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_mgo.js" />
-    <Content Include="Scripts\i18n\angular-locale_mk-mk.js" />
-    <Content Include="Scripts\i18n\angular-locale_mk.js" />
     <Content Include="Scripts\i18n\angular-locale_ml-in.js" />
     <Content Include="Scripts\i18n\angular-locale_ml.js" />
-    <Content Include="Scripts\i18n\angular-locale_mn-cyrl-mn.js" />
-    <Content Include="Scripts\i18n\angular-locale_mn-cyrl.js" />
     <Content Include="Scripts\i18n\angular-locale_mn.js" />
-    <Content Include="Scripts\i18n\angular-locale_mr-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_mr.js" />
-    <Content Include="Scripts\i18n\angular-locale_ms-latn-bn.js" />
-    <Content Include="Scripts\i18n\angular-locale_ms-latn-my.js" />
-    <Content Include="Scripts\i18n\angular-locale_ms-latn-sg.js" />
-    <Content Include="Scripts\i18n\angular-locale_ms-latn.js" />
-    <Content Include="Scripts\i18n\angular-locale_ms.js" />
-    <Content Include="Scripts\i18n\angular-locale_mt-mt.js" />
-    <Content Include="Scripts\i18n\angular-locale_mt.js" />
-    <Content Include="Scripts\i18n\angular-locale_mua-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_mua.js" />
-    <Content Include="Scripts\i18n\angular-locale_my-mm.js" />
-    <Content Include="Scripts\i18n\angular-locale_my.js" />
-    <Content Include="Scripts\i18n\angular-locale_naq-na.js" />
-    <Content Include="Scripts\i18n\angular-locale_naq.js" />
     <Content Include="Scripts\i18n\angular-locale_nb-no.js" />
     <Content Include="Scripts\i18n\angular-locale_nb-sj.js" />
     <Content Include="Scripts\i18n\angular-locale_nb.js" />
-    <Content Include="Scripts\i18n\angular-locale_nd-zw.js" />
-    <Content Include="Scripts\i18n\angular-locale_nd.js" />
     <Content Include="Scripts\i18n\angular-locale_ne-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_ne-np.js" />
-    <Content Include="Scripts\i18n\angular-locale_ne.js" />
     <Content Include="Scripts\i18n\angular-locale_nl-aw.js" />
     <Content Include="Scripts\i18n\angular-locale_nl-be.js" />
     <Content Include="Scripts\i18n\angular-locale_nl-bq.js" />
@@ -1845,39 +1320,21 @@
     <Content Include="Scripts\i18n\angular-locale_nl-sr.js" />
     <Content Include="Scripts\i18n\angular-locale_nl-sx.js" />
     <Content Include="Scripts\i18n\angular-locale_nl.js" />
-    <Content Include="Scripts\i18n\angular-locale_nmg-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_nmg.js" />
     <Content Include="Scripts\i18n\angular-locale_nn-no.js" />
     <Content Include="Scripts\i18n\angular-locale_nn.js" />
     <Content Include="Scripts\i18n\angular-locale_nnh-cm.js" />
     <Content Include="Scripts\i18n\angular-locale_nnh.js" />
     <Content Include="Scripts\i18n\angular-locale_no-no.js" />
     <Content Include="Scripts\i18n\angular-locale_no.js" />
-    <Content Include="Scripts\i18n\angular-locale_nr-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_nr.js" />
-    <Content Include="Scripts\i18n\angular-locale_nso-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_nso.js" />
-    <Content Include="Scripts\i18n\angular-locale_nus-sd.js" />
     <Content Include="Scripts\i18n\angular-locale_nus.js" />
     <Content Include="Scripts\i18n\angular-locale_nyn-ug.js" />
     <Content Include="Scripts\i18n\angular-locale_nyn.js" />
-    <Content Include="Scripts\i18n\angular-locale_om-et.js" />
     <Content Include="Scripts\i18n\angular-locale_om-ke.js" />
-    <Content Include="Scripts\i18n\angular-locale_om.js" />
-    <Content Include="Scripts\i18n\angular-locale_or-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_or.js" />
     <Content Include="Scripts\i18n\angular-locale_os-ge.js" />
     <Content Include="Scripts\i18n\angular-locale_os-ru.js" />
     <Content Include="Scripts\i18n\angular-locale_os.js" />
     <Content Include="Scripts\i18n\angular-locale_pa-arab-pk.js" />
     <Content Include="Scripts\i18n\angular-locale_pa-arab.js" />
-    <Content Include="Scripts\i18n\angular-locale_pa-guru-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_pa-guru.js" />
-    <Content Include="Scripts\i18n\angular-locale_pa.js" />
-    <Content Include="Scripts\i18n\angular-locale_pl-pl.js" />
-    <Content Include="Scripts\i18n\angular-locale_pl.js" />
-    <Content Include="Scripts\i18n\angular-locale_ps-af.js" />
-    <Content Include="Scripts\i18n\angular-locale_ps.js" />
     <Content Include="Scripts\i18n\angular-locale_pt-ao.js" />
     <Content Include="Scripts\i18n\angular-locale_pt-br.js" />
     <Content Include="Scripts\i18n\angular-locale_pt-cv.js" />
@@ -1892,10 +1349,6 @@
     <Content Include="Scripts\i18n\angular-locale_qu-ec.js" />
     <Content Include="Scripts\i18n\angular-locale_qu-pe.js" />
     <Content Include="Scripts\i18n\angular-locale_qu.js" />
-    <Content Include="Scripts\i18n\angular-locale_rm-ch.js" />
-    <Content Include="Scripts\i18n\angular-locale_rm.js" />
-    <Content Include="Scripts\i18n\angular-locale_rn-bi.js" />
-    <Content Include="Scripts\i18n\angular-locale_rn.js" />
     <Content Include="Scripts\i18n\angular-locale_ro-md.js" />
     <Content Include="Scripts\i18n\angular-locale_ro-ro.js" />
     <Content Include="Scripts\i18n\angular-locale_ro.js" />
@@ -1908,8 +1361,6 @@
     <Content Include="Scripts\i18n\angular-locale_ru-ru.js" />
     <Content Include="Scripts\i18n\angular-locale_ru-ua.js" />
     <Content Include="Scripts\i18n\angular-locale_ru.js" />
-    <Content Include="Scripts\i18n\angular-locale_rw-rw.js" />
-    <Content Include="Scripts\i18n\angular-locale_rw.js" />
     <Content Include="Scripts\i18n\angular-locale_rwk-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_rwk.js" />
     <Content Include="Scripts\i18n\angular-locale_sah-ru.js" />
@@ -1918,36 +1369,13 @@
     <Content Include="Scripts\i18n\angular-locale_saq.js" />
     <Content Include="Scripts\i18n\angular-locale_sbp-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_sbp.js" />
-    <Content Include="Scripts\i18n\angular-locale_se-fi.js" />
-    <Content Include="Scripts\i18n\angular-locale_se-no.js" />
-    <Content Include="Scripts\i18n\angular-locale_se-se.js" />
-    <Content Include="Scripts\i18n\angular-locale_se.js" />
-    <Content Include="Scripts\i18n\angular-locale_seh-mz.js" />
-    <Content Include="Scripts\i18n\angular-locale_seh.js" />
-    <Content Include="Scripts\i18n\angular-locale_ses-ml.js" />
-    <Content Include="Scripts\i18n\angular-locale_ses.js" />
-    <Content Include="Scripts\i18n\angular-locale_sg-cf.js" />
-    <Content Include="Scripts\i18n\angular-locale_sg.js" />
-    <Content Include="Scripts\i18n\angular-locale_shi-latn-ma.js" />
-    <Content Include="Scripts\i18n\angular-locale_shi-latn.js" />
-    <Content Include="Scripts\i18n\angular-locale_shi-tfng-ma.js" />
-    <Content Include="Scripts\i18n\angular-locale_shi-tfng.js" />
-    <Content Include="Scripts\i18n\angular-locale_shi.js" />
     <Content Include="Scripts\i18n\angular-locale_si-lk.js" />
     <Content Include="Scripts\i18n\angular-locale_si.js" />
     <Content Include="Scripts\i18n\angular-locale_sk-sk.js" />
     <Content Include="Scripts\i18n\angular-locale_sk.js" />
     <Content Include="Scripts\i18n\angular-locale_sl-si.js" />
     <Content Include="Scripts\i18n\angular-locale_sl.js" />
-    <Content Include="Scripts\i18n\angular-locale_smn-fi.js" />
-    <Content Include="Scripts\i18n\angular-locale_smn.js" />
-    <Content Include="Scripts\i18n\angular-locale_sn-zw.js" />
-    <Content Include="Scripts\i18n\angular-locale_sn.js" />
-    <Content Include="Scripts\i18n\angular-locale_so-dj.js" />
-    <Content Include="Scripts\i18n\angular-locale_so-et.js" />
     <Content Include="Scripts\i18n\angular-locale_so-ke.js" />
-    <Content Include="Scripts\i18n\angular-locale_so-so.js" />
-    <Content Include="Scripts\i18n\angular-locale_so.js" />
     <Content Include="Scripts\i18n\angular-locale_sq-al.js" />
     <Content Include="Scripts\i18n\angular-locale_sq-mk.js" />
     <Content Include="Scripts\i18n\angular-locale_sq-xk.js" />
@@ -1963,67 +1391,29 @@
     <Content Include="Scripts\i18n\angular-locale_sr-latn-xk.js" />
     <Content Include="Scripts\i18n\angular-locale_sr-latn.js" />
     <Content Include="Scripts\i18n\angular-locale_sr.js" />
-    <Content Include="Scripts\i18n\angular-locale_ss-sz.js" />
-    <Content Include="Scripts\i18n\angular-locale_ss-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_ss.js" />
-    <Content Include="Scripts\i18n\angular-locale_ssy-er.js" />
-    <Content Include="Scripts\i18n\angular-locale_ssy.js" />
-    <Content Include="Scripts\i18n\angular-locale_st-ls.js" />
-    <Content Include="Scripts\i18n\angular-locale_st-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_st.js" />
     <Content Include="Scripts\i18n\angular-locale_sv-ax.js" />
     <Content Include="Scripts\i18n\angular-locale_sv-fi.js" />
     <Content Include="Scripts\i18n\angular-locale_sv-se.js" />
     <Content Include="Scripts\i18n\angular-locale_sv.js" />
-    <Content Include="Scripts\i18n\angular-locale_sw-cd.js" />
     <Content Include="Scripts\i18n\angular-locale_sw-ke.js" />
     <Content Include="Scripts\i18n\angular-locale_sw-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_sw-ug.js" />
     <Content Include="Scripts\i18n\angular-locale_sw.js" />
-    <Content Include="Scripts\i18n\angular-locale_swc-cd.js" />
-    <Content Include="Scripts\i18n\angular-locale_swc.js" />
     <Content Include="Scripts\i18n\angular-locale_ta-in.js" />
     <Content Include="Scripts\i18n\angular-locale_ta-lk.js" />
     <Content Include="Scripts\i18n\angular-locale_ta-my.js" />
     <Content Include="Scripts\i18n\angular-locale_ta-sg.js" />
     <Content Include="Scripts\i18n\angular-locale_ta.js" />
-    <Content Include="Scripts\i18n\angular-locale_te-in.js" />
-    <Content Include="Scripts\i18n\angular-locale_te.js" />
     <Content Include="Scripts\i18n\angular-locale_teo-ke.js" />
     <Content Include="Scripts\i18n\angular-locale_teo-ug.js" />
     <Content Include="Scripts\i18n\angular-locale_teo.js" />
-    <Content Include="Scripts\i18n\angular-locale_tg-cyrl-tj.js" />
-    <Content Include="Scripts\i18n\angular-locale_tg-cyrl.js" />
-    <Content Include="Scripts\i18n\angular-locale_tg.js" />
-    <Content Include="Scripts\i18n\angular-locale_th-th.js" />
-    <Content Include="Scripts\i18n\angular-locale_th.js" />
-    <Content Include="Scripts\i18n\angular-locale_ti-er.js" />
-    <Content Include="Scripts\i18n\angular-locale_ti-et.js" />
-    <Content Include="Scripts\i18n\angular-locale_ti.js" />
-    <Content Include="Scripts\i18n\angular-locale_tig-er.js" />
-    <Content Include="Scripts\i18n\angular-locale_tig.js" />
-    <Content Include="Scripts\i18n\angular-locale_tl.js" />
-    <Content Include="Scripts\i18n\angular-locale_tn-bw.js" />
-    <Content Include="Scripts\i18n\angular-locale_tn-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_tn.js" />
-    <Content Include="Scripts\i18n\angular-locale_to-to.js" />
-    <Content Include="Scripts\i18n\angular-locale_to.js" />
     <Content Include="Scripts\i18n\angular-locale_tr-cy.js" />
     <Content Include="Scripts\i18n\angular-locale_tr-tr.js" />
     <Content Include="Scripts\i18n\angular-locale_tr.js" />
-    <Content Include="Scripts\i18n\angular-locale_ts-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_ts.js" />
-    <Content Include="Scripts\i18n\angular-locale_twq-ne.js" />
-    <Content Include="Scripts\i18n\angular-locale_twq.js" />
-    <Content Include="Scripts\i18n\angular-locale_tzm-latn-ma.js" />
-    <Content Include="Scripts\i18n\angular-locale_tzm-latn.js" />
     <Content Include="Scripts\i18n\angular-locale_tzm.js" />
-    <Content Include="Scripts\i18n\angular-locale_ug-arab-cn.js" />
-    <Content Include="Scripts\i18n\angular-locale_ug-arab.js" />
     <Content Include="Scripts\i18n\angular-locale_ug.js" />
     <Content Include="Scripts\i18n\angular-locale_uk-ua.js" />
     <Content Include="Scripts\i18n\angular-locale_uk.js" />
-    <Content Include="Scripts\i18n\angular-locale_ur-in.js" />
     <Content Include="Scripts\i18n\angular-locale_ur-pk.js" />
     <Content Include="Scripts\i18n\angular-locale_ur.js" />
     <Content Include="Scripts\i18n\angular-locale_uz-arab-af.js" />
@@ -2033,51 +1423,16 @@
     <Content Include="Scripts\i18n\angular-locale_uz-latn-uz.js" />
     <Content Include="Scripts\i18n\angular-locale_uz-latn.js" />
     <Content Include="Scripts\i18n\angular-locale_uz.js" />
-    <Content Include="Scripts\i18n\angular-locale_vai-latn-lr.js" />
-    <Content Include="Scripts\i18n\angular-locale_vai-latn.js" />
-    <Content Include="Scripts\i18n\angular-locale_vai-vaii-lr.js" />
-    <Content Include="Scripts\i18n\angular-locale_vai-vaii.js" />
-    <Content Include="Scripts\i18n\angular-locale_vai.js" />
-    <Content Include="Scripts\i18n\angular-locale_ve-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_ve.js" />
     <Content Include="Scripts\i18n\angular-locale_vi-vn.js" />
     <Content Include="Scripts\i18n\angular-locale_vi.js" />
     <Content Include="Scripts\i18n\angular-locale_vo-001.js" />
     <Content Include="Scripts\i18n\angular-locale_vo.js" />
     <Content Include="Scripts\i18n\angular-locale_vun-tz.js" />
     <Content Include="Scripts\i18n\angular-locale_vun.js" />
-    <Content Include="Scripts\i18n\angular-locale_wae-ch.js" />
-    <Content Include="Scripts\i18n\angular-locale_wae.js" />
-    <Content Include="Scripts\i18n\angular-locale_wal-et.js" />
-    <Content Include="Scripts\i18n\angular-locale_wal.js" />
-    <Content Include="Scripts\i18n\angular-locale_xh-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_xh.js" />
     <Content Include="Scripts\i18n\angular-locale_xog-ug.js" />
     <Content Include="Scripts\i18n\angular-locale_xog.js" />
-    <Content Include="Scripts\i18n\angular-locale_yav-cm.js" />
-    <Content Include="Scripts\i18n\angular-locale_yav.js" />
     <Content Include="Scripts\i18n\angular-locale_yi-001.js" />
     <Content Include="Scripts\i18n\angular-locale_yi.js" />
-    <Content Include="Scripts\i18n\angular-locale_yo-bj.js" />
-    <Content Include="Scripts\i18n\angular-locale_yo-ng.js" />
-    <Content Include="Scripts\i18n\angular-locale_yo.js" />
-    <Content Include="Scripts\i18n\angular-locale_zgh-ma.js" />
-    <Content Include="Scripts\i18n\angular-locale_zgh.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-cn.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hans-cn.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hans-hk.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hans-mo.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hans-sg.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hans.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hant-hk.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hant-mo.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hant-tw.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hant.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-hk.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh-tw.js" />
-    <Content Include="Scripts\i18n\angular-locale_zh.js" />
-    <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
-    <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <EmbeddedResource Include="Misc Files\images\addicon.png" />
     <EmbeddedResource Include="Misc Files\images\deleteicon.png" />
     <EmbeddedResource Include="Misc Files\images\editicon.png" />
@@ -2101,27 +1456,27 @@
     </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>(if exist "$(TargetDir)*old.pdb" del "$(TargetDir)*old.pdb") &amp; (if exist "$(TargetDir)*.pdb" ren "$(TargetDir)*.pdb" *.old.pdb)</PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\cef.redist.x64.3.2785.1486\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2785.1486\build\cef.redist.x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets'))" />
-    <Error Condition="!Exists('..\packages\cef.redist.x86.3.2623.1396\build\cef.redist.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.3.2623.1396\build\cef.redist.x86.targets'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.targets'))" />
-    <Error Condition="!Exists('..\packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x64.3.2785.1486\build\cef.redist.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.3.2785.1486\build\cef.redist.x64.targets'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.3.2785.1486\build\cef.redist.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.3.2785.1486\build\cef.redist.x86.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.53.0.1\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.53.0.1\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.53.0.1\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.53.0.1\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.53.0.1\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.53.0.1\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.53.0.1\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.53.0.1\build\CefSharp.WinForms.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\cef.sdk.3.2785.1486\build\cef.sdk.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.sdk.3.2785.1486\build\cef.sdk.props'))" />
   </Target>
-  <Import Project="..\packages\cef.redist.x86.3.2623.1396\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2623.1396\build\cef.redist.x86.targets')" />
-  <Import Project="..\packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.targets')" />
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
-  <PropertyGroup>
-    <PreBuildEvent>(if exist "$(TargetDir)*old.pdb" del "$(TargetDir)*old.pdb") &amp; (if exist "$(TargetDir)*.pdb" ren "$(TargetDir)*.pdb" *.old.pdb)</PreBuildEvent>
-  </PropertyGroup>
+  <Import Project="..\packages\cef.redist.x86.3.2785.1486\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2785.1486\build\cef.redist.x86.targets')" />
+  <Import Project="..\packages\CefSharp.Common.53.0.1\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.53.0.1\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.WinForms.53.0.1\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.53.0.1\build\CefSharp.WinForms.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

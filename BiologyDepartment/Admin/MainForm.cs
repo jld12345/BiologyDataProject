@@ -44,7 +44,7 @@ namespace BiologyDepartment
         #region Private Variables
         ctlLogIn _ctlLogin = new ctlLogIn();
         ctlAuthors _ctlAuthors = new ctlAuthors();
-        ctlApiCalls2 _ctlApiCalls = new ctlApiCalls2();
+        CtlApiCalls2 _ctlApiCalls = new CtlApiCalls2();
         ctlSetup _ctlSetup = new ctlSetup();
         private bool bAuthorControlDirty = true;
         private DataSet dsExperiments;
@@ -57,6 +57,8 @@ namespace BiologyDepartment
         private ToolStripDropDown dropDown;
         private ToolStripButton btnChangePassword;
         private ToolStripPanelItem dropDownPanel;
+
+        public CtlApiCalls2 CtlApiCalls { get => _ctlApiCalls; set => _ctlApiCalls = value; }
         #endregion
         #region Public Variables
         #endregion
@@ -72,7 +74,7 @@ namespace BiologyDepartment
         public MainForm()
         {
             InitializeComponent();
-            GlobalVariables.GlobalConnection = new dbBioConnection();
+            GlobalVariables.GlobalConnection = new DbBioConnection();
             using(LoginForm login = new LoginForm())
             {
                 login.ShowDialog();
@@ -132,9 +134,9 @@ namespace BiologyDepartment
                         _ctlAuthors.Dock = DockStyle.Fill;*/
                         break;
                     case "tpRScripts":
-                        tpRScripts.Controls.Add(_ctlApiCalls);
-                        _ctlApiCalls.Dock = DockStyle.Fill;
-                        _ctlApiCalls.Initialize();
+                        tpRScripts.Controls.Add(CtlApiCalls);
+                        CtlApiCalls.Dock = DockStyle.Fill;
+                        CtlApiCalls.Initialize();
                         break;
                     case "tpSetup":
                         tpSetup.Controls.Add(_ctlSetup);
@@ -145,7 +147,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (tabControlMain2.SelectedTab.Name)
             {
@@ -159,7 +161,7 @@ namespace BiologyDepartment
                     }
                     break;
                 case "tpRScripts":
-                    _ctlApiCalls.LoadGui();
+                    CtlApiCalls.LoadGui();
                     break;
                 case "tpSetup":
                     break;
@@ -187,19 +189,19 @@ namespace BiologyDepartment
             }
         }
 
-        private void tspExit_Click(object sender, EventArgs e)
+        private void TspExit_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnRefresh2_Click(object sender, EventArgs e)
+        private void BtnRefresh2_Click(object sender, EventArgs e)
         {
             GlobalVariables.Experiment = null;
             Initialize();
         }
 
 
-        private void btnAddDocs_Click(object sender, EventArgs e)
+        private void BtnAddDocs_Click(object sender, EventArgs e)
         {
             using(frmAddDocument frm = new frmAddDocument(true))
             {
@@ -208,7 +210,7 @@ namespace BiologyDepartment
             bgwDocuments.RunWorkerAsync();
         }
 
-        private void tvDocuments_AfterSelect(object sender, EventArgs e)
+        private void TvDocuments_AfterSelect(object sender, EventArgs e)
         {
             if(tvDocuments.SelectedNode.HasChildren)
             {
@@ -261,7 +263,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void bgwDocuments_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        private void BgwDocuments_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             int nCount = tvDocuments.Nodes.Count;
             for(int i = 0; i < nCount; i++)
@@ -277,7 +279,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void bgwDocuments_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        private void BgwDocuments_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
             DocumentTreeNode node = (DocumentTreeNode)e.UserState;
             node.Text = node.DocumentNode.DOCUMENT_TITLE;
@@ -305,7 +307,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void bgwDocuments_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        private void BgwDocuments_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             if (mStream != null)
                 mStream.Close();
@@ -316,7 +318,7 @@ namespace BiologyDepartment
             btnRefresh.Enabled = true;
         }
 
-        private void btnAddDoc_Click(object sender, EventArgs e)
+        private void BtnAddDoc_Click(object sender, EventArgs e)
         {
             using (frmAddDocument frm = new frmAddDocument(false))
             {
@@ -324,7 +326,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnEditDoc_Click(object sender, EventArgs e)
+        private void BtnEditDoc_Click(object sender, EventArgs e)
         {
             DocumentTreeNode node = (DocumentTreeNode)tvDocuments.ActiveNode;
             using (frmAddDocument frm = new frmAddDocument(false, node.DocumentNode))
@@ -333,7 +335,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnDelDoc_Click(object sender, EventArgs e)
+        private void BtnDelDoc_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(@"Verify you would like to delete this document.  Deleting the document will remove it from the database.  
                                                     This action is not recoverable", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -344,7 +346,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnExportDoc_Click(object sender, EventArgs e)
+        private void BtnExportDoc_Click(object sender, EventArgs e)
         {
             DocumentTreeNode node = (DocumentTreeNode)tvDocuments.ActiveNode;
             DialogResult result = saveFileDialog1.ShowDialog();
@@ -358,9 +360,9 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnAddExperiment_Click(object sender, EventArgs e)
+        private void BtnAddExperiment_Click(object sender, EventArgs e)
         {
-            using(frmAddEditExperiment frm = new frmAddEditExperiment())
+            using(FrmAddEditExperiment frm = new FrmAddEditExperiment())
             {
                 frm.Initialize(null);
                 frm.ShowDialog();
@@ -371,10 +373,10 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnEditExperiment_Click(object sender, EventArgs e)
+        private void BtnEditExperiment_Click(object sender, EventArgs e)
         {
             ExperimentTreeNode node = GlobalVariables.ExperimentNode;
-            using (frmAddEditExperiment frm = new frmAddEditExperiment())
+            using (FrmAddEditExperiment frm = new FrmAddEditExperiment())
             {
                 frm.Initialize(node);
                 frm.ShowDialog();
@@ -387,13 +389,13 @@ namespace BiologyDepartment
             
         }
 
-        private void btnDelExperiment_Click(object sender, EventArgs e)
+        private void BtnDelExperiment_Click(object sender, EventArgs e)
         {
             utilExperiment.DeleteExperiment(GlobalVariables.Experiment.ID);
             btnRefresh.PerformClick();
         }
 
-        private void btnPermissions_Click(object sender, EventArgs e)
+        private void BtnPermissions_Click(object sender, EventArgs e)
         {
             using (UserPermissions frm = new UserPermissions(GlobalVariables.Experiment.ID))
             {
@@ -401,7 +403,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnSearchEx_Click(object sender, EventArgs e)
+        private void BtnSearchEx_Click(object sender, EventArgs e)
         {
             using(dlgExperimentSearch dlg = new dlgExperimentSearch())
             {
@@ -423,7 +425,7 @@ namespace BiologyDepartment
         }
         #endregion
 
-        private void ribbonControlAdv1_OfficeMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void RibbonControlAdv1_OfficeMenu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
         }
@@ -434,7 +436,7 @@ namespace BiologyDepartment
             dropDownPanel = new ToolStripPanelItem();
 
             btnChangePassword = new ToolStripButton("C&hange Password");
-            btnChangePassword.Click += btnChangePassword_Click;
+            btnChangePassword.Click += BtnChangePassword_Click;
             
             dropDownPanel.Items.Add(btnChangePassword);
 
@@ -452,7 +454,7 @@ namespace BiologyDepartment
             this.ribbonControlAdv1.MenuButtonDropDown = dropDown;
         }
 
-        void btnChangePassword_Click(object sender, EventArgs e)
+        void BtnChangePassword_Click(object sender, EventArgs e)
         {
             using(frmChangePassword frm = new frmChangePassword())
             {

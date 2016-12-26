@@ -53,7 +53,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[3].Value = sDescription;
             NpgsqlCMD.Parameters[4].Value = sFormula;
 
-            GlobalVariables.GlobalConnection.updateData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD);
         }
 
         public void DeleteColumn(int ColID)
@@ -65,7 +65,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = ColID;
 
-            GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.DeleteData(NpgsqlCMD);
         }
 
         public DataTable GetExperimentColumns(int EXID)
@@ -77,7 +77,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = EXID;
 
-            return GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
+            return GlobalVariables.GlobalConnection.ReadDataTable(NpgsqlCMD);
         }
 
         public int GetNewRowID()
@@ -114,7 +114,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":rowID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[3].Value = rowID;
 
-            GlobalVariables.GlobalConnection.insertData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD);
         }
 
         public void BulkImport(List<string> ImportRows)

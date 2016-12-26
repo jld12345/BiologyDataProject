@@ -37,7 +37,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[1].Value = userName;
             NpgsqlCMD.Parameters[2].Value = Permissions;
 
-            if(GlobalVariables.GlobalConnection.insertData(NpgsqlCMD))
+            if(GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD))
                 MessageBox.Show("Access has been granted for " + userName + ".", "Access Granted", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Access has not been granted for " + userName + ".", "Access Not Granted", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -54,7 +54,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = id;
             DataSet ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -82,7 +82,7 @@ namespace BiologyDepartment
                 NpgsqlCMD.Parameters[1].Value = names;
                 NpgsqlCMD.Parameters[2].Value = id;
 
-                if(GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
+                if(GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD))
                     MessageBox.Show("Access has been updated for " + names + ".", "Access Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                     MessageBox.Show("Access has not been updated for " + names + ".", "Access Not Updated", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -104,7 +104,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[0].Value = UserName;
             NpgsqlCMD.Parameters[1].Value = id;
 
-            if (GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
+            if (GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD))
                 MessageBox.Show("Access has been revoked for " + UserName + ".", "Access Revoked", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Unable to revoke access for " + UserName + ".", "Access Not Revoked", MessageBoxButtons.OK, MessageBoxIcon.Error);

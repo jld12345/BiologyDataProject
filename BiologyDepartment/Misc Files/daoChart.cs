@@ -47,7 +47,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", id));
  
             ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -63,7 +63,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", id));
 
             ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -78,7 +78,7 @@ namespace BiologyDepartment
             NpgsqlCMD.CommandText = "select distinct(WEEK) FROM FISH_WEIGHT_LENGTH WHERE EX_ID = :id order by WEEK asc";
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", id));
             ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -108,7 +108,7 @@ namespace BiologyDepartment
                                 order by FISH_WEIGHT_LENGTH.COLOR ASC";
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", id));
             ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
 
             if (ds != null)
             {

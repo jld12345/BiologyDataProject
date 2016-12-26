@@ -42,7 +42,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
             DataSet ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
                 return ds;
@@ -71,7 +71,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
 
-            dt = GlobalVariables.GlobalConnection.readDataTable(NpgsqlCMD);
+            dt = GlobalVariables.GlobalConnection.ReadDataTable(NpgsqlCMD);
             return dt;
         }
 
@@ -83,7 +83,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[0].Value = rec;
 
             DataSet ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -177,7 +177,7 @@ namespace BiologyDepartment
             else
                 NpgsqlCMD.Parameters[6].Value = e.ID;
 
-            if (GlobalVariables.GlobalConnection.updateData(NpgsqlCMD) && !bIsUnitTest)
+            if (GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD) && !bIsUnitTest)
                 MessageBox.Show("Experiment successfully updated.", "Data Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else if(!bIsUnitTest)
                 MessageBox.Show("Error updating experiment.", "Update Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -199,7 +199,7 @@ namespace BiologyDepartment
                     NpgsqlCMD.CommandText = "Delete from experiments where EX_ID = :exID";
                     NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
                     NpgsqlCMD.Parameters[0].Value = id;
-                    GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD);
+                    GlobalVariables.GlobalConnection.DeleteData(NpgsqlCMD);
                 }
                 return true;
             }
@@ -222,7 +222,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
             DataSet ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 return ds.Tables[0];

@@ -45,7 +45,7 @@ namespace BiologyDepartment.ExperimentDocuments
             NpgsqlCMD.Parameters[4].Value = thePDF.DOCUMENT;
 
 
-            if (GlobalVariables.GlobalConnection.insertData(NpgsqlCMD))
+            if (GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD))
                 MessageBox.Show("Picture successfully inserted.", "Picture Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Error inserting picture.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -70,7 +70,7 @@ namespace BiologyDepartment.ExperimentDocuments
             NpgsqlCMD.Parameters[2].Value = thePDF.DOCUMENT_ID;
             NpgsqlCMD.Parameters[3].Value = thePDF.DOCUMENT_TYPE;
 
-            if (GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
+            if (GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD))
                 MessageBox.Show("Picture successfully inserted.", "Picture Inserted", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Error inserting picture.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -84,7 +84,7 @@ namespace BiologyDepartment.ExperimentDocuments
 
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("DOCID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = thePDF.DOCUMENT_ID;
-            GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD);
+            GlobalVariables.GlobalConnection.DeleteData(NpgsqlCMD);
         }
     }
 }

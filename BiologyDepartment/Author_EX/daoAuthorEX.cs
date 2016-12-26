@@ -35,7 +35,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[0].Value = ex;
 
             DataSet ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -54,7 +54,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[1].Value = a.Author_ID;
 
             DataSet ds = new DataSet();
-            ds = GlobalVariables.GlobalConnection.readData(NpgsqlCMD);
+            ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
             {
                 return ds;
@@ -76,7 +76,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[1].Value = a.EX_ID;
             NpgsqlCMD.Parameters[2].Value = a.Rank;
 
-            if(GlobalVariables.GlobalConnection.insertData(NpgsqlCMD))
+            if(GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD))
                 MessageBox.Show("Author has been added to this experiment.", "Author Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Access has not been added to this experiment.", "Author Not Added", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -97,7 +97,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[1].Value = a.EX_ID;
             NpgsqlCMD.Parameters[2].Value = a.Rank;
 
-            if(GlobalVariables.GlobalConnection.updateData(NpgsqlCMD))
+            if(GlobalVariables.GlobalConnection.UpdateData(NpgsqlCMD))
                 MessageBox.Show("Author has been updated for this experiment.", "Author Updated", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Access has not been updated for this experiment.", "Author Not Updated", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -116,7 +116,7 @@ namespace BiologyDepartment
                 NpgsqlCMD.Parameters[0].Value = A.Author_ID;
                 NpgsqlCMD.Parameters[1].Value = A.EX_ID;
 
-                if(GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD))
+                if(GlobalVariables.GlobalConnection.DeleteData(NpgsqlCMD))
                     MessageBox.Show("Author has been deleted from experiment.", "Author Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                     MessageBox.Show("Access has not been deleted from experiment .", "Author Not Deleted", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -137,7 +137,7 @@ namespace BiologyDepartment
                 NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
                 NpgsqlCMD.Parameters[0].Value = exID;
 
-                if(GlobalVariables.GlobalConnection.deleteData(NpgsqlCMD))
+                if(GlobalVariables.GlobalConnection.DeleteData(NpgsqlCMD))
                     MessageBox.Show("All Authors have been deleted from this experiment.", "Authors Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                     MessageBox.Show("All Authors have not been deleted from this experiment.", "Authors Not Deleted", MessageBoxButtons.OK, MessageBoxIcon.Error);

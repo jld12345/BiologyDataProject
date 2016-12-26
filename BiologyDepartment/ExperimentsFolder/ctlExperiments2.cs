@@ -29,7 +29,7 @@ namespace BiologyDepartment.ExperimentsFolder
         private Experiments oldExp = new Experiments();
         private bool bLoad = true;
         private bool bEnable = false;
-        private ctlAnimalData _ctlAnimalData = new ctlAnimalData();
+        private CtlAnimalData _ctlAnimalData = new CtlAnimalData();
         #endregion
 
         #region Event handlers

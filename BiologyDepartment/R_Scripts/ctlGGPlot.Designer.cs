@@ -1,6 +1,6 @@
 ﻿namespace BiologyDepartment
 {
-    partial class ctlGGPlot
+    partial class CtlGGPlot
     {
         /// <summary> 
         /// Required designer variable.
@@ -239,7 +239,7 @@
             this.cmbXAxisData.Name = "cmbXAxisData";
             this.cmbXAxisData.Size = new System.Drawing.Size(145, 21);
             this.cmbXAxisData.TabIndex = 38;
-            this.cmbXAxisData.SelectedIndexChanged += new System.EventHandler(this.cmbXAxisData_SelectedIndexChanged);
+            this.cmbXAxisData.SelectedIndexChanged += new System.EventHandler(this.CmbXAxisData_SelectedIndexChanged);
             // 
             // txtBoxZAxisTitle
             // 

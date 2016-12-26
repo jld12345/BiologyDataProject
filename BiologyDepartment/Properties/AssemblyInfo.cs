@@ -6,11 +6,11 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Biology Project Data Access Project")]
-[assembly: AssemblyDescription("Biology Project Database with R Statistics")]
+[assembly: AssemblyTitle("Experiment Database System")]
+[assembly: AssemblyDescription("Database system for Biology Experiemnts")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("James Davis Wild Wonders")]
-[assembly: AssemblyProduct("Biology Project")]
+[assembly: AssemblyCompany("James Davis Wi")]
+[assembly: AssemblyProduct("EDS")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -18,7 +18,7 @@ using System.Resources;
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+[assembly: ComVisible(true)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("d953218d-5b2d-4347-bd39-dd0f17225fb6")]

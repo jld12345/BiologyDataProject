@@ -28,7 +28,7 @@ using BiologyDepartment.Common;
 
 namespace BiologyDepartment
 {
-    public partial class ctlAnimalData : UserControl
+    public partial class CtlAnimalData : UserControl
     {
         #region Private Variables
         private DataTable dtExperiments = new DataTable();
@@ -51,10 +51,10 @@ namespace BiologyDepartment
 
         public event EventHandler<CloseCtlAnimalData> CloseFormEvent;
 
-        public ctlAnimalData()
+        public CtlAnimalData()
         {
             InitializeComponent();
-            _bindingSource.ListChanged += new ListChangedEventHandler(bindingSource_ListChanged);
+            _bindingSource.ListChanged += new ListChangedEventHandler(BindingSource_ListChanged);
         }
 
         public void Initialize(int id)
@@ -100,10 +100,12 @@ namespace BiologyDepartment
 
             if (!dgExData.Columns.Contains("EDIT"))
             {
-                DataGridViewImageColumn btnEdit = new DataGridViewImageColumn();
-                btnEdit.HeaderText = "EDIT";
-                btnEdit.Name = "EDIT";
-                btnEdit.Width = 50;
+                DataGridViewImageColumn btnEdit = new DataGridViewImageColumn()
+                {
+                    HeaderText = "EDIT",
+                    Name = "EDIT",
+                    Width = 50
+                };
                 btnEdit.DefaultCellStyle.ForeColor = Color.Red;
                 btnEdit.Image = GlobalVariables.Images.Images["Expand"];
                 btnEdit.DataPropertyName = "EDIT";
@@ -114,10 +116,12 @@ namespace BiologyDepartment
 
             if (!dgExData.Columns.Contains("DELETE"))
             {
-                DataGridViewImageColumn btnDel = new DataGridViewImageColumn();
-                btnDel.HeaderText = "DELETE";
-                btnDel.Name = "DELETE";
-                btnDel.Width = 50;
+                DataGridViewImageColumn btnDel = new DataGridViewImageColumn()
+                {
+                    HeaderText = "DELETE",
+                    Name = "DELETE",
+                    Width = 50
+                };
                 btnDel.DefaultCellStyle.ForeColor = Color.Red;
                 btnDel.Image = GlobalVariables.Images.Images["Toggle"];
                 btnDel.DataPropertyName = "DELETE";
@@ -147,7 +151,7 @@ namespace BiologyDepartment
             dgExData.Rows[GlobalVariables.ExperimentData.TableRow].Selected = true;
         }     
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             DataRow newRow = dtAnimals.NewRow();
             using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(true, ref newRow))
@@ -172,7 +176,7 @@ namespace BiologyDepartment
             SaveData(0);
         }
 
-        private void setButtons()
+        private void SetButtons()
         {
             try
             {
@@ -195,7 +199,7 @@ namespace BiologyDepartment
             
         }
 
-        private void dgExData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DgExData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             EditRow();
         }
@@ -240,7 +244,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private void BtnClose_Click(object sender, EventArgs e)
         {
             dgExData.DataSource = null;
             OnCloseFormEvent(new CloseCtlAnimalData());
@@ -248,49 +252,42 @@ namespace BiologyDepartment
 
         protected virtual void OnCloseFormEvent(CloseCtlAnimalData e)
         {
-            EventHandler<CloseCtlAnimalData> handler = CloseFormEvent;
-
-            // Event will be null if there are no subscribers 
-            if (handler != null)
-            {
-                // Use the () operator to raise the event.
-                handler(this, e);
-            }
+            CloseFormEvent?.Invoke(this, e);
         }
 
-        private void btnExport_Click_1(object sender, EventArgs e)
+        private void BtnExport_Click_1(object sender, EventArgs e)
         {
             _dataUtil.ExportToExcel(dgExData, false);
         }
 
-        private void dataGridView_SortStringChanged(object sender, EventArgs e)
+        private void DataGridView_SortStringChanged(object sender, EventArgs e)
         {
             _bindingSource.Sort = dgExData.SortString;
         }
 
-        private void dataGridView_FilterStringChanged(object sender, EventArgs e)
+        private void DataGridView_FilterStringChanged(object sender, EventArgs e)
         {
             _bindingSource.Filter = dgExData.FilterString;
             GlobalVariables.FilteredGrid = dgExData;
             GlobalVariables.RDataIsDirty = true;
         }
 
-        private void clearFilterButton_Click(object sender, EventArgs e)
+        private void ClearFilterButton_Click(object sender, EventArgs e)
         {
             dgExData.ClearFilter(true);
         }
 
-        private void clearSortButton_Click(object sender, EventArgs e)
+        private void ClearSortButton_Click(object sender, EventArgs e)
         {
             dgExData.ClearSort(true);
         }
 
-        private void bindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        private void BindingSource_ListChanged(object sender, ListChangedEventArgs e)
         {
             this.searchToolBar.SetColumns(dgExData.Columns);
         }
 
-        private void searchToolBar_Search(object sender, SearchToolBarSearchEventArgs e)
+        private void SearchToolBar_Search(object sender, SearchToolBarSearchEventArgs e)
         {
             int startColumn = 0;
             int startRow = 0;
@@ -312,7 +309,7 @@ namespace BiologyDepartment
             }
             DataGridViewCell c = dgExData.FindCell(
                 e.ValueToSearch,
-                e.ColumnToSearch != null ? e.ColumnToSearch.Name : null,
+                e.ColumnToSearch?.Name,
                 startRow,
                 startColumn,
                 e.WholeWord,
@@ -322,7 +319,7 @@ namespace BiologyDepartment
                 dgExData.CurrentCell = c;
         }
 
-        private void searchButton_Click(object sender, EventArgs e)
+        private void SearchButton_Click(object sender, EventArgs e)
         {
             if (this.btnSearch.Checked)
             {
@@ -336,12 +333,12 @@ namespace BiologyDepartment
             }
         }
 
-        private void searchToolBar_VisibleChanged(object sender, EventArgs e)
+        private void SearchToolBar_VisibleChanged(object sender, EventArgs e)
         {
             this.btnSearch.Checked = this.searchToolBar.Visible;
         }
 
-        private void dgExData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgExData_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
                 return;
@@ -381,7 +378,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             SaveData(0);
         }
@@ -409,7 +406,7 @@ namespace BiologyDepartment
             bDataDirty = false;
         }
 
-        private void btnJSON_Click(object sender, EventArgs e)
+        private void BtnJSON_Click(object sender, EventArgs e)
         {
             DataTable dt = (_bindingSource.DataSource as DataTable).Copy();
             foreach(DataColumn col in dtAnimals.Columns)

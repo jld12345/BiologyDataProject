@@ -17,7 +17,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace BiologyDepartment
 {
-    public class dbBioConnection
+    public class DbBioConnection
     {
 
         private string sUserName = "";
@@ -33,27 +33,27 @@ namespace BiologyDepartment
                                           "fetch", "insert", "kill", "select", "sys", "sysobjects",
                                           "syscolumns", "table", "update"
                                         };
-        public dbBioConnection()
+        public DbBioConnection()
         {
-            dbUser = GlobalVariables.dbUser;
-            dbpword = GlobalVariables.dbPass;
-            dbDataSource = GlobalVariables.DataSource;
+            DbUser = GlobalVariables.dbUser;
+            Dbpword = GlobalVariables.dbPass;
+            DbDataSource = GlobalVariables.DataSource;
             PostgresDB = "Server=192.168.0.9;Port=5432;User Id=biologyprojectadmin;Password=ImWay2c@@l;Database=BiologyProject;";//sDSource + sUserName + sPWord;
         }
 
-        public string dbUser
+        public string DbUser
         {
            set {sUserName = "User Id=" + value + ";";}
         }
-        public string dbpword
+        public string Dbpword
         {
             set { sPWord = "Password=" + value + ";"; }
         }
-        public string dbDataSource
+        public string DbDataSource
         {
             set { sDSource = value; }
         }
-        public string dbSetSQL
+        public string DbSetSQL
         {
             set { sSQL = value; }
         }
@@ -84,7 +84,7 @@ namespace BiologyDepartment
             }
         }
 
-        public DataSet readData(NpgsqlCommand cmd)
+        public DataSet ReadData(NpgsqlCommand cmd)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace BiologyDepartment
             }
         }
 
-        public DataTable readDataTable(NpgsqlCommand cmd)
+        public DataTable ReadDataTable(NpgsqlCommand cmd)
         {
             try
             {
@@ -148,7 +148,7 @@ namespace BiologyDepartment
             }
         }
 
-        public bool insertData(NpgsqlCommand cmd)
+        public bool InsertData(NpgsqlCommand cmd)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace BiologyDepartment
             }
         }
 
-        public bool updateData(NpgsqlCommand cmd)
+        public bool UpdateData(NpgsqlCommand cmd)
         {
             try
             {
@@ -226,7 +226,7 @@ namespace BiologyDepartment
             }
         }
 
-        public bool deleteData(NpgsqlCommand cmd)
+        public bool DeleteData(NpgsqlCommand cmd)
         {
             try
             {
@@ -247,7 +247,7 @@ namespace BiologyDepartment
             }
         }
 
-        public bool checkForSQLInjection(string userInput)
+        public bool CheckForSQLInjection(string userInput)
         {
             if (string.IsNullOrEmpty(userInput))
                 return false;
@@ -375,11 +375,13 @@ namespace BiologyDepartment
             {
                 while (reader.StartRow() != -1)
                 {
-                    col = new CustomColumns();
-                    col.ColID = reader.Read<int>(NpgsqlDbType.Integer);
-                    col.ColName = reader.Read<string>(NpgsqlDbType.Varchar);
-                    col.ColDataType = reader.Read<string>(NpgsqlDbType.Varchar);
-                    col.EX_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID;
+                    col = new CustomColumns()
+                    {
+                        ColID = reader.Read<int>(NpgsqlDbType.Integer),
+                        ColName = reader.Read<string>(NpgsqlDbType.Varchar),
+                        ColDataType = reader.Read<string>(NpgsqlDbType.Varchar),
+                        EX_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID
+                    };
                     if (!reader.IsNull)
                         col.Formula = reader.Read<string>(NpgsqlDbType.Varchar);
                     else

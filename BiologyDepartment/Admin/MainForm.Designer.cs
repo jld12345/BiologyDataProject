@@ -139,9 +139,9 @@
             // 
             this.bgwDocuments.WorkerReportsProgress = true;
             this.bgwDocuments.WorkerSupportsCancellation = true;
-            this.bgwDocuments.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwDocuments_DoWork);
-            this.bgwDocuments.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwDocuments_ProgressChanged);
-            this.bgwDocuments.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwDocuments_RunWorkerCompleted);
+            this.bgwDocuments.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgwDocuments_DoWork);
+            this.bgwDocuments.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BgwDocuments_ProgressChanged);
+            this.bgwDocuments.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgwDocuments_RunWorkerCompleted);
             // 
             // saveFileDialog1
             // 
@@ -204,7 +204,7 @@
             this.ribbonControlAdv1.OfficeMenu.Name = "OfficeMenu";
             this.ribbonControlAdv1.OfficeMenu.ShowItemToolTips = true;
             this.ribbonControlAdv1.OfficeMenu.Size = new System.Drawing.Size(12, 65);
-            this.ribbonControlAdv1.OfficeMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ribbonControlAdv1_OfficeMenu_ItemClicked);
+            this.ribbonControlAdv1.OfficeMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.RibbonControlAdv1_OfficeMenu_ItemClicked);
             this.ribbonControlAdv1.QuickPanelImageLayout = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ribbonControlAdv1.RibbonHeaderImage = Syncfusion.Windows.Forms.Tools.RibbonHeaderImage.None;
             this.ribbonControlAdv1.SelectedTab = this.toolStripTabItem1;
@@ -261,7 +261,7 @@
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh2_Click);
+            this.btnRefresh.Click += new System.EventHandler(this.BtnRefresh2_Click);
             // 
             // btnExit2
             // 
@@ -274,7 +274,7 @@
             this.btnExit2.Text = "Exit";
             this.btnExit2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnExit2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnExit2.Click += new System.EventHandler(this.tspExit_Click);
+            this.btnExit2.Click += new System.EventHandler(this.TspExit_Click);
             // 
             // toolStripEx3
             // 
@@ -307,7 +307,7 @@
             this.btnSearchEx.Text = "Search";
             this.btnSearchEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnSearchEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSearchEx.Click += new System.EventHandler(this.btnSearchEx_Click);
+            this.btnSearchEx.Click += new System.EventHandler(this.BtnSearchEx_Click);
             // 
             // btnAddEx
             // 
@@ -320,7 +320,7 @@
             this.btnAddEx.Text = "Add";
             this.btnAddEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAddEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnAddEx.Click += new System.EventHandler(this.btnAddExperiment_Click);
+            this.btnAddEx.Click += new System.EventHandler(this.BtnAddExperiment_Click);
             // 
             // btnEditEx
             // 
@@ -333,7 +333,7 @@
             this.btnEditEx.Text = "Edit";
             this.btnEditEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnEditEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnEditEx.Click += new System.EventHandler(this.btnEditExperiment_Click);
+            this.btnEditEx.Click += new System.EventHandler(this.BtnEditExperiment_Click);
             // 
             // btnDelEx
             // 
@@ -346,7 +346,7 @@
             this.btnDelEx.Text = "Delete";
             this.btnDelEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnDelEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDelEx.Click += new System.EventHandler(this.btnDelExperiment_Click);
+            this.btnDelEx.Click += new System.EventHandler(this.BtnDelExperiment_Click);
             // 
             // btnSecurityEx
             // 
@@ -359,7 +359,7 @@
             this.btnSecurityEx.Text = "Security";
             this.btnSecurityEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnSecurityEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSecurityEx.Click += new System.EventHandler(this.btnPermissions_Click);
+            this.btnSecurityEx.Click += new System.EventHandler(this.BtnPermissions_Click);
             // 
             // toolStripEx4
             // 
@@ -392,7 +392,7 @@
             this.btnAddDoc2.Text = "Add";
             this.btnAddDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAddDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnAddDoc2.Click += new System.EventHandler(this.btnAddDoc_Click);
+            this.btnAddDoc2.Click += new System.EventHandler(this.BtnAddDoc_Click);
             // 
             // btnEditDoc2
             // 
@@ -405,7 +405,7 @@
             this.btnEditDoc2.Text = "Edit";
             this.btnEditDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnEditDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnEditDoc2.Click += new System.EventHandler(this.btnEditDoc_Click);
+            this.btnEditDoc2.Click += new System.EventHandler(this.BtnEditDoc_Click);
             // 
             // btnDelDoc2
             // 
@@ -418,7 +418,7 @@
             this.btnDelDoc2.Text = "Delete";
             this.btnDelDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnDelDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDelDoc2.Click += new System.EventHandler(this.btnDelDoc_Click);
+            this.btnDelDoc2.Click += new System.EventHandler(this.BtnDelDoc_Click);
             // 
             // btnBulkAddDoc
             // 
@@ -431,7 +431,7 @@
             this.btnBulkAddDoc.Text = "Bulk Import";
             this.btnBulkAddDoc.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnBulkAddDoc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnBulkAddDoc.Click += new System.EventHandler(this.btnAddDocs_Click);
+            this.btnBulkAddDoc.Click += new System.EventHandler(this.BtnAddDocs_Click);
             // 
             // btnExportDoc2
             // 
@@ -444,7 +444,7 @@
             this.btnExportDoc2.Text = "Export";
             this.btnExportDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnExportDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnExportDoc2.Click += new System.EventHandler(this.btnExportDoc_Click);
+            this.btnExportDoc2.Click += new System.EventHandler(this.BtnExportDoc_Click);
             // 
             // toolStripEx1
             // 
@@ -635,7 +635,7 @@
             this.tvDocuments.ToolTipControl.Size = new System.Drawing.Size(41, 15);
             this.tvDocuments.ToolTipControl.TabIndex = 1;
             this.tvDocuments.ToolTipControl.Text = "toolTip";
-            this.tvDocuments.AfterSelect += new System.EventHandler(this.tvDocuments_AfterSelect);
+            this.tvDocuments.AfterSelect += new System.EventHandler(this.TvDocuments_AfterSelect);
             // 
             // docViewer
             // 

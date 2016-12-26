@@ -18,7 +18,7 @@ using Syncfusion.Windows.Forms.Tools;
 
 namespace BiologyDepartment.R_Scripts
 {
-    public partial class ctlApiCalls2 : UserControl
+    public partial class CtlApiCalls2 : UserControl
     {
         #region Private Variables
         private DataSet dsRScripts;
@@ -34,7 +34,7 @@ namespace BiologyDepartment.R_Scripts
         public Task taskLoad;
         #endregion
 
-        public ctlApiCalls2()
+        public CtlApiCalls2()
         {
             InitializeComponent();
             httpClient = new HttpClient();
@@ -58,29 +58,37 @@ namespace BiologyDepartment.R_Scripts
             GridBoundColumnsCollection cols = dgRScripts.GridBoundColumns;
             if(!cols.Contains("r_scripts_id"))
             {
-                temp = new GridBoundColumn();
-                temp.MappingName = "r_scripts_id";
-                temp.Hidden = true;
+                temp = new GridBoundColumn()
+                {
+                    MappingName = "r_scripts_id",
+                    Hidden = true
+                };
                 dgRScripts.GridBoundColumns.Add(temp);
             }
             if (!cols.Contains("r_scripts_title"))
             {
-                temp = new GridBoundColumn();
-                temp.MappingName = "r_scripts_title";
-                temp.HeaderText = "R Script";
+                temp = new GridBoundColumn()
+                {
+                    MappingName = "r_scripts_title",
+                    HeaderText = "R Script"
+                };
                 dgRScripts.GridBoundColumns.Add(temp);
             }
             if (!cols.Contains("r_scripts_body"))
             {
-                temp = new GridBoundColumn();
-                temp.MappingName = "r_scripts_body";
+                temp = new GridBoundColumn()
+                {
+                    MappingName = "r_scripts_body"
+                };
                 dgRScripts.GridBoundColumns.Add(temp);
             }
             if (!cols.Contains("info_btn"))
             {
-                temp = new GridBoundColumn();
-                temp.MappingName = "info_btn";
-                temp.HeaderText = "Info";
+                temp = new GridBoundColumn()
+                {
+                    MappingName = "info_btn",
+                    HeaderText = "Info"
+                };
                 temp.StyleInfo.CellType = "PushButton";
                 temp.StyleInfo.ImageList = GlobalVariables.Images;
                 temp.StyleInfo.ImageIndex =1;
@@ -89,9 +97,11 @@ namespace BiologyDepartment.R_Scripts
             }
             if (!cols.Contains("execute_btn"))
             {
-                temp = new GridBoundColumn();
-                temp.MappingName = "execute_btn";
-                temp.HeaderText = "Execute";
+                temp = new GridBoundColumn()
+                {
+                    MappingName = "execute_btn",
+                    HeaderText = "Execute"
+                };
                 temp.StyleInfo.CellType = "PushButton";
                 temp.StyleInfo.ImageList = GlobalVariables.Images;
                 temp.StyleInfo.ImageIndex =3;
@@ -105,7 +115,7 @@ namespace BiologyDepartment.R_Scripts
             dgRScripts.Model.ColWidths[3] = 300;
         }
 
-        public async Task InitializePage()
+        public async Task InitializePageAsync()
         {
             string uri = "http://192.168.0.19/ocpu/user/james/library/ApiCalls/R/";
             HttpResponseMessage response = await httpClient.GetAsync(uri);
@@ -118,7 +128,7 @@ namespace BiologyDepartment.R_Scripts
             bIsInitialized = true;
         }
 
-        public async Task PostRScript(string jsonData)
+        public async Task PostRScriptAsync(string jsonData)
         {
             string rCall = "";
             string uri = "http://192.168.0.19/ocpu/user/james/library/ApiCalls/R/" + rCall;
@@ -202,8 +212,10 @@ namespace BiologyDepartment.R_Scripts
                 if (s.Contains("console"))
                 {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
                     TabPageAdv page = new TabPageAdv();
-                    WebBrowser browser = new WebBrowser();
-                    browser.Dock = DockStyle.Fill;
+                    WebBrowser browser = new WebBrowser()
+                    {
+                        Dock = DockStyle.Fill
+                    };
                     page.Controls.Add(browser);
                     page.Dock = DockStyle.Fill;
                     page.Text = "Console Output";
@@ -213,8 +225,10 @@ namespace BiologyDepartment.R_Scripts
                 if (s.Contains("graphics"))
                 {
                     TabPageAdv page = new TabPageAdv();
-                    WebBrowser browser = new WebBrowser();
-                    browser.Dock = DockStyle.Fill;
+                    WebBrowser browser = new WebBrowser()
+                    {
+                        Dock = DockStyle.Fill
+                    };
                     page.Controls.Add(browser);
                     page.Dock = DockStyle.Fill;
                     page.Text = "Graphic " + count.ToString();
@@ -251,11 +265,11 @@ namespace BiologyDepartment.R_Scripts
             }
         }
 
-        private void dgRScripts_Layout(object sender, LayoutEventArgs e)
+        private void DgRScripts_Layout(object sender, LayoutEventArgs e)
         {
         }
 
-        private void dgRScripts_CellButtonClicked(object sender, GridCellButtonClickedEventArgs e)
+        private void DgRScripts_CellButtonClicked(object sender, GridCellButtonClickedEventArgs e)
         {
             CurrencyManager cm = (CurrencyManager)BindingContext[dgRScripts.DataSource, dgRScripts.DataMember];
             DataView dv = (DataView)cm.List;

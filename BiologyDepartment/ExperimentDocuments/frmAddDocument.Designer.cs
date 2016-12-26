@@ -56,7 +56,7 @@
             this.btnBrowse.TabIndex = 12;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            this.btnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
             // 
             // txtDocPath
             // 
@@ -117,7 +117,7 @@
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 18;
             this.btnSave.Text = "Save";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnCancel
             // 
@@ -128,7 +128,7 @@
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
             this.btnCancel.Text = "Cancel";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // cmbDocType
             // 

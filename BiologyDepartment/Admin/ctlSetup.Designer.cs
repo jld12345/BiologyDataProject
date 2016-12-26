@@ -145,7 +145,7 @@
             this.btnAddCol.TabIndex = 6;
             this.btnAddCol.Text = "Add/Update Column";
             this.btnAddCol.UseVisualStyle = true;
-            this.btnAddCol.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.btnAddCol.Click += new System.EventHandler(this.BtnUpdate_Click);
             // 
             // btnDelCol
             // 
@@ -159,7 +159,7 @@
             this.btnDelCol.TabIndex = 5;
             this.btnDelCol.Text = "Delete Columns";
             this.btnDelCol.UseVisualStyle = true;
-            this.btnDelCol.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnDelCol.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // btnRefresh2
             // 
@@ -173,7 +173,7 @@
             this.btnRefresh2.TabIndex = 4;
             this.btnRefresh2.Text = "Refresh Grid";
             this.btnRefresh2.UseVisualStyle = true;
-            this.btnRefresh2.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.btnRefresh2.Click += new System.EventHandler(this.BtnRefresh_Click);
             // 
             // dgColAdmin
             // 
@@ -183,7 +183,7 @@
             this.dgColAdmin.Name = "dgColAdmin";
             this.dgColAdmin.Size = new System.Drawing.Size(1024, 233);
             this.dgColAdmin.TabIndex = 0;
-            this.dgColAdmin.Layout += new System.Windows.Forms.LayoutEventHandler(this.dgColAdmin_Layout);
+            this.dgColAdmin.Layout += new System.Windows.Forms.LayoutEventHandler(this.DgColAdmin_Layout);
             // 
             // splitContainer1
             // 
@@ -237,7 +237,7 @@
             this.btnImportColumns.TabIndex = 20;
             this.btnImportColumns.Text = "Import Columns";
             this.btnImportColumns.UseVisualStyle = true;
-            this.btnImportColumns.Click += new System.EventHandler(this.btnImportCol_Click);
+            this.btnImportColumns.Click += new System.EventHandler(this.BtnImportCol_Click);
             // 
             // btnMapData2
             // 
@@ -251,7 +251,7 @@
             this.btnMapData2.TabIndex = 19;
             this.btnMapData2.Text = "Map Data";
             this.btnMapData2.UseVisualStyle = true;
-            this.btnMapData2.Click += new System.EventHandler(this.btnMapData_Click);
+            this.btnMapData2.Click += new System.EventHandler(this.BtnMapData_Click);
             // 
             // btnImportData
             // 
@@ -265,7 +265,7 @@
             this.btnImportData.TabIndex = 18;
             this.btnImportData.Text = "Import Data";
             this.btnImportData.UseVisualStyle = true;
-            this.btnImportData.Click += new System.EventHandler(this.btnImport_Click);
+            this.btnImportData.Click += new System.EventHandler(this.BtnImport_Click);
             // 
             // btnClearData
             // 
@@ -279,7 +279,7 @@
             this.btnClearData.TabIndex = 17;
             this.btnClearData.Text = "Clear Data";
             this.btnClearData.UseVisualStyle = true;
-            this.btnClearData.Click += new System.EventHandler(this.button2_Click);
+            this.btnClearData.Click += new System.EventHandler(this.Button2_Click);
             // 
             // lblWorksheet
             // 
@@ -297,7 +297,7 @@
             this.cmbWorksheets.Name = "cmbWorksheets";
             this.cmbWorksheets.Size = new System.Drawing.Size(201, 21);
             this.cmbWorksheets.TabIndex = 14;
-            this.cmbWorksheets.SelectedIndexChanged += new System.EventHandler(this.cmbWorksheets_SelectedIndexChanged);
+            this.cmbWorksheets.SelectedIndexChanged += new System.EventHandler(this.CmbWorksheets_SelectedIndexChanged);
             // 
             // cbHasHeaders
             // 
@@ -310,7 +310,7 @@
             this.cbHasHeaders.TabIndex = 10;
             this.cbHasHeaders.Text = "First Row Contains Headers";
             this.cbHasHeaders.UseVisualStyleBackColor = true;
-            this.cbHasHeaders.CheckedChanged += new System.EventHandler(this.cbHasHeaders_CheckedChanged);
+            this.cbHasHeaders.CheckedChanged += new System.EventHandler(this.CbHasHeaders_CheckedChanged);
             // 
             // btnBrowse
             // 
@@ -320,7 +320,7 @@
             this.btnBrowse.TabIndex = 9;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            this.btnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
             // 
             // txtExcelPath
             // 
@@ -356,7 +356,7 @@
             this.Controls.Add(this.splitContainer2);
             this.Name = "ctlSetup";
             this.Size = new System.Drawing.Size(1030, 606);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ctlSetup_KeyPress);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CtlSetup_KeyPress);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();

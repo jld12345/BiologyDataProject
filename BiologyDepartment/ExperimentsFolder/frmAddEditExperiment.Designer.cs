@@ -1,6 +1,6 @@
 ﻿namespace BiologyDepartment.ExperimentsFolder
 {
-    partial class frmAddEditExperiment
+    partial class FrmAddEditExperiment
     {
         /// <summary>
         /// Required designer variable.
@@ -97,7 +97,7 @@
             this.btnClear.TabIndex = 12;
             this.btnClear.Text = "Cancel";
             this.btnClear.UseVisualStyle = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            this.btnClear.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // btnAdd
             // 
@@ -110,7 +110,7 @@
             this.btnAdd.TabIndex = 11;
             this.btnAdd.Text = "Save";
             this.btnAdd.UseVisualStyle = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // label5
             // 

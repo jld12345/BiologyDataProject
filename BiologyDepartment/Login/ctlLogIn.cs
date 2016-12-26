@@ -25,7 +25,7 @@ namespace BiologyDepartment
         {
             InitializeComponent();
             this.Anchor = AnchorStyles.None;
-            GlobalVariables.GlobalConnection = new dbBioConnection();
+            GlobalVariables.GlobalConnection = new DbBioConnection();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

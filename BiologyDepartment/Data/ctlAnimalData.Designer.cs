@@ -1,6 +1,6 @@
 ﻿namespace BiologyDepartment
 {
-    partial class ctlAnimalData
+    partial class CtlAnimalData
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctlAnimalData));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtlAnimalData));
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.dgExData = new ADGV.AdvancedDataGridView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -69,10 +69,10 @@
             this.dgExData.Size = new System.Drawing.Size(994, 518);
             this.dgExData.TabIndex = 26;
             this.dgExData.TimeFilter = false;
-            this.dgExData.SortStringChanged += new System.EventHandler(this.dataGridView_SortStringChanged);
-            this.dgExData.FilterStringChanged += new System.EventHandler(this.dataGridView_FilterStringChanged);
-            this.dgExData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellContentClick);
-            this.dgExData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgExData_CellDoubleClick);
+            this.dgExData.SortStringChanged += new System.EventHandler(this.DataGridView_SortStringChanged);
+            this.dgExData.FilterStringChanged += new System.EventHandler(this.DataGridView_FilterStringChanged);
+            this.dgExData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgExData_CellContentClick);
+            this.dgExData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgExData_CellDoubleClick);
             // 
             // splitContainer1
             // 
@@ -106,7 +106,7 @@
             this.searchToolBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.searchToolBar.Size = new System.Drawing.Size(994, 27);
             this.searchToolBar.TabIndex = 1;
-            this.searchToolBar.Search += new ADGV.SearchToolBarSearchEventHandler(this.searchToolBar_Search);
+            this.searchToolBar.Search += new ADGV.SearchToolBarSearchEventHandler(this.SearchToolBar_Search);
             // 
             // tsButtonStrip
             // 
@@ -131,7 +131,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(59, 19);
             this.btnAdd.Text = "Add Row";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // btnExport
             // 
@@ -141,7 +141,7 @@
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(44, 19);
             this.btnExport.Text = "Export";
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click_1);
+            this.btnExport.Click += new System.EventHandler(this.BtnExport_Click_1);
             // 
             // btnSearch
             // 
@@ -151,7 +151,7 @@
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(46, 19);
             this.btnSearch.Text = "Search";
-            this.btnSearch.Click += new System.EventHandler(this.searchButton_Click);
+            this.btnSearch.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // btnClearFilter
             // 
@@ -161,7 +161,7 @@
             this.btnClearFilter.Name = "btnClearFilter";
             this.btnClearFilter.Size = new System.Drawing.Size(72, 19);
             this.btnClearFilter.Text = "Clear Filters";
-            this.btnClearFilter.Click += new System.EventHandler(this.clearFilterButton_Click);
+            this.btnClearFilter.Click += new System.EventHandler(this.ClearFilterButton_Click);
             // 
             // btnClearSort
             // 
@@ -171,7 +171,7 @@
             this.btnClearSort.Name = "btnClearSort";
             this.btnClearSort.Size = new System.Drawing.Size(62, 19);
             this.btnClearSort.Text = "Clear Sort";
-            this.btnClearSort.Click += new System.EventHandler(this.clearSortButton_Click);
+            this.btnClearSort.Click += new System.EventHandler(this.ClearSortButton_Click);
             // 
             // btnSave
             // 
@@ -181,7 +181,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(84, 19);
             this.btnSave.Text = "Save Changes";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnJSON
             // 
@@ -191,7 +191,7 @@
             this.btnJSON.Name = "btnJSON";
             this.btnJSON.Size = new System.Drawing.Size(76, 19);
             this.btnJSON.Text = "Create JSON";
-            this.btnJSON.Click += new System.EventHandler(this.btnJSON_Click);
+            this.btnJSON.Click += new System.EventHandler(this.BtnJSON_Click);
             // 
             // dataGridViewTextBoxColumn1
             // 
