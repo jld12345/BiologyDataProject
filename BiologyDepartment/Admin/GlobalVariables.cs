@@ -20,9 +20,16 @@ namespace BiologyDepartment
         /// </summary>
         static string theUser;
         static string thePassword;
-        static string DBConnection = BiologyDepartment.Properties.Settings.Default.MyPostgress +
+        //Test Connections
+        static string DBConnection = BiologyDepartment.Properties.Settings.Default.MyPostgresTest +
+                             ";Port=5432;Database=BiologyProject;";
+        static string ADConnection = BiologyDepartment.Properties.Settings.Default.MyActiveDirectoryTest;
+        static string PasswordReset = BiologyDepartment.Properties.Settings.Default.PasswordTest;
+        //Live Connections
+        /*static string DBConnection = BiologyDepartment.Properties.Settings.Default.MyPostgress +
                                      ";Port=5432;Database=BiologyProject;";
         static string ADConnection = BiologyDepartment.Properties.Settings.Default.MyActiveDirectory;
+        static string PasswordReset = BiologyDepartment.Properties.Settings.Default.PasswordActive;*/
         static string ADUser;
         static string ADGroup;
         static string ADPassword;
@@ -163,6 +170,18 @@ namespace BiologyDepartment
             set
             {
                 ADConnection = value;
+            }
+        }
+
+        public static string PasswordConnection
+        {
+            get
+            {
+                return PasswordReset;
+            }
+            set
+            {
+                PasswordReset = value;
             }
         }
 

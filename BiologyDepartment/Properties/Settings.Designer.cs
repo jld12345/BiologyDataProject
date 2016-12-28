@@ -12,7 +12,7 @@ namespace BiologyDepartment.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.0.0")]
     public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -61,7 +61,7 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.9")]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost:389")]
         public string MyActiveDirectoryTest {
             get {
                 return ((string)(this["MyActiveDirectoryTest"]));
@@ -73,7 +73,7 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.9")]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
         public string MyPostgresTest {
             get {
                 return ((string)(this["MyPostgresTest"]));
@@ -85,13 +85,37 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.10:8787")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.0.10:8787/rstudio")]
         public string MyRstudioTest {
             get {
                 return ((string)(this["MyRstudioTest"]));
             }
             set {
                 this["MyRstudioTest"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8888")]
+        public string PasswordTest {
+            get {
+                return ((string)(this["PasswordTest"]));
+            }
+            set {
+                this["PasswordTest"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dwbtechnologies.ddns.net:8888")]
+        public string PasswordActive {
+            get {
+                return ((string)(this["PasswordActive"]));
+            }
+            set {
+                this["PasswordActive"] = value;
             }
         }
     }

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using BiologyDepartment.Admin;
@@ -16,7 +10,8 @@ namespace BiologyDepartment
     {
         private DataSet dataset = new DataSet();
         private DataTable table = new DataTable();
-        private ActiveDirectory.daoActiveDirectory _daoAD = new ActiveDirectory.daoActiveDirectory();
+        private ActiveDirectory _daoAD = new ActiveDirectory();
+
         public bool bExitProgram = false;
 
         public event EventHandler<ValidLoginEventArgs> RaiseLoginEvent;

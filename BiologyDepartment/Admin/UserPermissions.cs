@@ -16,7 +16,7 @@ namespace BiologyDepartment
         private int exID = 0;
         private daoEXPermissions _permissions = new daoEXPermissions();
         private DataTable dtUser;
-        private ActiveDirectory.daoActiveDirectory _daoAD = new ActiveDirectory.daoActiveDirectory();
+        private ActiveDirectory _daoAD = new ActiveDirectory();
         private bool isAdding = false;
 
         public UserPermissions()
