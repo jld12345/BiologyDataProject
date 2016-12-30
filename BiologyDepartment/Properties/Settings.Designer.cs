@@ -49,7 +49,7 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http:dwbtechnologies.ddns.net:8787/rstudio")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://dwbtechnologies.ddns.net:8787/rstudio")]
         public string MyRStudio {
             get {
                 return ((string)(this["MyRStudio"]));
@@ -97,7 +97,7 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8888")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8888/showLogin.cc")]
         public string PasswordTest {
             get {
                 return ((string)(this["PasswordTest"]));
@@ -109,7 +109,7 @@ namespace BiologyDepartment.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("dwbtechnologies.ddns.net:8888")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://dwbtechnologies.ddns.net:8888/showLogin.cc")]
         public string PasswordActive {
             get {
                 return ((string)(this["PasswordActive"]));

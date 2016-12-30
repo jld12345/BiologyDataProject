@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using Npgsql;
 using NpgsqlTypes;
-using RDotNet;
 using BiologyDepartment.Data;
 
 namespace BiologyDepartment
@@ -21,15 +20,15 @@ namespace BiologyDepartment
         static string theUser;
         static string thePassword;
         //Test Connections
-        static string DBConnection = BiologyDepartment.Properties.Settings.Default.MyPostgresTest +
+        /*static string DBConnection = BiologyDepartment.Properties.Settings.Default.MyPostgresTest +
                              ";Port=5432;Database=BiologyProject;";
         static string ADConnection = BiologyDepartment.Properties.Settings.Default.MyActiveDirectoryTest;
-        static string PasswordReset = BiologyDepartment.Properties.Settings.Default.PasswordTest;
+        static string PasswordReset = BiologyDepartment.Properties.Settings.Default.PasswordTest;*/
         //Live Connections
-        /*static string DBConnection = BiologyDepartment.Properties.Settings.Default.MyPostgress +
+        static string DBConnection = BiologyDepartment.Properties.Settings.Default.MyPostgress +
                                      ";Port=5432;Database=BiologyProject;";
         static string ADConnection = BiologyDepartment.Properties.Settings.Default.MyActiveDirectory;
-        static string PasswordReset = BiologyDepartment.Properties.Settings.Default.PasswordActive;*/
+        static string PasswordReset = BiologyDepartment.Properties.Settings.Default.PasswordActive;
         static string ADUser;
         static string ADGroup;
         static string ADPassword;
