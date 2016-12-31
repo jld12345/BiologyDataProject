@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
 using System.Threading;
-using cef;
-using CefSharp;
 using BiologyDepartment.Login;
 
 namespace BiologyDepartment
@@ -22,25 +20,17 @@ namespace BiologyDepartment
         {
             try
             {
-                MessageBox.Show("Step1", "Step1", MessageBoxButtons.OK);
                 Application.EnableVisualStyles();
-                MessageBox.Show("Step2", "Step1", MessageBoxButtons.OK);
                 Application.SetCompatibleTextRenderingDefault(false);
-                MessageBox.Show("Step3", "Step1", MessageBoxButtons.OK);
                 // Add the event handler for handling UI thread exceptions to the event.
                 //Application.ThreadException += new ThreadExceptionEventHandler(MainForm.Form1_UIThreadException);
 
                 // Set the unhandled exception mode to force all Windows Forms errors to go through 
                 // our handler.
-                MessageBox.Show("Step4", "Step1", MessageBoxButtons.OK);
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-                MessageBox.Show("Step5", "Step1", MessageBoxButtons.OK);
                 // Add the event handler for handling non-UI thread exceptions to the event. 
                 AppDomain.CurrentDomain.UnhandledException +=
                         new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                MessageBox.Show("Step6", "Step1", MessageBoxButtons.OK);
-                Cef.Initialize();
-                MessageBox.Show("Step7", "Step1", MessageBoxButtons.OK);
                 Application.Run(new MainForm());
             }
             catch(Exception e)

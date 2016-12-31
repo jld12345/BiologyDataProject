@@ -160,7 +160,8 @@ namespace BiologyDepartment
                     sFormula = Convert.ToString(row.Cells["custom_column_formula"].Value);
                 if (string.IsNullOrEmpty(sName) || string.IsNullOrEmpty(sType))
                     return;
-                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out int nColID);
+                int nColID = 0;
+                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
 
 
                 if (nColID > 0)
@@ -327,7 +328,8 @@ namespace BiologyDepartment
             List<DataGridViewRow> lstRows = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in dgColAdmin.SelectedRows)
             {
-                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out int nColID);
+                int nColID = 0;
+                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
                 if (nColID > 0)
                 {
                     _daoSetup.DeleteColumn(nColID);

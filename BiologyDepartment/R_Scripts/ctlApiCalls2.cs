@@ -269,7 +269,7 @@ namespace BiologyDepartment.R_Scripts
         {
         }
 
-        private void DgRScripts_CellButtonClicked(object sender, GridCellButtonClickedEventArgs e)
+        private void DgRScripts_CellButtonClicked(object sender, Syncfusion.Windows.Forms.Grid.GridCellButtonClickedEventArgs e)
         {
             CurrencyManager cm = (CurrencyManager)BindingContext[dgRScripts.DataSource, dgRScripts.DataMember];
             DataView dv = (DataView)cm.List;

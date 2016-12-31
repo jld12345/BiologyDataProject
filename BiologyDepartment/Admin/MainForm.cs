@@ -11,14 +11,11 @@ using System.Windows.Forms;
 using System.IO;
 using System.Security.Permissions;
 using Microsoft.Win32;
-using CefSharp;
-using CefSharp.WinForms;
 using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Runtime.InteropServices;
-using Syncfusion.Windows.Forms.Tools;
 using BiologyDepartment.ExperimentsFolder;
 using BiologyDepartment.ExperimentDocuments;
 using BiologyDepartment.Login;
@@ -26,15 +23,11 @@ using BiologyDepartment.R_Scripts;
 using BiologyDepartment.Admin;
 using Gnostice;
 using Gnostice.Documents;
-using Syncfusion.Windows.Forms.Grid;
-using Syncfusion.Windows.Forms.Tools;
-using Syncfusion.OfficeChart;
-using Syncfusion.Compression;
+using HeyRed.Mime;
 using Syncfusion.Presentation;
-using Syncfusion.PresentationToPdfConverter;
-using Syncfusion.OfficeChartToImageConverter;
 using Syncfusion.Pdf;
-using MimeDetective;
+using Syncfusion.Windows.Forms.Tools;
+using Syncfusion.PresentationToPdfConverter;
 
 namespace BiologyDepartment
 {
@@ -58,7 +51,7 @@ namespace BiologyDepartment
         private ToolStripButton btnChangePassword;
         private ToolStripPanelItem dropDownPanel;
 
-        public CtlApiCalls2 CtlApiCalls { get => _ctlApiCalls; set => _ctlApiCalls = value; }
+        public CtlApiCalls2 CtlApiCalls { get { return _ctlApiCalls; } set { _ctlApiCalls = value; } }
         #endregion
         #region Public Variables
         #endregion
@@ -120,13 +113,10 @@ namespace BiologyDepartment
                         tpExperiments.Controls.Add(GlobalVariables.ExperimentGrid);                        
                         break;
                     case "tpRStudio":
-                        var browser = new CefSharp.WinForms.ChromiumWebBrowser(BiologyDepartment.Properties.Settings.Default.MyRStudio);   
-                        //var browser = new CefSharp.WinForms.ChromiumWebBrowser("http:71.45.10.32:1521")
-                        {
-                            Dock = DockStyle.Fill;
-                        };
-                        
+                        var browser = new WebBrowser();//new CefSharp.WinForms.ChromiumWebBrowser(BiologyDepartment.Properties.Settings.Default.MyRStudio);   
+                        browser.Navigate(BiologyDepartment.Properties.Settings.Default.MyRStudio);
                         tpRStudio.Controls.Add(browser);
+                        browser.Dock = DockStyle.Fill;
                         break;
                     case "tpAuthors":
                         /*
@@ -229,9 +219,9 @@ namespace BiologyDepartment
             if(mStream != null)
                 mStream.Close();
             mStream = new MemoryStream(node.DocumentNode.DOCUMENT);
-            FileType fileType = node.DocumentNode.DOCUMENT.GetFileType();
+            FileType fileType = MimeGuesser.GuessFileType(node.DocumentNode.DOCUMENT);
 
-            if (fileType != null && (node.DocumentNode.DOCUMENT_TYPE.Equals("Spreadsheet") ||
+            if (fileType.MimeType != null && (node.DocumentNode.DOCUMENT_TYPE.Equals("Spreadsheet") ||
                 fileType.Extension.Equals("xlsx") || fileType.Extension.Equals("xls")))
             {
                 docViewer.Visible = false;

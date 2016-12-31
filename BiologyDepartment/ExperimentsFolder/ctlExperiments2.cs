@@ -8,13 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ScintillaNET;
-using Syncfusion.Windows.Forms;
-using Syncfusion.Windows.Forms.Grid;
-using Syncfusion.Windows.Forms.Grid.Grouping;
-using Syncfusion.Grouping;
-using Syncfusion.Windows.Forms.Tools;
 using System.Xml;
 using BiologyDepartment.Data;
+using Syncfusion.Windows.Forms.Tools;
 
 namespace BiologyDepartment.ExperimentsFolder
 {
