@@ -1,4 +1,6 @@
-﻿namespace BiologyDepartment
+﻿using System.Windows.Forms;
+
+namespace BiologyDepartment
 {
     partial class ctlSetup
     {
@@ -31,8 +33,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctlSetup));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.ImageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.OpenFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.gbShowColumns = new System.Windows.Forms.GroupBox();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -78,10 +80,10 @@
             // 
             // imageList1
             // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "down.png");
-            this.imageList1.Images.SetKeyName(1, "up.png");
+            this.ImageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.ImageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.ImageList1.Images.SetKeyName(0, "down.png");
+            this.ImageList1.Images.SetKeyName(1, "up.png");
             // 
             // splitContainer2
             // 
@@ -382,7 +384,6 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn cbVisible;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.GroupBox gbShowColumns;
         private System.Windows.Forms.SplitContainer splitContainer3;
@@ -403,5 +404,9 @@
         private System.Windows.Forms.TextBox txtExcelPath;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dgExcelData;
+
+        public OpenFileDialog OpenFileDialog1 { get => OpenFileDialog11; set => OpenFileDialog11 = value; }
+        public OpenFileDialog OpenFileDialog11 { get => openFileDialog1; set => openFileDialog1 = value; }
+        public ImageList ImageList1 { get => imageList1; set => imageList1 = value; }
     }
 }

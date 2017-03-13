@@ -91,7 +91,6 @@ namespace BiologyDepartment.Common
                 string values = "";
                 foreach (KeyValuePair<string, string> entry in deCols)
                 {
-                    DateTime tempDate;
                     bIsValid = false;
                     double tempDouble = 0;
                     int tempInt = 0;
@@ -114,7 +113,7 @@ namespace BiologyDepartment.Common
                                 bIsValid = true;
                             break;
                         case "DATE_TIME":
-                            if (!string.IsNullOrEmpty(cellVal) && DateTime.TryParse(cellVal, out tempDate))
+                            if (!string.IsNullOrEmpty(cellVal) && DateTime.TryParse(cellVal, out DateTime tempDate))
                                 bIsValid = true;
                             break;
                         default:

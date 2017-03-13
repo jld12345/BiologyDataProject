@@ -49,7 +49,7 @@ namespace BiologyDepartment
         /// <summary>
         /// Access routine for global variable.
         /// </summary>
-        public static string dbUser
+        public static string DbUser
         {
             get
             {
@@ -61,7 +61,7 @@ namespace BiologyDepartment
             }
         }
 
-        public static string dbPass
+        public static string DbPass
         {
             get
             {
@@ -75,14 +75,14 @@ namespace BiologyDepartment
 
         public static NpgsqlConnection Connection
         {
-            get { return conn(); }
+            get { return Conn(); }
         }
         public static NpgsqlConnection BackgroundConnection
         {
-            get { return bgwConnection(); }
+            get { return BgwConnection(); }
         }
 
-        private static NpgsqlConnection conn()
+        private static NpgsqlConnection Conn()
         {
             try
             {
@@ -90,8 +90,8 @@ namespace BiologyDepartment
                 {
                     con = new NpgsqlConnection(BiologyDepartment.Properties.Settings.Default.MyPostgress +
                                               @";Port=5432;
-                                        User Id=" + dbUser + @";
-                                        Password=" + dbPass + @";
+                                        User Id=" + DbUser + @";
+                                        Password=" + DbPass + @";
                                         Database=BiologyProject;
                                         Pooling=false;
                                         CommandTimeout=300;
@@ -101,7 +101,7 @@ namespace BiologyDepartment
                     || con.State == System.Data.ConnectionState.Executing 
                     || con.State == System.Data.ConnectionState.Fetching)
                 {
-                    return bgwConnection();
+                    return BgwConnection();
                 }
                 if (con.State != System.Data.ConnectionState.Open)
                     con.Open();
@@ -118,7 +118,7 @@ namespace BiologyDepartment
             }
         }
 
-        private static NpgsqlConnection bgwConnection()
+        private static NpgsqlConnection BgwConnection()
         {
             try
             {
@@ -126,8 +126,8 @@ namespace BiologyDepartment
                 {
                     bgwCon = new NpgsqlConnection(BiologyDepartment.Properties.Settings.Default.MyPostgress +
                                               @";Port=5432;
-                                        User Id=" + dbUser + @";
-                                        Password=" + dbPass + @";
+                                        User Id=" + DbUser + @";
+                                        Password=" + DbPass + @";
                                         Database=BiologyProject;
                                         Pooling=false;
                                         CommandTimeout=300;

@@ -15,7 +15,7 @@ namespace BiologyDepartment
     { 
             private PrincipalContext _PrincipalContext;
 
-            public PrincipalContext principalContext
+            public PrincipalContext PrincipalContext
             {
                 get
                 {
@@ -203,11 +203,13 @@ namespace BiologyDepartment
             {
                 if (this.IsUserExisiting(sUserName))
                     return this.GetUser(sUserName);
-                UserPrincipal userPrincipal = new UserPrincipal(this._PrincipalContext, sUserName, sPassword, true);
-                userPrincipal.UserPrincipalName = sUserName;
-                userPrincipal.GivenName = sGivenName;
-                userPrincipal.Surname = sSurname;
-                userPrincipal.Save();
+            UserPrincipal userPrincipal = new UserPrincipal(this._PrincipalContext, sUserName, sPassword, true)
+            {
+                UserPrincipalName = sUserName,
+                GivenName = sGivenName,
+                Surname = sSurname
+            };
+            userPrincipal.Save();
                 return userPrincipal;
             }
 
@@ -226,11 +228,13 @@ namespace BiologyDepartment
 
             public GroupPrincipal CreateNewGroup(string sOU, string sGroupName, string sDescription, GroupScope oGroupScope, bool bSecurityGroup)
             {
-                GroupPrincipal groupPrincipal = new GroupPrincipal(this._PrincipalContext, sGroupName);
-                groupPrincipal.Description = sDescription;
-                groupPrincipal.GroupScope = new GroupScope?(oGroupScope);
-                groupPrincipal.IsSecurityGroup = new bool?(bSecurityGroup);
-                groupPrincipal.Save();
+            GroupPrincipal groupPrincipal = new GroupPrincipal(this._PrincipalContext, sGroupName)
+            {
+                Description = sDescription,
+                GroupScope = new GroupScope?(oGroupScope),
+                IsSecurityGroup = new bool?(bSecurityGroup)
+            };
+            groupPrincipal.Save();
                 return groupPrincipal;
             }
 

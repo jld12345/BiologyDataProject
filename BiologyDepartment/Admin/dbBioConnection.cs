@@ -35,8 +35,8 @@ namespace BiologyDepartment
                                         };
         public DbBioConnection()
         {
-            DbUser = GlobalVariables.dbUser;
-            Dbpword = GlobalVariables.dbPass;
+            DbUser = GlobalVariables.DbUser;
+            Dbpword = GlobalVariables.DbPass;
             DbDataSource = GlobalVariables.DataSource;
             PostgresDB = "Server=192.168.0.9;Port=5432;User Id=biologyprojectadmin;Password=ImWay2c@@l;Database=BiologyProject;";//sDSource + sUserName + sPWord;
         }
@@ -57,6 +57,9 @@ namespace BiologyDepartment
         {
             set { sSQL = value; }
         }
+
+        public string SDBVar { get => SDBVar1; set => SDBVar1 = value; }
+        public string SDBVar1 { get => sDBVar; set => sDBVar = value; }
 
         public int IntScalar(NpgsqlCommand cmd)
         {

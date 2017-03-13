@@ -38,8 +38,8 @@ namespace BiologyDepartment
                 this.Parent.Hide();
                 GlobalVariables.ADUserName = _daoAD.ADUserName;
                 GlobalVariables.ADPass = _daoAD.ADPass;
-                GlobalVariables.dbPass = _daoAD.DBPass;
-                GlobalVariables.dbUser = _daoAD.DBUser;
+                GlobalVariables.DbPass = _daoAD.DBPass;
+                GlobalVariables.DbUser = _daoAD.DBUser;
                 GlobalVariables.ADUserGroup = _daoAD.ADUserGroup;
 
             }

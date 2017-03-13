@@ -59,15 +59,15 @@ namespace BiologyDepartment
             {
                 dsExcelData = new DataSet();
                 //Set filter dialog for excel
-                openFileDialog1.Filter = "Excel Files|*.xls;*.xlsx;";
-                openFileDialog1.FilterIndex = 1;
-                openFileDialog1.Title = "Select file";
-                openFileDialog1.InitialDirectory = @"c:\";
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                OpenFileDialog1.Filter = "Excel Files|*.xls;*.xlsx;";
+                OpenFileDialog1.FilterIndex = 1;
+                OpenFileDialog1.Title = "Select file";
+                OpenFileDialog1.InitialDirectory = @"c:\";
+                if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    if (openFileDialog1.FileName != "")
+                    if (OpenFileDialog1.FileName != "")
                     {
-                        sExcelPath = openFileDialog1.FileName;
+                        sExcelPath = OpenFileDialog1.FileName;
                         txtExcelPath.Text = sExcelPath;
                         dsExcelData = _commonUtil.GetExcelReader(sExcelPath);
                         SetWorksheetComboBox();
@@ -160,8 +160,7 @@ namespace BiologyDepartment
                     sFormula = Convert.ToString(row.Cells["custom_column_formula"].Value);
                 if (string.IsNullOrEmpty(sName) || string.IsNullOrEmpty(sType))
                     return;
-                int nColID = 0;
-                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
+                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out int nColID);
 
 
                 if (nColID > 0)
@@ -317,7 +316,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void Refresh()
+        private new void Refresh()
         {
             LoadData();
             LoadGrid();
@@ -328,8 +327,7 @@ namespace BiologyDepartment
             List<DataGridViewRow> lstRows = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in dgColAdmin.SelectedRows)
             {
-                int nColID = 0;
-                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out nColID);
+                int.TryParse(Convert.ToString(row.Cells["custom_columns_id"].Value), out int nColID);
                 if (nColID > 0)
                 {
                     _daoSetup.DeleteColumn(nColID);
