@@ -12,7 +12,8 @@ using AForge.Video.DirectShow;
 using System.Drawing.Imaging;
 using System.IO;
 using NpgsqlTypes;
-using Excel = Microsoft.Office.Interop.Excel; 
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Threading;
 
 namespace BiologyDepartment
 {
@@ -33,6 +34,7 @@ namespace BiologyDepartment
         private List<Point> pointLine = new List<Point>();
         private List<Point> pointCalibrate = new List<Point>();
         private Bitmap bmpOriginal;
+        private Bitmap bmpCanvas;
         private bool bSavePic = false;
         private byte[] originalPic;
         #endregion
@@ -45,6 +47,7 @@ namespace BiologyDepartment
         #region Public Methods
         public frmExDataEntry()
         {
+            DoubleBuffered = true;
             InitializeComponent();
             theAnimal = new AnimalData();
             SetMeasurements();
@@ -53,6 +56,7 @@ namespace BiologyDepartment
 
         public frmExDataEntry(int id)
         {
+            DoubleBuffered = true;
             InitializeComponent();
             theAnimal = new AnimalData();
             SetMeasurements();
@@ -61,6 +65,7 @@ namespace BiologyDepartment
 
         public frmExDataEntry(bool IsAdd, ref DataRow row)
         {
+            DoubleBuffered = true;
             InitializeComponent();
             theAnimal = new AnimalData();
             SetMeasurements();
@@ -194,7 +199,10 @@ namespace BiologyDepartment
         private void setPicBox(byte[] imageBytes)
         {
             if (imageBytes == null)
+            {
+                udZoom.Enabled = false;
                 return;
+            }
             MemoryStream mStream = new MemoryStream(imageBytes);
             mStream.Position = 0;
 
@@ -205,7 +213,9 @@ namespace BiologyDepartment
 
             //pbImage.Image = img;
             pbImage.BackgroundImage = new Bitmap(img);
+            bmpCanvas = new Bitmap(img);
             bmpOriginal = new Bitmap(img);
+            udZoom.Enabled = true;
         }
 
         private void btnPic_Click(object sender, EventArgs e)
@@ -216,6 +226,8 @@ namespace BiologyDepartment
                 {
                     pbImage.BackgroundImage = (Bitmap)pbVideo.Image.Clone();
                     bmpOriginal = new Bitmap(pbImage.BackgroundImage);
+                    bmpCanvas = new Bitmap(pbImage.BackgroundImage);
+                    udZoom.Enabled = true;
                 }
 
             }
@@ -228,6 +240,11 @@ namespace BiologyDepartment
 
         private void cbCaptureDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(videoSource != null)
+            {
+                videoSource.SignalToStop();
+                videoSource.Stop();
+            }
             videoSource = new VideoCaptureDevice(captureDevice[cbCaptureDevice.SelectedIndex].MonikerString);
 
             //Check if the video device provides a list of supported resolutions
@@ -242,7 +259,7 @@ namespace BiologyDepartment
                 }
                 cbResolution.SelectedIndex = 0;
             }
-
+            videoSource.SetCameraProperty(CameraControlProperty.Focus, 100, CameraControlFlags.Auto);
             videoSource.NewFrame += new AForge.Video.NewFrameEventHandler(videoSource_NewFrame);
         }
 
@@ -324,28 +341,30 @@ namespace BiologyDepartment
 
         private void pbImage_Paint(object sender, PaintEventArgs e)
         {
-            Pen p = new Pen(btnLineColor.BackColor, Convert.ToInt32(cbLineWidth.SelectedItem));
-
-            var g = e.Graphics;
-
-            if (pointLine.Count > 1 && !string.IsNullOrEmpty(txtCalibration.Text.ToString()))
+            using (Pen p = new Pen(btnLineColor.BackColor, Convert.ToInt32(cbLineWidth.SelectedItem)))
             {
-                dLineLength = 0;
 
-                for (int i = 0; i < pointLine.Count - 1; i++)
+                var g = e.Graphics;
+
+                if (pointLine.Count > 1 && !string.IsNullOrEmpty(txtCalibration.Text.ToString()))
                 {
-                    g.DrawLine(p, pointLine[i], pointLine[i + 1]);
+                    dLineLength = 0;
 
-                    dLineLength += Math.Sqrt(Math.Pow((pointLine[i + 1].Y - pointLine[i].Y), 2) +
-                        Math.Pow((pointLine[i + 1].X - pointLine[i].X), 2));
+                    for (int i = 0; i < pointLine.Count - 1; i++)
+                    {
+                        g.DrawLine(p, pointLine[i], pointLine[i + 1]);
+
+                        dLineLength += Math.Sqrt(Math.Pow((pointLine[i + 1].Y - pointLine[i].Y), 2) +
+                            Math.Pow((pointLine[i + 1].X - pointLine[i].X), 2));
+                    }
                 }
-            }
 
-            if (pointCalibrate.Count > 1)
-            {
-                g.DrawLine(p, pointCalibrate[0], pointCalibrate[1]);
-                dCalLength = Math.Round(Math.Sqrt(Math.Pow((pointCalibrate[1].Y - pointCalibrate[0].Y), 2) +
-                    Math.Pow((pointCalibrate[1].X - pointCalibrate[0].X), 2)), 2);
+                if (pointCalibrate.Count > 1)
+                {
+                    g.DrawLine(p, pointCalibrate[0], pointCalibrate[1]);
+                    dCalLength = Math.Round(Math.Sqrt(Math.Pow((pointCalibrate[1].Y - pointCalibrate[0].Y), 2) +
+                        Math.Pow((pointCalibrate[1].X - pointCalibrate[0].X), 2)), 2);
+                }
             }
 
             if (!string.IsNullOrEmpty(txtCalibration.Text.ToString()))
@@ -355,6 +374,29 @@ namespace BiologyDepartment
                 this.pbImage.AutoScrollMinSize = this.pbImage.BackgroundImage.Size;
         }
 
+        private void pbImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            // this.SuspendLayout();
+            //using (Graphics g = pbImage.CreateGraphics())
+            //{
+            //    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            //    using (Pen p = new Pen(btnLineColor.BackColor, Convert.ToInt32(cbLineWidth.SelectedItem)))
+            //    {
+            //        if (string.IsNullOrEmpty(txtCalibration.Text.ToString()) && pointCalibrate.Count == 1)
+            //        {
+            //            pbImage.BackgroundImage = bmpCanvas;
+            //            g.DrawLine(p, pointCalibrate[0], e.Location);
+            //        }
+            //        else if (pointLine.Count >= 1)
+            //            g.DrawLine(p, pointLine[pointLine.Count - 1], e.Location);
+
+            //        pbImage.Invalidate();
+            //        Thread.Sleep(100);
+            //    }
+            //}
+            //g.Dispose();
+            //this.ResumeLayout();
+        }
         private void pbImage_MouseClick(object sender, MouseEventArgs e)
         {
 
@@ -488,7 +530,9 @@ namespace BiologyDepartment
             {
                 if (c is TextBox)
                     c.Text = "";
-            } 
+            }
+            udZoom.Enabled = false;
+            pbImage.BackgroundImage = null;
         }
         #endregion
 
@@ -496,6 +540,12 @@ namespace BiologyDepartment
         {
 
         }
+
+        private void pbImage_Paint(object sender, MouseEventArgs e)
+        {
+
+        }
+
 
     }
 }

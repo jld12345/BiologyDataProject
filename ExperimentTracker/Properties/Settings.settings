@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ExperimentTracker.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MyActiveDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">dwbtechnologies.ddns.net:390</Value>
+    </Setting>
+    <Setting Name="MyPostgres" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Server=dwbtechnologies.ddns.net</Value>
+    </Setting>
+    <Setting Name="MyRStudio" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://dwbtechnologies.ddns.net:8787/rstudio</Value>
+    </Setting>
+    <Setting Name="PasswordActive" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://dwbtechnologies.ddns.net:8888/showLogin.cc</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

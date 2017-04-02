@@ -14,6 +14,8 @@ namespace BiologyDepartment
 
         public bool bExitProgram = false;
 
+        public ActiveDirectory DaoAD { get => _daoAD; set => _daoAD = value; }
+
         public event EventHandler<ValidLoginEventArgs> RaiseLoginEvent;
 
         public ctlLogIn()
@@ -27,7 +29,7 @@ namespace BiologyDepartment
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            string sReturn = _daoAD.ValidateCredentials(txtUserName2.Text, txtPWord.Text);
+            string sReturn = DaoAD.ValidateCredentials(txtUserName2.Text, txtPWord.Text);
             if(sReturn.Equals("Null Principal Context") || sReturn.Equals("Stupid Connection"))
             {
                 MessageBox.Show("There was an error connecting to verification source.  If this problem persists, please contact your System Administrator.", "Connection Error", 
@@ -36,11 +38,11 @@ namespace BiologyDepartment
             else if(sReturn.Equals("true"))
             {
                 this.Parent.Hide();
-                GlobalVariables.ADUserName = _daoAD.ADUserName;
-                GlobalVariables.ADPass = _daoAD.ADPass;
-                GlobalVariables.DbPass = _daoAD.DBPass;
-                GlobalVariables.DbUser = _daoAD.DBUser;
-                GlobalVariables.ADUserGroup = _daoAD.ADUserGroup;
+                GlobalVariables.ADUserName = DaoAD.ADUserName;
+                GlobalVariables.ADPass = DaoAD.ADPass;
+                GlobalVariables.DbPass = DaoAD.DBPass;
+                GlobalVariables.DbUser = DaoAD.DBUser;
+                GlobalVariables.ADUserGroup = DaoAD.ADUserGroup;
 
             }
             else

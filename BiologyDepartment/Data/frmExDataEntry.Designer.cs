@@ -71,7 +71,6 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
-            this.pbImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).BeginInit();
             this.SuspendLayout();
             // 
@@ -247,6 +246,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblZoom);
+            this.groupBox1.Controls.Add(this.udZoom);
             this.groupBox1.Controls.Add(this.pbVideo);
             this.groupBox1.Controls.Add(this.lblRes);
             this.groupBox1.Controls.Add(this.btnLineColor);
@@ -394,8 +395,6 @@
             this.pbImage.AutoScroll = true;
             this.pbImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbImage.Controls.Add(this.lblZoom);
-            this.pbImage.Controls.Add(this.udZoom);
             this.pbImage.Location = new System.Drawing.Point(385, 201);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(654, 530);
@@ -405,15 +404,16 @@
             this.pbImage.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbImage_MouseDoubleClick);
             this.pbImage.MouseEnter += new System.EventHandler(this.pbImage_MouseEnter);
             this.pbImage.MouseLeave += new System.EventHandler(this.pbImage_MouseLeave);
+            this.pbImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbImage_MouseMove);
             // 
             // lblZoom
             // 
             this.lblZoom.AutoSize = true;
-            this.lblZoom.Location = new System.Drawing.Point(13, 10);
+            this.lblZoom.Location = new System.Drawing.Point(242, 147);
             this.lblZoom.Name = "lblZoom";
-            this.lblZoom.Size = new System.Drawing.Size(34, 13);
+            this.lblZoom.Size = new System.Drawing.Size(65, 13);
             this.lblZoom.TabIndex = 61;
-            this.lblZoom.Text = "Zoom";
+            this.lblZoom.Text = "Zoom Photo";
             // 
             // udZoom
             // 
@@ -422,7 +422,7 @@
             0,
             0,
             0});
-            this.udZoom.Location = new System.Drawing.Point(13, 26);
+            this.udZoom.Location = new System.Drawing.Point(242, 163);
             this.udZoom.Maximum = new decimal(new int[] {
             325,
             0,
@@ -460,8 +460,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).EndInit();
-            this.pbImage.ResumeLayout(false);
-            this.pbImage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
