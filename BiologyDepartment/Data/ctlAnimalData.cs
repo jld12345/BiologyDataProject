@@ -156,10 +156,10 @@ namespace BiologyDepartment
             DataRow newRow = dtAnimals.NewRow();
             using (frmExDataEntry _frmFishData = frmExDataEntry.CreateInstance(true, ref newRow))
             {
-                _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
+                _frmFishData.StartPosition = FormStartPosition.CenterScreen;
                 _frmFishData.ShowDialog();
 
-                DataTable dtReturn = _frmFishData.dtReturn;
+                /*DataTable dtReturn = _frmFishData.dtReturn;
                 if (dtReturn == null)
                     return;
 
@@ -171,9 +171,11 @@ namespace BiologyDepartment
                         newRow[col.ColumnName] = row[col.ColumnName];
                     }
                     dtAnimals.Rows.Add(newRow);
-                }
+                }*/
             }
-            SaveData(0);
+            //SaveData(0);
+            Initialize(GlobalVariables.ExperimentNode.ExperimentNode.ID);
+            bDataDirty = false;
         }
 
         private void SetButtons()
@@ -349,8 +351,8 @@ namespace BiologyDepartment
                 case "DELETE":
                     if (!_commonUtil.DataLockExists(GlobalVariables.ExperimentNode.ExperimentNode.ID, nRow, "EXPERIMENTS_JSONB"))
                     {
+                        SaveData(nRow, "DELETE");
                         dtAnimals.Rows[e.RowIndex].Delete();
-                        SaveData(nRow);
                     }
                     else
                     {
@@ -383,24 +385,28 @@ namespace BiologyDepartment
             SaveData(0);
         }
 
-        public void SaveData(int nJsonID)
+        public void SaveData(int nJsonID, string sAction = "")
         {
             DataTable dt = dtAnimals.GetChanges();
-            if (dt == null)
+            if (dt == null && string.IsNullOrEmpty(sAction))
                 return;
-            foreach(DataRow dr in dt.Rows)
+            if (sAction.Equals("DELETE"))
+                _commonUtil.SerializeJson(null, nJsonID, sAction);
+            else
             {
-                if(nJsonID >= 0)
+                foreach (DataRow dr in dt.Rows)
+                {
                     nJsonID = Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]);
-                string action = "";
-                if (dr.RowState == DataRowState.Modified)
-                    action = "MODIFIED";
-                else if(dr.RowState == DataRowState.Added)
-                    action = "ADDED";
-                else if(dr.RowState == DataRowState.Deleted)
-                    action = "DELETED";
+                    string action = "";
+                    if (dr.RowState == DataRowState.Modified)
+                        action = "MODIFIED";
+                    else if (dr.RowState == DataRowState.Added)
+                        action = "ADDED";
+                    else if (dr.RowState == DataRowState.Deleted)
+                        action = "DELETED";
 
-                _commonUtil.SerializeJson(dr, nJsonID, action);
+                    _commonUtil.SerializeJson(dr, nJsonID, action);
+                }
             }
             Initialize(GlobalVariables.ExperimentNode.ExperimentNode.ID);
             bDataDirty = false;

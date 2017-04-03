@@ -181,7 +181,7 @@ namespace BiologyDepartment.Data
                 dc.ColumnName = dc.Caption;
             }
 
-            foreach (DataRow dr in dt.Rows)
+            /*foreach (DataRow dr in dt.Rows)
             {
                 if (dr["Data Picture"] == null)
                     continue;
@@ -196,9 +196,9 @@ namespace BiologyDepartment.Data
                 string sImagePath = sFilePath + "\\" + nRowCount.ToString() + ".bmp";
                 theImage.Save(sImagePath);
                 nRowCount++;
-            }
+            }*/
 
-            dt.Columns.Remove("Data Picture");
+            //dt.Columns.Remove("Data Picture");
             //Create the excel document
             using (XLWorkbook wb = new XLWorkbook())
             {

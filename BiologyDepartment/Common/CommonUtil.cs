@@ -315,13 +315,19 @@ namespace BiologyDepartment.Common
 
         public void SerializeJson(DataRow theData, int nJsonID, string sAction)
         {
-            String sJson = SerializeRowToJson(theData);
+            String sJson;
             if (sAction.Equals("MODIFIED"))
+            {
+                sJson = SerializeRowToJson(theData);
                 _daoData.UpdateJson(sJson, nJsonID);
+            }
             else if (sAction.Equals("ADDED"))
+            {
+                sJson = SerializeRowToJson(theData);
                 _daoData.InsertJson(sJson, nJsonID);
+            }
             else
-                _daoData.DeleteJson(sJson, nJsonID);
+                _daoData.DeleteJson("", nJsonID);
         }
 
         public DataTable DeSerializeJsonToDataTable()

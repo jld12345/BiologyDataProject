@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AForge.Video;
 using AForge.Video.DirectShow;
+using AForge.Imaging.Filters;
 using System.Drawing.Imaging;
 using System.IO;
 using NpgsqlTypes;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Threading;
+using BiologyDepartment.Common;
 
 namespace BiologyDepartment
 {
@@ -37,6 +39,8 @@ namespace BiologyDepartment
         private Bitmap bmpCanvas;
         private bool bSavePic = false;
         private byte[] originalPic;
+        private bool bIsAdd = false;
+        private CommonUtil util = new CommonUtil();
         #endregion
 
         #region Public Variables
@@ -72,6 +76,7 @@ namespace BiologyDepartment
             SetLineWidthCombo();
             SetFields(ref row);
             SetButtons(IsAdd);
+            bIsAdd = IsAdd;
         }
 
         public static frmExDataEntry CreateInstance()
@@ -161,6 +166,7 @@ namespace BiologyDepartment
         private void SetButtons(bool IsAdd)
         {
             btnAdd.Visible = IsAdd;
+            btnExit.Visible = false;
         }
 
         private void frmFishData_Load(object sender, EventArgs e)
@@ -212,6 +218,7 @@ namespace BiologyDepartment
             mStream.Dispose();
 
             //pbImage.Image = img;
+            img.RotateFlip(RotateFlipType.Rotate180FlipY);
             pbImage.BackgroundImage = new Bitmap(img);
             bmpCanvas = new Bitmap(img);
             bmpOriginal = new Bitmap(img);
@@ -224,7 +231,17 @@ namespace BiologyDepartment
             {
                 if (this.pbVideo.Image != null)
                 {
-                    pbImage.BackgroundImage = (Bitmap)pbVideo.Image.Clone();
+                    RotateBicubic filter;
+                    Bitmap img;
+                    if (cbRotate180.Checked)
+                    {
+                        filter = new RotateBicubic(180, true);
+                        // apply the filter
+                        img = filter.Apply((Bitmap)pbVideo.Image.Clone());
+                    }
+                    else
+                        img = (Bitmap)pbVideo.Image.Clone();
+                    pbImage.BackgroundImage = new Bitmap(img);
                     bmpOriginal = new Bitmap(pbImage.BackgroundImage);
                     bmpCanvas = new Bitmap(pbImage.BackgroundImage);
                     udZoom.Enabled = true;
@@ -259,7 +276,7 @@ namespace BiologyDepartment
                 }
                 cbResolution.SelectedIndex = 0;
             }
-            videoSource.SetCameraProperty(CameraControlProperty.Focus, 100, CameraControlFlags.Auto);
+            videoSource.SetCameraProperty(CameraControlProperty.Focus, 25, CameraControlFlags.None);
             videoSource.NewFrame += new AForge.Video.NewFrameEventHandler(videoSource_NewFrame);
         }
 
@@ -306,7 +323,7 @@ namespace BiologyDepartment
             if (row["EXPERIMENTS_JSONB_ID"] == DBNull.Value)
                 row["EXPERIMENTS_JSONB_ID"] = _daoData.GetBulkIDs(1).Rows[0][0];
 
-            if (pbImage.BackgroundImage != null && bSavePic)
+            if (pbImage.BackgroundImage != null)
             {
                 MemoryStream ms = new MemoryStream();
                 pbImage.BackgroundImage.Save(ms, ImageFormat.Jpeg);
@@ -319,7 +336,7 @@ namespace BiologyDepartment
                 _daoData.InsertPic("EXPERIMENTs_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), originalPic);
 
             if (row["EXPERIMENTS_JSONB_ID"] != DBNull.Value)
-                dtReturn.Rows.Add(row);
+                util.SerializeJson(row, Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), bIsAdd == true ? "ADDED":"MODIFIED");
         }
 
         private void btnUpload_Click(object sender, EventArgs e)
@@ -399,13 +416,17 @@ namespace BiologyDepartment
         }
         private void pbImage_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (string.IsNullOrEmpty(txtCalibration.Text.ToString()))
+                    pointCalibrate.Add(e.Location);
+                else
+                    pointLine.Add(e.Location);
 
-            if (string.IsNullOrEmpty(txtCalibration.Text.ToString()))
-                pointCalibrate.Add(e.Location);
-            else
-                pointLine.Add(e.Location);
-
-            pbImage.Invalidate();
+                pbImage.Invalidate();
+            }
+            else if (e.Button == MouseButtons.Left)
+                btnCaptureImage.PerformClick();
         }
 
         private void SetMeasurements()
@@ -533,6 +554,8 @@ namespace BiologyDepartment
             }
             udZoom.Enabled = false;
             pbImage.BackgroundImage = null;
+            pointLine.Clear();
+            pointCalibrate.Clear();
         }
         #endregion
 

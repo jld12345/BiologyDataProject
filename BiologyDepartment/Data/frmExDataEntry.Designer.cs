@@ -38,7 +38,6 @@
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnCaptureImage = new System.Windows.Forms.ToolStripButton();
-            this.btnSaveImage = new System.Windows.Forms.ToolStripButton();
             this.btnUploadImage = new System.Windows.Forms.ToolStripButton();
             this.btnClearImage = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -49,6 +48,9 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pnlInput = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbRotate180 = new System.Windows.Forms.CheckBox();
+            this.lblZoom = new System.Windows.Forms.Label();
+            this.udZoom = new System.Windows.Forms.NumericUpDown();
             this.pbVideo = new System.Windows.Forms.PictureBox();
             this.lblRes = new System.Windows.Forms.Label();
             this.btnLineColor = new System.Windows.Forms.Button();
@@ -64,14 +66,12 @@
             this.lblCalibration = new System.Windows.Forms.Label();
             this.txtCalibration = new System.Windows.Forms.TextBox();
             this.pbImage = new System.Windows.Forms.Panel();
-            this.lblZoom = new System.Windows.Forms.Label();
-            this.udZoom = new System.Windows.Forms.NumericUpDown();
             this.toolStripEx1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripEx1
@@ -84,7 +84,6 @@
             this.btnAdd,
             this.toolStripSeparator1,
             this.btnCaptureImage,
-            this.btnSaveImage,
             this.btnUploadImage,
             this.btnClearImage,
             this.toolStripSeparator2,
@@ -145,17 +144,6 @@
             this.btnCaptureImage.Size = new System.Drawing.Size(90, 30);
             this.btnCaptureImage.Text = "Capture Image";
             this.btnCaptureImage.Click += new System.EventHandler(this.btnPic_Click);
-            // 
-            // btnSaveImage
-            // 
-            this.btnSaveImage.AutoSize = false;
-            this.btnSaveImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnSaveImage.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveImage.Image")));
-            this.btnSaveImage.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSaveImage.Name = "btnSaveImage";
-            this.btnSaveImage.Size = new System.Drawing.Size(90, 30);
-            this.btnSaveImage.Text = "Save Image";
-            this.btnSaveImage.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnUploadImage
             // 
@@ -246,6 +234,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbRotate180);
             this.groupBox1.Controls.Add(this.lblZoom);
             this.groupBox1.Controls.Add(this.udZoom);
             this.groupBox1.Controls.Add(this.pbVideo);
@@ -267,6 +256,48 @@
             this.groupBox1.Size = new System.Drawing.Size(653, 195);
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
+            // 
+            // cbRotate180
+            // 
+            this.cbRotate180.AutoSize = true;
+            this.cbRotate180.Location = new System.Drawing.Point(252, 101);
+            this.cbRotate180.Name = "cbRotate180";
+            this.cbRotate180.Size = new System.Drawing.Size(79, 17);
+            this.cbRotate180.TabIndex = 62;
+            this.cbRotate180.Text = "Rotate 180";
+            this.cbRotate180.UseVisualStyleBackColor = true;
+            // 
+            // lblZoom
+            // 
+            this.lblZoom.AutoSize = true;
+            this.lblZoom.Location = new System.Drawing.Point(242, 147);
+            this.lblZoom.Name = "lblZoom";
+            this.lblZoom.Size = new System.Drawing.Size(65, 13);
+            this.lblZoom.TabIndex = 61;
+            this.lblZoom.Text = "Zoom Photo";
+            // 
+            // udZoom
+            // 
+            this.udZoom.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.udZoom.Location = new System.Drawing.Point(242, 163);
+            this.udZoom.Maximum = new decimal(new int[] {
+            325,
+            0,
+            0,
+            0});
+            this.udZoom.Name = "udZoom";
+            this.udZoom.Size = new System.Drawing.Size(48, 20);
+            this.udZoom.TabIndex = 60;
+            this.udZoom.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.udZoom.ValueChanged += new System.EventHandler(this.udZoom_ValueChanged);
             // 
             // pbVideo
             // 
@@ -392,6 +423,8 @@
             // 
             // pbImage
             // 
+            this.pbImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pbImage.AutoScroll = true;
             this.pbImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -405,38 +438,6 @@
             this.pbImage.MouseEnter += new System.EventHandler(this.pbImage_MouseEnter);
             this.pbImage.MouseLeave += new System.EventHandler(this.pbImage_MouseLeave);
             this.pbImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbImage_MouseMove);
-            // 
-            // lblZoom
-            // 
-            this.lblZoom.AutoSize = true;
-            this.lblZoom.Location = new System.Drawing.Point(242, 147);
-            this.lblZoom.Name = "lblZoom";
-            this.lblZoom.Size = new System.Drawing.Size(65, 13);
-            this.lblZoom.TabIndex = 61;
-            this.lblZoom.Text = "Zoom Photo";
-            // 
-            // udZoom
-            // 
-            this.udZoom.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.udZoom.Location = new System.Drawing.Point(242, 163);
-            this.udZoom.Maximum = new decimal(new int[] {
-            325,
-            0,
-            0,
-            0});
-            this.udZoom.Name = "udZoom";
-            this.udZoom.Size = new System.Drawing.Size(48, 20);
-            this.udZoom.TabIndex = 60;
-            this.udZoom.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.udZoom.ValueChanged += new System.EventHandler(this.udZoom_ValueChanged);
             // 
             // frmExDataEntry
             // 
@@ -459,8 +460,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -476,7 +477,6 @@
         private System.Windows.Forms.ToolStripButton btnAdd;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnCaptureImage;
-        private System.Windows.Forms.ToolStripButton btnSaveImage;
         private System.Windows.Forms.ToolStripButton btnUploadImage;
         private System.Windows.Forms.ToolStripButton btnClearImage;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -505,5 +505,6 @@
         private System.Windows.Forms.Label lblZoom;
         private System.Windows.Forms.NumericUpDown udZoom;
         private System.Windows.Forms.ToolStripButton btnSaveExit;
+        private System.Windows.Forms.CheckBox cbRotate180;
     }
 }
