@@ -21,8 +21,9 @@ namespace BiologyDepartment
         {
             if (string.IsNullOrEmpty(GlobalVariables.ADUserName))
                 return null;
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Select ex.ex_id, ex.ex_alias, ex.ex_title, ex.ex_sdate,
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Select ex.ex_id, ex.ex_alias, ex.ex_title, ex.ex_sdate,
                                       ex.ex_edate, ex.ex_hypothesis, 
                                       case  
                                             when ex.ex_parent_id is null then ex.ex_id
@@ -37,8 +38,8 @@ namespace BiologyDepartment
                                             or (ex.ex_parent_id = ex.ex_id)
                                             or (ex.ex_parent_id = 0))
                                       " + sCriteria + @" 
-                                      order by ex.ex_id";
-
+                                      order by ex.ex_id"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
             DataSet ds = new DataSet();
@@ -54,8 +55,9 @@ namespace BiologyDepartment
         public DataTable getChildExpirements(string sExperimentIds)
         {
             DataTable dt = new DataTable();
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Select ex.ex_id, ex.ex_alias, ex.ex_title, ex.ex_sdate,
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Select ex.ex_id, ex.ex_alias, ex.ex_title, ex.ex_sdate,
                                       ex.ex_edate, ex.ex_hypothesis, 
                                       case  
                                             when ex.ex_parent_id is null then ex.ex_id
@@ -67,7 +69,8 @@ namespace BiologyDepartment
                                       and ex.ex_id = ea.ex_id
                                       and ex.ex_parent_id in (" + sExperimentIds + @")
                                       and ex.ex_id <> ex.ex_parent_id
-                                      order by ex.ex_id";
+                                      order by ex.ex_id"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
 
@@ -77,8 +80,10 @@ namespace BiologyDepartment
 
         public DataSet getRecord(int rec)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = "Select * from experiments Where EX_ID = :rec";
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = "Select * from experiments Where EX_ID = :rec"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rec", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = rec;
 
@@ -95,13 +100,14 @@ namespace BiologyDepartment
         public int insertRecord(Experiments e, bool bIsUnitTest)
         {
             int id = 0;
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"
                                    Insert into experiments (EX_ID, EX_ALIAS, EX_TITLE, EX_SDATE, EX_EDATE, EX_HYPOTHESIS, ex_parent_id) 
                                    VALUES (nextval('experiments_id_seq'), :alias, :title, :sdate, :edate,:hypo,:parent)
                                    returning ex_id
-                                   ";
-
+                                   "
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("alias", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("title", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("sdate", NpgsqlDbType.Date));
@@ -118,8 +124,10 @@ namespace BiologyDepartment
             else
                 NpgsqlCMD.Parameters[5].Value = 0;
 
-            NpgsqlParameter ExIDOutput = new NpgsqlParameter("id", NpgsqlDbType.Integer);
-            ExIDOutput.Direction = ParameterDirection.Output;
+            NpgsqlParameter ExIDOutput = new NpgsqlParameter("id", NpgsqlDbType.Integer)
+            {
+                Direction = ParameterDirection.Output
+            };
             NpgsqlCMD.Parameters.Add(ExIDOutput);
 
             id = GlobalVariables.GlobalConnection.InsertDataAndGetID(NpgsqlCMD);
@@ -148,17 +156,18 @@ namespace BiologyDepartment
         }
 
         public void updateRecord(Experiments e, bool bIsUnitTest)
-        { 
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Update experiments 
+        {
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Update experiments 
                               Set EX_ALIAS = :alias, 
                               EX_TITLE  = :title,
                               EX_SDATE  = :sdate,
                               EX_EDATE  = :edate,
                               EX_HYPOTHESIS  = :hypo,
                               EX_PARENT_ID = :parent
-                              Where EX_ID = :exID";
-
+                              Where EX_ID = :exID"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("alias", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("title", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("sdate", NpgsqlDbType.Date));
@@ -212,13 +221,14 @@ namespace BiologyDepartment
 
         public DataTable GetRecordsForComboBox()
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Select ex.ex_id, ex.ex_alias 
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Select ex.ex_id, ex.ex_alias 
                                       from experiments ex, experiment_access ea
                                       where upper(ea.user_name) = :user_name
                                       and ex.ex_id = ea.ex_id
-                                      order by ex.ex_id";
-
+                                      order by ex.ex_id"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ADUserName.ToUpper();
             DataSet ds = new DataSet();

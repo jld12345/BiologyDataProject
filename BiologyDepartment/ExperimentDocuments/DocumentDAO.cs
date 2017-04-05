@@ -27,12 +27,13 @@ namespace BiologyDepartment.ExperimentDocuments
 
         public void InsertPDF(DocumentClass thePDF)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"INSERT INTO EXPERIMENT_DOCUMENT 
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"INSERT INTO EXPERIMENT_DOCUMENT 
                                       (EXPERIMENT_DOCUMENT_ID, EXPERIMENT_ID, EXPERIMENT_DOCUMENT_TITLE, EXPERIMENT_DOCUMENT_DESCRIPTION,
                                         EXPERIMENT_DOCUMENT_TYPE, EXPERIMENT_DOCUMENT)
-                                      VALUES(nextval('EXPERIMENT_DOCUMENT_ID_SEQ'), :EX_ID, :TITLE, :DESC, :DOCTYPE, :PDF)";
-
+                                      VALUES(nextval('EXPERIMENT_DOCUMENT_ID_SEQ'), :EX_ID, :TITLE, :DESC, :DOCTYPE, :PDF)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("TITLE", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("DESC", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("EX_ID", NpgsqlDbType.Integer));
@@ -54,13 +55,14 @@ namespace BiologyDepartment.ExperimentDocuments
 
         public void UpdatePDF(DocumentClass thePDF)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"UPDATE EXPERIMENT_DOCUMENT 
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"UPDATE EXPERIMENT_DOCUMENT 
                                       SET EXPERIMENT_DOCUMENT_TITLE = :TITLE, 
                                           EXPERIMENT_DOCUMENT_DESCRIPTION = :DESC,
                                           EXPERIMENT_DOCUMENT_TYPE = :DOCTYPE
-                                       WHERE EXPERIMENT_DOCUMENT_ID = :DOCID";
-
+                                       WHERE EXPERIMENT_DOCUMENT_ID = :DOCID"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("TITLE", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("DESC", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("DOCID", NpgsqlDbType.Integer));
@@ -78,10 +80,11 @@ namespace BiologyDepartment.ExperimentDocuments
 
         public void DeletePDF(DocumentClass thePDF)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"DELETE FROM  EXPERIMENT_DOCUMENT 
-                                       WHERE EXPERIMENT_DOCUMENT_ID = :DOCID";
-
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"DELETE FROM  EXPERIMENT_DOCUMENT 
+                                       WHERE EXPERIMENT_DOCUMENT_ID = :DOCID"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("DOCID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = thePDF.DOCUMENT_ID;
             GlobalVariables.GlobalConnection.DeleteData(NpgsqlCMD);

@@ -13,22 +13,24 @@ using Newtonsoft.Json.Linq;
 
 namespace BiologyDepartment
 {
-    class daoData
+    class DaoData
     {
         private DataSet ds = new DataSet();
         private NpgsqlCommand NpgsqlCMD;
         private NpgsqlDataAdapter adapter;
         private int rowCountValue = -1;
 
-        public daoData()
+        public DaoData()
         {
         }
 
         public void BulkExport()
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"  SELECT COUNT(1) FROM EXPERIMENTS_JSONB
-                                        WHERE experiments_id = :exid";
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  SELECT COUNT(1) FROM EXPERIMENTS_JSONB
+                                        WHERE experiments_id = :exid"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = GlobalVariables.ExperimentNode.ExperimentNode.ID;
 
@@ -41,10 +43,11 @@ namespace BiologyDepartment
             GlobalVariables.CustomColumns = GlobalVariables.GlobalConnection.GetColumns();
         }
 
-        public DataSet getExData(int id)
+        public DataSet GetExData(int id)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"select 
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"select 
 	                                    ecc.ex_core_col_id, 
 	                                    ecc.ex_id, 
 	                                    ecc.modified_date, 
@@ -54,7 +57,8 @@ namespace BiologyDepartment
 	                                    where ecc.ex_core_col_id = ed.ex_core_col_id)
                                     from experiment_core_columns ecc, experiment_data ed
                                     where ecc.ex_id = :id
-                                    and ecc.deleted_date is null";
+                                    and ecc.deleted_date is null"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = id;
             ds = new DataSet();
@@ -70,15 +74,15 @@ namespace BiologyDepartment
         public void UpdateCore(int nExID, int nCoreID, string sExcludeRow)
         {
             string sName = GlobalVariables.ADUserName;
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"  update experiment_core_columns
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  update experiment_core_columns
                                         set ex_id = :ex,
 	                                        modified_date = now(),
 	                                        modified_user = :mod_user,
 	                                        exclude_row = :exclude_row,
-                                        where ex_core_col_id = :core_id";
-
+                                        where ex_core_col_id = :core_id"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("ex", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_user", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exclude_row", NpgsqlDbType.Varchar));
@@ -92,14 +96,14 @@ namespace BiologyDepartment
 
         public void UpdateExperimentData(int nCustomID, int nCoreID, string sColumnData)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"  update experiment_data
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  update experiment_data
                                         set custom_column_data = :col_data,
 	                                        data_agg = :data_agg
                                         where ex_core_id = :core_id
-                                        and custom_columns_id = :custom_id";
-
+                                        and custom_columns_id = :custom_id"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("custom_id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("col_data", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("data_agg", NpgsqlDbType.Varchar));
@@ -114,15 +118,15 @@ namespace BiologyDepartment
 
         public void InsertPic(string TableName, int FishID, byte[] pic)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-      
-            NpgsqlCMD.CommandText = @"DELETE FROM data_pictures
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"DELETE FROM data_pictures
                                       where table_name = :tName
                                       and table_primary_key = :tPK;
                                       INSERT INTO data_pictures 
                                       (table_name, table_primary_key, data_picture)
-                                      VALUES(:tName, :tPK, :pic)";
-
+                                      VALUES(:tName, :tPK, :pic)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tName", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tPK", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("pic", NpgsqlDbType.Bytea));
@@ -137,14 +141,13 @@ namespace BiologyDepartment
 
         public void UpdatePic(string sTableName, int nRowID, byte[] pic)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"UPDATE data_pictures
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"UPDATE data_pictures
                                       set data_picture = :pic
                                       where table_name = :tName
-                                      and table_primary_key = :tPK";
-                                      
-
+                                      and table_primary_key = :tPK"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tName", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tPK", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("pic", NpgsqlDbType.Bytea));
@@ -182,16 +185,16 @@ namespace BiologyDepartment
 
         public void UpdateExperimentData(AnimalData theAnimal)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"  update experiment_data
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  update experiment_data
                                         set ex_id = :exid,
                                             modified_user = :mod_user,
                                             modified_date = :mod_date,
                                             exclude_row = :exclude,
 	                                        data_agg = :data_agg
-                                        where experiment_data_id = :rowID";
-
+                                        where experiment_data_id = :rowID"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_user", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("data_agg", NpgsqlDbType.Varchar));
@@ -235,8 +238,10 @@ namespace BiologyDepartment
 
         public DataTable GetBulkIDs(int theRowCount)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"select nextval('EXPERIMENTS_JSONB_ID_SEQ') from generate_series(1,:lastRow)";
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"select nextval('EXPERIMENTS_JSONB_ID_SEQ') from generate_series(1,:lastRow)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("lastRow", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = theRowCount;
             DataTable dt = GlobalVariables.GlobalConnection.ReadDataTable(NpgsqlCMD);
@@ -250,15 +255,15 @@ namespace BiologyDepartment
 
         public void UpdateJson(string sJson, int nJsonID)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"  UPDATE EXPERIMENTS_JSONB
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  UPDATE EXPERIMENTS_JSONB
                                         SET EXPERIMENTS_JSONB = :json,
                                             MODIFIED_USER = :mod_user,
                                             MODIFIED_DATE = :mod_date
                                         WHERE EXPERIMENTS_ID = :exid
-                                        AND EXPERIMENTS_JSONB_ID = :jsonid";
-
+                                        AND EXPERIMENTS_JSONB_ID = :jsonid"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("jsonid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("json", NpgsqlDbType.Jsonb));
@@ -275,16 +280,16 @@ namespace BiologyDepartment
 
         public void DeleteJson(string sJson, int nJsonID)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"  UPDATE EXPERIMENTS_JSONB
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  UPDATE EXPERIMENTS_JSONB
                                         SET MODIFIED_USER = :mod_user,
                                             MODIFIED_DATE = :mod_date,
                                             DELETED_USER  = :mod_user,
                                             DELETED_DATE  = :mod_date
                                         WHERE EXPERIMENTS_ID = :exid
-                                        AND EXPERIMENTS_JSONB_ID = :jsonid";
-
+                                        AND EXPERIMENTS_JSONB_ID = :jsonid"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("jsonid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mod_user", NpgsqlDbType.Varchar));
@@ -299,11 +304,11 @@ namespace BiologyDepartment
 
         public void InsertJson(string sJson, int nJsonID)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"  Insert into EXPERIMENTS_JSONB(EXPERIMENTS_JSONB_ID, EXPERIMENTS_ID, EXPERIMENTS_JSONB, CREATED_USER)
-                                        VALUES(:jsonid, :exid, :json, :mod_user)";
-
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  Insert into EXPERIMENTS_JSONB(EXPERIMENTS_JSONB_ID, EXPERIMENTS_ID, EXPERIMENTS_JSONB, CREATED_USER)
+                                        VALUES(:jsonid, :exid, :json, :mod_user)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("jsonid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("json", NpgsqlDbType.Jsonb));
@@ -318,13 +323,13 @@ namespace BiologyDepartment
 
         public bool DataLockExists(int ExperimentID, int RowID, string TableName)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"  SELECT COUNT(1) FROM EXPERIMENTS_ROW_LOCK
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  SELECT COUNT(1) FROM EXPERIMENTS_ROW_LOCK
                                         WHERE EXPERIMENT_ID = :exid
                                         AND DATA_ROW_ID = :rowID
-                                        AND DATA_ROW_TABLE = :tableName";
-
+                                        AND DATA_ROW_TABLE = :tableName"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rowID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tableName", NpgsqlDbType.Varchar));
@@ -340,11 +345,11 @@ namespace BiologyDepartment
 
         public void CreateDataLock(int ExperimentID, int RowID, string TableName, string LockType)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"  INSERT INTO EXPERIMENTS_ROW_LOCK(EXPERIMENT_ID, DATA_ROW_ID, DATA_ROW_TABLE, DATA_LOCK_TYPE, DATA_LOCK_USER)
-                                        VALUES(:exid, :rowID, :tableName, :lockType, :userName)";
-
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  INSERT INTO EXPERIMENTS_ROW_LOCK(EXPERIMENT_ID, DATA_ROW_ID, DATA_ROW_TABLE, DATA_LOCK_TYPE, DATA_LOCK_USER)
+                                        VALUES(:exid, :rowID, :tableName, :lockType, :userName)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rowID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tableName", NpgsqlDbType.Varchar));
@@ -361,13 +366,13 @@ namespace BiologyDepartment
 
         public void DeleteDataLock(int ExperimentID, int RowID, string TableName)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"  DELETE FROM EXPERIMENTS_ROW_LOCK
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"  DELETE FROM EXPERIMENTS_ROW_LOCK
                                         WHERE EXPERIMENT_ID = :exid
                                         AND DATA_ROW_ID = :rowID
-                                        AND DATA_ROW_TABLE = :tableName";
-
+                                        AND DATA_ROW_TABLE = :tableName"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exid", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rowID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tableName", NpgsqlDbType.Varchar));

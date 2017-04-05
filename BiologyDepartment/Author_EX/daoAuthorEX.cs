@@ -24,13 +24,14 @@ namespace BiologyDepartment
 
         public DataSet getAuthorEX(int ex)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"select * from author_table a
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"select * from author_table a
                                     where exists (select ae.author_id 
                                                   from author_experiments ae 
                                                   where ae.author_id = a.author_id
-                                                  and ae.EX_ID = :exID)";
-
+                                                  and ae.EX_ID = :exID)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = ex;
 
@@ -46,8 +47,10 @@ namespace BiologyDepartment
 
         public DataSet getRecord(Author_Ex a)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = "Select * from author_experiments Where EX_ID = :exID and AUTHOR_ID = :authID";
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = "Select * from author_experiments Where EX_ID = :exID and AUTHOR_ID = :authID"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("authID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = a.EX_ID;
@@ -65,10 +68,11 @@ namespace BiologyDepartment
 
         public void insertRecord(Author_Ex a )
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Insert into author_experiments (AUTHOR_ID, EX_ID, AUTHOR_RANK)
-                                   VALUES (:authorID,  :exID, :rank)";
-
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Insert into author_experiments (AUTHOR_ID, EX_ID, AUTHOR_RANK)
+                                   VALUES (:authorID,  :exID, :rank)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("authorID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rank", NpgsqlDbType.Integer));
@@ -84,12 +88,13 @@ namespace BiologyDepartment
 
         public void updateRecord(Author_Ex a)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Update author_experiments
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Update author_experiments
                                  Set AUTHOR_ID = :authID,
                                  EX_ID  = :exID
-                                 AUTHOR_RANK  = :rank";
-
+                                 AUTHOR_RANK  = :rank"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("authID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rank", NpgsqlDbType.Integer));

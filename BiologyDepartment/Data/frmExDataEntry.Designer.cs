@@ -1,6 +1,6 @@
 ﻿namespace BiologyDepartment
 {
-    partial class frmExDataEntry
+    partial class FrmExDataEntry
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmExDataEntry));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmExDataEntry));
             this.fdUploadPic = new System.Windows.Forms.OpenFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -48,7 +48,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pnlInput = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbRotate180 = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.udRotatePhoto = new System.Windows.Forms.NumericUpDown();
             this.lblZoom = new System.Windows.Forms.Label();
             this.udZoom = new System.Windows.Forms.NumericUpDown();
             this.pbVideo = new System.Windows.Forms.PictureBox();
@@ -70,6 +71,7 @@
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udRotatePhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
             this.SuspendLayout();
@@ -94,7 +96,7 @@
             this.toolStripEx1.Name = "toolStripEx1";
             this.toolStripEx1.Size = new System.Drawing.Size(1051, 48);
             this.toolStripEx1.TabIndex = 63;
-            this.toolStripEx1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripEx1_ItemClicked);
+            this.toolStripEx1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStripEx1_ItemClicked);
             // 
             // btnSaveExit
             // 
@@ -105,7 +107,7 @@
             this.btnSaveExit.Name = "btnSaveExit";
             this.btnSaveExit.Size = new System.Drawing.Size(75, 30);
             this.btnSaveExit.Text = "Save and Exit";
-            this.btnSaveExit.Click += new System.EventHandler(this.btnSaveExit_Click);
+            this.btnSaveExit.Click += new System.EventHandler(this.BtnSaveExit_Click);
             // 
             // btnExit
             // 
@@ -116,7 +118,7 @@
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 30);
             this.btnExit.Text = "Exit";
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // btnAdd
             // 
@@ -127,7 +129,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 30);
             this.btnAdd.Text = "Add New";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // toolStripSeparator1
             // 
@@ -143,7 +145,7 @@
             this.btnCaptureImage.Name = "btnCaptureImage";
             this.btnCaptureImage.Size = new System.Drawing.Size(90, 30);
             this.btnCaptureImage.Text = "Capture Image";
-            this.btnCaptureImage.Click += new System.EventHandler(this.btnPic_Click);
+            this.btnCaptureImage.Click += new System.EventHandler(this.BtnPic_Click);
             // 
             // btnUploadImage
             // 
@@ -154,7 +156,7 @@
             this.btnUploadImage.Name = "btnUploadImage";
             this.btnUploadImage.Size = new System.Drawing.Size(90, 30);
             this.btnUploadImage.Text = "Upload Image";
-            this.btnUploadImage.Click += new System.EventHandler(this.btnUpload_Click);
+            this.btnUploadImage.Click += new System.EventHandler(this.BtnUpload_Click);
             // 
             // btnClearImage
             // 
@@ -165,7 +167,7 @@
             this.btnClearImage.Name = "btnClearImage";
             this.btnClearImage.Size = new System.Drawing.Size(90, 30);
             this.btnClearImage.Text = "Clear Image";
-            this.btnClearImage.Click += new System.EventHandler(this.btnClear_Click);
+            this.btnClearImage.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // toolStripSeparator2
             // 
@@ -180,7 +182,7 @@
             this.btnCalibrateLine.Name = "btnCalibrateLine";
             this.btnCalibrateLine.Size = new System.Drawing.Size(58, 30);
             this.btnCalibrateLine.Text = "Calibrate";
-            this.btnCalibrateLine.Click += new System.EventHandler(this.btnCalibrate_Click);
+            this.btnCalibrateLine.Click += new System.EventHandler(this.BtnCalibrate_Click);
             // 
             // btnClearLine
             // 
@@ -190,7 +192,7 @@
             this.btnClearLine.Name = "btnClearLine";
             this.btnClearLine.Size = new System.Drawing.Size(63, 30);
             this.btnClearLine.Text = "Clear Line";
-            this.btnClearLine.Click += new System.EventHandler(this.btnResetLine_Click);
+            this.btnClearLine.Click += new System.EventHandler(this.BtnResetLine_Click);
             // 
             // btnClearAll
             // 
@@ -200,7 +202,7 @@
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(55, 30);
             this.btnClearAll.Text = "Clear All";
-            this.btnClearAll.Click += new System.EventHandler(this.btnReset_Click);
+            this.btnClearAll.Click += new System.EventHandler(this.BtnReset_Click);
             // 
             // panel1
             // 
@@ -234,7 +236,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cbRotate180);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.udRotatePhoto);
             this.groupBox1.Controls.Add(this.lblZoom);
             this.groupBox1.Controls.Add(this.udZoom);
             this.groupBox1.Controls.Add(this.pbVideo);
@@ -257,20 +260,37 @@
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             // 
-            // cbRotate180
+            // label2
             // 
-            this.cbRotate180.AutoSize = true;
-            this.cbRotate180.Location = new System.Drawing.Point(252, 101);
-            this.cbRotate180.Name = "cbRotate180";
-            this.cbRotate180.Size = new System.Drawing.Size(79, 17);
-            this.cbRotate180.TabIndex = 62;
-            this.cbRotate180.Text = "Rotate 180";
-            this.cbRotate180.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(323, 141);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 13);
+            this.label2.TabIndex = 65;
+            this.label2.Text = "Rotate Photo";
+            // 
+            // udRotatePhoto
+            // 
+            this.udRotatePhoto.Increment = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.udRotatePhoto.Location = new System.Drawing.Point(323, 157);
+            this.udRotatePhoto.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.udRotatePhoto.Name = "udRotatePhoto";
+            this.udRotatePhoto.Size = new System.Drawing.Size(48, 20);
+            this.udRotatePhoto.TabIndex = 64;
+            this.udRotatePhoto.ValueChanged += new System.EventHandler(this.UdRotatePhoto_ValueChanged);
             // 
             // lblZoom
             // 
             this.lblZoom.AutoSize = true;
-            this.lblZoom.Location = new System.Drawing.Point(242, 147);
+            this.lblZoom.Location = new System.Drawing.Point(252, 141);
             this.lblZoom.Name = "lblZoom";
             this.lblZoom.Size = new System.Drawing.Size(65, 13);
             this.lblZoom.TabIndex = 61;
@@ -283,7 +303,7 @@
             0,
             0,
             0});
-            this.udZoom.Location = new System.Drawing.Point(242, 163);
+            this.udZoom.Location = new System.Drawing.Point(252, 157);
             this.udZoom.Maximum = new decimal(new int[] {
             325,
             0,
@@ -297,7 +317,7 @@
             0,
             0,
             0});
-            this.udZoom.ValueChanged += new System.EventHandler(this.udZoom_ValueChanged);
+            this.udZoom.ValueChanged += new System.EventHandler(this.UdZoom_ValueChanged);
             // 
             // pbVideo
             // 
@@ -326,7 +346,7 @@
             this.btnLineColor.Size = new System.Drawing.Size(25, 20);
             this.btnLineColor.TabIndex = 56;
             this.btnLineColor.UseVisualStyleBackColor = false;
-            this.btnLineColor.Click += new System.EventHandler(this.btnLineColor_Click);
+            this.btnLineColor.Click += new System.EventHandler(this.BtnLineColor_Click);
             // 
             // cbLineWidth
             // 
@@ -352,7 +372,7 @@
             this.cbCaptureDevice.Name = "cbCaptureDevice";
             this.cbCaptureDevice.Size = new System.Drawing.Size(159, 21);
             this.cbCaptureDevice.TabIndex = 38;
-            this.cbCaptureDevice.SelectedIndexChanged += new System.EventHandler(this.cbCaptureDevice_SelectedIndexChanged);
+            this.cbCaptureDevice.SelectedIndexChanged += new System.EventHandler(this.CbCaptureDevice_SelectedIndexChanged);
             // 
             // cbResolution
             // 
@@ -361,7 +381,7 @@
             this.cbResolution.Name = "cbResolution";
             this.cbResolution.Size = new System.Drawing.Size(65, 21);
             this.cbResolution.TabIndex = 39;
-            this.cbResolution.SelectedIndexChanged += new System.EventHandler(this.cbResolution_SelectedIndexChanged);
+            this.cbResolution.SelectedIndexChanged += new System.EventHandler(this.CbResolution_SelectedIndexChanged);
             // 
             // txtMeasure
             // 
@@ -432,12 +452,12 @@
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(654, 530);
             this.pbImage.TabIndex = 63;
-            this.pbImage.Paint += new System.Windows.Forms.PaintEventHandler(this.pbImage_Paint);
-            this.pbImage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbImage_MouseClick);
-            this.pbImage.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pbImage_MouseDoubleClick);
-            this.pbImage.MouseEnter += new System.EventHandler(this.pbImage_MouseEnter);
-            this.pbImage.MouseLeave += new System.EventHandler(this.pbImage_MouseLeave);
-            this.pbImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbImage_MouseMove);
+            this.pbImage.Paint += new System.Windows.Forms.PaintEventHandler(this.PbImage_Paint);
+            this.pbImage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseClick);
+            this.pbImage.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseDoubleClick);
+            this.pbImage.MouseEnter += new System.EventHandler(this.PbImage_MouseEnter);
+            this.pbImage.MouseLeave += new System.EventHandler(this.PbImage_MouseLeave);
+            this.pbImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseMove);
             // 
             // frmExDataEntry
             // 
@@ -451,8 +471,8 @@
             this.Name = "frmExDataEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter Data";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFishData_FormClosing);
-            this.Load += new System.EventHandler(this.frmFishData_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmFishData_FormClosing);
+            this.Load += new System.EventHandler(this.FrmFishData_Load);
             this.toolStripEx1.ResumeLayout(false);
             this.toolStripEx1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -460,6 +480,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udRotatePhoto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).EndInit();
             this.ResumeLayout(false);
@@ -505,6 +526,7 @@
         private System.Windows.Forms.Label lblZoom;
         private System.Windows.Forms.NumericUpDown udZoom;
         private System.Windows.Forms.ToolStripButton btnSaveExit;
-        private System.Windows.Forms.CheckBox cbRotate180;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown udRotatePhoto;
     }
 }

@@ -34,7 +34,7 @@ namespace BiologyDepartment.Data
 {
     public class DataUtil
     {
-        private daoData _daoData = new daoData();
+        private DaoData _daoData = new DaoData();
         private SaveFileDialog saveFileDialog = new SaveFileDialog();
 
         public DataUtil() { }

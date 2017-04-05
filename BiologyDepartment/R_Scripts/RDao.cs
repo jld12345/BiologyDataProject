@@ -26,10 +26,12 @@ namespace BiologyDepartment.R_Scripts
 
         public DataSet GetRScripts()
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"select r_scripts_id, r_scripts_title, r_scripts_body, '' info_btn, '' execute_btn
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"select r_scripts_id, r_scripts_title, r_scripts_body, '' info_btn, '' execute_btn
                                        from r_scripts
-                                       where is_active = 'Y'";
+                                       where is_active = 'Y'"
+            };
             ds = new DataSet();
             ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)

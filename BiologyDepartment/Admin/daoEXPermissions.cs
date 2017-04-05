@@ -25,11 +25,12 @@ namespace BiologyDepartment
 
         public void insertPermissions(int id, string userName, string Permissions)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"insert into experiment_access
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"insert into experiment_access
                                    (ex_id, user_name, access_type)
-                                    values(:id, :user_name, :permissions)";
-
+                                    values(:id, :user_name, :permissions)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("user_name", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("permissions", NpgsqlDbType.Varchar));
@@ -45,12 +46,13 @@ namespace BiologyDepartment
 
         public DataSet GetPermissions(int id)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"select * from experiment_access
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"select * from experiment_access
                                    where ex_id = :id
                                    and access_type <> 'Owner'
-                                   and user_name <> 'James'";
-
+                                   and user_name <> 'James'"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = id;
             DataSet ds = new DataSet();
@@ -93,12 +95,12 @@ namespace BiologyDepartment
 
         public void DeletePermission(int id, string UserName)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"delete from experiment_access
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"delete from experiment_access
                                    where user_name  = :userName
-                                   and ex_id  = :id";
-
+                                   and ex_id  = :id"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("userName", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = UserName;

@@ -302,8 +302,10 @@ namespace BiologyDepartment
                     NpgsqlCMD.Parameters[0].Value = ex_id;
                     NpgsqlCMD.Connection = GlobalVariables.Connection;
                     adapter.SelectCommand = NpgsqlCMD;
-                    DataTable table = new DataTable();
-                    table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                    DataTable table = new DataTable()
+                    {
+                        Locale = System.Globalization.CultureInfo.InvariantCulture
+                    };
                     adapter.FillSchema(table, SchemaType.Source);
                     columnsValue = table.Columns;
                 }
@@ -365,15 +367,17 @@ namespace BiologyDepartment
             // Retrieve the specified number of rows from the database, starting 
             // with the row specified by the lowerPageBoundary parameter.
             DataTable table = new DataTable();
-            NpgsqlCMD = new NpgsqlCommand();
-                NpgsqlCMD.CommandText = @"Select t1.fi_id, t1.ex_id, t1.color, t1.tank_num, t1.fish_num, t1.wt_weight, t1.fish_length, 
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Select t1.fi_id, t1.ex_id, t1.color, t1.tank_num, t1.fish_num, t1.wt_weight, t1.fish_length, 
                                       t1.week, to_char(info_date, 'MM/DD/YYYY') as info_date, t1.sex, t1.exclude_row, t1.identifier 
                                       From fish_weight_length t1
                                       WHERE t1.ex_id = :id "
                                           + selectWhere +
                                           @" Order By t1.fi_id
-                                      Limit :rowsPage offset :lowerBoundary";
-                NpgsqlCMD.Parameters.Clear();
+                                      Limit :rowsPage offset :lowerBoundary"
+            };
+            NpgsqlCMD.Parameters.Clear();
                 NpgsqlCMD.Parameters.Add(new NpgsqlParameter("rowsPage", NpgsqlDbType.Integer));
                 NpgsqlCMD.Parameters[0].Value = rowsPerPage;
                 NpgsqlCMD.Parameters.Add(new NpgsqlParameter("lowerBoundary", NpgsqlDbType.Integer));

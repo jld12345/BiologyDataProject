@@ -77,8 +77,10 @@ namespace BiologyDepartment
             
             foreach(var item in baseItems)
             {
-                TreeNode node = new TreeNode();
-                node.Name = item.ToString();
+                TreeNode node = new TreeNode()
+                {
+                    Name = item.ToString()
+                };
                 var list = GetNodeDescription(item.ToString(), "BaseRItems");
                 node.Text = list[0];
                 node.ToolTipText = list[1];
@@ -88,8 +90,10 @@ namespace BiologyDepartment
                         var baseLibs = Enum.GetValues(typeof(BaseLibrary));
                         foreach(var lib in baseLibs)
                         {
-                            TreeNode child = new TreeNode();
-                            child.Name = lib.ToString();
+                            TreeNode child = new TreeNode()
+                            {
+                                Name = lib.ToString()
+                            };
                             var childList = GetNodeDescription(lib.ToString(), "BaseLibrary");
                             child.Text = childList[0];
                             child.ToolTipText = childList[1];
@@ -100,8 +104,10 @@ namespace BiologyDepartment
                         var baseTests = Enum.GetValues(typeof(BaseTests));
                         foreach(var lib in baseTests)
                         {
-                            TreeNode child = new TreeNode();
-                            child.Name = lib.ToString();
+                            TreeNode child = new TreeNode()
+                            {
+                                Name = lib.ToString()
+                            };
                             var childList = GetNodeDescription(lib.ToString(), "BaseTest");
                             if (childList.Count > 0)
                             {

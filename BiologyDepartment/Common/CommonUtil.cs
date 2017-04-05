@@ -25,7 +25,7 @@ namespace BiologyDepartment.Common
     {
         #region Private Variables
         daoSetup _daoSetup = new daoSetup();
-        daoData _daoData = new daoData();
+        DaoData _daoData = new DaoData();
         #endregion
         public CommonUtil() { }
 
@@ -52,8 +52,10 @@ namespace BiologyDepartment.Common
 
             if (dgvColumns == null)
             {
-                dgvColumns = new DataGridView();
-                dgvColumns.DataSource = _daoSetup.GetExperimentColumns(GlobalVariables.Experiment.ID);
+                dgvColumns = new DataGridView()
+                {
+                    DataSource = _daoSetup.GetExperimentColumns(GlobalVariables.Experiment.ID)
+                };
                 bUseMapCol = false;
             }
             DataTable dgvTable = (DataTable)dgvColumns.DataSource;
@@ -145,13 +147,15 @@ namespace BiologyDepartment.Common
                 }
                 else if(bIsValid && bIsUpdate)
                 {
-                    AnimalData animal = new AnimalData();
-                    animal.DataAgg = values;
-                    animal.DataID = Convert.ToInt32(dr["DataID"]);
-                    animal.ExID = GlobalVariables.Experiment.ID;
-                    animal.ExcludeRow = Convert.ToString(dr["ExcludeRow"]);
-                    animal.ModUser = GlobalVariables.ADUserName;
-                    animal.Picture = dr["1"] as byte[];
+                    AnimalData animal = new AnimalData()
+                    {
+                        DataAgg = values,
+                        DataID = Convert.ToInt32(dr["DataID"]),
+                        ExID = GlobalVariables.Experiment.ID,
+                        ExcludeRow = Convert.ToString(dr["ExcludeRow"]),
+                        ModUser = GlobalVariables.ADUserName,
+                        Picture = dr["1"] as byte[]
+                    };
                     _daoData.UpdateExperimentData(animal);
                     if (animal.Picture != null)
                         _daoData.InsertPic("EXPERIMENT_DATA", animal.DataID, animal.Picture);

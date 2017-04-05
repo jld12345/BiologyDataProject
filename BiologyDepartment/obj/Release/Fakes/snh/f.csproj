@@ -1,0 +1,753 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="f.cs" />
+    <None Include="f.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <ProjectGuid>087a1072-6292-4107-8c8a-20d2c9b1223f</ProjectGuid>
+    <!-- update GUID here -->
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace />
+    <!-- update root namespace -->
+    <AssemblyName>System.Net.Http.4.1.1.0.Fakes</AssemblyName>
+    <!-- update assembly name -->
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <OutputPath>b</OutputPath>
+    <IntermediateOutputPath>o</IntermediateOutputPath>
+    <AssemblyOriginatorKeyFile>f.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE;$(CommonDefineConstants)</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>$(OutputPath)\$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>1587;1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;$(CommonDefineConstants)</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>$(OutputPath)\$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>1587;1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes">
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\PublicAssemblies\Microsoft.QualityTools.Testing.Fakes.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Aliases>mqttf</Aliases>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Net.Http.4.3.1\lib\net46\System.Net.Http.dll</HintPath>
+      <Aliases>snh</Aliases>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.dll</HintPath>
+      <Aliases>global</Aliases>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Core">
+      <Aliases>global</Aliases>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ActiveDirectoryClass">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\DLL Files\ActiveDirectoryClass.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AdvancedDataGridView">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\ADGV.0.1.0.10\lib\net40\AdvancedDataGridView.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AForge">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AForge.Imaging">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\AForge.Imaging.2.2.5\lib\AForge.Imaging.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AForge.Math">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="AForge.Video">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ClosedXML">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\ClosedXML.0.86.0\lib\net40\ClosedXML.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DeltaCompressionDotNet">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DeltaCompressionDotNet.MsDelta">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.MsDelta.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DeltaCompressionDotNet.PatchApi">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.PatchApi.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DgvFilterPopup">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\DLL Files\DgvFilterPopup.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DynamicInterop">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\DynamicInterop.0.7.1.0\lib\net40\DynamicInterop.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EntityFramework6.Npgsql">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\EntityFramework6.Npgsql.3.1.1\lib\net45\EntityFramework6.Npgsql.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EnvDTE">
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\PublicAssemblies\EnvDTE.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Excel">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Gnostice.Core">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.Core.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Gnostice.Free.Documents.Controls.WinForms">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.Free.Documents.Controls.WinForms.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Gnostice.Free.Documents">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.Free.Documents.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Gnostice.XtremeFontEngine.4.0">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.XtremeFontEngine.4.0.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Gnostice.XtremeImageEngine">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.XtremeImageEngine.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\squirrel.windows.1.5.1\lib\Net45\ICSharpCode.SharpZipLib.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Ionic.Zip.Reduced.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Microsoft.CSharp.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Microsoft.Extensions.Logging.Abstractions.1.1.1\lib\netstandard1.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Microsoft.Extensions.Logging.1.1.1\lib\netstandard1.1\Microsoft.Extensions.Logging.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel">
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\Shared\Visual Studio Tools for Office\PIA\Office15\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\Microsoft.Threading.Tasks.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Vsa">
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\Microsoft.Vsa\8.0.0.0__b03f5f7f11d50a3a\Microsoft.Vsa.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Mime">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Mime.2.0.0\lib\net451\Mime.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="MimeTypesMap">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\MimeTypesMap.1.0.0\lib\net451\MimeTypesMap.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="NetOffice">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\NetOffice.Core.1.7.4-pre-jun-28-2015\lib\net45\NetOffice.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Npgsql">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Npgsql.3.2.1\lib\net451\Npgsql.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Npgsql.EntityFramework">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Npgsql.EntityFramework.2.2.7\lib\net40\Npgsql.EntityFramework.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="OfficeApi">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\NetOffice.Core.1.7.4-pre-jun-28-2015\lib\net45\OfficeApi.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\PCLStorage.Abstractions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PCLStorage">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\ExcelDataReader-DevNet45.1.0.0.2\lib\net45\PCLStorage.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\PresentationCore.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\PresentationFramework.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ScintillaNET">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\DLL Files\ScintillaNET.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Splat">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Splat.2.0.0\lib\Net45\Splat.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Squirrel">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\squirrel.windows.1.5.1\lib\Net45\Squirrel.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.BulletGraph.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.BulletGraph.Windows45.15.1.0.41\lib\net45\Syncfusion.BulletGraph.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Calculate.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Calculate.Base45.15.1.0.41\lib\net45\Syncfusion.Calculate.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Chart.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Chart.Base45.15.1.0.41\lib\net45\Syncfusion.Chart.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Chart.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Chart.Windows45.15.1.0.41\lib\net45\Syncfusion.Chart.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Compression.Base45.15.1.0.41\lib\net45\Syncfusion.Compression.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Diagram.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Diagram.Base45.15.1.0.41\lib\net45\Syncfusion.Diagram.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Diagram.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Diagram.Windows45.15.1.0.41\lib\net45\Syncfusion.Diagram.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.DocIO.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.DocIO.Base45.15.1.0.41\lib\net45\Syncfusion.DocIO.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.DocIO.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.DocIO.Windows45.15.1.0.41\lib\net45\Syncfusion.DocIO.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Edit.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Edit.Windows45.15.1.0.41\lib\net45\Syncfusion.Edit.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.ExcelChartToImageConverter.Wpf">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.ExcelChartToImageConverter.WPF45.15.1.0.41\lib\net45\Syncfusion.ExcelChartToImageConverter.Wpf.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.ExcelToPDFConverter.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.ExcelToPdfConverter.Base45.15.1.0.41\lib\net45\Syncfusion.ExcelToPDFConverter.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Gauge.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Gauge.Windows45.15.1.0.41\lib\net45\Syncfusion.Gauge.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Grid.Base45.15.1.0.41\lib\net45\Syncfusion.Grid.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Grid.Windows45.15.1.0.41\lib\net45\Syncfusion.Grid.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Grouping.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Grouping.Base45.15.1.0.41\lib\net45\Syncfusion.Grouping.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Grouping.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Grouping.Windows45.15.1.0.41\lib\net45\Syncfusion.Grouping.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.HTMLUI.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.HTMLUI.Base45.15.1.0.41\lib\net45\Syncfusion.HTMLUI.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.HTMLUI.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.HTMLUI.windows45.15.1.0.41\lib\net45\Syncfusion.HTMLUI.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Linq.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Linq.Base45.15.1.0.41\lib\net45\Syncfusion.Linq.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.MIME.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.MIME.Base45.15.1.0.41\lib\net45\Syncfusion.MIME.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.OfficeChart.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.OfficeChart.Base45.15.1.0.41\lib\net45\Syncfusion.OfficeChart.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Pdf.Base45.15.1.0.41\lib\net45\Syncfusion.Pdf.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.PdfViewer.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.PdfViewer.Windows45.15.1.0.41\lib\net45\Syncfusion.PdfViewer.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.PivotAnalysis.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.PivotAnalysis.Base45.15.1.0.41\lib\net45\Syncfusion.PivotAnalysis.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.PivotAnalysis.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.PivotAnalysis.Windows45.15.1.0.41\lib\net45\Syncfusion.PivotAnalysis.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.PivotChart.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.PivotChart.Windows45.15.1.0.41\lib\net45\Syncfusion.PivotChart.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Presentation.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Presentation.Base45.15.1.0.41\lib\net45\Syncfusion.Presentation.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.PresentationToPdfConverter.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.PresentationToPdfConverter.Base45.15.1.0.41\lib\net45\Syncfusion.PresentationToPdfConverter.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.ProjIO.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.ProjIO.Base45.15.1.0.41\lib\net45\Syncfusion.ProjIO.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Schedule.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Schedule.Base45.15.1.0.41\lib\net45\Syncfusion.Schedule.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Schedule.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Schedule.Windows45.15.1.0.41\lib\net45\Syncfusion.Schedule.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Scripting.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Scripting.Base45.15.1.0.41\lib\net45\Syncfusion.Scripting.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.SfBarcode.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.SfBarcode.Windows45.15.1.0.41\lib\net45\Syncfusion.SfBarcode.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.WPF">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.SfChart.WPF45.15.1.0.41\lib\net45\Syncfusion.SfChart.WPF.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Shared.Base45.15.1.0.41\lib\net45\Syncfusion.Shared.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Shared.Windows45.15.1.0.41\lib\net45\Syncfusion.Shared.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.SpellChecker.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.SpellChecker.Base45.15.1.0.41\lib\net45\Syncfusion.SpellChecker.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Spreadsheet.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Spreadsheet.Windows45.15.1.0.41\lib\net45\Syncfusion.Spreadsheet.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Tools.Base45.15.1.0.41\lib\net45\Syncfusion.Tools.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.Tools.Windows45.15.1.0.41\lib\net45\Syncfusion.Tools.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.TreeMap.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.TreeMap.Windows45.15.1.0.41\lib\net45\Syncfusion.TreeMap.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.Base">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.XlsIO.Base45.15.1.0.41\lib\net45\Syncfusion.XlsIO.Base.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.Windows">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\Syncfusion.XlsIO.Windows45.15.1.0.41\lib\net45\Syncfusion.XlsIO.Windows.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.AppContext">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.ComponentModel.Composition.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.ComponentModel.DataAnnotations.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Console">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Console.4.3.0\lib\net46\System.Console.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Data.DataSetExtensions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Data.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Deployment.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Design">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Design.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.DirectoryServices.AccountManagement">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.DirectoryServices.AccountManagement.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.DirectoryServices">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.DirectoryServices.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.DirectoryServices.Protocols">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.DirectoryServices.Protocols.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Drawing.Design">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Drawing.Design.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Drawing.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Globalization.Calendars">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.IO.Compression">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.IO.Compression.FileSystem.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.IO.Compression.ZipFile">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.IO.FileSystem">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Management">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Management.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Management.Instrumentation">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Management.Instrumentation.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Net">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Net.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Net.Http.WebRequest.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Net.Sockets">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Numerics">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Numerics.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Runtime.Caching">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Runtime.Caching.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Runtime.Serialization.Formatters.Soap.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Windows.Forms.DataVisualization.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Windows.Forms.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Xaml.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Xml.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Xml.Linq.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Xml.ReaderWriter">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\System.Xml.ReaderWriter.4.3.0\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="UIAutomationProvider">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\UIAutomationProvider.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="UIAutomationTypes">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\UIAutomationTypes.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\WindowsBase.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Configuration.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Runtime.Serialization.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Transactions">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Transactions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ReachFramework">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\ReachFramework.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Security">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Security.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Runtime.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Resources.ResourceManager">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Resources.ResourceManager.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.ComponentModel">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.ComponentModel.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Diagnostics.Debug">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Diagnostics.Debug.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Reflection">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Reflection.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Linq.Expressions">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Linq.Expressions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Globalization">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Globalization.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Linq.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Collections.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Threading.Tasks.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Threading.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Runtime.Extensions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Collections.Concurrent">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Collections.Concurrent.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.ServiceModel.Discovery">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.ServiceModel.Discovery.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.ServiceModel.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="stdole">
+      <HintPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\PublicAssemblies\stdole.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.IO.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="NuGet.Squirrel">
+      <HintPath>C:\Users\James\Source\Repos\BiologyDataProject\packages\squirrel.windows.1.5.1\lib\Net45\NuGet.Squirrel.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Web">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Web.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Microsoft.VisualBasic.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.JScript">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Microsoft.JScript.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic.Vsa">
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\Microsoft.VisualBasic.Vsa\8.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualBasic.Vsa.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Printing">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\System.Printing.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Diagnostics.Tracing">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Diagnostics.Tracing.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Reflection.Extensions">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Reflection.Extensions.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.2\Facades\System.Runtime.InteropServices.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft_VsaVb">
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\Microsoft_VsaVb\8.0.0.0__b03f5f7f11d50a3a\Microsoft_VsaVb.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

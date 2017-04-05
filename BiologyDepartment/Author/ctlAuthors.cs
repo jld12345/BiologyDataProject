@@ -103,9 +103,10 @@ namespace BiologyDepartment
 
                     if (picBox != null && picBox.Length > 0)
                     {
-                        MemoryStream mStream = new MemoryStream(picBox);
-                        mStream.Position = 0;
-
+                        MemoryStream mStream = new MemoryStream(picBox)
+                        {
+                            Position = 0
+                        };
                         Image img = Image.FromStream(mStream);
 
                         mStream.Close();

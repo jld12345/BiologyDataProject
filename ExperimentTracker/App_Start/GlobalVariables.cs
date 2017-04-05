@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Npgsql;
 using NpgsqlTypes;
+using BiologyDepartment;
 
 namespace ExperimentTracker
 {

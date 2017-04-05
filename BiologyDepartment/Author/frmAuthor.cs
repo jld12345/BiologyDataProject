@@ -230,9 +230,10 @@ namespace BiologyDepartment
 
         private void setPicBox(byte[] imageBytes)
         {
-            MemoryStream mStream = new MemoryStream(imageBytes);
-            mStream.Position = 0;
-
+            MemoryStream mStream = new MemoryStream(imageBytes)
+            {
+                Position = 0
+            };
             Image img = Image.FromStream(mStream);
 
             mStream.Close();
@@ -281,14 +282,15 @@ namespace BiologyDepartment
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Author rec = new Author();
-            rec.LastName = cbLName.Text;
-            rec.FirstName = txtFName.Text;
-            rec.MI = txtMI.Text;
-            rec.Department = txtDept.Text;
-            rec.Email = txtEmail.Text;
-            rec.Association = txtAff.Text;
-
+            Author rec = new Author()
+            {
+                LastName = cbLName.Text,
+                FirstName = txtFName.Text,
+                MI = txtMI.Text,
+                Department = txtDept.Text,
+                Email = txtEmail.Text,
+                Association = txtAff.Text
+            };
             if (bIsEdit)
             {
                 rec.ID = Convert.ToInt32(cbLName.SelectedValue);
@@ -371,11 +373,12 @@ namespace BiologyDepartment
 
         private void btnAddExp_Click(object sender, EventArgs e)
         {
-            Author_Ex rec = new Author_Ex();
-            rec.Author_ID = Convert.ToInt32(cbLName.SelectedValue.ToString());
-            rec.EX_ID = intExID;
-            rec.Rank = 99;
-
+            Author_Ex rec = new Author_Ex()
+            {
+                Author_ID = Convert.ToInt32(cbLName.SelectedValue.ToString()),
+                EX_ID = intExID,
+                Rank = 99
+            };
             _authorsEX.insertRecord(rec);
             bHasChanged = true;
         }

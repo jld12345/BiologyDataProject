@@ -88,8 +88,10 @@ namespace BiologyDepartment.Misc_Files
                 System.Reflection.Assembly thisExe = System.Reflection.Assembly.GetExecutingAssembly();
                 System.IO.Stream file;
                 file = thisExe.GetManifestResourceStream("BiologyDepartment.Misc_Files.images.editicon16.png");
-                ImageList imgList = new ImageList();
-                imgList.ImageSize = new System.Drawing.Size(16, 16);
+                ImageList imgList = new ImageList()
+                {
+                    ImageSize = new System.Drawing.Size(16, 16)
+                };
                 imgList.Images.Add(Image.FromStream(file));
                 base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
                 graphics.DrawImage(imgList.Images[0], cellBounds);
@@ -119,8 +121,10 @@ namespace BiologyDepartment.Misc_Files
             System.Reflection.Assembly thisExe = System.Reflection.Assembly.GetExecutingAssembly();
             System.IO.Stream file;
             file = thisExe.GetManifestResourceStream("BiologyDepartment.Misc_Files.images.addicon16.png");
-            ImageList imgList = new ImageList();
-            imgList.ImageSize = new System.Drawing.Size(16,16);
+            ImageList imgList = new ImageList()
+            {
+                ImageSize = new System.Drawing.Size(16, 16)
+            };
             imgList.Images.Add(Image.FromStream(file));
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
             graphics.DrawImage(imgList.Images[0], cellBounds);
@@ -150,8 +154,10 @@ namespace BiologyDepartment.Misc_Files
             System.Reflection.Assembly thisExe = System.Reflection.Assembly.GetExecutingAssembly();
             System.IO.Stream file;
             file = thisExe.GetManifestResourceStream("BiologyDepartment.Misc_Files.images.deleteicon16.png");
-            ImageList imgList = new ImageList();
-            imgList.ImageSize = new System.Drawing.Size(16,16);
+            ImageList imgList = new ImageList()
+            {
+                ImageSize = new System.Drawing.Size(16, 16)
+            };
             imgList.Images.Add(Image.FromStream(file));
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
             graphics.DrawImage(imgList.Images[0], cellBounds);

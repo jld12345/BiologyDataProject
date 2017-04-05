@@ -19,11 +19,11 @@ using BiologyDepartment.Common;
 
 namespace BiologyDepartment
 {
-    public partial class frmExDataEntry : Form
+    public partial class FrmExDataEntry : Form
     {
         #region Private Variables
         private AnimalData theAnimal;
-        private daoData _daoData = new daoData();
+        private DaoData _daoData = new DaoData();
         private VideoCaptureDevice videoSource;
         private FilterInfoCollection captureDevice;
         private double dLineLength = 0;
@@ -44,12 +44,12 @@ namespace BiologyDepartment
         #endregion
 
         #region Public Variables
-        public static frmExDataEntry inst;
+        public static FrmExDataEntry inst;
         public DataTable dtReturn = new DataTable();
         #endregion
 
         #region Public Methods
-        public frmExDataEntry()
+        public FrmExDataEntry()
         {
             DoubleBuffered = true;
             InitializeComponent();
@@ -58,7 +58,7 @@ namespace BiologyDepartment
             SetLineWidthCombo();
         }
 
-        public frmExDataEntry(int id)
+        public FrmExDataEntry(int id)
         {
             DoubleBuffered = true;
             InitializeComponent();
@@ -67,7 +67,7 @@ namespace BiologyDepartment
             SetLineWidthCombo();
         }
 
-        public frmExDataEntry(bool IsAdd, ref DataRow row)
+        public FrmExDataEntry(bool IsAdd, ref DataRow row)
         {
             DoubleBuffered = true;
             InitializeComponent();
@@ -79,11 +79,11 @@ namespace BiologyDepartment
             bIsAdd = IsAdd;
         }
 
-        public static frmExDataEntry CreateInstance()
+        public static FrmExDataEntry CreateInstance()
         {
             if (inst == null || inst.IsDisposed)
             {
-                inst = new frmExDataEntry();
+                inst = new FrmExDataEntry();
             }
             else
             {
@@ -92,11 +92,11 @@ namespace BiologyDepartment
             return inst;
         }
 
-        public static frmExDataEntry CreateInstance(int id)
+        public static FrmExDataEntry CreateInstance(int id)
         {
             if (inst == null || inst.IsDisposed)
             {
-                inst = new frmExDataEntry(id);
+                inst = new FrmExDataEntry(id);
             }
             else
             {
@@ -106,11 +106,11 @@ namespace BiologyDepartment
             return inst;
         }
 
-        public static frmExDataEntry CreateInstance(bool IsAdd, ref DataRow row)
+        public static FrmExDataEntry CreateInstance(bool IsAdd, ref DataRow row)
         {
             if (inst == null || inst.IsDisposed)
             {
-                inst = new frmExDataEntry(IsAdd, ref row);
+                inst = new FrmExDataEntry(IsAdd, ref row);
             }
             else
             {
@@ -130,34 +130,46 @@ namespace BiologyDepartment
             if (row["EXPERIMENTS_JSONB_ID"] != DBNull.Value)
             {
                 originalPic = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]));
-                setPicBox(originalPic);
+                SetPicBox(originalPic);
             }
             foreach (DataColumn col in row.Table.Columns)
             {
-                Label lblTitle = new Label();
-                lblTitle.Name = col.ColumnName;
-                lblTitle.Text = col.Caption;
-                lblTitle.Location = new Point(0, i);
-                lblTitle.Visible = true;
-                lblTitle.BorderStyle = BorderStyle.FixedSingle;
-                lblTitle.Width = 150;
-                lblTitle.Height = 20;
+                Label lblTitle = new Label()
+                {
+                    Name = col.ColumnName,
+                    Text = col.Caption,
+                    Location = new Point(0, i),
+                    Visible = true,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Width = 150,
+                    Height = 20
+                };
                 pnlInput.Controls.Add(lblTitle);
 
-                TextBox txtValue = new TextBox();
-                txtValue.Name = col.ColumnName;
-                txtValue.Location = new Point(lblTitle.Width + 5, i);
-                txtValue.Text = Convert.ToString(row[col.ColumnName]);
-                txtValue.Visible = true;
-                txtValue.BorderStyle = BorderStyle.FixedSingle;
-                txtValue.Width = 195;
-                txtValue.Height = 15;
+                TextBox txtValue = new TextBox()
+                {
+                    Name = col.ColumnName,
+                    Location = new Point(lblTitle.Width + 5, i),
+                    Text = Convert.ToString(row[col.ColumnName]),
+                    Visible = true,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Width = 195,
+                    Height = 15
+                };
                 if (col.ColumnName.ToUpper().Equals("ROW_ID") || col.ColumnName.ToUpper().Equals("CREATED_DATE")
                     || col.ColumnName.ToUpper().Equals("CREATED_USER") || col.ColumnName.ToUpper().Equals("MODIFIED_DATE")
                     || col.ColumnName.ToUpper().Equals("MODIFIED_USER") || col.ColumnName.ToUpper().Equals("DELETED_DATE")
                     || col.ColumnName.ToUpper().Equals("DELETED_USER") || col.ColumnName.ToUpper().Equals("EXPERIMENTS_JSONB_ID")
                     || col.ColumnName.ToUpper().Equals("DATA PICTURE"))
                     txtValue.Enabled = false;
+                foreach(CustomColumns column in GlobalVariables.CustomColumns)
+                {
+                    if(column.ColName.ToUpper().Equals(col.ColumnName.ToUpper()))
+                    {
+                        if(column.ColDataType.Equals("FORMULA"))
+                            txtValue.Enabled = false;
+                    }
+                }
                 pnlInput.Controls.Add(txtValue);
                 i = i + 25;
             }
@@ -169,7 +181,7 @@ namespace BiologyDepartment
             btnExit.Visible = false;
         }
 
-        private void frmFishData_Load(object sender, EventArgs e)
+        private void FrmFishData_Load(object sender, EventArgs e)
         {
             this.pbImage.BackgroundImageLayout = ImageLayout.Center;
             //List all available video sources. (That can be webcams as well as tv cards, etc)
@@ -195,52 +207,56 @@ namespace BiologyDepartment
 
         }
 
-        private void videoSource_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
+        private void VideoSource_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
         {
+            try
+            {
+                    pbVideo.Image = (Bitmap)eventArgs.Frame.Clone();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed saving the snapshot.\n" + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             //Cast the frame as Bitmap object and don't forget to use ".Clone()" otherwise
             //you'll probably get access violation exceptions
-            pbVideo.Image = (Bitmap)eventArgs.Frame.Clone();
         }
 
-        private void setPicBox(byte[] imageBytes)
+        private void SetPicBox(byte[] imageBytes)
         {
             if (imageBytes == null)
             {
                 udZoom.Enabled = false;
                 return;
             }
-            MemoryStream mStream = new MemoryStream(imageBytes);
-            mStream.Position = 0;
-
+            MemoryStream mStream = new MemoryStream(imageBytes)
+            {
+                Position = 0
+            };
             Image img = Image.FromStream(mStream);
 
             mStream.Close();
             mStream.Dispose();
 
             //pbImage.Image = img;
-            img.RotateFlip(RotateFlipType.Rotate180FlipY);
             pbImage.BackgroundImage = new Bitmap(img);
             bmpCanvas = new Bitmap(img);
             bmpOriginal = new Bitmap(img);
             udZoom.Enabled = true;
         }
 
-        private void btnPic_Click(object sender, EventArgs e)
+        private void BtnPic_Click(object sender, EventArgs e)
         {
             try
             {
                 if (this.pbVideo.Image != null)
                 {
+                    udRotatePhoto.Value = 0;
                     RotateBicubic filter;
                     Bitmap img;
-                    if (cbRotate180.Checked)
-                    {
-                        filter = new RotateBicubic(180, true);
-                        // apply the filter
-                        img = filter.Apply((Bitmap)pbVideo.Image.Clone());
-                    }
-                    else
-                        img = (Bitmap)pbVideo.Image.Clone();
+                    filter = new RotateBicubic(0, true);
+                    // apply the filter
+                    img = filter.Apply((Bitmap)pbVideo.Image.Clone());
                     pbImage.BackgroundImage = new Bitmap(img);
                     bmpOriginal = new Bitmap(pbImage.BackgroundImage);
                     bmpCanvas = new Bitmap(pbImage.BackgroundImage);
@@ -255,7 +271,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void cbCaptureDevice_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbCaptureDevice_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(videoSource != null)
             {
@@ -277,10 +293,10 @@ namespace BiologyDepartment
                 cbResolution.SelectedIndex = 0;
             }
             videoSource.SetCameraProperty(CameraControlProperty.Focus, 25, CameraControlFlags.None);
-            videoSource.NewFrame += new AForge.Video.NewFrameEventHandler(videoSource_NewFrame);
+            videoSource.NewFrame += new AForge.Video.NewFrameEventHandler(VideoSource_NewFrame);
         }
 
-        private void cbResolution_SelectedIndexChanged(object sender, EventArgs e)
+        private void CbResolution_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -290,8 +306,8 @@ namespace BiologyDepartment
 
                 videoSource.VideoResolution = videoSource.VideoCapabilities[cbResolution.SelectedIndex];
 
-                videoSource.NewFrame -= videoSource_NewFrame;
-                videoSource.NewFrame += new AForge.Video.NewFrameEventHandler(videoSource_NewFrame);
+                videoSource.NewFrame -= VideoSource_NewFrame;
+                videoSource.NewFrame += new AForge.Video.NewFrameEventHandler(VideoSource_NewFrame);
 
                 videoSource.Start();
             }
@@ -301,7 +317,7 @@ namespace BiologyDepartment
             }
         }
 
-        private void frmFishData_FormClosing(object sender, FormClosingEventArgs e)
+        private void FrmFishData_FormClosing(object sender, FormClosingEventArgs e)
         {
 
         }
@@ -339,7 +355,7 @@ namespace BiologyDepartment
                 util.SerializeJson(row, Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), bIsAdd == true ? "ADDED":"MODIFIED");
         }
 
-        private void btnUpload_Click(object sender, EventArgs e)
+        private void BtnUpload_Click(object sender, EventArgs e)
         {
             fdUploadPic.Title = "Open Image";
             DialogResult result = fdUploadPic.ShowDialog();
@@ -351,12 +367,12 @@ namespace BiologyDepartment
 
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             bSavePic = true;
         }
 
-        private void pbImage_Paint(object sender, PaintEventArgs e)
+        private void PbImage_Paint(object sender, PaintEventArgs e)
         {
             using (Pen p = new Pen(btnLineColor.BackColor, Convert.ToInt32(cbLineWidth.SelectedItem)))
             {
@@ -391,7 +407,7 @@ namespace BiologyDepartment
                 this.pbImage.AutoScrollMinSize = this.pbImage.BackgroundImage.Size;
         }
 
-        private void pbImage_MouseMove(object sender, MouseEventArgs e)
+        private void PbImage_MouseMove(object sender, MouseEventArgs e)
         {
             // this.SuspendLayout();
             //using (Graphics g = pbImage.CreateGraphics())
@@ -414,9 +430,9 @@ namespace BiologyDepartment
             //g.Dispose();
             //this.ResumeLayout();
         }
-        private void pbImage_MouseClick(object sender, MouseEventArgs e)
+        private void PbImage_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
             {
                 if (string.IsNullOrEmpty(txtCalibration.Text.ToString()))
                     pointCalibrate.Add(e.Location);
@@ -425,8 +441,25 @@ namespace BiologyDepartment
 
                 pbImage.Invalidate();
             }
-            else if (e.Button == MouseButtons.Left)
+            else if (e.Button == MouseButtons.Middle)
                 btnCaptureImage.PerformClick();
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (string.IsNullOrWhiteSpace(txtCalibration.Text))
+                {
+                    if (pointCalibrate.Count > 0)
+                    {
+                        pointCalibrate.RemoveAt(pointCalibrate.Count - 1);
+                        pbImage.Invalidate();
+                    }
+                }
+                else if (pointLine.Count > 0)
+                {
+                    pointLine.RemoveAt(pointLine.Count - 1);
+                    pbImage.Invalidate();
+                }
+            }
+
         }
 
         private void SetMeasurements()
@@ -437,23 +470,26 @@ namespace BiologyDepartment
             cmbMeasurement.SelectedIndex = 0;
         }
 
-        private void pbImage_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void PbImage_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (string.IsNullOrEmpty(txtCalibration.Text.ToString()))
                 txtCalibration.Text = dCalLength.ToString();
             else
             {
-                pointLine.RemoveAt(pointLine.Count - 1);
-                pbImage.Invalidate();
+                if (pointLine.Count > 0)
+                {
+                    pointLine.RemoveAt(pointLine.Count - 1);
+                    pbImage.Invalidate();
+                }
             }
         }
 
-        private void btnCalibrate_Click(object sender, EventArgs e)
+        private void BtnCalibrate_Click(object sender, EventArgs e)
         {
             txtCalibration.Text = dCalLength.ToString();
         }
 
-        private void btnReset_Click(object sender, EventArgs e)
+        private void BtnReset_Click(object sender, EventArgs e)
         {
             txtCalibration.Text = "";
             txtMeasure.Text = "";
@@ -462,12 +498,12 @@ namespace BiologyDepartment
             pbImage.Invalidate();
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void BtnClear_Click(object sender, EventArgs e)
         {
             txtCalibration.Text = "";
         }
 
-        private void btnLineColor_Click(object sender, EventArgs e)
+        private void BtnLineColor_Click(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -484,7 +520,7 @@ namespace BiologyDepartment
             cbLineWidth.SelectedIndex = 1;
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void BtnExit_Click(object sender, EventArgs e)
         {
             if (videoSource != null && videoSource.IsRunning)
             {
@@ -495,7 +531,7 @@ namespace BiologyDepartment
             this.Close();
         }
 
-        private void btnResetLine_Click(object sender, EventArgs e)
+        private void BtnResetLine_Click(object sender, EventArgs e)
         {
             pointLine.Clear();
             dLineLength = 0;
@@ -503,17 +539,17 @@ namespace BiologyDepartment
             txtMeasure.Text = "";
         }
 
-        private void pbImage_MouseEnter(object sender, EventArgs e)
+        private void PbImage_MouseEnter(object sender, EventArgs e)
         {
             pbImage.Cursor = Cursors.Cross;
         }
 
-        private void pbImage_MouseLeave(object sender, EventArgs e)
+        private void PbImage_MouseLeave(object sender, EventArgs e)
         {
             pbImage.Cursor = Cursors.Arrow;
         }
 
-        private void udZoom_ValueChanged(object sender, EventArgs e)
+        private void UdZoom_ValueChanged(object sender, EventArgs e)
         {
             if (udZoom.Value < 25 || udZoom.Value > 300)
             {
@@ -531,7 +567,7 @@ namespace BiologyDepartment
 
         }
 
-        private void btnSaveExit_Click(object sender, EventArgs e)
+        private void BtnSaveExit_Click(object sender, EventArgs e)
         {
             //Stop and free the webcam object if application is closing
             if (videoSource != null && videoSource.IsRunning)
@@ -544,7 +580,7 @@ namespace BiologyDepartment
             this.Close();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
             AddRowToReturnTable();
             foreach (Control c in pnlInput.Controls)
@@ -559,17 +595,60 @@ namespace BiologyDepartment
         }
         #endregion
 
-        private void toolStripEx1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void ToolStripEx1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
         }
 
-        private void pbImage_Paint(object sender, MouseEventArgs e)
+        private void PbImage_Paint(object sender, MouseEventArgs e)
         {
 
         }
 
+        private void UdRotatePhoto_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (udRotatePhoto.Value < 0)
+                    udRotatePhoto.Value = 315;
+                else if (udRotatePhoto.Value > 315)
+                    udRotatePhoto.Value = 0;
 
+                if (this.pbImage.BackgroundImage != null)
+                {
+                    RotateBicubic filter;
+                    Bitmap img;
+                    filter = new RotateBicubic(Convert.ToInt32(udRotatePhoto.Value), true);
+                    // apply the filter
+                    
+                    img = filter.Apply(AForge.Imaging.Image.Clone(bmpOriginal, PixelFormat.Format24bppRgb));
+                    pbImage.BackgroundImage = img;
+
+                    udZoom.Enabled = true;
+                    pbImage.Invalidate();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed saving the snapshot.\n" + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void UdRotateVideo_ValueChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            /*videoSource.SignalToStop();
+            videoSource.Stop();
+            //videoSource.SetCameraProperty(CameraControlProperty.Zoom, Convert.ToInt32(numericUpDown1.Value), CameraControlFlags.Auto);
+            videoSource.GetCameraProperty(CameraControlProperty.Zoom, out int temp, out CameraControlFlags flags);
+            videoSource.Start();*/
+        }
     }
 }
 ﻿

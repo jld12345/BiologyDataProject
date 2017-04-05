@@ -190,7 +190,6 @@ C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\Debug\NuGet
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\Debug\fr\AdvancedDataGridView.resources.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\Debug\ru\AdvancedDataGridView.resources.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\BiologyDepartment.csprojResolveAssemblyReference.cache
-C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\BiologyDepartment.csproj.BiologyDepartment.exe.config
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\Interop.ActiveDs.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\BiologyDepartment.csproj.ResolveComReference.cache
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\BiologyDepartment.Admin.dlgExperimentSearch.resources
@@ -221,3 +220,10 @@ C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\Biolo
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\BiologyDepartment.application
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\BiologyDepartment.exe
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\BiologyDepartment.pdb
+C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\Debug\System.Net.Http.4.1.1.0.Fakes.fakesconfig
+C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\Debug\Microsoft.QualityTools.Testing.Fakes.dll
+C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\Debug\Syncfusion.Schedule.Base.dll
+C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\Debug\System.Net.Http.4.1.1.0.Fakes.dll
+C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\Debug\Syncfusion.Schedule.Base.xml
+C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\Debug\System.Net.Http.4.1.1.0.Fakes.xml
+C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\Debug\BiologyDepartment.csprojFakesResolveAssemblyReference.cache

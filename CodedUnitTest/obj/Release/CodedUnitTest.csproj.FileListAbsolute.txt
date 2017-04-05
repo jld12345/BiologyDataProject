@@ -1,0 +1,5 @@
+C:\Users\James\Source\Repos\BiologyDataProject\CodedUnitTest\bin\Release\CodedUnitTest.dll
+C:\Users\James\Source\Repos\BiologyDataProject\CodedUnitTest\bin\Release\CodedUnitTest.pdb
+C:\Users\James\Source\Repos\BiologyDataProject\CodedUnitTest\obj\Release\CodedUnitTest.csprojResolveAssemblyReference.cache
+C:\Users\James\Source\Repos\BiologyDataProject\CodedUnitTest\obj\Release\CodedUnitTest.dll
+C:\Users\James\Source\Repos\BiologyDataProject\CodedUnitTest\obj\Release\CodedUnitTest.pdb

@@ -24,8 +24,9 @@ namespace BiologyDepartment
 
         public DataSet getBarChartData(int id, string filters)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"select ROUND(AVG(FISH_WEIGHT_LENGTH.FISH_LENGTH), 2) as FLENGTH, 
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"select ROUND(AVG(FISH_WEIGHT_LENGTH.FISH_LENGTH), 2) as FLENGTH, 
                                 ROUND(AVG(FISH_WEIGHT_LENGTH.WT_WEIGHT * 1000), 2) as WEIGHT, 
                                 FISH_WEIGHT_LENGTH.WEEK as WEEK, FISH_WEIGHT_LENGTH.COLOR as C,
                                 DIET_TABLE.OMEGA_3_6_RATIO as RATIO, DIET_TABLE.DIET_NAME as DIET,
@@ -42,8 +43,8 @@ namespace BiologyDepartment
                                 + filters + @"
                                 group by FISH_WEIGHT_LENGTH.WEEK, FISH_WEIGHT_LENGTH.COLOR, DIET_TABLE.OMEGA_3_6_RATIO, 
                                 DIET_TABLE.FAT_PERCENT, FISH_WEIGHT_LENGTH.SEX, DIET_TABLE.DIET_NAME
-                                order by FAT, RATIO";
-
+                                order by FAT, RATIO"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", id));
  
             ds = new DataSet();
@@ -58,8 +59,10 @@ namespace BiologyDepartment
 
         public DataSet getColor(int id)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = "select distinct(COLOR) FROM FISH_WEIGHT_LENGTH WHERE EX_ID = :id order by COLOR asc";
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = "select distinct(COLOR) FROM FISH_WEIGHT_LENGTH WHERE EX_ID = :id order by COLOR asc"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", id));
 
             ds = new DataSet();
@@ -74,8 +77,10 @@ namespace BiologyDepartment
 
         public DataSet getWeek(int id)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = "select distinct(WEEK) FROM FISH_WEIGHT_LENGTH WHERE EX_ID = :id order by WEEK asc";
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = "select distinct(WEEK) FROM FISH_WEIGHT_LENGTH WHERE EX_ID = :id order by WEEK asc"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", id));
             ds = new DataSet();
             ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
@@ -89,8 +94,9 @@ namespace BiologyDepartment
 
         public DataSet getRData(int id)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"select ROUND(AVG(FISH_WEIGHT_LENGTH.FISH_LENGTH),2) as FLENGTH, 
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"select ROUND(AVG(FISH_WEIGHT_LENGTH.FISH_LENGTH),2) as FLENGTH, 
                                 ROUND(AVG(FISH_WEIGHT_LENGTH.WT_WEIGHT * 1000),2) as WEIGHT, 
                                 FISH_WEIGHT_LENGTH.WEEK as WEEK, FISH_WEIGHT_LENGTH.COLOR as C,
                                 DIET_TABLE.OMEGA_3_6_RATIO as RATIO, DIET_TABLE.DIET_NAME as DIET,
@@ -105,7 +111,8 @@ namespace BiologyDepartment
                                 group by FISH_WEIGHT_LENGTH.WEEK, FISH_WEIGHT_LENGTH.COLOR,
                                 DIET_TABLE.OMEGA_3_6_RATIO, DIET_TABLE.DIET_NAME,
                                 DIET_TABLE.FAT_PERCENT, FISH_WEIGHT_LENGTH.SEX
-                                order by FISH_WEIGHT_LENGTH.COLOR ASC";
+                                order by FISH_WEIGHT_LENGTH.COLOR ASC"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("id", id));
             ds = new DataSet();
             ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);

@@ -24,8 +24,10 @@ namespace BiologyDepartment
 
         public DataSet getAuthors()
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Select AU.* from AUTHORS AU";
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Select AU.* from AUTHORS AU"
+            };
             DataSet ds = new DataSet();
             ds = GlobalVariables.GlobalConnection.ReadData(NpgsqlCMD);
             if (ds != null)
@@ -38,8 +40,9 @@ namespace BiologyDepartment
         
         public DataSet getAuthors(int EX_ID)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Select AU.AUTHOR_LNAME, AU.AUTHOR_FNAME, AU.AUTHOR_MNAME,
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Select AU.AUTHOR_LNAME, AU.AUTHOR_FNAME, AU.AUTHOR_MNAME,
                                       AU.AUTHOR_EMAIL, AU.AUTHOR_ASSOC, AU.AUTHOR_DEPT,
                                       AU.AUTHOR_ID, (SELECT AP.AUTHOR_PICTURE
                                                      FROM AUTHOR_PICTURES AP
@@ -49,8 +52,8 @@ namespace BiologyDepartment
                                       Where Exists(Select AE.Author_ID
 	                                               From author_experiments AE
 	                                               Where AE.Author_ID = AU.Author_ID
-	                                               and AE.EX_ID = :exID)";
-
+	                                               and AE.EX_ID = :exID)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("exID", EX_ID));
 
             DataSet ds= new DataSet();
@@ -65,9 +68,10 @@ namespace BiologyDepartment
 
         public DataSet getRecord(int rec)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = "Select * from AUTHORS Where AUTHOR_ID = :rec";
-
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = "Select * from AUTHORS Where AUTHOR_ID = :rec"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":rec", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters[0].Value = rec;
 
@@ -83,10 +87,11 @@ namespace BiologyDepartment
 
         public void insertRecord(Author a)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Insert into AUTHORS (AUTHOR_ID, AUTHOR_LNAME, AUTHOR_FNAME, AUTHOR_MNAME, AUTHOR_EMAIL,                                      AUTHOR_ASSOC, AUTHOR_DEPT) 
-                             VALUES (nextval('authors_author_id_seq'), :lname, :fname, :mi, :email, :association, :dept)";
-
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Insert into AUTHORS (AUTHOR_ID, AUTHOR_LNAME, AUTHOR_FNAME, AUTHOR_MNAME, AUTHOR_EMAIL,                                      AUTHOR_ASSOC, AUTHOR_DEPT) 
+                             VALUES (nextval('authors_author_id_seq'), :lname, :fname, :mi, :email, :association, :dept)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":lname", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":fname", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mi", NpgsqlDbType.Varchar));
@@ -108,16 +113,17 @@ namespace BiologyDepartment
 
         public void updateRecord(Author a)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-            NpgsqlCMD.CommandText = @"Update AUTHORS 
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"Update AUTHORS 
                               Set AUTHOR_LNAME = :lname, 
                               AUTHOR_FNAME  = :fname,
                               AUTHOR_MNAME  = :mi,
                               AUTHOR_EMAIL  = :email,
                               AUTHOR_ASSOC  = :association,
                               AUTHOR_DEPT = :dept
-                              Where AUTHOR_ID = :authID";
-
+                              Where AUTHOR_ID = :authID"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":lname", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter(":fname", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("mi", NpgsqlDbType.Varchar));
@@ -159,15 +165,15 @@ namespace BiologyDepartment
 
         public void InsertPic(string TableName, int AuthorID, byte[] pic)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-      
-            NpgsqlCMD.CommandText = @"DELETE FROM author_pictures
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"DELETE FROM author_pictures
                                       where table_name = :tName
                                       and table_primary_key = :tPK;
                                       INSERT INTO author_pictures 
                                       (table_name, table_primary_key, author_picture)
-                                      VALUES(:tName, :tPK, :pic)";
-
+                                      VALUES(:tName, :tPK, :pic)"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tName", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tPK", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("pic", NpgsqlDbType.Bytea));
@@ -184,14 +190,13 @@ namespace BiologyDepartment
 
         public void UpdatePic(string TableName, int AuthorID, byte[] pic)
         {
-            NpgsqlCMD = new NpgsqlCommand();
-
-            NpgsqlCMD.CommandText = @"UPDATE author_pictures
+            NpgsqlCMD = new NpgsqlCommand()
+            {
+                CommandText = @"UPDATE author_pictures
                                       set author_picture = :pic
                                       where table_name = :tName
-                                      and table_primary_key = :tPK";
-                                      
-
+                                      and table_primary_key = :tPK"
+            };
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tName", NpgsqlDbType.Varchar));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("tPK", NpgsqlDbType.Integer));
             NpgsqlCMD.Parameters.Add(new NpgsqlParameter("pic", NpgsqlDbType.Bytea));
