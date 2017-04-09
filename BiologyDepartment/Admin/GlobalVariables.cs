@@ -43,6 +43,7 @@ namespace BiologyDepartment
         static ExperimentData theData;
         static CtlAnimalData _ctlAnimalData = new CtlAnimalData();
         static ExperimentTreeNode SelectedExperiment = new ExperimentTreeNode();
+        static Cursor CrossHair;
 
         static DbBioConnection BioConnection;
 
@@ -334,6 +335,19 @@ namespace BiologyDepartment
         {
             get { return SelectedExperiment; }
             set { SelectedExperiment = value; }
+        }
+
+        public static Cursor CircleCrossHairCursor
+        {
+            get
+            {
+                if (CrossHair == null)
+                {
+                    System.IO.MemoryStream cursorMemoryStream = new System.IO.MemoryStream(BiologyDepartment.Properties.Resources.CircleCrossHair);
+                    CrossHair = new Cursor(cursorMemoryStream);
+                }
+                return CrossHair;
+            }
         }
     }
 }

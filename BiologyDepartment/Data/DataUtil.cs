@@ -87,8 +87,11 @@ namespace BiologyDepartment.Data
                     }
                 }
             }
-            GlobalVariables.ExperimentData.TableRow = tableRow;
-            GlobalVariables.ExperimentData.TableFilter = tableFilter;
+            if (GlobalVariables.ExperimentData != null)
+            {
+                GlobalVariables.ExperimentData.TableRow = tableRow;
+                GlobalVariables.ExperimentData.TableFilter = tableFilter;
+            }
             if (dtAnimals == null)
                 return null;
 
@@ -181,22 +184,25 @@ namespace BiologyDepartment.Data
                 dc.ColumnName = dc.Caption;
             }
 
-            /*foreach (DataRow dr in dt.Rows)
+            
+            foreach (DataRow dr in dt.Rows)
             {
-                if (dr["Data Picture"] == null)
-                    continue;
-                byte[] imageBytes = dr["Data Picture"] as byte[];
-                MemoryStream mStream = new MemoryStream(imageBytes);
-                mStream.Position = 0;
-
-                Image img = Image.FromStream(mStream);
-                Bitmap theImage = new Bitmap(img);
-                mStream.Close();
-                mStream.Dispose();
-                string sImagePath = sFilePath + "\\" + nRowCount.ToString() + ".bmp";
-                theImage.Save(sImagePath);
+                byte[] imageBytes = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]));
+                if (imageBytes != null && imageBytes.Length > 10)
+                {
+                    MemoryStream mStream = new MemoryStream(imageBytes)
+                    {
+                        Position = 0
+                    };
+                    Image img = Image.FromStream(mStream);
+                    Bitmap theImage = new Bitmap(img);
+                    mStream.Close();
+                    mStream.Dispose();
+                    string sImagePath = sFilePath + "\\" + nRowCount.ToString() + ".bmp";
+                    theImage.Save(sImagePath);
+                }
                 nRowCount++;
-            }*/
+            }
 
             //dt.Columns.Remove("Data Picture");
             //Create the excel document

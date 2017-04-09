@@ -10,7 +10,7 @@ using System.Drawing;
 namespace BiologyDepartment
 {
 
-    public partial class ctlExperiments : UserControl
+    public partial class CtlExperiments : UserControl
     {
         //private static frmExperiments inst;
         private daoExperiments _daoExperiments = new daoExperiments();
@@ -39,7 +39,7 @@ namespace BiologyDepartment
 
         public event EventHandler<ExperimentHasChanged> ChangeExperimentEvent;
 
-        public ctlExperiments()
+        public CtlExperiments()
         {
             InitializeComponent();
         }

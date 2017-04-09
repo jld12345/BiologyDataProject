@@ -117,8 +117,10 @@ namespace BiologyDepartment.Data
                     DataColumn[] keys = new DataColumn[1];
                     keys[0] = result.Columns["EXPERIMENTS_JSONB_ID"];
                     result.PrimaryKey = keys;
-                    DataView dv = new DataView(result);
-                    dv.Sort = "EXPERIMENTS_JSONB_ID ASC";
+                    DataView dv = new DataView(result)
+                    {
+                        Sort = "EXPERIMENTS_JSONB_ID ASC"
+                    };
                     JSONTable = dv.ToTable();
                 }
                 else

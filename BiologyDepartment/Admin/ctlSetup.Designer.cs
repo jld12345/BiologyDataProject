@@ -78,9 +78,9 @@ namespace BiologyDepartment
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
-            // imageList1
+            // ImageList1
             // 
-            this.ImageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.ImageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImageList1.ImageStream")));
             this.ImageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.ImageList1.Images.SetKeyName(0, "down.png");
             this.ImageList1.Images.SetKeyName(1, "up.png");
@@ -185,7 +185,10 @@ namespace BiologyDepartment
             this.dgColAdmin.Name = "dgColAdmin";
             this.dgColAdmin.Size = new System.Drawing.Size(1024, 233);
             this.dgColAdmin.TabIndex = 0;
+            this.dgColAdmin.DragDrop += new System.Windows.Forms.DragEventHandler(this.DgColAdmin_DragDrop);
+            this.dgColAdmin.DragEnter += new System.Windows.Forms.DragEventHandler(this.DgColAdmin_DragEnter);
             this.dgColAdmin.Layout += new System.Windows.Forms.LayoutEventHandler(this.DgColAdmin_Layout);
+            this.dgColAdmin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DgColAdmin_MouseClick);
             // 
             // splitContainer1
             // 
@@ -405,8 +408,7 @@ namespace BiologyDepartment
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dgExcelData;
 
-        public OpenFileDialog OpenFileDialog1 { get => OpenFileDialog11; set => OpenFileDialog11 = value; }
-        public OpenFileDialog OpenFileDialog11 { get => openFileDialog1; set => openFileDialog1 = value; }
-        public ImageList ImageList1 { get => imageList1; set => imageList1 = value; }
+        public OpenFileDialog OpenFileDialog1;
+        public ImageList ImageList1;
     }
 }

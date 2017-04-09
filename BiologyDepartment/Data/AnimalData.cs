@@ -63,6 +63,8 @@ namespace BiologyDepartment
         public int EX_ID { get; set; }
         public string Formula { get; set; }
 
+        public int Rank { get; set; }
+
         public CustomColumns() { }
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace BiologyDepartment
 {
-    partial class ctlExperiments
+    partial class CtlExperiments
     {
         /// <summary> 
         /// Required designer variable.

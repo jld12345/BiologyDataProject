@@ -452,6 +452,10 @@ namespace BiologyDepartment
             }
         }
 
+        private void ribbonControlAdv1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class ExperimentTreeNode : TreeNodeAdv

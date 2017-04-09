@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            Syncfusion.Windows.Forms.Tools.Office2013ColorTable office2013ColorTable1 = new Syncfusion.Windows.Forms.Tools.Office2013ColorTable();
+            Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo treeNodeAdvStyleInfo1 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv1 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv2 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv3 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
@@ -38,9 +38,12 @@
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv5 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
             Syncfusion.Windows.Forms.Tools.TreeNodeAdv treeNodeAdv6 = new Syncfusion.Windows.Forms.Tools.TreeNodeAdv();
             Gnostice.Documents.FormatterSettings formatterSettings1 = new Gnostice.Documents.FormatterSettings();
-            Gnostice.Documents.TXTFormatterSettings txtFormatterSettings1 = new Gnostice.Documents.TXTFormatterSettings();
+            Gnostice.Documents.Spreadsheet.SpreadSheetFormatterSettings spreadSheetFormatterSettings1 = new Gnostice.Documents.Spreadsheet.SpreadSheetFormatterSettings();
             Gnostice.Documents.PageSettings pageSettings1 = new Gnostice.Documents.PageSettings();
             Gnostice.Documents.Margins margins1 = new Gnostice.Documents.Margins();
+            Gnostice.Documents.TXTFormatterSettings txtFormatterSettings1 = new Gnostice.Documents.TXTFormatterSettings();
+            Gnostice.Documents.PageSettings pageSettings2 = new Gnostice.Documents.PageSettings();
+            Gnostice.Documents.Margins margins2 = new Gnostice.Documents.Margins();
             Gnostice.Graphics.RenderingSettings renderingSettings1 = new Gnostice.Graphics.RenderingSettings();
             Gnostice.Graphics.ImageRenderingSettings imageRenderingSettings1 = new Gnostice.Graphics.ImageRenderingSettings();
             Gnostice.Graphics.LineArtRenderingSettings lineArtRenderingSettings1 = new Gnostice.Graphics.LineArtRenderingSettings();
@@ -155,48 +158,17 @@
             // 
             // ribbonControlAdv1
             // 
+            this.ribbonControlAdv1.CaptionFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ribbonControlAdv1.Dock = Syncfusion.Windows.Forms.Tools.DockStyleEx.Top;
             this.ribbonControlAdv1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.ribbonControlAdv1.Header.AddMainItem(toolStripTabItem1);
             this.ribbonControlAdv1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControlAdv1.MenuButtonFont = new System.Drawing.Font("Segoe UI", 8.25F);
             this.ribbonControlAdv1.MenuButtonText = "";
+            this.ribbonControlAdv1.MenuButtonWidth = 56;
             this.ribbonControlAdv1.MenuColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(114)))), ((int)(((byte)(198)))));
             this.ribbonControlAdv1.Name = "ribbonControlAdv1";
-            office2013ColorTable1.BackStageCaptionColor = System.Drawing.Color.White;
-            office2013ColorTable1.ButtonBackgroundPressed = System.Drawing.Color.Empty;
-            office2013ColorTable1.ButtonBackgroundSelected = System.Drawing.Color.Empty;
-            office2013ColorTable1.CaptionBackColor = System.Drawing.Color.White;
-            office2013ColorTable1.CaptionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            office2013ColorTable1.CheckedTabColor = System.Drawing.Color.White;
-            office2013ColorTable1.CheckedTabForeColor = System.Drawing.Color.Empty;
-            office2013ColorTable1.CloseButtonColor = System.Drawing.Color.Empty;
-            office2013ColorTable1.ContextMenuBackColor = System.Drawing.Color.Empty;
-            office2013ColorTable1.ContextMenuItemSelected = System.Drawing.Color.Empty;
-            office2013ColorTable1.HeaderColor = System.Drawing.Color.White;
-            office2013ColorTable1.HoverTabForeColor = System.Drawing.Color.Empty;
-            office2013ColorTable1.LauncherBackColorSelected = System.Drawing.Color.Empty;
-            office2013ColorTable1.LauncherColorNormal = System.Drawing.Color.Empty;
-            office2013ColorTable1.LauncherColorSelected = System.Drawing.Color.Empty;
-            office2013ColorTable1.MaximizeButtonColor = System.Drawing.Color.Empty;
-            office2013ColorTable1.MinimizeButtonColor = System.Drawing.Color.Empty;
-            office2013ColorTable1.PanelBackColor = System.Drawing.Color.White;
-            office2013ColorTable1.RestoreButtonColor = System.Drawing.Color.Empty;
-            office2013ColorTable1.RibbonPanelBorderColor = System.Drawing.Color.Empty;
-            office2013ColorTable1.SelectedTabBorderColor = System.Drawing.Color.White;
-            office2013ColorTable1.SelectedTabColor = System.Drawing.Color.White;
-            office2013ColorTable1.SplitButtonBackgroundPressed = System.Drawing.Color.Empty;
-            office2013ColorTable1.SplitButtonBackgroundSelected = System.Drawing.Color.Empty;
-            office2013ColorTable1.SystemButtonBackground = System.Drawing.Color.Empty;
-            office2013ColorTable1.TabBackColor = System.Drawing.Color.White;
-            office2013ColorTable1.TabForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(2)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            office2013ColorTable1.TitleColor = System.Drawing.Color.Empty;
-            office2013ColorTable1.ToolStripBackColor = System.Drawing.Color.White;
-            office2013ColorTable1.ToolStripBorderColor = System.Drawing.Color.White;
-            office2013ColorTable1.ToolStripItemForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(102)))), ((int)(((byte)(102)))), ((int)(((byte)(102)))));
-            office2013ColorTable1.ToolStripSpliterColor = System.Drawing.Color.LightGray;
-            office2013ColorTable1.UpDownButtonBackColor = System.Drawing.Color.Empty;
-            this.ribbonControlAdv1.Office2013ColorTable = office2013ColorTable1;
+            this.ribbonControlAdv1.Office2013ColorScheme = Syncfusion.Windows.Forms.Tools.Office2013ColorScheme.LightGray;
             this.ribbonControlAdv1.OfficeColorScheme = Syncfusion.Windows.Forms.Tools.ToolStripEx.ColorScheme.Managed;
             // 
             // ribbonControlAdv1.OfficeMenu
@@ -206,14 +178,19 @@
             this.ribbonControlAdv1.OfficeMenu.Size = new System.Drawing.Size(12, 65);
             this.ribbonControlAdv1.OfficeMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.RibbonControlAdv1_OfficeMenu_ItemClicked);
             this.ribbonControlAdv1.QuickPanelImageLayout = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ribbonControlAdv1.QuickPanelVisible = false;
             this.ribbonControlAdv1.RibbonHeaderImage = Syncfusion.Windows.Forms.Tools.RibbonHeaderImage.None;
+            this.ribbonControlAdv1.RibbonStyle = Syncfusion.Windows.Forms.Tools.RibbonStyle.Office2013;
             this.ribbonControlAdv1.SelectedTab = this.toolStripTabItem1;
-            this.ribbonControlAdv1.ShowRibbonDisplayOptionButton = true;
-            this.ribbonControlAdv1.Size = new System.Drawing.Size(1254, 161);
+            this.ribbonControlAdv1.ShowPanelOnMouseHover = true;
+            this.ribbonControlAdv1.ShowQuickItemsDropDownButton = false;
+            this.ribbonControlAdv1.ShowRibbonDisplayOptionButton = false;
+            this.ribbonControlAdv1.Size = new System.Drawing.Size(1254, 157);
             this.ribbonControlAdv1.SystemText.QuickAccessDialogDropDownName = "Start menu";
             this.ribbonControlAdv1.SystemText.RenameDisplayLabelText = "&Display Name:";
             this.ribbonControlAdv1.TabIndex = 3;
             this.ribbonControlAdv1.Text = "ribbonControlAdv1";
+            this.ribbonControlAdv1.Click += new System.EventHandler(this.ribbonControlAdv1_Click);
             // 
             // toolStripTabItem1
             // 
@@ -247,6 +224,7 @@
             this.btnExit2});
             this.toolStripEx2.Location = new System.Drawing.Point(0, 1);
             this.toolStripEx2.Name = "toolStripEx2";
+            this.toolStripEx2.Office12Mode = false;
             this.toolStripEx2.Size = new System.Drawing.Size(173, 105);
             this.toolStripEx2.TabIndex = 0;
             // 
@@ -292,6 +270,7 @@
             this.btnSecurityEx});
             this.toolStripEx3.Location = new System.Drawing.Point(175, 1);
             this.toolStripEx3.Name = "toolStripEx3";
+            this.toolStripEx3.Office12Mode = false;
             this.toolStripEx3.Size = new System.Drawing.Size(433, 105);
             this.toolStripEx3.TabIndex = 1;
             this.toolStripEx3.Text = "Experiments";
@@ -304,7 +283,7 @@
             this.btnSearchEx.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSearchEx.Name = "btnSearchEx";
             this.btnSearchEx.Size = new System.Drawing.Size(75, 75);
-            this.btnSearchEx.Text = "Search";
+            this.btnSearchEx.Text = "Experiment";
             this.btnSearchEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnSearchEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSearchEx.Click += new System.EventHandler(this.BtnSearchEx_Click);
@@ -314,7 +293,7 @@
             this.btnAddEx.AutoSize = false;
             this.btnAddEx.Image = global::BiologyDepartment.Properties.Resources.AddExperiment48;
             this.btnAddEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnAddEx.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAddEx.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnAddEx.Name = "btnAddEx";
             this.btnAddEx.Size = new System.Drawing.Size(75, 75);
             this.btnAddEx.Text = "Add";
@@ -327,7 +306,7 @@
             this.btnEditEx.AutoSize = false;
             this.btnEditEx.Image = global::BiologyDepartment.Properties.Resources.EditDoc48;
             this.btnEditEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnEditEx.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEditEx.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnEditEx.Name = "btnEditEx";
             this.btnEditEx.Size = new System.Drawing.Size(75, 75);
             this.btnEditEx.Text = "Edit";
@@ -340,7 +319,7 @@
             this.btnDelEx.AutoSize = false;
             this.btnDelEx.Image = global::BiologyDepartment.Properties.Resources.DeleteFile48;
             this.btnDelEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnDelEx.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelEx.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnDelEx.Name = "btnDelEx";
             this.btnDelEx.Size = new System.Drawing.Size(75, 75);
             this.btnDelEx.Text = "Delete";
@@ -353,7 +332,7 @@
             this.btnSecurityEx.AutoSize = false;
             this.btnSecurityEx.Image = global::BiologyDepartment.Properties.Resources.ExperimentPermission48;
             this.btnSecurityEx.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSecurityEx.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSecurityEx.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnSecurityEx.Name = "btnSecurityEx";
             this.btnSecurityEx.Size = new System.Drawing.Size(75, 75);
             this.btnSecurityEx.Text = "Security";
@@ -377,6 +356,7 @@
             this.btnExportDoc2});
             this.toolStripEx4.Location = new System.Drawing.Point(610, 1);
             this.toolStripEx4.Name = "toolStripEx4";
+            this.toolStripEx4.Office12Mode = false;
             this.toolStripEx4.Size = new System.Drawing.Size(410, 105);
             this.toolStripEx4.TabIndex = 2;
             this.toolStripEx4.Text = "Documents";
@@ -386,7 +366,7 @@
             this.btnAddDoc2.AutoSize = false;
             this.btnAddDoc2.Image = global::BiologyDepartment.Properties.Resources.documentaddicon;
             this.btnAddDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnAddDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAddDoc2.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnAddDoc2.Name = "btnAddDoc2";
             this.btnAddDoc2.Size = new System.Drawing.Size(75, 75);
             this.btnAddDoc2.Text = "Add";
@@ -399,7 +379,7 @@
             this.btnEditDoc2.AutoSize = false;
             this.btnEditDoc2.Image = global::BiologyDepartment.Properties.Resources.EditDoc48;
             this.btnEditDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnEditDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEditDoc2.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnEditDoc2.Name = "btnEditDoc2";
             this.btnEditDoc2.Size = new System.Drawing.Size(75, 75);
             this.btnEditDoc2.Text = "Edit";
@@ -412,7 +392,7 @@
             this.btnDelDoc2.AutoSize = false;
             this.btnDelDoc2.Image = global::BiologyDepartment.Properties.Resources.DeleteFile48;
             this.btnDelDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnDelDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelDoc2.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnDelDoc2.Name = "btnDelDoc2";
             this.btnDelDoc2.Size = new System.Drawing.Size(75, 75);
             this.btnDelDoc2.Text = "Delete";
@@ -425,7 +405,7 @@
             this.btnBulkAddDoc.AutoSize = false;
             this.btnBulkAddDoc.Image = global::BiologyDepartment.Properties.Resources.folder48;
             this.btnBulkAddDoc.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnBulkAddDoc.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBulkAddDoc.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnBulkAddDoc.Name = "btnBulkAddDoc";
             this.btnBulkAddDoc.Size = new System.Drawing.Size(75, 75);
             this.btnBulkAddDoc.Text = "Bulk Import";
@@ -438,7 +418,7 @@
             this.btnExportDoc2.AutoSize = false;
             this.btnExportDoc2.Image = global::BiologyDepartment.Properties.Resources.ClipboardExport2;
             this.btnExportDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnExportDoc2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnExportDoc2.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnExportDoc2.Name = "btnExportDoc2";
             this.btnExportDoc2.Size = new System.Drawing.Size(75, 75);
             this.btnExportDoc2.Text = "Export";
@@ -462,8 +442,9 @@
             // tabControlMain2
             // 
             this.tabControlMain2.ActiveTabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.tabControlMain2.ActiveTabForeColor = System.Drawing.Color.Empty;
             this.tabControlMain2.Alignment = System.Windows.Forms.TabAlignment.Right;
-            this.tabControlMain2.BeforeTouchSize = new System.Drawing.Size(1254, 324);
+            this.tabControlMain2.BeforeTouchSize = new System.Drawing.Size(1254, 328);
             this.tabControlMain2.BorderVisible = true;
             this.tabControlMain2.CloseButtonForeColor = System.Drawing.Color.Empty;
             this.tabControlMain2.CloseButtonHoverForeColor = System.Drawing.Color.Empty;
@@ -475,12 +456,15 @@
             this.tabControlMain2.Controls.Add(this.tpRStudio);
             this.tabControlMain2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain2.FocusOnTabClick = false;
+            this.tabControlMain2.InActiveTabForeColor = System.Drawing.Color.Empty;
             this.tabControlMain2.ItemSize = new System.Drawing.Size(50, 120);
-            this.tabControlMain2.Location = new System.Drawing.Point(0, 161);
+            this.tabControlMain2.Location = new System.Drawing.Point(0, 157);
             this.tabControlMain2.MultilineText = true;
             this.tabControlMain2.Name = "tabControlMain2";
             this.tabControlMain2.RotateTextWhenVertical = true;
-            this.tabControlMain2.Size = new System.Drawing.Size(1254, 324);
+            this.tabControlMain2.SeparatorColor = System.Drawing.SystemColors.ControlDark;
+            this.tabControlMain2.ShowSeparator = false;
+            this.tabControlMain2.Size = new System.Drawing.Size(1254, 328);
             this.tabControlMain2.SizeMode = Syncfusion.Windows.Forms.Tools.TabSizeMode.Fixed;
             this.tabControlMain2.TabIndex = 5;
             this.tabControlMain2.TabPanelBackColor = System.Drawing.SystemColors.ControlLight;
@@ -494,7 +478,7 @@
             this.tpExperiments.Location = new System.Drawing.Point(3, 2);
             this.tpExperiments.Name = "tpExperiments";
             this.tpExperiments.ShowCloseButton = true;
-            this.tpExperiments.Size = new System.Drawing.Size(1129, 320);
+            this.tpExperiments.Size = new System.Drawing.Size(1129, 324);
             this.tpExperiments.TabIndex = 1;
             this.tpExperiments.Text = "Experiments";
             this.tpExperiments.ThemesEnabled = true;
@@ -507,7 +491,7 @@
             this.tpDocuments.Location = new System.Drawing.Point(3, 2);
             this.tpDocuments.Name = "tpDocuments";
             this.tpDocuments.ShowCloseButton = true;
-            this.tpDocuments.Size = new System.Drawing.Size(1129, 320);
+            this.tpDocuments.Size = new System.Drawing.Size(1129, 324);
             this.tpDocuments.TabIndex = 6;
             this.tpDocuments.Text = "Documents";
             this.tpDocuments.ThemesEnabled = true;
@@ -527,7 +511,7 @@
             // 
             this.spcExperimentDocs.Panel2.Controls.Add(this.docViewer);
             this.spcExperimentDocs.Panel2.Controls.Add(this.spreadsheetViewer);
-            this.spcExperimentDocs.Size = new System.Drawing.Size(1129, 320);
+            this.spcExperimentDocs.Size = new System.Drawing.Size(1129, 324);
             this.spcExperimentDocs.SplitterDistance = 245;
             this.spcExperimentDocs.TabIndex = 39;
             // 
@@ -535,7 +519,12 @@
             // 
             this.tvDocuments.AddSeparatorAtEnd = true;
             this.tvDocuments.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.tvDocuments.BeforeTouchSize = new System.Drawing.Size(245, 320);
+            treeNodeAdvStyleInfo1.EnsureDefaultOptionedChild = true;
+            treeNodeAdvStyleInfo1.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
+            treeNodeAdvStyleInfo1.ThemesEnabled = true;
+            this.tvDocuments.BaseStylePairs.AddRange(new Syncfusion.Windows.Forms.Tools.StyleNamePair[] {
+            new Syncfusion.Windows.Forms.Tools.StyleNamePair("Standard", treeNodeAdvStyleInfo1)});
+            this.tvDocuments.BeforeTouchSize = new System.Drawing.Size(245, 324);
             this.tvDocuments.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tvDocuments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvDocuments.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
@@ -620,7 +609,7 @@
             this.tvDocuments.SelectedNodeBackground = new Syncfusion.Drawing.BrushInfo(System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(235)))), ((int)(((byte)(251))))));
             this.tvDocuments.SelectedNodeForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
             this.tvDocuments.ShowFocusRect = false;
-            this.tvDocuments.Size = new System.Drawing.Size(245, 320);
+            this.tvDocuments.Size = new System.Drawing.Size(245, 324);
             this.tvDocuments.Style = Syncfusion.Windows.Forms.Tools.TreeStyle.Office2007;
             this.tvDocuments.TabIndex = 38;
             this.tvDocuments.Text = "treeViewAdv1";
@@ -660,7 +649,9 @@
             this.docViewer.NavigationPane.WidthPercentage = 20;
             this.docViewer.PageLayout = null;
             this.docViewer.PageRotation = Gnostice.Documents.Controls.WinForms.RotationAngle.Zero;
-            txtFormatterSettings1.Font = new System.Drawing.Font("Calibri", 12F);
+            spreadSheetFormatterSettings1.GridLinesPrint = false;
+            spreadSheetFormatterSettings1.GridLinesView = false;
+            spreadSheetFormatterSettings1.PageOrder = Gnostice.Documents.Spreadsheet.LayoutDirection.BackwardN;
             pageSettings1.Height = 11.6929F;
             margins1.Bottom = 1F;
             margins1.Footer = 0F;
@@ -672,7 +663,21 @@
             pageSettings1.Orientation = Gnostice.Graphics.Orientation.Portrait;
             pageSettings1.PageSize = Gnostice.Documents.PageSize.A4;
             pageSettings1.Width = 8.2677F;
-            txtFormatterSettings1.PageSettings = pageSettings1;
+            spreadSheetFormatterSettings1.PageSettings = pageSettings1;
+            formatterSettings1.SpreadSheet = spreadSheetFormatterSettings1;
+            txtFormatterSettings1.Font = new System.Drawing.Font("Calibri", 12F);
+            pageSettings2.Height = 11.6929F;
+            margins2.Bottom = 1F;
+            margins2.Footer = 0F;
+            margins2.Header = 0F;
+            margins2.Left = 1F;
+            margins2.Right = 1F;
+            margins2.Top = 1F;
+            pageSettings2.Margin = margins2;
+            pageSettings2.Orientation = Gnostice.Graphics.Orientation.Portrait;
+            pageSettings2.PageSize = Gnostice.Documents.PageSize.A4;
+            pageSettings2.Width = 8.2677F;
+            txtFormatterSettings1.PageSettings = pageSettings2;
             formatterSettings1.TXT = txtFormatterSettings1;
             this.docViewer.Preferences.FormatterSettings = formatterSettings1;
             this.docViewer.Preferences.KeyNavigation = true;
@@ -692,7 +697,7 @@
             renderingSettings1.Text = textRenderingSettings1;
             this.docViewer.Preferences.RenderingSettings = renderingSettings1;
             this.docViewer.Preferences.Units = Gnostice.Graphics.MeasurementUnit.Inches;
-            this.docViewer.Size = new System.Drawing.Size(880, 320);
+            this.docViewer.Size = new System.Drawing.Size(880, 324);
             this.docViewer.TabIndex = 6;
             this.docViewer.VScrollBar.LargeChange = 40;
             this.docViewer.VScrollBar.SmallChange = 20;
@@ -714,6 +719,7 @@
             this.spreadsheetViewer.CopyPaste = spreadsheetCopyPaste1;
             this.spreadsheetViewer.DefaultColumnCount = 101;
             this.spreadsheetViewer.DefaultRowCount = 101;
+            this.spreadsheetViewer.DisplayAlerts = true;
             this.spreadsheetViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.spreadsheetViewer.FileName = "Book6";
             this.spreadsheetViewer.FormulaBarVisibility = false;
@@ -725,7 +731,8 @@
             this.spreadsheetViewer.Name = "spreadsheetViewer";
             this.spreadsheetViewer.SelectedTabIndex = 0;
             this.spreadsheetViewer.SelectedTabItem = null;
-            this.spreadsheetViewer.Size = new System.Drawing.Size(880, 320);
+            this.spreadsheetViewer.ShowBusyIndicator = true;
+            this.spreadsheetViewer.Size = new System.Drawing.Size(880, 324);
             this.spreadsheetViewer.TabIndex = 5;
             this.spreadsheetViewer.TabItemContextMenu = null;
             this.spreadsheetViewer.Text = "spreadsheet1";
@@ -737,7 +744,7 @@
             this.tpRScripts.Location = new System.Drawing.Point(3, 2);
             this.tpRScripts.Name = "tpRScripts";
             this.tpRScripts.ShowCloseButton = true;
-            this.tpRScripts.Size = new System.Drawing.Size(1129, 320);
+            this.tpRScripts.Size = new System.Drawing.Size(1129, 324);
             this.tpRScripts.TabIndex = 4;
             this.tpRScripts.Text = "RScripts";
             this.tpRScripts.ThemesEnabled = true;
@@ -749,7 +756,7 @@
             this.tpSetup.Location = new System.Drawing.Point(3, 2);
             this.tpSetup.Name = "tpSetup";
             this.tpSetup.ShowCloseButton = true;
-            this.tpSetup.Size = new System.Drawing.Size(1129, 320);
+            this.tpSetup.Size = new System.Drawing.Size(1129, 324);
             this.tpSetup.TabIndex = 3;
             this.tpSetup.Text = "Setup";
             this.tpSetup.ThemesEnabled = true;
@@ -761,7 +768,7 @@
             this.tpRStudio.Location = new System.Drawing.Point(3, 2);
             this.tpRStudio.Name = "tpRStudio";
             this.tpRStudio.ShowCloseButton = true;
-            this.tpRStudio.Size = new System.Drawing.Size(1129, 320);
+            this.tpRStudio.Size = new System.Drawing.Size(1129, 324);
             this.tpRStudio.TabIndex = 5;
             this.tpRStudio.Text = "RStudio";
             this.tpRStudio.ThemesEnabled = true;

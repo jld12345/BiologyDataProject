@@ -141,14 +141,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BiologyDepartment.exe" size="668672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BiologyDepartment.exe" size="676352">
       <assemblyIdentity name="BiologyDepartment" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fDfengzjiRU1d1GasM9JB5rS/HCaWGReNW5Bt+QGS28=</dsig:DigestValue>
+        <dsig:DigestValue>HEKjLN5tH2JRmn+nfMuPcliliDTcZl20oqizsag8euc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -1347,6 +1347,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>0VEAoBZ6MyRP52gu6vipxL/I2xX0A0/D/EGbSLaveO8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="CircleCrossHair.cur" size="326">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>mIEFl9cwOPbwQrpJP26DVt+w3zINCyyhLbORec532dc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Misc Files\Installation.txt" size="522">

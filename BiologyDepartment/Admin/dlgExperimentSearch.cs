@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Syncfusion.Windows.Forms.Tools;
 
 namespace BiologyDepartment.Admin
 {
@@ -51,18 +52,26 @@ namespace BiologyDepartment.Admin
             dtParents = daoEx.GetRecordsForComboBox();
             if (dtParents == null || dtParents.Rows.Count == 0)
             {
-                cmbParents = new Syncfusion.Windows.Forms.Tools.ComboBoxAdv();
+                cmbParents = ComboBoxAdv();
             }
             else
             {
                 if (cmbParents.DataSource != null)
+                {
                     cmbParents = new Syncfusion.Windows.Forms.Tools.ComboBoxAdv();
+                }
+
                 DataRow emptyRow = dtParents.NewRow();
                 cmbParents.ValueMember = "EX_ID";
                 cmbParents.DisplayMember = "EX_ALIAS";
                 cmbParents.DataSource = dtParents;
                 dtParents.Rows.InsertAt(emptyRow, 0);
             }
+        }
+
+        private ComboBoxAdv ComboBoxAdv()
+        {
+            throw new NotImplementedException();
         }
 
         private void SetFields()
@@ -200,7 +209,7 @@ namespace BiologyDepartment.Admin
                 DialogResult result = MessageBox.Show(sMessage, "Unsaved Edits/Additions", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    GlobalVariables.ExperimentGrid.SaveData(0);
+                    //GlobalVariables.ExperimentGrid.SaveData(0);
                 }
             }
             exNode = (ExperimentTreeNode)tvExperiments.SelectedNode;

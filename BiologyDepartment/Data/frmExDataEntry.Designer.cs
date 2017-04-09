@@ -44,10 +44,18 @@
             this.btnCalibrateLine = new System.Windows.Forms.ToolStripButton();
             this.btnClearLine = new System.Windows.Forms.ToolStripButton();
             this.btnClearAll = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnPrevious = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pnlInput = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtUnitsMeasured = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtPixelCount = new System.Windows.Forms.TextBox();
+            this.cmbMeasurementParent = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.udRotatePhoto = new System.Windows.Forms.NumericUpDown();
             this.lblZoom = new System.Windows.Forms.Label();
@@ -91,10 +99,12 @@
             this.toolStripSeparator2,
             this.btnCalibrateLine,
             this.btnClearLine,
-            this.btnClearAll});
+            this.btnClearAll,
+            this.toolStripSeparator3,
+            this.BtnPrevious});
             this.toolStripEx1.Location = new System.Drawing.Point(0, 0);
             this.toolStripEx1.Name = "toolStripEx1";
-            this.toolStripEx1.Size = new System.Drawing.Size(1051, 48);
+            this.toolStripEx1.Size = new System.Drawing.Size(1330, 48);
             this.toolStripEx1.TabIndex = 63;
             this.toolStripEx1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStripEx1_ItemClicked);
             // 
@@ -204,6 +214,21 @@
             this.btnClearAll.Text = "Clear All";
             this.btnClearAll.Click += new System.EventHandler(this.BtnReset_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 33);
+            // 
+            // BtnPrevious
+            // 
+            this.BtnPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.BtnPrevious.Image = ((System.Drawing.Image)(resources.GetObject("BtnPrevious.Image")));
+            this.BtnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnPrevious.Name = "BtnPrevious";
+            this.BtnPrevious.Size = new System.Drawing.Size(56, 30);
+            this.BtnPrevious.Text = "Previous";
+            this.BtnPrevious.Click += new System.EventHandler(this.BtnPrevious_Click);
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox2);
@@ -212,7 +237,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 48);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1051, 720);
+            this.panel1.Size = new System.Drawing.Size(1330, 777);
             this.panel1.TabIndex = 64;
             // 
             // groupBox2
@@ -221,7 +246,7 @@
             this.groupBox2.Controls.Add(this.pnlInput);
             this.groupBox2.Location = new System.Drawing.Point(9, -10);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(370, 741);
+            this.groupBox2.Size = new System.Drawing.Size(458, 741);
             this.groupBox2.TabIndex = 65;
             this.groupBox2.TabStop = false;
             // 
@@ -231,11 +256,17 @@
             this.pnlInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlInput.Location = new System.Drawing.Point(3, 16);
             this.pnlInput.Name = "pnlInput";
-            this.pnlInput.Size = new System.Drawing.Size(364, 722);
+            this.pnlInput.Size = new System.Drawing.Size(452, 722);
             this.pnlInput.TabIndex = 0;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.txtUnitsMeasured);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.txtPixelCount);
+            this.groupBox1.Controls.Add(this.cmbMeasurementParent);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.udRotatePhoto);
             this.groupBox1.Controls.Add(this.lblZoom);
@@ -254,16 +285,66 @@
             this.groupBox1.Controls.Add(this.cmbMeasurement);
             this.groupBox1.Controls.Add(this.lblCalibration);
             this.groupBox1.Controls.Add(this.txtCalibration);
-            this.groupBox1.Location = new System.Drawing.Point(386, 3);
+            this.groupBox1.Location = new System.Drawing.Point(473, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(653, 195);
+            this.groupBox1.Size = new System.Drawing.Size(845, 278);
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(588, 56);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.TabIndex = 71;
+            this.label4.Text = "Auto Fill Field";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(585, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.TabIndex = 70;
+            this.label3.Text = "Units Measured";
+            // 
+            // txtUnitsMeasured
+            // 
+            this.txtUnitsMeasured.Location = new System.Drawing.Point(588, 32);
+            this.txtUnitsMeasured.Name = "txtUnitsMeasured";
+            this.txtUnitsMeasured.Size = new System.Drawing.Size(78, 20);
+            this.txtUnitsMeasured.TabIndex = 69;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(514, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.TabIndex = 68;
+            this.label1.Text = "Pixels";
+            // 
+            // txtPixelCount
+            // 
+            this.txtPixelCount.Enabled = false;
+            this.txtPixelCount.Location = new System.Drawing.Point(517, 32);
+            this.txtPixelCount.Name = "txtPixelCount";
+            this.txtPixelCount.Size = new System.Drawing.Size(65, 20);
+            this.txtPixelCount.TabIndex = 67;
+            // 
+            // cmbMeasurementParent
+            // 
+            this.cmbMeasurementParent.FormattingEnabled = true;
+            this.cmbMeasurementParent.Location = new System.Drawing.Point(588, 72);
+            this.cmbMeasurementParent.Name = "cmbMeasurementParent";
+            this.cmbMeasurementParent.Size = new System.Drawing.Size(162, 21);
+            this.cmbMeasurementParent.TabIndex = 66;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(323, 141);
+            this.label2.Location = new System.Drawing.Point(395, 140);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 13);
             this.label2.TabIndex = 65;
@@ -276,7 +357,7 @@
             0,
             0,
             0});
-            this.udRotatePhoto.Location = new System.Drawing.Point(323, 157);
+            this.udRotatePhoto.Location = new System.Drawing.Point(395, 156);
             this.udRotatePhoto.Maximum = new decimal(new int[] {
             360,
             0,
@@ -290,7 +371,7 @@
             // lblZoom
             // 
             this.lblZoom.AutoSize = true;
-            this.lblZoom.Location = new System.Drawing.Point(252, 141);
+            this.lblZoom.Location = new System.Drawing.Point(324, 140);
             this.lblZoom.Name = "lblZoom";
             this.lblZoom.Size = new System.Drawing.Size(65, 13);
             this.lblZoom.TabIndex = 61;
@@ -303,7 +384,7 @@
             0,
             0,
             0});
-            this.udZoom.Location = new System.Drawing.Point(252, 157);
+            this.udZoom.Location = new System.Drawing.Point(324, 156);
             this.udZoom.Maximum = new decimal(new int[] {
             325,
             0,
@@ -324,7 +405,7 @@
             this.pbVideo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbVideo.Location = new System.Drawing.Point(6, 15);
             this.pbVideo.Name = "pbVideo";
-            this.pbVideo.Size = new System.Drawing.Size(230, 174);
+            this.pbVideo.Size = new System.Drawing.Size(302, 257);
             this.pbVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbVideo.TabIndex = 0;
             this.pbVideo.TabStop = false;
@@ -332,7 +413,7 @@
             // lblRes
             // 
             this.lblRes.AutoSize = true;
-            this.lblRes.Location = new System.Drawing.Point(252, 57);
+            this.lblRes.Location = new System.Drawing.Point(324, 56);
             this.lblRes.Name = "lblRes";
             this.lblRes.Size = new System.Drawing.Size(57, 13);
             this.lblRes.TabIndex = 41;
@@ -341,7 +422,7 @@
             // btnLineColor
             // 
             this.btnLineColor.BackColor = System.Drawing.Color.Yellow;
-            this.btnLineColor.Location = new System.Drawing.Point(520, 32);
+            this.btnLineColor.Location = new System.Drawing.Point(663, 99);
             this.btnLineColor.Name = "btnLineColor";
             this.btnLineColor.Size = new System.Drawing.Size(25, 20);
             this.btnLineColor.TabIndex = 56;
@@ -351,7 +432,7 @@
             // cbLineWidth
             // 
             this.cbLineWidth.FormattingEnabled = true;
-            this.cbLineWidth.Location = new System.Drawing.Point(528, 71);
+            this.cbLineWidth.Location = new System.Drawing.Point(583, 99);
             this.cbLineWidth.Name = "cbLineWidth";
             this.cbLineWidth.Size = new System.Drawing.Size(74, 21);
             this.cbLineWidth.TabIndex = 57;
@@ -359,7 +440,7 @@
             // lblLineSize
             // 
             this.lblLineSize.AutoSize = true;
-            this.lblLineSize.Location = new System.Drawing.Point(525, 55);
+            this.lblLineSize.Location = new System.Drawing.Point(516, 102);
             this.lblLineSize.Name = "lblLineSize";
             this.lblLineSize.Size = new System.Drawing.Size(58, 13);
             this.lblLineSize.TabIndex = 58;
@@ -368,7 +449,7 @@
             // cbCaptureDevice
             // 
             this.cbCaptureDevice.FormattingEnabled = true;
-            this.cbCaptureDevice.Location = new System.Drawing.Point(252, 33);
+            this.cbCaptureDevice.Location = new System.Drawing.Point(324, 32);
             this.cbCaptureDevice.Name = "cbCaptureDevice";
             this.cbCaptureDevice.Size = new System.Drawing.Size(159, 21);
             this.cbCaptureDevice.TabIndex = 38;
@@ -377,7 +458,7 @@
             // cbResolution
             // 
             this.cbResolution.FormattingEnabled = true;
-            this.cbResolution.Location = new System.Drawing.Point(252, 73);
+            this.cbResolution.Location = new System.Drawing.Point(324, 72);
             this.cbResolution.Name = "cbResolution";
             this.cbResolution.Size = new System.Drawing.Size(65, 21);
             this.cbResolution.TabIndex = 39;
@@ -385,15 +466,16 @@
             // 
             // txtMeasure
             // 
-            this.txtMeasure.Location = new System.Drawing.Point(448, 112);
+            this.txtMeasure.Location = new System.Drawing.Point(514, 72);
             this.txtMeasure.Name = "txtMeasure";
-            this.txtMeasure.Size = new System.Drawing.Size(199, 20);
+            this.txtMeasure.Size = new System.Drawing.Size(68, 20);
             this.txtMeasure.TabIndex = 49;
+            this.txtMeasure.TextChanged += new System.EventHandler(this.TxtMeasure_TextChanged);
             // 
             // lblMeasure
             // 
             this.lblMeasure.AutoSize = true;
-            this.lblMeasure.Location = new System.Drawing.Point(442, 94);
+            this.lblMeasure.Location = new System.Drawing.Point(508, 54);
             this.lblMeasure.Name = "lblMeasure";
             this.lblMeasure.Size = new System.Drawing.Size(74, 13);
             this.lblMeasure.TabIndex = 51;
@@ -402,7 +484,7 @@
             // lblPer
             // 
             this.lblPer.AutoSize = true;
-            this.lblPer.Location = new System.Drawing.Point(445, 55);
+            this.lblPer.Location = new System.Drawing.Point(740, 15);
             this.lblPer.Name = "lblPer";
             this.lblPer.Size = new System.Drawing.Size(51, 13);
             this.lblPer.TabIndex = 53;
@@ -411,7 +493,7 @@
             // lblVideo
             // 
             this.lblVideo.AutoSize = true;
-            this.lblVideo.Location = new System.Drawing.Point(252, 17);
+            this.lblVideo.Location = new System.Drawing.Point(324, 16);
             this.lblVideo.Name = "lblVideo";
             this.lblVideo.Size = new System.Drawing.Size(71, 13);
             this.lblVideo.TabIndex = 40;
@@ -420,7 +502,7 @@
             // cmbMeasurement
             // 
             this.cmbMeasurement.FormattingEnabled = true;
-            this.cmbMeasurement.Location = new System.Drawing.Point(448, 71);
+            this.cmbMeasurement.Location = new System.Drawing.Point(743, 31);
             this.cmbMeasurement.Name = "cmbMeasurement";
             this.cmbMeasurement.Size = new System.Drawing.Size(68, 21);
             this.cmbMeasurement.TabIndex = 52;
@@ -428,7 +510,7 @@
             // lblCalibration
             // 
             this.lblCalibration.AutoSize = true;
-            this.lblCalibration.Location = new System.Drawing.Point(442, 16);
+            this.lblCalibration.Location = new System.Drawing.Point(672, 16);
             this.lblCalibration.Name = "lblCalibration";
             this.lblCalibration.Size = new System.Drawing.Size(56, 13);
             this.lblCalibration.TabIndex = 50;
@@ -436,21 +518,23 @@
             // 
             // txtCalibration
             // 
-            this.txtCalibration.Location = new System.Drawing.Point(445, 32);
+            this.txtCalibration.Enabled = false;
+            this.txtCalibration.Location = new System.Drawing.Point(672, 32);
             this.txtCalibration.Name = "txtCalibration";
             this.txtCalibration.Size = new System.Drawing.Size(65, 20);
             this.txtCalibration.TabIndex = 48;
             // 
             // pbImage
             // 
-            this.pbImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pbImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbImage.AutoScroll = true;
             this.pbImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbImage.Location = new System.Drawing.Point(385, 201);
+            this.pbImage.Location = new System.Drawing.Point(473, 284);
             this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(654, 530);
+            this.pbImage.Size = new System.Drawing.Size(845, 447);
             this.pbImage.TabIndex = 63;
             this.pbImage.Paint += new System.Windows.Forms.PaintEventHandler(this.PbImage_Paint);
             this.pbImage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseClick);
@@ -459,18 +543,19 @@
             this.pbImage.MouseLeave += new System.EventHandler(this.PbImage_MouseLeave);
             this.pbImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseMove);
             // 
-            // frmExDataEntry
+            // FrmExDataEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1051, 768);
+            this.ClientSize = new System.Drawing.Size(1330, 825);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStripEx1);
             this.DoubleBuffered = true;
-            this.Name = "frmExDataEntry";
+            this.Name = "FrmExDataEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter Data";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmFishData_FormClosing);
             this.Load += new System.EventHandler(this.FrmFishData_Load);
             this.toolStripEx1.ResumeLayout(false);
@@ -528,5 +613,13 @@
         private System.Windows.Forms.ToolStripButton btnSaveExit;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown udRotatePhoto;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton BtnPrevious;
+        private System.Windows.Forms.ComboBox cmbMeasurementParent;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtPixelCount;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtUnitsMeasured;
     }
 }

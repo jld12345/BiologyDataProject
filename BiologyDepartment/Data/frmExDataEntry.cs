@@ -16,6 +16,7 @@ using NpgsqlTypes;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Threading;
 using BiologyDepartment.Common;
+using System.Reflection;
 
 namespace BiologyDepartment
 {
@@ -41,6 +42,8 @@ namespace BiologyDepartment
         private byte[] originalPic;
         private bool bIsAdd = false;
         private CommonUtil util = new CommonUtil();
+        private List<DataRow> lstRowId = new List<DataRow>();
+        private int nPreviousCount = 0;
         #endregion
 
         #region Public Variables
@@ -125,54 +128,130 @@ namespace BiologyDepartment
         private void SetFields(ref DataRow row)
         {
             dtReturn = row.Table.Clone();
-
+            TextBox txtValue;
+            CheckBox cb;
+            Label lblTitle;
             int i = 0;
             if (row["EXPERIMENTS_JSONB_ID"] != DBNull.Value)
             {
                 originalPic = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]));
                 SetPicBox(originalPic);
             }
-            foreach (DataColumn col in row.Table.Columns)
+
+            foreach (CustomColumns column in GlobalVariables.CustomColumns)
             {
-                Label lblTitle = new Label()
+                cb = new CheckBox()
                 {
-                    Name = col.ColumnName,
-                    Text = col.Caption,
+                    Checked = false,
+                    Name = column.ColName.ToUpper(),
+                    Text = "",
+                    Visible = true,
                     Location = new Point(0, i),
+                    Width = 15,
+                };
+                pnlInput.Controls.Add(cb);
+
+                lblTitle = new Label()
+                {
+                    Name = column.ColName.ToUpper(),
+                    Text = column.ColName,
+                    Location = new Point(cb.Width + 5, i),
                     Visible = true,
                     BorderStyle = BorderStyle.FixedSingle,
                     Width = 150,
                     Height = 20
                 };
                 pnlInput.Controls.Add(lblTitle);
-
-                TextBox txtValue = new TextBox()
+                ComboboxItem item = new ComboboxItem()
                 {
-                    Name = col.ColumnName,
-                    Location = new Point(lblTitle.Width + 5, i),
-                    Text = Convert.ToString(row[col.ColumnName]),
-                    Visible = true,
-                    BorderStyle = BorderStyle.FixedSingle,
-                    Width = 195,
-                    Height = 15
+                    Text = column.ColName,
+                    Value = column.ColName.ToUpper()
                 };
-                if (col.ColumnName.ToUpper().Equals("ROW_ID") || col.ColumnName.ToUpper().Equals("CREATED_DATE")
-                    || col.ColumnName.ToUpper().Equals("CREATED_USER") || col.ColumnName.ToUpper().Equals("MODIFIED_DATE")
-                    || col.ColumnName.ToUpper().Equals("MODIFIED_USER") || col.ColumnName.ToUpper().Equals("DELETED_DATE")
-                    || col.ColumnName.ToUpper().Equals("DELETED_USER") || col.ColumnName.ToUpper().Equals("EXPERIMENTS_JSONB_ID")
-                    || col.ColumnName.ToUpper().Equals("DATA PICTURE"))
-                    txtValue.Enabled = false;
-                foreach(CustomColumns column in GlobalVariables.CustomColumns)
+                cmbMeasurementParent.Items.Add(item);
+
+
+                if (column.ColDataType.Equals("DROPDOWN"))
+                    continue;
+                else
                 {
-                    if(column.ColName.ToUpper().Equals(col.ColumnName.ToUpper()))
+                    txtValue = new TextBox()
                     {
-                        if(column.ColDataType.Equals("FORMULA"))
-                            txtValue.Enabled = false;
-                    }
+                        Name = column.ColName.ToUpper(),
+                        Location = new Point(cb.Width + 5 + lblTitle.Width + 5, i),
+                        Text = Convert.ToString(row[column.ColName]),
+                        Visible = true,
+                        BorderStyle = BorderStyle.FixedSingle,
+                        Width = 195,
+                        Height = 15,
+                        TabIndex = i
+                    };
+                    if (column.ColDataType.Equals("FORMULA")
+                        || column.ColName.ToUpper().Equals("ROW_ID")
+                        || column.ColName.ToUpper().Equals("CREATED_DATE")
+                        || column.ColName.ToUpper().Equals("CREATED_USER")
+                        || column.ColName.ToUpper().Equals("MODIFIED_DATE")
+                        || column.ColName.ToUpper().Equals("MODIFIED_USER")
+                        || column.ColName.ToUpper().Equals("DELETED_DATE")
+                        || column.ColName.ToUpper().Equals("DELETED_USER")
+                        || column.ColName.ToUpper().Equals("EXPERIMENTS_JSONB_ID")
+                        || column.ColName.ToUpper().Equals("DATA PICTURE"))
+                        txtValue.Enabled = false;
+                    pnlInput.Controls.Add(txtValue);
                 }
-                pnlInput.Controls.Add(txtValue);
                 i = i + 25;
             }
+            cb = new CheckBox()
+            {
+                Checked = false,
+                Name = "EXPERIMENTS_JSONB_ID",
+                Text = "",
+                Visible = true,
+                Location = new Point(0, i),
+                Width = 15,
+            };
+            pnlInput.Controls.Add(cb);
+
+            lblTitle = new Label()
+            {
+                Name = "EXPERIMENTS_JSONB_ID",
+                Text = "EXPERIMENTS_JSONB_ID",
+                Location = new Point(cb.Width + 5, i),
+                Visible = true,
+                BorderStyle = BorderStyle.FixedSingle,
+                Width = 150,
+                Height = 20
+            };
+            pnlInput.Controls.Add(lblTitle);
+            txtValue = new TextBox()
+            {
+                Name = "EXPERIMENTS_JSONB_ID",
+                Location = new Point(cb.Width + 5 + lblTitle.Width + 5, i),
+                Text = Convert.ToString(row["EXPERIMENTS_JSONB_ID"]),
+                Visible = true,
+                BorderStyle = BorderStyle.FixedSingle,
+                Width = 195,
+                Height = 15,
+                TabIndex = i,
+                Enabled = false
+            };
+            pnlInput.Controls.Add(txtValue);
+        }
+
+        private void SetPreviousFields(DataRow row)
+        {
+            int i = 0;
+            if (row["EXPERIMENTS_JSONB_ID"] != DBNull.Value)
+            {
+                originalPic = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]));
+                SetPicBox(originalPic);
+                pbImage.Invalidate();
+            }
+            foreach (var c in pnlInput.Controls.OfType<TextBox>())
+            {
+                if (c is TextBox)
+                    c.Text = Convert.ToString(row[c.Name]);
+            }
+      
         }
 
         private void SetButtons(bool IsAdd)
@@ -251,10 +330,9 @@ namespace BiologyDepartment
             {
                 if (this.pbVideo.Image != null)
                 {
-                    udRotatePhoto.Value = 0;
                     RotateBicubic filter;
                     Bitmap img;
-                    filter = new RotateBicubic(0, true);
+                    filter = new RotateBicubic(Convert.ToInt32(udRotatePhoto.Value), true);
                     // apply the filter
                     img = filter.Apply((Bitmap)pbVideo.Image.Clone());
                     pbImage.BackgroundImage = new Bitmap(img);
@@ -322,18 +400,15 @@ namespace BiologyDepartment
 
         }
 
-        private void AddRowToReturnTable()
+        private void AddRowToReturnTable(bool PreviousButton = false)
         {
             DataRow row = dtReturn.NewRow();
-            foreach (Control con in pnlInput.Controls)
+            foreach (var con in pnlInput.Controls.OfType<TextBox>())
             {
-                if (con.GetType() == typeof(TextBox))
-                {
-                    if (string.IsNullOrEmpty(con.Text))
-                        row[con.Name] = DBNull.Value;
-                    else
-                        row[con.Name] = con.Text;
-                }
+                if (string.IsNullOrEmpty(con.Text))
+                    row[con.Name] = DBNull.Value;
+                else
+                    row[con.Name] = con.Text;
             }
 
             if (row["EXPERIMENTS_JSONB_ID"] == DBNull.Value)
@@ -352,7 +427,12 @@ namespace BiologyDepartment
                 _daoData.InsertPic("EXPERIMENTs_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), originalPic);
 
             if (row["EXPERIMENTS_JSONB_ID"] != DBNull.Value)
-                util.SerializeJson(row, Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), bIsAdd == true ? "ADDED":"MODIFIED");
+                util.SerializeJson(row, Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), (bIsAdd && !PreviousButton) ? "ADDED":"MODIFIED");
+            if (bIsAdd && !PreviousButton)
+            {
+                lstRowId.Add(row);
+                nPreviousCount = lstRowId.Count - 1;
+            }
         }
 
         private void BtnUpload_Click(object sender, EventArgs e)
@@ -395,13 +475,19 @@ namespace BiologyDepartment
                 if (pointCalibrate.Count > 1)
                 {
                     g.DrawLine(p, pointCalibrate[0], pointCalibrate[1]);
-                    dCalLength = Math.Round(Math.Sqrt(Math.Pow((pointCalibrate[1].Y - pointCalibrate[0].Y), 2) +
-                        Math.Pow((pointCalibrate[1].X - pointCalibrate[0].X), 2)), 2);
                 }
             }
 
             if (!string.IsNullOrEmpty(txtCalibration.Text.ToString()))
                 txtMeasure.Text = (Math.Round((dLineLength / Convert.ToDouble(txtCalibration.Text)), 2).ToString());
+            if (cmbMeasurementParent.SelectedItem != null)
+            {
+                foreach (var c in pnlInput.Controls.Find(cmbMeasurementParent.SelectedItem.ToString(), true))
+                {
+                    if (c is TextBox && !string.IsNullOrEmpty(txtCalibration.Text.ToString()))
+                        c.Text = (Math.Round((dLineLength / Convert.ToDouble(txtCalibration.Text)), 2).ToString());
+                }
+            }
 
             if (pbImage.BackgroundImage != null)
                 this.pbImage.AutoScrollMinSize = this.pbImage.BackgroundImage.Size;
@@ -434,8 +520,14 @@ namespace BiologyDepartment
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (string.IsNullOrEmpty(txtCalibration.Text.ToString()))
+                if (string.IsNullOrEmpty(txtPixelCount.Text.ToString()))
                     pointCalibrate.Add(e.Location);
+                if (pointCalibrate.Count > 1 && string.IsNullOrEmpty(txtPixelCount.Text.ToString()))
+                {
+                    dCalLength = Math.Round(Math.Sqrt(Math.Pow((pointCalibrate[1].Y - pointCalibrate[0].Y), 2) +
+                        Math.Pow((pointCalibrate[1].X - pointCalibrate[0].X), 2)), 2);
+                    txtPixelCount.Text = dCalLength.ToString();
+                }
                 else
                     pointLine.Add(e.Location);
 
@@ -473,7 +565,10 @@ namespace BiologyDepartment
         private void PbImage_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (string.IsNullOrEmpty(txtCalibration.Text.ToString()))
-                txtCalibration.Text = dCalLength.ToString();
+            {
+                double.TryParse(txtUnitsMeasured.Text, out double units);
+                txtCalibration.Text = (dCalLength / units).ToString();
+            }
             else
             {
                 if (pointLine.Count > 0)
@@ -486,11 +581,14 @@ namespace BiologyDepartment
 
         private void BtnCalibrate_Click(object sender, EventArgs e)
         {
-            txtCalibration.Text = dCalLength.ToString();
+            double.TryParse(txtUnitsMeasured.Text, out double units);
+            txtCalibration.Text = (dCalLength/units).ToString();
         }
 
         private void BtnReset_Click(object sender, EventArgs e)
         {
+            txtPixelCount.Text = "";
+            txtUnitsMeasured.Text = "";
             txtCalibration.Text = "";
             txtMeasure.Text = "";
             pointCalibrate.Clear();
@@ -500,7 +598,10 @@ namespace BiologyDepartment
 
         private void BtnClear_Click(object sender, EventArgs e)
         {
+            txtPixelCount.Text = "";
+            txtUnitsMeasured.Text = "";
             txtCalibration.Text = "";
+            txtMeasure.Text = "";
         }
 
         private void BtnLineColor_Click(object sender, EventArgs e)
@@ -517,7 +618,7 @@ namespace BiologyDepartment
             for (int i = 0; i <= 10; i++)
                 cbLineWidth.Items.Add(i);
 
-            cbLineWidth.SelectedIndex = 1;
+            cbLineWidth.SelectedIndex = 3;
         }
 
         private void BtnExit_Click(object sender, EventArgs e)
@@ -541,7 +642,8 @@ namespace BiologyDepartment
 
         private void PbImage_MouseEnter(object sender, EventArgs e)
         {
-            pbImage.Cursor = Cursors.Cross;
+            pbImage.Cursor = GlobalVariables.CircleCrossHairCursor;
+            //pbImage.Cursor = Cursors.Cross;
         }
 
         private void PbImage_MouseLeave(object sender, EventArgs e)
@@ -583,15 +685,30 @@ namespace BiologyDepartment
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             AddRowToReturnTable();
-            foreach (Control c in pnlInput.Controls)
+            foreach (CheckBox cb in pnlInput.Controls.OfType<CheckBox>())
             {
-                if (c is TextBox)
-                    c.Text = "";
+                foreach (var c in pnlInput.Controls.Find(cb.Name, true))
+                {
+                    if (c is TextBox && !cb.Checked)
+                        c.Text = "";
+                }
             }
+
+
+            /*foreach (Control c in pnlInput.Controls)
+            {
+
+                if (c is TextBox)
+                {
+                    if(pa)
+                    c.Text = "";
+                }
+            }*/
             udZoom.Enabled = false;
             pbImage.BackgroundImage = null;
             pointLine.Clear();
             pointCalibrate.Clear();
+            txtMeasure.Text = "";
         }
         #endregion
 
@@ -648,6 +765,62 @@ namespace BiologyDepartment
             //videoSource.SetCameraProperty(CameraControlProperty.Zoom, Convert.ToInt32(numericUpDown1.Value), CameraControlFlags.Auto);
             videoSource.GetCameraProperty(CameraControlProperty.Zoom, out int temp, out CameraControlFlags flags);
             videoSource.Start();*/
+        }
+
+        private void BtnPrevious_Click(object sender, EventArgs e)
+        {
+            AddRowToReturnTable(true);
+            if (lstRowId.Count > 0)
+            {
+                DataRow row = lstRowId[nPreviousCount];
+                SetPreviousFields(row);
+            }
+            if (nPreviousCount > 0)
+                nPreviousCount--;
+            else
+                nPreviousCount = lstRowId.Count - 1;
+        }
+
+        private void TxtMeasure_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!string.IsNullOrEmpty(cmbMeasurementParent.Text))
+            {
+                foreach (var c in pnlInput.Controls.Find(cmbMeasurementParent.SelectedItem.ToString(), true))
+                {
+                    if (c is TextBox)
+                        c.Text = txtMeasure.Text;
+                }
+            }
+
+        }
+
+        private void TxtMeasure_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(cmbMeasurement.Text))
+            {
+                foreach (var c in pnlInput.Controls.Find(cmbMeasurement.SelectedItem.ToString(), true))
+                {
+                    if (c is TextBox)
+                        c.Text = txtMeasure.Text;
+                }
+            }
+        }
+
+        private void BtnNext_Click(object sender, EventArgs e)
+        {
+
+        }
+
+    }
+
+    public class ComboboxItem
+    {
+        public string Text { get; set; }
+        public object Value { get; set; }
+
+        public override string ToString()
+        {
+            return Convert.ToString(Value);
         }
     }
 }

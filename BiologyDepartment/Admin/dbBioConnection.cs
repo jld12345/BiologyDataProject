@@ -366,12 +366,13 @@ namespace BiologyDepartment
         public List<CustomColumns> GetColumns()
         {
             CustomColumns col;
+            int rank = 1;
             List<CustomColumns> colAgg = new List<CustomColumns>();
             if (GlobalVariables.Connection != null)
                 GlobalVariables.Connection.Close();
             NpgsqlConnection con = GlobalVariables.Connection;
             using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE, CUSTOM_COLUMN_FORMULA
+                (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE, CUSTOM_COLUMN_FORMULA, CUSTOM_COLUMN_RANK
                         FROM EXPERIMENT_CUSTOM_COLUMNS WHERE EX_ID = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
                         ORDER BY CUSTOM_COLUMNS_ID) 
                         TO STDOUT (FORMAT BINARY)"))
@@ -389,12 +390,20 @@ namespace BiologyDepartment
                         col.Formula = reader.Read<string>(NpgsqlDbType.Varchar);
                     else
                         reader.Skip();
+                    if (!reader.IsNull)
+                        col.Rank = reader.Read<Int32>(NpgsqlDbType.Numeric);
+                    else
+                    {
+                        col.Rank = rank;
+                        rank++;
+                        reader.Skip();
+                    }
 
                     colAgg.Add(col);
                 }
 
             }
-            return colAgg;
+            return colAgg.OrderBy(o => o.Rank).ToList();
         }
 
         public string BulkExportJSON()

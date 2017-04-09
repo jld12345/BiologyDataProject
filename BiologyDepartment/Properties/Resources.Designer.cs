@@ -22,7 +22,7 @@ namespace BiologyDepartment.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace BiologyDepartment.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BiologyDepartment.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace BiologyDepartment.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AddExperiment {
+        public static System.Drawing.Bitmap AddExperiment {
             get {
                 object obj = ResourceManager.GetObject("AddExperiment", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AddExperiment25 {
+        public static System.Drawing.Bitmap AddExperiment25 {
             get {
                 object obj = ResourceManager.GetObject("AddExperiment25", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AddExperiment48 {
+        public static System.Drawing.Bitmap AddExperiment48 {
             get {
                 object obj = ResourceManager.GetObject("AddExperiment48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -91,9 +91,19 @@ namespace BiologyDepartment.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] CircleCrossHair {
+            get {
+                object obj = ResourceManager.GetObject("CircleCrossHair", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ClipboardExport {
+        public static System.Drawing.Bitmap ClipboardExport {
             get {
                 object obj = ResourceManager.GetObject("ClipboardExport", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +113,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ClipboardExport2 {
+        public static System.Drawing.Bitmap ClipboardExport2 {
             get {
                 object obj = ResourceManager.GetObject("ClipboardExport2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +123,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DeleteFile20 {
+        public static System.Drawing.Bitmap DeleteFile20 {
             get {
                 object obj = ResourceManager.GetObject("DeleteFile20", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +133,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DeleteFile48 {
+        public static System.Drawing.Bitmap DeleteFile48 {
             get {
                 object obj = ResourceManager.GetObject("DeleteFile48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +143,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap documentaddicon {
+        public static System.Drawing.Bitmap documentaddicon {
             get {
                 object obj = ResourceManager.GetObject("documentaddicon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +153,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EditDoc25 {
+        public static System.Drawing.Bitmap EditDoc25 {
             get {
                 object obj = ResourceManager.GetObject("EditDoc25", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +163,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EditDoc48 {
+        public static System.Drawing.Bitmap EditDoc48 {
             get {
                 object obj = ResourceManager.GetObject("EditDoc48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,7 +173,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap exit {
+        public static System.Drawing.Bitmap exit {
             get {
                 object obj = ResourceManager.GetObject("exit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -173,7 +183,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ExperimentPermission25 {
+        public static System.Drawing.Bitmap ExperimentPermission25 {
             get {
                 object obj = ResourceManager.GetObject("ExperimentPermission25", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -183,7 +193,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ExperimentPermission48 {
+        public static System.Drawing.Bitmap ExperimentPermission48 {
             get {
                 object obj = ResourceManager.GetObject("ExperimentPermission48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -193,7 +203,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ExperimentPermission481 {
+        public static System.Drawing.Bitmap ExperimentPermission481 {
             get {
                 object obj = ResourceManager.GetObject("ExperimentPermission481", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -203,7 +213,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap folder48 {
+        public static System.Drawing.Bitmap folder48 {
             get {
                 object obj = ResourceManager.GetObject("folder48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -213,7 +223,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap refresh {
+        public static System.Drawing.Bitmap refresh {
             get {
                 object obj = ResourceManager.GetObject("refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -223,7 +233,7 @@ namespace BiologyDepartment.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap search48 {
+        public static System.Drawing.Bitmap search48 {
             get {
                 object obj = ResourceManager.GetObject("search48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

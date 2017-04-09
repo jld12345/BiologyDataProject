@@ -38,6 +38,7 @@ namespace ExperimentTracker
         static ImageList imageList = new ImageList();
         static NpgsqlConnection con;
         static NpgsqlConnection bgwCon;
+        static Cursor CrossHair;
 
         static DbBioConnection BioConnection;
 
@@ -273,6 +274,19 @@ namespace ExperimentTracker
         internal static void ClearQueryColumn()
         {
             QueryColumns.Clear();
+        }
+
+        public static Cursor CircleCrossHairCursor
+        {
+            get
+            {
+                if (CrossHair == null)
+                {
+                    System.IO.MemoryStream cursorMemoryStream = new System.IO.MemoryStream(BiologyDepartment.Properties.Resources.CircleCrossHair);
+                    CrossHair = new Cursor(cursorMemoryStream);
+                }
+                return CrossHair;
+            }
         }
     }
 }

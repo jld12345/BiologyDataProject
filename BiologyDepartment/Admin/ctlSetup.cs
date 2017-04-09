@@ -29,6 +29,8 @@ namespace BiologyDepartment
         private List<string> sMapColumns = new List<string>();
         private DataTable dtNotInserted = new DataTable();
         private CommonUtil _commonUtil = new CommonUtil();
+        private DataGridViewRow dgvRow;
+        int rowIndexFromMouseDown;
 
         #endregion
 
@@ -113,7 +115,8 @@ namespace BiologyDepartment
 
         public void LoadData()
         {
-            dtColumns = _daoSetup.GetExperimentColumns(GlobalVariables.ExperimentNode.ExperimentNode.ID);
+            dtColumns.Clear();
+            dtColumns = ConvertListToDataTable(GlobalVariables.CustomColumns);
             if(sMapColumns.Count > 0)
             {
                 foreach(string map in sMapColumns)
@@ -126,18 +129,6 @@ namespace BiologyDepartment
                 }
             }
 
-            if (!dtColumns.Columns.Contains("custom_column_name"))
-                dtColumns.Columns.Add("custom_column_name", typeof(string));
-            if (!dtColumns.Columns.Contains("custom_column_data_type"))
-                dtColumns.Columns.Add("custom_column_data_type", typeof(string));
-            if (!dtColumns.Columns.Contains("custom_columns_id"))
-                dtColumns.Columns.Add("custom_columns_id", typeof(string));
-            if (!dtColumns.Columns.Contains("map_column"))
-                dtColumns.Columns.Add("map_column", typeof(string));
-            if (!dtColumns.Columns.Contains("custom_column_comments"))
-                dtColumns.Columns.Add("custom_column_comments", typeof(string));
-            if(!dtColumns.Columns.Contains("custom_column_formula"))
-                dtColumns.Columns.Add("custom_column_formula", typeof(string));
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -381,6 +372,77 @@ namespace BiologyDepartment
 
         }
 
+        static DataTable ConvertListToDataTable(List<CustomColumns> list)
+        {
+            // New table.
+            DataTable table = new DataTable();
+
+            {
+                if (!table.Columns.Contains("custom_column_name"))
+                    table.Columns.Add("custom_column_name", typeof(string));
+                if (!table.Columns.Contains("custom_column_data_type"))
+                    table.Columns.Add("custom_column_data_type", typeof(string));
+                if (!table.Columns.Contains("custom_columns_id"))
+                    table.Columns.Add("custom_columns_id", typeof(string));
+                if (!table.Columns.Contains("map_column"))
+                    table.Columns.Add("map_column", typeof(string));
+                if (!table.Columns.Contains("custom_column_comments"))
+                    table.Columns.Add("custom_column_comments", typeof(string));
+                if (!table.Columns.Contains("custom_column_formula"))
+                    table.Columns.Add("custom_column_formula", typeof(string));
+                if (!table.Columns.Contains("custom_column_rank"))
+                    table.Columns.Add("custom_column_rank", typeof(string));
+
+                // Add rows.
+                foreach (CustomColumns col in list)
+                {
+                    DataRow dr = table.NewRow();
+                    dr["custom_column_name"] = col.ColName;
+                    dr["custom_column_data_type"] = col.ColDataType;
+                    dr["custom_column_comments"] = col.Formula;
+                    dr["custom_column_formula"] = col.Formula;
+                    dr["custom_columns_id"] = col.ColID;
+                    dr["custom_column_rank"] = col.Rank;
+                    table.Rows.Add(dr);
+                }
+            }
+
+            return table;
+        }
+
+        private void DgColAdmin_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (dgColAdmin.SelectedRows.Count == 1)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    dgvRow = dgColAdmin.SelectedRows[0];
+                    rowIndexFromMouseDown = dgColAdmin.SelectedRows[0].Index;
+                    dgColAdmin.DoDragDrop(dgvRow, DragDropEffects.Move);
+                }
+            }
+        }
+
+        private void DgColAdmin_DragEnter(object sender, DragEventArgs e)
+        {
+            if (dgColAdmin.SelectedRows.Count > 0)
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+        }
+
+        private void DgColAdmin_DragDrop(object sender, DragEventArgs e)
+        {
+            int rowIndexOfItemUnderMouseToDrop;
+            Point clientPoint = dgColAdmin.PointToClient(new Point(e.X, e.Y));
+            rowIndexOfItemUnderMouseToDrop = dgColAdmin.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+
+            if (e.Effect == DragDropEffects.Move)
+            {
+                dgColAdmin.Rows.RemoveAt(rowIndexFromMouseDown);
+                dgColAdmin.Rows.Insert(rowIndexOfItemUnderMouseToDrop, dgvRow);
+            }
+        }
     }
 }
 
