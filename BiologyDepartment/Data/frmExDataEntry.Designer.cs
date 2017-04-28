@@ -98,19 +98,19 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gradientPanel1.Controls.Add(this.pbImage);
-            this.gradientPanel1.Location = new System.Drawing.Point(384, 277);
+            this.gradientPanel1.Location = new System.Drawing.Point(694, 36);
             this.gradientPanel1.Name = "gradientPanel1";
-            this.gradientPanel1.Size = new System.Drawing.Size(946, 548);
+            this.gradientPanel1.Size = new System.Drawing.Size(624, 666);
             this.gradientPanel1.TabIndex = 68;
             // 
             // pbImage
             // 
             this.pbImage.AutoScroll = true;
             this.pbImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbImage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pbImage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbImage.Location = new System.Drawing.Point(0, 0);
             this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(942, 547);
+            this.pbImage.Size = new System.Drawing.Size(620, 662);
             this.pbImage.TabIndex = 65;
             this.pbImage.Paint += new System.Windows.Forms.PaintEventHandler(this.PbImage_Paint);
             this.pbImage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseClick);
@@ -155,18 +155,17 @@
             this.gradientPanel3.Controls.Add(this.lblCalibration);
             this.gradientPanel3.Controls.Add(this.txtCalibration);
             this.gradientPanel3.Controls.Add(this.pbVideo);
-            this.gradientPanel3.Controls.Add(this.toolStripEx1);
-            this.gradientPanel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gradientPanel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.gradientPanel3.Location = new System.Drawing.Point(370, 0);
             this.gradientPanel3.Name = "gradientPanel3";
-            this.gradientPanel3.Size = new System.Drawing.Size(960, 271);
+            this.gradientPanel3.Size = new System.Drawing.Size(317, 825);
             this.gradientPanel3.TabIndex = 70;
             this.gradientPanel3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseDoubleClick);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(605, 96);
+            this.label4.Location = new System.Drawing.Point(91, 382);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 122;
@@ -175,7 +174,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(602, 56);
+            this.label3.Location = new System.Drawing.Point(85, 344);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 13);
             this.label3.TabIndex = 121;
@@ -183,7 +182,7 @@
             // 
             // txtUnitsMeasured
             // 
-            this.txtUnitsMeasured.Location = new System.Drawing.Point(605, 72);
+            this.txtUnitsMeasured.Location = new System.Drawing.Point(86, 360);
             this.txtUnitsMeasured.Name = "txtUnitsMeasured";
             this.txtUnitsMeasured.Size = new System.Drawing.Size(78, 20);
             this.txtUnitsMeasured.TabIndex = 120;
@@ -191,7 +190,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(531, 56);
+            this.label1.Location = new System.Drawing.Point(14, 344);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(34, 13);
             this.label1.TabIndex = 119;
@@ -201,7 +200,7 @@
             // 
             this.txtPixelCount.Enabled = false;
             this.txtPixelCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPixelCount.Location = new System.Drawing.Point(534, 72);
+            this.txtPixelCount.Location = new System.Drawing.Point(14, 359);
             this.txtPixelCount.Name = "txtPixelCount";
             this.txtPixelCount.Size = new System.Drawing.Size(65, 20);
             this.txtPixelCount.TabIndex = 118;
@@ -209,7 +208,7 @@
             // cmbMeasurementParent
             // 
             this.cmbMeasurementParent.FormattingEnabled = true;
-            this.cmbMeasurementParent.Location = new System.Drawing.Point(605, 112);
+            this.cmbMeasurementParent.Location = new System.Drawing.Point(88, 398);
             this.cmbMeasurementParent.Name = "cmbMeasurementParent";
             this.cmbMeasurementParent.Size = new System.Drawing.Size(162, 21);
             this.cmbMeasurementParent.TabIndex = 117;
@@ -218,7 +217,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(413, 221);
+            this.label2.Location = new System.Drawing.Point(85, 303);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 13);
             this.label2.TabIndex = 116;
@@ -231,7 +230,7 @@
             0,
             0,
             0});
-            this.udRotatePhoto.Location = new System.Drawing.Point(413, 237);
+            this.udRotatePhoto.Location = new System.Drawing.Point(85, 319);
             this.udRotatePhoto.Maximum = new decimal(new int[] {
             360,
             0,
@@ -245,7 +244,7 @@
             // lblZoom
             // 
             this.lblZoom.AutoSize = true;
-            this.lblZoom.Location = new System.Drawing.Point(342, 221);
+            this.lblZoom.Location = new System.Drawing.Point(14, 303);
             this.lblZoom.Name = "lblZoom";
             this.lblZoom.Size = new System.Drawing.Size(65, 13);
             this.lblZoom.TabIndex = 114;
@@ -258,7 +257,7 @@
             0,
             0,
             0});
-            this.udZoom.Location = new System.Drawing.Point(342, 237);
+            this.udZoom.Location = new System.Drawing.Point(14, 319);
             this.udZoom.Maximum = new decimal(new int[] {
             325,
             0,
@@ -277,7 +276,7 @@
             // lblRes
             // 
             this.lblRes.AutoSize = true;
-            this.lblRes.Location = new System.Drawing.Point(341, 96);
+            this.lblRes.Location = new System.Drawing.Point(179, 263);
             this.lblRes.Name = "lblRes";
             this.lblRes.Size = new System.Drawing.Size(57, 13);
             this.lblRes.TabIndex = 103;
@@ -286,7 +285,7 @@
             // btnLineColor
             // 
             this.btnLineColor.BackColor = System.Drawing.Color.Yellow;
-            this.btnLineColor.Location = new System.Drawing.Point(680, 139);
+            this.btnLineColor.Location = new System.Drawing.Point(94, 437);
             this.btnLineColor.Name = "btnLineColor";
             this.btnLineColor.Size = new System.Drawing.Size(25, 20);
             this.btnLineColor.TabIndex = 110;
@@ -296,7 +295,7 @@
             // cbLineWidth
             // 
             this.cbLineWidth.FormattingEnabled = true;
-            this.cbLineWidth.Location = new System.Drawing.Point(600, 139);
+            this.cbLineWidth.Location = new System.Drawing.Point(14, 437);
             this.cbLineWidth.Name = "cbLineWidth";
             this.cbLineWidth.Size = new System.Drawing.Size(74, 21);
             this.cbLineWidth.TabIndex = 111;
@@ -304,7 +303,7 @@
             // lblLineSize
             // 
             this.lblLineSize.AutoSize = true;
-            this.lblLineSize.Location = new System.Drawing.Point(533, 142);
+            this.lblLineSize.Location = new System.Drawing.Point(14, 421);
             this.lblLineSize.Name = "lblLineSize";
             this.lblLineSize.Size = new System.Drawing.Size(58, 13);
             this.lblLineSize.TabIndex = 112;
@@ -313,7 +312,7 @@
             // cbCaptureDevice
             // 
             this.cbCaptureDevice.FormattingEnabled = true;
-            this.cbCaptureDevice.Location = new System.Drawing.Point(341, 72);
+            this.cbCaptureDevice.Location = new System.Drawing.Point(14, 279);
             this.cbCaptureDevice.Name = "cbCaptureDevice";
             this.cbCaptureDevice.Size = new System.Drawing.Size(159, 21);
             this.cbCaptureDevice.TabIndex = 100;
@@ -322,7 +321,7 @@
             // cbResolution
             // 
             this.cbResolution.FormattingEnabled = true;
-            this.cbResolution.Location = new System.Drawing.Point(341, 112);
+            this.cbResolution.Location = new System.Drawing.Point(179, 279);
             this.cbResolution.Name = "cbResolution";
             this.cbResolution.Size = new System.Drawing.Size(65, 21);
             this.cbResolution.TabIndex = 101;
@@ -330,7 +329,7 @@
             // 
             // txtMeasure
             // 
-            this.txtMeasure.Location = new System.Drawing.Point(531, 112);
+            this.txtMeasure.Location = new System.Drawing.Point(14, 398);
             this.txtMeasure.Name = "txtMeasure";
             this.txtMeasure.Size = new System.Drawing.Size(68, 20);
             this.txtMeasure.TabIndex = 105;
@@ -338,7 +337,7 @@
             // lblMeasure
             // 
             this.lblMeasure.AutoSize = true;
-            this.lblMeasure.Location = new System.Drawing.Point(525, 94);
+            this.lblMeasure.Location = new System.Drawing.Point(14, 382);
             this.lblMeasure.Name = "lblMeasure";
             this.lblMeasure.Size = new System.Drawing.Size(74, 13);
             this.lblMeasure.TabIndex = 107;
@@ -347,7 +346,7 @@
             // lblPer
             // 
             this.lblPer.AutoSize = true;
-            this.lblPer.Location = new System.Drawing.Point(757, 55);
+            this.lblPer.Location = new System.Drawing.Point(237, 343);
             this.lblPer.Name = "lblPer";
             this.lblPer.Size = new System.Drawing.Size(51, 13);
             this.lblPer.TabIndex = 109;
@@ -356,7 +355,7 @@
             // lblVideo
             // 
             this.lblVideo.AutoSize = true;
-            this.lblVideo.Location = new System.Drawing.Point(341, 56);
+            this.lblVideo.Location = new System.Drawing.Point(14, 263);
             this.lblVideo.Name = "lblVideo";
             this.lblVideo.Size = new System.Drawing.Size(71, 13);
             this.lblVideo.TabIndex = 102;
@@ -365,7 +364,7 @@
             // cmbMeasurement
             // 
             this.cmbMeasurement.FormattingEnabled = true;
-            this.cmbMeasurement.Location = new System.Drawing.Point(760, 71);
+            this.cmbMeasurement.Location = new System.Drawing.Point(240, 359);
             this.cmbMeasurement.Name = "cmbMeasurement";
             this.cmbMeasurement.Size = new System.Drawing.Size(68, 21);
             this.cmbMeasurement.TabIndex = 108;
@@ -373,7 +372,7 @@
             // lblCalibration
             // 
             this.lblCalibration.AutoSize = true;
-            this.lblCalibration.Location = new System.Drawing.Point(689, 56);
+            this.lblCalibration.Location = new System.Drawing.Point(172, 344);
             this.lblCalibration.Name = "lblCalibration";
             this.lblCalibration.Size = new System.Drawing.Size(56, 13);
             this.lblCalibration.TabIndex = 106;
@@ -383,7 +382,7 @@
             // 
             this.txtCalibration.Enabled = false;
             this.txtCalibration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCalibration.Location = new System.Drawing.Point(689, 72);
+            this.txtCalibration.Location = new System.Drawing.Point(171, 360);
             this.txtCalibration.Name = "txtCalibration";
             this.txtCalibration.Size = new System.Drawing.Size(65, 20);
             this.txtCalibration.TabIndex = 104;
@@ -391,7 +390,7 @@
             // pbVideo
             // 
             this.pbVideo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbVideo.Location = new System.Drawing.Point(14, 56);
+            this.pbVideo.Location = new System.Drawing.Point(6, 12);
             this.pbVideo.Name = "pbVideo";
             this.pbVideo.Size = new System.Drawing.Size(302, 205);
             this.pbVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -420,11 +419,11 @@
             this.BtnPrevious,
             this.BtnNext});
             this.toolStripEx1.LauncherStyle = Syncfusion.Windows.Forms.Tools.LauncherStyle.Office12;
-            this.toolStripEx1.Location = new System.Drawing.Point(0, 0);
+            this.toolStripEx1.Location = new System.Drawing.Point(687, 0);
             this.toolStripEx1.Name = "toolStripEx1";
             this.toolStripEx1.Office12Mode = false;
-            this.toolStripEx1.Size = new System.Drawing.Size(960, 33);
-            this.toolStripEx1.TabIndex = 98;
+            this.toolStripEx1.Size = new System.Drawing.Size(643, 33);
+            this.toolStripEx1.TabIndex = 99;
             // 
             // btnSaveExit
             // 
@@ -518,7 +517,7 @@
             this.btnClearLine.Image = ((System.Drawing.Image)(resources.GetObject("btnClearLine.Image")));
             this.btnClearLine.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnClearLine.Name = "btnClearLine";
-            this.btnClearLine.Size = new System.Drawing.Size(63, 30);
+            this.btnClearLine.Size = new System.Drawing.Size(63, 19);
             this.btnClearLine.Text = "Clear Line";
             this.btnClearLine.Click += new System.EventHandler(this.BtnResetLine_Click);
             // 
@@ -528,9 +527,9 @@
             this.btnClearAll.Image = ((System.Drawing.Image)(resources.GetObject("btnClearAll.Image")));
             this.btnClearAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(55, 30);
+            this.btnClearAll.Size = new System.Drawing.Size(55, 19);
             this.btnClearAll.Text = "Clear All";
-            this.btnClearAll.Click += new System.EventHandler(this.BtnReset_Click);
+            this.btnClearAll.Click += new System.EventHandler(this.BtnClear_Click);
             // 
             // toolStripSeparator3
             // 
@@ -543,7 +542,7 @@
             this.BtnPrevious.Image = ((System.Drawing.Image)(resources.GetObject("BtnPrevious.Image")));
             this.BtnPrevious.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BtnPrevious.Name = "BtnPrevious";
-            this.BtnPrevious.Size = new System.Drawing.Size(56, 30);
+            this.BtnPrevious.Size = new System.Drawing.Size(56, 19);
             this.BtnPrevious.Text = "Previous";
             this.BtnPrevious.Click += new System.EventHandler(this.BtnPrevious_Click);
             // 
@@ -553,7 +552,7 @@
             this.BtnNext.Image = ((System.Drawing.Image)(resources.GetObject("BtnNext.Image")));
             this.BtnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.BtnNext.Name = "BtnNext";
-            this.BtnNext.Size = new System.Drawing.Size(35, 30);
+            this.BtnNext.Size = new System.Drawing.Size(35, 19);
             this.BtnNext.Text = "Next";
             this.BtnNext.Click += new System.EventHandler(this.BtnNext_Click);
             // 
@@ -564,6 +563,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1330, 825);
+            this.Controls.Add(this.toolStripEx1);
             this.Controls.Add(this.gradientPanel3);
             this.Controls.Add(this.pnlInput);
             this.Controls.Add(this.gradientPanel1);

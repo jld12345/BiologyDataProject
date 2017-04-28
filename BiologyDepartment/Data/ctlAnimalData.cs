@@ -63,10 +63,15 @@ namespace BiologyDepartment
 
         public void Initialize(int id)
         {
+            this.SuspendLayout();
             intID = id;
             if (filterBar.Wired)
                 filterBar.UnwireGrid();
             dtAnimals = _dataUtil.GetData();
+            dtAnimals.Columns.Add("EDIT");
+            dtAnimals.Columns.Add("DELETE");
+            dtAnimals.Columns["EDIT"].SetOrdinal(0);
+            dtAnimals.Columns["DELETE"].SetOrdinal(1);
             dgExData.CellButtonClicked -= new GridCellButtonClickedEventHandler(DgExData_CellContentClick);
             dgExData.PrepareViewStyleInfo -= new GridPrepareViewStyleInfoEventHandler(grid_PrepareViewStyleInfo);
             this.Controls.Remove(dgExData);
@@ -78,14 +83,13 @@ namespace BiologyDepartment
             dgExData.Dock = DockStyle.Fill;
             dgExData.DataSource = dtAnimals;
             
-            dtAnimals.Columns.Add("EDIT");
-            dtAnimals.Columns.Add("DELETE");
             bool temp = dgExData.IsFilterBarWired;
 
             SetGrid();
             dgExData.Model.ColWidths.ResizeToFit(Syncfusion.Windows.Forms.Grid.GridRangeInfo.Row(0), GridResizeToFitOptions.NoShrinkSize);
             dgExData.Invalidate();
             bIsInitialize = true;
+            this.ResumeLayout();
         }
 
         private void grid_PrepareViewStyleInfo(object sender, GridPrepareViewStyleInfoEventArgs e)
@@ -110,58 +114,17 @@ namespace BiologyDepartment
                 dgExData.Model.ColStyles[i].TextColor = Color.Black;
                 dgExData.Model.ColStyles[i].WrapText = true;
             }
-            if (dgExData.Model.NameToColIndex("EDIT") >1)
+            if (dgExData.Model.NameToColIndex("EDIT") == 1)
                 dgExData.Model.ColStyles["EDIT"].CellType = "PushButton";
-            if (dgExData.Model.NameToColIndex("DELETE") > 1)
+            if (dgExData.Model.NameToColIndex("DELETE") == 2)
                 dgExData.Model.ColStyles["DELETE"].CellType = "PushButton";
             if (dgExData.Model.NameToColIndex("EXPERIMENTS_JSONB_ID") > 1)
             {
                 dgExData.Model.ColStyles["EXPERIMENTS_JSONB_ID"].Enabled = false;
                 dgExData.Model.ColStyles["EXPERIMENTS_JSONB_ID"].BackColor = Color.LightGray;
             }
-
-            dgExData.Model.Cols.MoveRange(dgExData.Model.ColCount - 1, 2, 1);
-            //dgExData.Model.Cols.MoveRange(dgExData.Model.ColCount - 1, 1, 1);
-
             filterBar.WireGrid(dgExData);
-        }
-
-        //    if (!dgExData.Columns.Contains("DELETE"))
-        //    {
-        //        DataGridViewImageColumn btnDel = new DataGridViewImageColumn()
-        //        {
-        //            HeaderText = "DELETE",
-        //            Name = "DELETE",
-        //            Width = 50
-        //        };
-        //        btnDel.DefaultCellStyle.ForeColor = Color.Red;
-        //        btnDel.Image = GlobalVariables.Images.Images["Toggle"];
-        //        btnDel.DataPropertyName = "DELETE";
-        //        dgExData.Columns.Insert(1, btnDel);
-        //        dgExData.Columns["DELETE"].SortMode = DataGridViewColumnSortMode.NotSortable;
-        //        dgExData.DisableFilter(dgExData.Columns["DELETE"]);
-        //    }
-
-
-        //    if(dgExData.Columns.Contains("DATA PICTURE"))
-        //        dgExData.Columns["DATA PICTURE"].Visible = false;
-
-        //    int nDisplay = 2;
-        //    foreach(DataColumn col in dtAnimals.Columns)
-        //    {
-        //        dgExData.Columns[col.ColumnName].HeaderText = col.Caption;
-        //        dgExData.Columns[col.ColumnName].DisplayIndex = nDisplay; 
-
-        //        nDisplay++;
-        //    }
-
-        //    this.searchToolBar.SetColumns(dgExData.Columns);
-
-        //    dgExData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        //    dtAnimals.AcceptChanges();
-        //    dgExData.Refresh();
-        //    dgExData.Rows[GlobalVariables.ExperimentData.TableRow].Selected = true;
-        //}     
+        }    
 
         public void BtnAdd_Click(object sender, EventArgs e)
         {
@@ -174,34 +137,6 @@ namespace BiologyDepartment
             Initialize(GlobalVariables.ExperimentNode.ExperimentNode.ID);
             bDataDirty = false;
         }
-
-        //private void SetButtons()
-        //{
-        //    try
-        //    {
-        //        switch (GlobalVariables.Access)
-        //        {
-        //            case "View":
-        //            case "Add/Edit":
-        //                btnAdd.Enabled = false;
-        //                break;
-        //            case "Admin":
-        //            case "Owner":
-        //                btnAdd.Enabled = true;
-        //                break;
-        //        }
-        //    }
-        //    catch(Exception e)
-        //    {
-        //        MessageBox.Show(e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //    }
-
-        //}
-
-        //private void DgExData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    EditRow();
-        //}
 
         private void EditRow(int nGridRow, int nJSONB_Id)
         {
