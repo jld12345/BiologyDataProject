@@ -136,19 +136,19 @@ namespace BiologyDepartment.Data
             }
         }
 
-        public void ExportToExcel(AdvancedDataGridView dgExData, bool bIsRExport)
+        public void ExportToExcel(DataTable DataExport, string sExportType)
         {
             saveFileDialog.Filter = "Excel Worksheets|*.xlsx";
             saveFileDialog.Title = "Export File";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                CreateExcelExport(saveFileDialog.FileName, dgExData);
+                CreateExcelExport(saveFileDialog.FileName, DataExport, sExportType);
             }
         }
 
-        private void CreateExcelExport(string sFileName, AdvancedDataGridView dgExData)
+        private void CreateExcelExport(string sFileName, DataTable DataExport, string sExportType)
         {
-            if (dgExData == null)
+            if (DataExport == null || DataExport.Rows.Count == 0)
                 return;
             //Create a folder for the export images if they exist
             int nRowCount = 1;
@@ -158,60 +158,63 @@ namespace BiologyDepartment.Data
             {
                 System.IO.DirectoryInfo di = new DirectoryInfo(sFilePath);
 
-                foreach (FileInfo file in di.GetFiles())
+                if (!sExportType.Equals("IMAGE"))
                 {
-                    file.Delete();
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
                 }
-                foreach (DirectoryInfo dir in di.GetDirectories())
+                if (!sExportType.Equals("EXCEL"))
                 {
-                    dir.Delete(true);
+                    foreach (DirectoryInfo dir in di.GetDirectories())
+                    {
+                        dir.Delete(true);
+                    }
                 }
-                Directory.Delete(sFilePath);
             }
-
-            Directory.CreateDirectory(sFilePath);
-
-            //Creating DataTable
-            DataTable dt = new DataTable();
-            var temp = (BindingSource)dgExData.DataSource;
-            DataView dv = ((DataTable)temp.DataSource).AsDataView();
-            dv.RowFilter = temp.Filter;
-            dt = dv.ToTable();
+            else
+                Directory.CreateDirectory(sFilePath);
 
             //Change the column name from the number used in the database to the column header name
-            foreach (DataColumn dc in dt.Columns)
+            foreach (DataColumn dc in DataExport.Columns)
             {
                 dc.ColumnName = dc.Caption;
             }
 
-            
-            foreach (DataRow dr in dt.Rows)
+            if (!sExportType.Equals("EXCEL"))
             {
-                byte[] imageBytes = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]));
-                if (imageBytes != null && imageBytes.Length > 10)
+                foreach (DataRow dr in DataExport.Rows)
                 {
-                    MemoryStream mStream = new MemoryStream(imageBytes)
+                    byte[] imageBytes = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]));
+                    if (imageBytes != null && imageBytes.Length > 10)
                     {
-                        Position = 0
-                    };
-                    Image img = Image.FromStream(mStream);
-                    Bitmap theImage = new Bitmap(img);
-                    mStream.Close();
-                    mStream.Dispose();
-                    string sImagePath = sFilePath + "\\" + nRowCount.ToString() + ".bmp";
-                    theImage.Save(sImagePath);
+                        MemoryStream mStream = new MemoryStream(imageBytes)
+                        {
+                            Position = 0
+                        };
+                        Image img = Image.FromStream(mStream);
+                        Bitmap theImage = new Bitmap(img);
+                        mStream.Close();
+                        mStream.Dispose();
+                        string sImagePath = sFilePath + "\\" + nRowCount.ToString() + ".bmp";
+                        theImage.Save(sImagePath);
+                    }
+                    nRowCount++;
                 }
-                nRowCount++;
             }
 
             //dt.Columns.Remove("Data Picture");
             //Create the excel document
-            using (XLWorkbook wb = new XLWorkbook())
+            if (!sExportType.Equals("IMAGE"))
             {
-                wb.Worksheets.Add(dt, "Data Export");
-                if (string.IsNullOrEmpty(sFileName))
-                    sFileName = "C:\\tempExcel.xls";
-                wb.SaveAs(sFileName);
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(DataExport, "Data Export");
+                    if (string.IsNullOrEmpty(sFileName))
+                        sFileName = "C:\\tempExcel.xls";
+                    wb.SaveAs(sFileName);
+                }
             }
         }
     }

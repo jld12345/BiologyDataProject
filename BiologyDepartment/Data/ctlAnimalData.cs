@@ -41,16 +41,15 @@ namespace BiologyDepartment
         
         private List<AnimalData> animalAgg = new List<AnimalData>();
         private List<CustomColumns> animalCols = new List<CustomColumns>();
-        private DataTable dtAnimals = new DataTable();
         private bool bIsInitialize = false;
         private CommonUtil _commonUtil = new CommonUtil();
         public bool bDataDirty = false;
         private DataColumn[] keys = new DataColumn[1];
-        private GridFilterBar filterBar;
         #endregion
 
         #region Public Variables
-        public BindingSource _bindingSource = new BindingSource();
+        public DataTable dtAnimals = new DataTable();
+        public GridFilterBar filterBar;
         #endregion
 
         public event EventHandler<CloseCtlAnimalData> CloseFormEvent;
@@ -69,9 +68,12 @@ namespace BiologyDepartment
                 filterBar.UnwireGrid();
             dtAnimals = _dataUtil.GetData();
             dgExData.CellButtonClicked -= new GridCellButtonClickedEventHandler(DgExData_CellContentClick);
+            dgExData.PrepareViewStyleInfo -= new GridPrepareViewStyleInfoEventHandler(grid_PrepareViewStyleInfo);
             this.Controls.Remove(dgExData);
             dgExData = new GridDataBoundGrid();
+            dgExData.BaseStylesMap["Row Header"].StyleInfo.CellType = "Header";
             dgExData.CellButtonClicked += new GridCellButtonClickedEventHandler(DgExData_CellContentClick);
+            dgExData.PrepareViewStyleInfo += new GridPrepareViewStyleInfoEventHandler(grid_PrepareViewStyleInfo);
             this.Controls.Add(dgExData);
             dgExData.Dock = DockStyle.Fill;
             dgExData.DataSource = dtAnimals;
@@ -84,10 +86,24 @@ namespace BiologyDepartment
             dgExData.Model.ColWidths.ResizeToFit(Syncfusion.Windows.Forms.Grid.GridRangeInfo.Row(0), GridResizeToFitOptions.NoShrinkSize);
             dgExData.Invalidate();
             bIsInitialize = true;
+        }
+
+        private void grid_PrepareViewStyleInfo(object sender, GridPrepareViewStyleInfoEventArgs e)
+
+        {
+
+            if (e.ColIndex == 0 && e.RowIndex > 0)
+
+            {
+
+                e.Style.Text = e.RowIndex.ToString();
+
+                e.Style.Font.Bold = false;
 
             }
+        }
 
-        private void SetGrid()
+            private void SetGrid()
         {
             for (int i = 1; i <= dgExData.Model.ColCount; i++)
             {
@@ -147,32 +163,17 @@ namespace BiologyDepartment
         //    dgExData.Rows[GlobalVariables.ExperimentData.TableRow].Selected = true;
         //}     
 
-        //private void BtnAdd_Click(object sender, EventArgs e)
-        //{
-        //    DataRow newRow = dtAnimals.NewRow();
-        //    using (FrmExDataEntry _frmFishData = FrmExDataEntry.CreateInstance(true, ref newRow))
-        //    {
-        //        _frmFishData.StartPosition = FormStartPosition.CenterScreen;
-        //        _frmFishData.ShowDialog();
-
-        //        /*DataTable dtReturn = _frmFishData.dtReturn;
-        //        if (dtReturn == null)
-        //            return;
-
-        //        foreach (DataRow row in dtReturn.Rows)
-        //        {
-        //            newRow = dtAnimals.NewRow();
-        //            foreach (DataColumn col in dtAnimals.Columns)
-        //            {
-        //                newRow[col.ColumnName] = row[col.ColumnName];
-        //            }
-        //            dtAnimals.Rows.Add(newRow);
-        //        }*/
-        //    }
-        //    //SaveData(0);
-        //    Initialize(GlobalVariables.ExperimentNode.ExperimentNode.ID);
-        //    bDataDirty = false;
-        //}
+        public void BtnAdd_Click(object sender, EventArgs e)
+        {
+            DataRow newRow = dtAnimals.NewRow();
+            using (FrmExDataEntry _frmFishData = FrmExDataEntry.CreateInstance(true, dtAnimals, -1))
+            {
+                _frmFishData.StartPosition = FormStartPosition.CenterScreen;
+                _frmFishData.ShowDialog();
+            }
+            Initialize(GlobalVariables.ExperimentNode.ExperimentNode.ID);
+            bDataDirty = false;
+        }
 
         //private void SetButtons()
         //{
@@ -206,6 +207,7 @@ namespace BiologyDepartment
         {
             GlobalVariables.ExperimentData.TableRow = nGridRow;
             GlobalVariables.ExperimentData.TableFilter = filterBar.RowFilter;
+            dtAnimals.AcceptChanges();
             var dtRow = dtAnimals.Rows
                               .Cast<DataRow>()
                               .Where(x => x["EXPERIMENTS_JSONB_ID"].ToString().Equals(nJSONB_Id.ToString())).ToList();
@@ -216,28 +218,19 @@ namespace BiologyDepartment
             {
                 newRow[col.ColumnName] = dtRow[0][col.ColumnName];
             }
-            using (FrmExDataEntry _frmFishData = FrmExDataEntry.CreateInstance(false, ref newRow))
+            using (FrmExDataEntry _frmFishData = FrmExDataEntry.CreateInstance(false, dtAnimals, rowindex))
             {
                 _frmFishData.StartPosition = FormStartPosition.WindowsDefaultLocation;
                 _frmFishData.ShowDialog();
                 DataTable dtReturn = _frmFishData.dtReturn;
-                if (dtReturn == null || dtReturn.Rows.Count == 0)
-                {
                     _commonUtil.DeleteDataLock(GlobalVariables.Experiment.ID, nJSONB_Id, "EXPERIMENTS_JSONB");
                     Initialize(GlobalVariables.ExperimentNode.ExperimentNode.ID);
-                    return;
-                }
-
-                foreach (DataRow dr in dtReturn.Rows)
-                {
-                    foreach (DataColumn col in dtAnimals.Columns)
-                    {
-                        if (!dtAnimals.Columns[col.ColumnName].ReadOnly)
-                            dtAnimals.Rows[rowindex][col.ColumnName] = dr[col.ColumnName];
-                    }
-                }
-                bDataDirty = true;
-                _commonUtil.DeleteDataLock(GlobalVariables.Experiment.ID, Convert.ToInt32(nJSONB_Id), "EXPERIMENTS_JSONB");
+                bDataDirty = false;
+            }
+            if (rowindex>= 0)
+            {
+                dgExData.Model.Selections.Add(Syncfusion.Windows.Forms.Grid.GridRangeInfo.Row(rowindex));
+                dgExData.SetTopRow(rowindex);
             }
         }
 
@@ -252,10 +245,10 @@ namespace BiologyDepartment
         //    CloseFormEvent?.Invoke(this, e);
         //}
 
-        //private void BtnExport_Click_1(object sender, EventArgs e)
-        //{
-        //    _dataUtil.ExportToExcel(dgExData, false);
-        //}
+        public void BtnExport_Click_1(object sender, EventArgs e)
+        {
+            //_dataUtil.ExportToExcel(dtAnimals, false);
+        }
 
         //private void DataGridView_SortStringChanged(object sender, EventArgs e)
         //{
@@ -341,14 +334,21 @@ namespace BiologyDepartment
                 return;
             //var dg = (DataGridView)sender;
             Syncfusion.Windows.Forms.Grid.GridRangeInfoList ranges = dgExData.Selections.GetSelectedRows(true,false);
-
+            int nColIndex = dgExData.Binder.NameToColIndex("EXPERIMENTS_JSONB_ID");
+            Int32.TryParse(dgExData[e.RowIndex, nColIndex].CellValue.ToString(), out int nJsonId);
             switch (e.ColIndex == 2 ? "DELETE":(e.ColIndex == 1) ? "EDIT":"DEFAULT")
             {
                 case "DELETE":
-                    if (!_commonUtil.DataLockExists(GlobalVariables.ExperimentNode.ExperimentNode.ID, e.RowIndex, "EXPERIMENTS_JSONB"))
+                    if (!_commonUtil.DataLockExists(GlobalVariables.ExperimentNode.ExperimentNode.ID, nJsonId, "EXPERIMENTS_JSONB"))
                     {
-                        SaveData(e.RowIndex, "DELETE");
                         dgExData.DeleteRecordsAtRowIndex(e.RowIndex, e.RowIndex);
+                        _commonUtil.SerializeJson(null, nJsonId, "DELETE");
+                        if (e.RowIndex - 1 >= 0)
+                        {
+                            dgExData.Model.Selections.Add(Syncfusion.Windows.Forms.Grid.GridRangeInfo.Row(e.RowIndex));  
+                            dgExData.SetTopRow(e.RowIndex-1);
+                        }
+                        //SaveData(nJsonId, "DELETE");
                     }
                     else
                     {
@@ -361,10 +361,10 @@ namespace BiologyDepartment
 
                     try
                     {
-                        if (!_commonUtil.DataLockExists(GlobalVariables.ExperimentNode.ExperimentNode.ID, e.RowIndex, "EXPERIMENTS_JSONB"))
+                        if (!_commonUtil.DataLockExists(GlobalVariables.ExperimentNode.ExperimentNode.ID, nJsonId, "EXPERIMENTS_JSONB"))
                         {
-                            _commonUtil.CreateDataLock(GlobalVariables.ExperimentNode.ExperimentNode.ID, e.RowIndex, "EXPERIMENTS_JSONB", "EDIT");
-                            EditRow(e.RowIndex, Convert.ToInt32(dgExData[e.RowIndex, dgExData.Model.ColCount].CellValue));
+                            _commonUtil.CreateDataLock(GlobalVariables.ExperimentNode.ExperimentNode.ID, nJsonId, "EXPERIMENTS_JSONB", "EDIT");
+                            EditRow(e.RowIndex, nJsonId);
                         }
                         else
                         {

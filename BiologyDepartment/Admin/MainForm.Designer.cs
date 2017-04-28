@@ -67,12 +67,16 @@
             this.btnEditEx = new System.Windows.Forms.ToolStripButton();
             this.btnDelEx = new System.Windows.Forms.ToolStripButton();
             this.btnSecurityEx = new System.Windows.Forms.ToolStripButton();
+            this.btnNewRow = new System.Windows.Forms.ToolStripButton();
             this.toolStripEx4 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
             this.btnAddDoc2 = new System.Windows.Forms.ToolStripButton();
             this.btnEditDoc2 = new System.Windows.Forms.ToolStripButton();
             this.btnDelDoc2 = new System.Windows.Forms.ToolStripButton();
             this.btnBulkAddDoc = new System.Windows.Forms.ToolStripButton();
-            this.btnExportDoc2 = new System.Windows.Forms.ToolStripButton();
+            this.tsExportDropDown = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripEx1 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
             this.tabControlMain2 = new Syncfusion.Windows.Forms.Tools.TabControlAdv();
             this.tpExperiments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
@@ -122,7 +126,9 @@
             ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images16"))),
             ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images17"))),
             ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images18"))),
-            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images19")))});
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images19"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images20"))),
+            ((System.Drawing.Image)(resources.GetObject("imageListAdv1.Images21")))});
             // 
             // toolStripTabItem2
             // 
@@ -195,6 +201,7 @@
             // toolStripTabItem1
             // 
             this.toolStripTabItem1.AutoSize = false;
+            this.toolStripTabItem1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripTabItem1.Name = "toolStripTabItem1";
             // 
             // ribbonControlAdv1.ribbonPanel1
@@ -267,11 +274,12 @@
             this.btnAddEx,
             this.btnEditEx,
             this.btnDelEx,
-            this.btnSecurityEx});
+            this.btnSecurityEx,
+            this.btnNewRow});
             this.toolStripEx3.Location = new System.Drawing.Point(175, 1);
             this.toolStripEx3.Name = "toolStripEx3";
             this.toolStripEx3.Office12Mode = false;
-            this.toolStripEx3.Size = new System.Drawing.Size(433, 105);
+            this.toolStripEx3.Size = new System.Drawing.Size(487, 105);
             this.toolStripEx3.TabIndex = 1;
             this.toolStripEx3.Text = "Experiments";
             // 
@@ -296,7 +304,7 @@
             this.btnAddEx.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.btnAddEx.Name = "btnAddEx";
             this.btnAddEx.Size = new System.Drawing.Size(75, 75);
-            this.btnAddEx.Text = "Add";
+            this.btnAddEx.Text = "Create";
             this.btnAddEx.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAddEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAddEx.Click += new System.EventHandler(this.BtnAddExperiment_Click);
@@ -340,6 +348,18 @@
             this.btnSecurityEx.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSecurityEx.Click += new System.EventHandler(this.BtnPermissions_Click);
             // 
+            // btnNewRow
+            // 
+            this.btnNewRow.AutoSize = false;
+            this.btnNewRow.Image = global::BiologyDepartment.Properties.Resources.newFile;
+            this.btnNewRow.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnNewRow.ImageTransparentColor = System.Drawing.SystemColors.Control;
+            this.btnNewRow.Name = "btnNewRow";
+            this.btnNewRow.Size = new System.Drawing.Size(75, 75);
+            this.btnNewRow.Text = "New Row";
+            this.btnNewRow.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnNewRow.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
             // toolStripEx4
             // 
             this.toolStripEx4.AutoSize = false;
@@ -353,11 +373,11 @@
             this.btnEditDoc2,
             this.btnDelDoc2,
             this.btnBulkAddDoc,
-            this.btnExportDoc2});
-            this.toolStripEx4.Location = new System.Drawing.Point(610, 1);
+            this.tsExportDropDown});
+            this.toolStripEx4.Location = new System.Drawing.Point(664, 1);
             this.toolStripEx4.Name = "toolStripEx4";
             this.toolStripEx4.Office12Mode = false;
-            this.toolStripEx4.Size = new System.Drawing.Size(410, 105);
+            this.toolStripEx4.Size = new System.Drawing.Size(449, 105);
             this.toolStripEx4.TabIndex = 2;
             this.toolStripEx4.Text = "Documents";
             // 
@@ -413,18 +433,44 @@
             this.btnBulkAddDoc.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnBulkAddDoc.Click += new System.EventHandler(this.BtnAddDocs_Click);
             // 
-            // btnExportDoc2
+            // tsExportDropDown
             // 
-            this.btnExportDoc2.AutoSize = false;
-            this.btnExportDoc2.Image = global::BiologyDepartment.Properties.Resources.ClipboardExport2;
-            this.btnExportDoc2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnExportDoc2.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.btnExportDoc2.Name = "btnExportDoc2";
-            this.btnExportDoc2.Size = new System.Drawing.Size(75, 75);
-            this.btnExportDoc2.Text = "Export";
-            this.btnExportDoc2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnExportDoc2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnExportDoc2.Click += new System.EventHandler(this.BtnExportDoc_Click);
+            this.tsExportDropDown.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
+            this.tsExportDropDown.Image = global::BiologyDepartment.Properties.Resources.ClipboardExport2;
+            this.tsExportDropDown.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsExportDropDown.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.tsExportDropDown.Name = "tsExportDropDown";
+            this.tsExportDropDown.Size = new System.Drawing.Size(61, 88);
+            this.tsExportDropDown.Text = "Export";
+            this.tsExportDropDown.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(161, 22);
+            this.toolStripMenuItem1.Text = "Excel file";
+            this.toolStripMenuItem1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(161, 22);
+            this.toolStripMenuItem2.Text = "Images";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(161, 22);
+            this.toolStripMenuItem3.Text = "Excel and Images";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // toolStripEx1
             // 
@@ -778,10 +824,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1254, 485);
             this.Controls.Add(this.tabControlMain2);
             this.Controls.Add(this.ribbonControlAdv1);
+            this.DoubleBuffered = true;
             this.IsMdiContainer = true;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(979, 501);
@@ -789,6 +836,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Biology Project Database";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControlAdv1)).EndInit();
             this.ribbonControlAdv1.ResumeLayout(false);
@@ -836,7 +884,6 @@
         private System.Windows.Forms.ToolStripButton btnEditDoc2;
         private System.Windows.Forms.ToolStripButton btnDelDoc2;
         private System.Windows.Forms.ToolStripButton btnBulkAddDoc;
-        private System.Windows.Forms.ToolStripButton btnExportDoc2;
         private Syncfusion.Windows.Forms.Tools.TabControlAdv tabControlMain2;
         private Syncfusion.Windows.Forms.Tools.TabPageAdv tpExperiments;
         private Syncfusion.Windows.Forms.Tools.TabPageAdv tpDocuments;
@@ -847,6 +894,10 @@
         private Syncfusion.Windows.Forms.Tools.TabPageAdv tpRScripts;
         private Syncfusion.Windows.Forms.Tools.TabPageAdv tpSetup;
         private Syncfusion.Windows.Forms.Tools.TabPageAdv tpRStudio;
-
+        private System.Windows.Forms.ToolStripButton btnNewRow;
+        private System.Windows.Forms.ToolStripDropDownButton tsExportDropDown;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }

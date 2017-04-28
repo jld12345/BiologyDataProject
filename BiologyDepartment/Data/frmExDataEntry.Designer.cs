@@ -32,6 +32,35 @@
             this.fdUploadPic = new System.Windows.Forms.OpenFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.miniToolBar1 = new Syncfusion.Windows.Forms.Tools.MiniToolBar();
+            this.gradientPanel1 = new Syncfusion.Windows.Forms.Tools.GradientPanel();
+            this.pbImage = new System.Windows.Forms.Panel();
+            this.pnlInput = new Syncfusion.Windows.Forms.Tools.GradientPanel();
+            this.gradientPanel3 = new Syncfusion.Windows.Forms.Tools.GradientPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtUnitsMeasured = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtPixelCount = new System.Windows.Forms.TextBox();
+            this.cmbMeasurementParent = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.udRotatePhoto = new System.Windows.Forms.NumericUpDown();
+            this.lblZoom = new System.Windows.Forms.Label();
+            this.udZoom = new System.Windows.Forms.NumericUpDown();
+            this.lblRes = new System.Windows.Forms.Label();
+            this.btnLineColor = new System.Windows.Forms.Button();
+            this.cbLineWidth = new System.Windows.Forms.ComboBox();
+            this.lblLineSize = new System.Windows.Forms.Label();
+            this.cbCaptureDevice = new System.Windows.Forms.ComboBox();
+            this.cbResolution = new System.Windows.Forms.ComboBox();
+            this.txtMeasure = new System.Windows.Forms.TextBox();
+            this.lblMeasure = new System.Windows.Forms.Label();
+            this.lblPer = new System.Windows.Forms.Label();
+            this.lblVideo = new System.Windows.Forms.Label();
+            this.cmbMeasurement = new System.Windows.Forms.ComboBox();
+            this.lblCalibration = new System.Windows.Forms.Label();
+            this.txtCalibration = new System.Windows.Forms.TextBox();
+            this.pbVideo = new System.Windows.Forms.PictureBox();
             this.toolStripEx1 = new Syncfusion.Windows.Forms.Tools.ToolStripEx();
             this.btnSaveExit = new System.Windows.Forms.ToolStripButton();
             this.btnExit = new System.Windows.Forms.ToolStripButton();
@@ -46,46 +75,333 @@
             this.btnClearAll = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnPrevious = new System.Windows.Forms.ToolStripButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pnlInput = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtUnitsMeasured = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtPixelCount = new System.Windows.Forms.TextBox();
-            this.cmbMeasurementParent = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.udRotatePhoto = new System.Windows.Forms.NumericUpDown();
-            this.lblZoom = new System.Windows.Forms.Label();
-            this.udZoom = new System.Windows.Forms.NumericUpDown();
-            this.pbVideo = new System.Windows.Forms.PictureBox();
-            this.lblRes = new System.Windows.Forms.Label();
-            this.btnLineColor = new System.Windows.Forms.Button();
-            this.cbLineWidth = new System.Windows.Forms.ComboBox();
-            this.lblLineSize = new System.Windows.Forms.Label();
-            this.cbCaptureDevice = new System.Windows.Forms.ComboBox();
-            this.cbResolution = new System.Windows.Forms.ComboBox();
-            this.txtMeasure = new System.Windows.Forms.TextBox();
-            this.lblMeasure = new System.Windows.Forms.Label();
-            this.lblPer = new System.Windows.Forms.Label();
-            this.lblVideo = new System.Windows.Forms.Label();
-            this.cmbMeasurement = new System.Windows.Forms.ComboBox();
-            this.lblCalibration = new System.Windows.Forms.Label();
-            this.txtCalibration = new System.Windows.Forms.TextBox();
-            this.pbImage = new System.Windows.Forms.Panel();
-            this.toolStripEx1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.BtnNext = new System.Windows.Forms.ToolStripButton();
+            ((System.ComponentModel.ISupportInitialize)(this.gradientPanel1)).BeginInit();
+            this.gradientPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlInput)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gradientPanel3)).BeginInit();
+            this.gradientPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udRotatePhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).BeginInit();
+            this.toolStripEx1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // miniToolBar1
+            // 
+            this.miniToolBar1.Name = "miniToolBar1";
+            this.miniToolBar1.Size = new System.Drawing.Size(24, 24);
+            // 
+            // gradientPanel1
+            // 
+            this.gradientPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gradientPanel1.Controls.Add(this.pbImage);
+            this.gradientPanel1.Location = new System.Drawing.Point(384, 277);
+            this.gradientPanel1.Name = "gradientPanel1";
+            this.gradientPanel1.Size = new System.Drawing.Size(946, 548);
+            this.gradientPanel1.TabIndex = 68;
+            // 
+            // pbImage
+            // 
+            this.pbImage.AutoScroll = true;
+            this.pbImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbImage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pbImage.Location = new System.Drawing.Point(0, 0);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(942, 547);
+            this.pbImage.TabIndex = 65;
+            this.pbImage.Paint += new System.Windows.Forms.PaintEventHandler(this.PbImage_Paint);
+            this.pbImage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseClick);
+            this.pbImage.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseDoubleClick);
+            this.pbImage.MouseEnter += new System.EventHandler(this.PbImage_MouseEnter);
+            this.pbImage.MouseLeave += new System.EventHandler(this.PbImage_MouseLeave);
+            // 
+            // pnlInput
+            // 
+            this.pnlInput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.pnlInput.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlInput.Location = new System.Drawing.Point(0, 0);
+            this.pnlInput.Name = "pnlInput";
+            this.pnlInput.Size = new System.Drawing.Size(370, 825);
+            this.pnlInput.TabIndex = 69;
+            this.pnlInput.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseDoubleClick);
+            // 
+            // gradientPanel3
+            // 
+            this.gradientPanel3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gradientPanel3.Controls.Add(this.label4);
+            this.gradientPanel3.Controls.Add(this.label3);
+            this.gradientPanel3.Controls.Add(this.txtUnitsMeasured);
+            this.gradientPanel3.Controls.Add(this.label1);
+            this.gradientPanel3.Controls.Add(this.txtPixelCount);
+            this.gradientPanel3.Controls.Add(this.cmbMeasurementParent);
+            this.gradientPanel3.Controls.Add(this.label2);
+            this.gradientPanel3.Controls.Add(this.udRotatePhoto);
+            this.gradientPanel3.Controls.Add(this.lblZoom);
+            this.gradientPanel3.Controls.Add(this.udZoom);
+            this.gradientPanel3.Controls.Add(this.lblRes);
+            this.gradientPanel3.Controls.Add(this.btnLineColor);
+            this.gradientPanel3.Controls.Add(this.cbLineWidth);
+            this.gradientPanel3.Controls.Add(this.lblLineSize);
+            this.gradientPanel3.Controls.Add(this.cbCaptureDevice);
+            this.gradientPanel3.Controls.Add(this.cbResolution);
+            this.gradientPanel3.Controls.Add(this.txtMeasure);
+            this.gradientPanel3.Controls.Add(this.lblMeasure);
+            this.gradientPanel3.Controls.Add(this.lblPer);
+            this.gradientPanel3.Controls.Add(this.lblVideo);
+            this.gradientPanel3.Controls.Add(this.cmbMeasurement);
+            this.gradientPanel3.Controls.Add(this.lblCalibration);
+            this.gradientPanel3.Controls.Add(this.txtCalibration);
+            this.gradientPanel3.Controls.Add(this.pbVideo);
+            this.gradientPanel3.Controls.Add(this.toolStripEx1);
+            this.gradientPanel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gradientPanel3.Location = new System.Drawing.Point(370, 0);
+            this.gradientPanel3.Name = "gradientPanel3";
+            this.gradientPanel3.Size = new System.Drawing.Size(960, 271);
+            this.gradientPanel3.TabIndex = 70;
+            this.gradientPanel3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseDoubleClick);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(605, 96);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.TabIndex = 122;
+            this.label4.Text = "Auto Fill Field";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(602, 56);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.TabIndex = 121;
+            this.label3.Text = "Units Measured";
+            // 
+            // txtUnitsMeasured
+            // 
+            this.txtUnitsMeasured.Location = new System.Drawing.Point(605, 72);
+            this.txtUnitsMeasured.Name = "txtUnitsMeasured";
+            this.txtUnitsMeasured.Size = new System.Drawing.Size(78, 20);
+            this.txtUnitsMeasured.TabIndex = 120;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(531, 56);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.TabIndex = 119;
+            this.label1.Text = "Pixels";
+            // 
+            // txtPixelCount
+            // 
+            this.txtPixelCount.Enabled = false;
+            this.txtPixelCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPixelCount.Location = new System.Drawing.Point(534, 72);
+            this.txtPixelCount.Name = "txtPixelCount";
+            this.txtPixelCount.Size = new System.Drawing.Size(65, 20);
+            this.txtPixelCount.TabIndex = 118;
+            // 
+            // cmbMeasurementParent
+            // 
+            this.cmbMeasurementParent.FormattingEnabled = true;
+            this.cmbMeasurementParent.Location = new System.Drawing.Point(605, 112);
+            this.cmbMeasurementParent.Name = "cmbMeasurementParent";
+            this.cmbMeasurementParent.Size = new System.Drawing.Size(162, 21);
+            this.cmbMeasurementParent.TabIndex = 117;
+            this.cmbMeasurementParent.Click += new System.EventHandler(this.TxtMeasure_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(413, 221);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 13);
+            this.label2.TabIndex = 116;
+            this.label2.Text = "Rotate Photo";
+            // 
+            // udRotatePhoto
+            // 
+            this.udRotatePhoto.Increment = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.udRotatePhoto.Location = new System.Drawing.Point(413, 237);
+            this.udRotatePhoto.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.udRotatePhoto.Name = "udRotatePhoto";
+            this.udRotatePhoto.Size = new System.Drawing.Size(48, 20);
+            this.udRotatePhoto.TabIndex = 115;
+            this.udRotatePhoto.Click += new System.EventHandler(this.UdRotatePhoto_ValueChanged);
+            // 
+            // lblZoom
+            // 
+            this.lblZoom.AutoSize = true;
+            this.lblZoom.Location = new System.Drawing.Point(342, 221);
+            this.lblZoom.Name = "lblZoom";
+            this.lblZoom.Size = new System.Drawing.Size(65, 13);
+            this.lblZoom.TabIndex = 114;
+            this.lblZoom.Text = "Zoom Photo";
+            // 
+            // udZoom
+            // 
+            this.udZoom.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.udZoom.Location = new System.Drawing.Point(342, 237);
+            this.udZoom.Maximum = new decimal(new int[] {
+            325,
+            0,
+            0,
+            0});
+            this.udZoom.Name = "udZoom";
+            this.udZoom.Size = new System.Drawing.Size(48, 20);
+            this.udZoom.TabIndex = 113;
+            this.udZoom.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.udZoom.Click += new System.EventHandler(this.UdZoom_ValueChanged);
+            // 
+            // lblRes
+            // 
+            this.lblRes.AutoSize = true;
+            this.lblRes.Location = new System.Drawing.Point(341, 96);
+            this.lblRes.Name = "lblRes";
+            this.lblRes.Size = new System.Drawing.Size(57, 13);
+            this.lblRes.TabIndex = 103;
+            this.lblRes.Text = "Resolution";
+            // 
+            // btnLineColor
+            // 
+            this.btnLineColor.BackColor = System.Drawing.Color.Yellow;
+            this.btnLineColor.Location = new System.Drawing.Point(680, 139);
+            this.btnLineColor.Name = "btnLineColor";
+            this.btnLineColor.Size = new System.Drawing.Size(25, 20);
+            this.btnLineColor.TabIndex = 110;
+            this.btnLineColor.UseVisualStyleBackColor = false;
+            this.btnLineColor.Click += new System.EventHandler(this.BtnLineColor_Click);
+            // 
+            // cbLineWidth
+            // 
+            this.cbLineWidth.FormattingEnabled = true;
+            this.cbLineWidth.Location = new System.Drawing.Point(600, 139);
+            this.cbLineWidth.Name = "cbLineWidth";
+            this.cbLineWidth.Size = new System.Drawing.Size(74, 21);
+            this.cbLineWidth.TabIndex = 111;
+            // 
+            // lblLineSize
+            // 
+            this.lblLineSize.AutoSize = true;
+            this.lblLineSize.Location = new System.Drawing.Point(533, 142);
+            this.lblLineSize.Name = "lblLineSize";
+            this.lblLineSize.Size = new System.Drawing.Size(58, 13);
+            this.lblLineSize.TabIndex = 112;
+            this.lblLineSize.Text = "Line Width";
+            // 
+            // cbCaptureDevice
+            // 
+            this.cbCaptureDevice.FormattingEnabled = true;
+            this.cbCaptureDevice.Location = new System.Drawing.Point(341, 72);
+            this.cbCaptureDevice.Name = "cbCaptureDevice";
+            this.cbCaptureDevice.Size = new System.Drawing.Size(159, 21);
+            this.cbCaptureDevice.TabIndex = 100;
+            this.cbCaptureDevice.Click += new System.EventHandler(this.CbCaptureDevice_SelectedIndexChanged);
+            // 
+            // cbResolution
+            // 
+            this.cbResolution.FormattingEnabled = true;
+            this.cbResolution.Location = new System.Drawing.Point(341, 112);
+            this.cbResolution.Name = "cbResolution";
+            this.cbResolution.Size = new System.Drawing.Size(65, 21);
+            this.cbResolution.TabIndex = 101;
+            this.cbResolution.Click += new System.EventHandler(this.CbResolution_SelectedIndexChanged);
+            // 
+            // txtMeasure
+            // 
+            this.txtMeasure.Location = new System.Drawing.Point(531, 112);
+            this.txtMeasure.Name = "txtMeasure";
+            this.txtMeasure.Size = new System.Drawing.Size(68, 20);
+            this.txtMeasure.TabIndex = 105;
+            // 
+            // lblMeasure
+            // 
+            this.lblMeasure.AutoSize = true;
+            this.lblMeasure.Location = new System.Drawing.Point(525, 94);
+            this.lblMeasure.Name = "lblMeasure";
+            this.lblMeasure.Size = new System.Drawing.Size(74, 13);
+            this.lblMeasure.TabIndex = 107;
+            this.lblMeasure.Text = " Measurement";
+            // 
+            // lblPer
+            // 
+            this.lblPer.AutoSize = true;
+            this.lblPer.Location = new System.Drawing.Point(757, 55);
+            this.lblPer.Name = "lblPer";
+            this.lblPer.Size = new System.Drawing.Size(51, 13);
+            this.lblPer.TabIndex = 109;
+            this.lblPer.Text = "pixels per";
+            // 
+            // lblVideo
+            // 
+            this.lblVideo.AutoSize = true;
+            this.lblVideo.Location = new System.Drawing.Point(341, 56);
+            this.lblVideo.Name = "lblVideo";
+            this.lblVideo.Size = new System.Drawing.Size(71, 13);
+            this.lblVideo.TabIndex = 102;
+            this.lblVideo.Text = "Video Source";
+            // 
+            // cmbMeasurement
+            // 
+            this.cmbMeasurement.FormattingEnabled = true;
+            this.cmbMeasurement.Location = new System.Drawing.Point(760, 71);
+            this.cmbMeasurement.Name = "cmbMeasurement";
+            this.cmbMeasurement.Size = new System.Drawing.Size(68, 21);
+            this.cmbMeasurement.TabIndex = 108;
+            // 
+            // lblCalibration
+            // 
+            this.lblCalibration.AutoSize = true;
+            this.lblCalibration.Location = new System.Drawing.Point(689, 56);
+            this.lblCalibration.Name = "lblCalibration";
+            this.lblCalibration.Size = new System.Drawing.Size(56, 13);
+            this.lblCalibration.TabIndex = 106;
+            this.lblCalibration.Text = "Calibration";
+            // 
+            // txtCalibration
+            // 
+            this.txtCalibration.Enabled = false;
+            this.txtCalibration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCalibration.Location = new System.Drawing.Point(689, 72);
+            this.txtCalibration.Name = "txtCalibration";
+            this.txtCalibration.Size = new System.Drawing.Size(65, 20);
+            this.txtCalibration.TabIndex = 104;
+            // 
+            // pbVideo
+            // 
+            this.pbVideo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbVideo.Location = new System.Drawing.Point(14, 56);
+            this.pbVideo.Name = "pbVideo";
+            this.pbVideo.Size = new System.Drawing.Size(302, 205);
+            this.pbVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbVideo.TabIndex = 99;
+            this.pbVideo.TabStop = false;
             // 
             // toolStripEx1
             // 
+            this.toolStripEx1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.toolStripEx1.BorderStyle = Syncfusion.Windows.Forms.Tools.ToolStripBorderStyle.Etched;
             this.toolStripEx1.ForeColor = System.Drawing.Color.MidnightBlue;
             this.toolStripEx1.Image = null;
             this.toolStripEx1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -101,12 +417,14 @@
             this.btnClearLine,
             this.btnClearAll,
             this.toolStripSeparator3,
-            this.BtnPrevious});
+            this.BtnPrevious,
+            this.BtnNext});
+            this.toolStripEx1.LauncherStyle = Syncfusion.Windows.Forms.Tools.LauncherStyle.Office12;
             this.toolStripEx1.Location = new System.Drawing.Point(0, 0);
             this.toolStripEx1.Name = "toolStripEx1";
-            this.toolStripEx1.Size = new System.Drawing.Size(1330, 48);
-            this.toolStripEx1.TabIndex = 63;
-            this.toolStripEx1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolStripEx1_ItemClicked);
+            this.toolStripEx1.Office12Mode = false;
+            this.toolStripEx1.Size = new System.Drawing.Size(960, 33);
+            this.toolStripEx1.TabIndex = 98;
             // 
             // btnSaveExit
             // 
@@ -177,7 +495,7 @@
             this.btnClearImage.Name = "btnClearImage";
             this.btnClearImage.Size = new System.Drawing.Size(90, 30);
             this.btnClearImage.Text = "Clear Image";
-            this.btnClearImage.Click += new System.EventHandler(this.BtnClear_Click);
+            this.btnClearImage.Click += new System.EventHandler(this.btnClearImage_Click);
             // 
             // toolStripSeparator2
             // 
@@ -229,328 +547,26 @@
             this.BtnPrevious.Text = "Previous";
             this.BtnPrevious.Click += new System.EventHandler(this.BtnPrevious_Click);
             // 
-            // panel1
+            // BtnNext
             // 
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.pbImage);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 48);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1330, 777);
-            this.panel1.TabIndex = 64;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.AutoSize = true;
-            this.groupBox2.Controls.Add(this.pnlInput);
-            this.groupBox2.Location = new System.Drawing.Point(9, -10);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(458, 741);
-            this.groupBox2.TabIndex = 65;
-            this.groupBox2.TabStop = false;
-            // 
-            // pnlInput
-            // 
-            this.pnlInput.AutoScroll = true;
-            this.pnlInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlInput.Location = new System.Drawing.Point(3, 16);
-            this.pnlInput.Name = "pnlInput";
-            this.pnlInput.Size = new System.Drawing.Size(452, 722);
-            this.pnlInput.TabIndex = 0;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtUnitsMeasured);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtPixelCount);
-            this.groupBox1.Controls.Add(this.cmbMeasurementParent);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.udRotatePhoto);
-            this.groupBox1.Controls.Add(this.lblZoom);
-            this.groupBox1.Controls.Add(this.udZoom);
-            this.groupBox1.Controls.Add(this.pbVideo);
-            this.groupBox1.Controls.Add(this.lblRes);
-            this.groupBox1.Controls.Add(this.btnLineColor);
-            this.groupBox1.Controls.Add(this.cbLineWidth);
-            this.groupBox1.Controls.Add(this.lblLineSize);
-            this.groupBox1.Controls.Add(this.cbCaptureDevice);
-            this.groupBox1.Controls.Add(this.cbResolution);
-            this.groupBox1.Controls.Add(this.txtMeasure);
-            this.groupBox1.Controls.Add(this.lblMeasure);
-            this.groupBox1.Controls.Add(this.lblPer);
-            this.groupBox1.Controls.Add(this.lblVideo);
-            this.groupBox1.Controls.Add(this.cmbMeasurement);
-            this.groupBox1.Controls.Add(this.lblCalibration);
-            this.groupBox1.Controls.Add(this.txtCalibration);
-            this.groupBox1.Location = new System.Drawing.Point(473, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(845, 278);
-            this.groupBox1.TabIndex = 64;
-            this.groupBox1.TabStop = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(588, 56);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 13);
-            this.label4.TabIndex = 71;
-            this.label4.Text = "Auto Fill Field";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(585, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 13);
-            this.label3.TabIndex = 70;
-            this.label3.Text = "Units Measured";
-            // 
-            // txtUnitsMeasured
-            // 
-            this.txtUnitsMeasured.Location = new System.Drawing.Point(588, 32);
-            this.txtUnitsMeasured.Name = "txtUnitsMeasured";
-            this.txtUnitsMeasured.Size = new System.Drawing.Size(78, 20);
-            this.txtUnitsMeasured.TabIndex = 69;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(514, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 13);
-            this.label1.TabIndex = 68;
-            this.label1.Text = "Pixels";
-            // 
-            // txtPixelCount
-            // 
-            this.txtPixelCount.Enabled = false;
-            this.txtPixelCount.Location = new System.Drawing.Point(517, 32);
-            this.txtPixelCount.Name = "txtPixelCount";
-            this.txtPixelCount.Size = new System.Drawing.Size(65, 20);
-            this.txtPixelCount.TabIndex = 67;
-            // 
-            // cmbMeasurementParent
-            // 
-            this.cmbMeasurementParent.FormattingEnabled = true;
-            this.cmbMeasurementParent.Location = new System.Drawing.Point(588, 72);
-            this.cmbMeasurementParent.Name = "cmbMeasurementParent";
-            this.cmbMeasurementParent.Size = new System.Drawing.Size(162, 21);
-            this.cmbMeasurementParent.TabIndex = 66;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(395, 140);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 13);
-            this.label2.TabIndex = 65;
-            this.label2.Text = "Rotate Photo";
-            // 
-            // udRotatePhoto
-            // 
-            this.udRotatePhoto.Increment = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            this.udRotatePhoto.Location = new System.Drawing.Point(395, 156);
-            this.udRotatePhoto.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.udRotatePhoto.Name = "udRotatePhoto";
-            this.udRotatePhoto.Size = new System.Drawing.Size(48, 20);
-            this.udRotatePhoto.TabIndex = 64;
-            this.udRotatePhoto.ValueChanged += new System.EventHandler(this.UdRotatePhoto_ValueChanged);
-            // 
-            // lblZoom
-            // 
-            this.lblZoom.AutoSize = true;
-            this.lblZoom.Location = new System.Drawing.Point(324, 140);
-            this.lblZoom.Name = "lblZoom";
-            this.lblZoom.Size = new System.Drawing.Size(65, 13);
-            this.lblZoom.TabIndex = 61;
-            this.lblZoom.Text = "Zoom Photo";
-            // 
-            // udZoom
-            // 
-            this.udZoom.Increment = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.udZoom.Location = new System.Drawing.Point(324, 156);
-            this.udZoom.Maximum = new decimal(new int[] {
-            325,
-            0,
-            0,
-            0});
-            this.udZoom.Name = "udZoom";
-            this.udZoom.Size = new System.Drawing.Size(48, 20);
-            this.udZoom.TabIndex = 60;
-            this.udZoom.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.udZoom.ValueChanged += new System.EventHandler(this.UdZoom_ValueChanged);
-            // 
-            // pbVideo
-            // 
-            this.pbVideo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbVideo.Location = new System.Drawing.Point(6, 15);
-            this.pbVideo.Name = "pbVideo";
-            this.pbVideo.Size = new System.Drawing.Size(302, 257);
-            this.pbVideo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbVideo.TabIndex = 0;
-            this.pbVideo.TabStop = false;
-            // 
-            // lblRes
-            // 
-            this.lblRes.AutoSize = true;
-            this.lblRes.Location = new System.Drawing.Point(324, 56);
-            this.lblRes.Name = "lblRes";
-            this.lblRes.Size = new System.Drawing.Size(57, 13);
-            this.lblRes.TabIndex = 41;
-            this.lblRes.Text = "Resolution";
-            // 
-            // btnLineColor
-            // 
-            this.btnLineColor.BackColor = System.Drawing.Color.Yellow;
-            this.btnLineColor.Location = new System.Drawing.Point(663, 99);
-            this.btnLineColor.Name = "btnLineColor";
-            this.btnLineColor.Size = new System.Drawing.Size(25, 20);
-            this.btnLineColor.TabIndex = 56;
-            this.btnLineColor.UseVisualStyleBackColor = false;
-            this.btnLineColor.Click += new System.EventHandler(this.BtnLineColor_Click);
-            // 
-            // cbLineWidth
-            // 
-            this.cbLineWidth.FormattingEnabled = true;
-            this.cbLineWidth.Location = new System.Drawing.Point(583, 99);
-            this.cbLineWidth.Name = "cbLineWidth";
-            this.cbLineWidth.Size = new System.Drawing.Size(74, 21);
-            this.cbLineWidth.TabIndex = 57;
-            // 
-            // lblLineSize
-            // 
-            this.lblLineSize.AutoSize = true;
-            this.lblLineSize.Location = new System.Drawing.Point(516, 102);
-            this.lblLineSize.Name = "lblLineSize";
-            this.lblLineSize.Size = new System.Drawing.Size(58, 13);
-            this.lblLineSize.TabIndex = 58;
-            this.lblLineSize.Text = "Line Width";
-            // 
-            // cbCaptureDevice
-            // 
-            this.cbCaptureDevice.FormattingEnabled = true;
-            this.cbCaptureDevice.Location = new System.Drawing.Point(324, 32);
-            this.cbCaptureDevice.Name = "cbCaptureDevice";
-            this.cbCaptureDevice.Size = new System.Drawing.Size(159, 21);
-            this.cbCaptureDevice.TabIndex = 38;
-            this.cbCaptureDevice.SelectedIndexChanged += new System.EventHandler(this.CbCaptureDevice_SelectedIndexChanged);
-            // 
-            // cbResolution
-            // 
-            this.cbResolution.FormattingEnabled = true;
-            this.cbResolution.Location = new System.Drawing.Point(324, 72);
-            this.cbResolution.Name = "cbResolution";
-            this.cbResolution.Size = new System.Drawing.Size(65, 21);
-            this.cbResolution.TabIndex = 39;
-            this.cbResolution.SelectedIndexChanged += new System.EventHandler(this.CbResolution_SelectedIndexChanged);
-            // 
-            // txtMeasure
-            // 
-            this.txtMeasure.Location = new System.Drawing.Point(514, 72);
-            this.txtMeasure.Name = "txtMeasure";
-            this.txtMeasure.Size = new System.Drawing.Size(68, 20);
-            this.txtMeasure.TabIndex = 49;
-            this.txtMeasure.TextChanged += new System.EventHandler(this.TxtMeasure_TextChanged);
-            // 
-            // lblMeasure
-            // 
-            this.lblMeasure.AutoSize = true;
-            this.lblMeasure.Location = new System.Drawing.Point(508, 54);
-            this.lblMeasure.Name = "lblMeasure";
-            this.lblMeasure.Size = new System.Drawing.Size(74, 13);
-            this.lblMeasure.TabIndex = 51;
-            this.lblMeasure.Text = " Measurement";
-            // 
-            // lblPer
-            // 
-            this.lblPer.AutoSize = true;
-            this.lblPer.Location = new System.Drawing.Point(740, 15);
-            this.lblPer.Name = "lblPer";
-            this.lblPer.Size = new System.Drawing.Size(51, 13);
-            this.lblPer.TabIndex = 53;
-            this.lblPer.Text = "pixels per";
-            // 
-            // lblVideo
-            // 
-            this.lblVideo.AutoSize = true;
-            this.lblVideo.Location = new System.Drawing.Point(324, 16);
-            this.lblVideo.Name = "lblVideo";
-            this.lblVideo.Size = new System.Drawing.Size(71, 13);
-            this.lblVideo.TabIndex = 40;
-            this.lblVideo.Text = "Video Source";
-            // 
-            // cmbMeasurement
-            // 
-            this.cmbMeasurement.FormattingEnabled = true;
-            this.cmbMeasurement.Location = new System.Drawing.Point(743, 31);
-            this.cmbMeasurement.Name = "cmbMeasurement";
-            this.cmbMeasurement.Size = new System.Drawing.Size(68, 21);
-            this.cmbMeasurement.TabIndex = 52;
-            // 
-            // lblCalibration
-            // 
-            this.lblCalibration.AutoSize = true;
-            this.lblCalibration.Location = new System.Drawing.Point(672, 16);
-            this.lblCalibration.Name = "lblCalibration";
-            this.lblCalibration.Size = new System.Drawing.Size(56, 13);
-            this.lblCalibration.TabIndex = 50;
-            this.lblCalibration.Text = "Calibration";
-            // 
-            // txtCalibration
-            // 
-            this.txtCalibration.Enabled = false;
-            this.txtCalibration.Location = new System.Drawing.Point(672, 32);
-            this.txtCalibration.Name = "txtCalibration";
-            this.txtCalibration.Size = new System.Drawing.Size(65, 20);
-            this.txtCalibration.TabIndex = 48;
-            // 
-            // pbImage
-            // 
-            this.pbImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbImage.AutoScroll = true;
-            this.pbImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbImage.Location = new System.Drawing.Point(473, 284);
-            this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(845, 447);
-            this.pbImage.TabIndex = 63;
-            this.pbImage.Paint += new System.Windows.Forms.PaintEventHandler(this.PbImage_Paint);
-            this.pbImage.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseClick);
-            this.pbImage.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseDoubleClick);
-            this.pbImage.MouseEnter += new System.EventHandler(this.PbImage_MouseEnter);
-            this.pbImage.MouseLeave += new System.EventHandler(this.PbImage_MouseLeave);
-            this.pbImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PbImage_MouseMove);
+            this.BtnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.BtnNext.Image = ((System.Drawing.Image)(resources.GetObject("BtnNext.Image")));
+            this.BtnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnNext.Name = "BtnNext";
+            this.BtnNext.Size = new System.Drawing.Size(35, 30);
+            this.BtnNext.Text = "Next";
+            this.BtnNext.Click += new System.EventHandler(this.BtnNext_Click);
             // 
             // FrmExDataEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1330, 825);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.toolStripEx1);
+            this.Controls.Add(this.gradientPanel3);
+            this.Controls.Add(this.pnlInput);
+            this.Controls.Add(this.gradientPanel1);
             this.DoubleBuffered = true;
             this.Name = "FrmExDataEntry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -558,16 +574,17 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmFishData_FormClosing);
             this.Load += new System.EventHandler(this.FrmFishData_Load);
-            this.toolStripEx1.ResumeLayout(false);
-            this.toolStripEx1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gradientPanel1)).EndInit();
+            this.gradientPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlInput)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gradientPanel3)).EndInit();
+            this.gradientPanel3.ResumeLayout(false);
+            this.gradientPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udRotatePhoto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbVideo)).EndInit();
+            this.toolStripEx1.ResumeLayout(false);
+            this.toolStripEx1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -578,22 +595,21 @@
         private System.Windows.Forms.OpenFileDialog fdUploadPic;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private Syncfusion.Windows.Forms.Tools.ToolStripEx toolStripEx1;
-        private System.Windows.Forms.ToolStripButton btnExit;
-        private System.Windows.Forms.ToolStripButton btnAdd;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btnCaptureImage;
-        private System.Windows.Forms.ToolStripButton btnUploadImage;
-        private System.Windows.Forms.ToolStripButton btnClearImage;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton btnCalibrateLine;
-        private System.Windows.Forms.ToolStripButton btnClearLine;
-        private System.Windows.Forms.ToolStripButton btnClearAll;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Panel pnlInput;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox pbVideo;
+        private Syncfusion.Windows.Forms.Tools.MiniToolBar miniToolBar1;
+        private Syncfusion.Windows.Forms.Tools.GradientPanel gradientPanel1;
+        private System.Windows.Forms.Panel pbImage;
+        private Syncfusion.Windows.Forms.Tools.GradientPanel pnlInput;
+        private Syncfusion.Windows.Forms.Tools.GradientPanel gradientPanel3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtUnitsMeasured;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtPixelCount;
+        private System.Windows.Forms.ComboBox cmbMeasurementParent;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown udRotatePhoto;
+        private System.Windows.Forms.Label lblZoom;
+        private System.Windows.Forms.NumericUpDown udZoom;
         private System.Windows.Forms.Label lblRes;
         private System.Windows.Forms.Button btnLineColor;
         private System.Windows.Forms.ComboBox cbLineWidth;
@@ -607,19 +623,21 @@
         private System.Windows.Forms.ComboBox cmbMeasurement;
         private System.Windows.Forms.Label lblCalibration;
         private System.Windows.Forms.TextBox txtCalibration;
-        private System.Windows.Forms.Panel pbImage;
-        private System.Windows.Forms.Label lblZoom;
-        private System.Windows.Forms.NumericUpDown udZoom;
+        private System.Windows.Forms.PictureBox pbVideo;
+        private Syncfusion.Windows.Forms.Tools.ToolStripEx toolStripEx1;
         private System.Windows.Forms.ToolStripButton btnSaveExit;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown udRotatePhoto;
+        private System.Windows.Forms.ToolStripButton btnExit;
+        private System.Windows.Forms.ToolStripButton btnAdd;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton btnCaptureImage;
+        private System.Windows.Forms.ToolStripButton btnUploadImage;
+        private System.Windows.Forms.ToolStripButton btnClearImage;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton btnCalibrateLine;
+        private System.Windows.Forms.ToolStripButton btnClearLine;
+        private System.Windows.Forms.ToolStripButton btnClearAll;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton BtnPrevious;
-        private System.Windows.Forms.ComboBox cmbMeasurementParent;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtPixelCount;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtUnitsMeasured;
+        private System.Windows.Forms.ToolStripButton BtnNext;
     }
 }

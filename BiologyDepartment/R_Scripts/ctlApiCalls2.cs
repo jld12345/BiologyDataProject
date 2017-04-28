@@ -162,7 +162,7 @@ namespace BiologyDepartment.R_Scripts
                 DataTable dtCopy = GlobalVariables.ExperimentData.JSONTable.Copy();
                 //dtCopy.Columns.Add("dependentVariable");
                 //dtCopy.Columns.Add("independentVariables");
-                dtCopy.DefaultView.RowFilter = GlobalVariables.ExperimentGrid._bindingSource.Filter;
+                dtCopy.DefaultView.RowFilter = GlobalVariables.ExperimentGrid.filterBar.RowFilter;
                 theData = dtCopy.DefaultView.ToTable();
                 theData.TableName = "jsonDataset";
                 foreach (DataColumn col in theData.Columns)

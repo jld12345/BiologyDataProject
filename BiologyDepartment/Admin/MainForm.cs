@@ -28,6 +28,7 @@ using Syncfusion.Presentation;
 using Syncfusion.Pdf;
 using Syncfusion.Windows.Forms.Tools;
 using Syncfusion.PresentationToPdfConverter;
+using BiologyDepartment.Data;
 
 namespace BiologyDepartment
 {
@@ -50,6 +51,7 @@ namespace BiologyDepartment
         private ToolStripDropDown dropDown;
         private ToolStripButton btnChangePassword;
         private ToolStripPanelItem dropDownPanel;
+        private DataUtil util = new DataUtil();
 
         public CtlApiCalls2 CtlApiCalls { get { return _ctlApiCalls; } set { _ctlApiCalls = value; } }
         #endregion
@@ -75,8 +77,10 @@ namespace BiologyDepartment
             }
             if (!bExitProgram)
             {
+                SuspendLayout();
                 Initialize();
                 Gnostice.Documents.Framework.ActivateLicense("0A76-10E9-8F21-0CDD-2BC2-884A-BE40-989D-10F0-F5D2-EDF5-671D");
+                ResumeLayout();
             }
         }
         public void Initialize()
@@ -84,6 +88,8 @@ namespace BiologyDepartment
             this.WindowState = FormWindowState.Maximized;
             AddDropDownRibbonItems();
             AddTabControls();
+            btnNewRow.Click += new EventHandler(GlobalVariables.ExperimentGrid.BtnAdd_Click);
+            //btnExportDoc2.Click += new EventHandler(GlobalVariables.ExperimentGrid.BtnExport_Click_1);
         }
 
         public void LoadAuthors()
@@ -338,16 +344,7 @@ namespace BiologyDepartment
 
         private void BtnExportDoc_Click(object sender, EventArgs e)
         {
-            DocumentTreeNode node = (DocumentTreeNode)tvDocuments.ActiveNode;
-            DialogResult result = saveFileDialog1.ShowDialog();
-            if(result == DialogResult.OK)
-            {
-                using(FileStream fStream = new FileStream(saveFileDialog1.FileName, FileMode.Create, FileAccess.Write))
-                {
-                    mStream.WriteTo(fStream);
-                    fStream.Close();
-                }
-            }
+
         }
 
         private void BtnAddExperiment_Click(object sender, EventArgs e)
@@ -397,7 +394,9 @@ namespace BiologyDepartment
         {
             using(dlgExperimentSearch dlg = new dlgExperimentSearch())
             {
+                dlg.SuspendLayout();
                 dlg.Initialize();
+                dlg.ResumeLayout();
                 dlg.ShowDialog();
                 if (dlg.ExperimentLoaded)
                 {
@@ -456,9 +455,51 @@ namespace BiologyDepartment
         {
 
         }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            this.Refresh();
+            btnSearchEx.PerformClick();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            util.ExportToExcel(GlobalVariables.ExperimentGrid.dtAnimals, "EXCEL");
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            util.ExportToExcel(GlobalVariables.ExperimentGrid.dtAnimals, "IMAGE");
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            util.ExportToExcel(GlobalVariables.ExperimentGrid.dtAnimals, "ALL");
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
     }
 
     public class ExperimentTreeNode : TreeNodeAdv
+    {
+        private Experiments nodeExperiment = new Experiments();
+
+        public Experiments ExperimentNode
+        {
+            get { return nodeExperiment; }
+            set { nodeExperiment = value; }
+        }
+    }
+
+    public class ExperimentTreeMenuItem : TreeMenuItem
     {
         private Experiments nodeExperiment = new Experiments();
 
