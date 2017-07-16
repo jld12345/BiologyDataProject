@@ -16,6 +16,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Utilities;
+using ClosedXML.Excel;
+using ClosedXML.Utils;
 
 using Excel;
 
@@ -317,21 +319,21 @@ namespace BiologyDepartment.Common
             }
         }
 
-        public void SerializeJson(DataRow theData, int nJsonID, string sAction)
+        public string SerializeJson(DataRow theData, int nJsonID, string sAction, bool bConnectionError)
         {
             String sJson;
-            if (sAction.Equals("MODIFIED"))
+            sJson = SerializeRowToJson(theData);
+
+            if (!bConnectionError && nJsonID > 0)
             {
-                sJson = SerializeRowToJson(theData);
-                _daoData.UpdateJson(sJson, nJsonID);
+                if (sAction.Equals("MODIFIED"))
+                    _daoData.UpdateJson(sJson, nJsonID);
+                else if (sAction.Equals("ADDED"))
+                    _daoData.InsertJson(sJson, nJsonID);
+                else
+                    _daoData.DeleteJson("", nJsonID);
             }
-            else if (sAction.Equals("ADDED"))
-            {
-                sJson = SerializeRowToJson(theData);
-                _daoData.InsertJson(sJson, nJsonID);
-            }
-            else
-                _daoData.DeleteJson("", nJsonID);
+            return sJson;
         }
 
         public DataTable DeSerializeJsonToDataTable()
@@ -358,5 +360,78 @@ namespace BiologyDepartment.Common
         {
             _daoData.DeleteDataLock(ExperimentID, RowID, TableName);
         }
+
+        public void CreateExcelExport(string sFileName, DataTable DataExport, string sExportType)
+        {
+            if (DataExport == null || DataExport.Rows.Count == 0)
+                return;
+            //Create a folder for the export images if they exist
+            int nRowCount = 1;
+            string sFilePath = new FileInfo(sFileName).Directory.FullName + "\\ExportExcelImages";
+
+            if (Directory.Exists(sFilePath))
+            {
+                System.IO.DirectoryInfo di = new DirectoryInfo(sFilePath);
+
+                if (!sExportType.Equals("IMAGE"))
+                {
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                }
+                if (!sExportType.Equals("EXCEL"))
+                {
+                    foreach (DirectoryInfo dir in di.GetDirectories())
+                    {
+                        dir.Delete(true);
+                    }
+                }
+            }
+            else
+                Directory.CreateDirectory(sFilePath);
+
+            //Change the column name from the number used in the database to the column header name
+            foreach (DataColumn dc in DataExport.Columns)
+            {
+                dc.ColumnName = dc.Caption;
+            }
+
+            if (!sExportType.Equals("EXCEL"))
+            {
+                foreach (DataRow dr in DataExport.Rows)
+                {
+                    byte[] imageBytes = _daoData.GetDataPicture("EXPERIMENTS_JSONB", Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]));
+                    if (imageBytes != null && imageBytes.Length > 10)
+                    {
+                        MemoryStream mStream = new MemoryStream(imageBytes)
+                        {
+                            Position = 0
+                        };
+                        Image img = Image.FromStream(mStream);
+                        Bitmap theImage = new Bitmap(img);
+                        mStream.Close();
+                        mStream.Dispose();
+                        string sImagePath = sFilePath + "\\" + nRowCount.ToString() + ".bmp";
+                        theImage.Save(sImagePath);
+                    }
+                    nRowCount++;
+                }
+            }
+
+            //dt.Columns.Remove("Data Picture");
+            //Create the excel document
+            if (!sExportType.Equals("IMAGE"))
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    wb.Worksheets.Add(DataExport, "Data Export");
+                    if (string.IsNullOrEmpty(sFileName))
+                        sFileName = "C:\\tempExcel.xls";
+                    wb.SaveAs(sFileName);
+                }
+            }
+        }
     }
 }
+

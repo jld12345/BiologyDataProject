@@ -158,7 +158,7 @@ namespace BiologyDepartment
                     _daoSetup.UpdateColumn(nColID, sName, sType, sDesc, sFormula);
                 else
                 {
-                    nColID = _daoSetup.InsertColumn(GlobalVariables.Experiment.ID, sName, sType, sDesc, sFormula);
+                    nColID = _daoSetup.InsertColumn(GlobalVariables.ExperimentNode.ExperimentNode.ID, sName, sType, sDesc, sFormula);
                     if (nColID > 0)
                         dgColAdmin.Rows[row.Index].Cells["custom_columns_id"].Value = nColID;
                 }

@@ -68,6 +68,8 @@ namespace BiologyDepartment
             if (filterBar.Wired)
                 filterBar.UnwireGrid();
             dtAnimals = _dataUtil.GetData();
+            if (dtAnimals == null)
+                dtAnimals = new DataTable();
             dtAnimals.Columns.Add("EDIT");
             dtAnimals.Columns.Add("DELETE");
             dtAnimals.Columns["EDIT"].SetOrdinal(0);
@@ -113,6 +115,7 @@ namespace BiologyDepartment
             {
                 dgExData.Model.ColStyles[i].TextColor = Color.Black;
                 dgExData.Model.ColStyles[i].WrapText = true;
+
             }
             if (dgExData.Model.NameToColIndex("EDIT") == 1)
                 dgExData.Model.ColStyles["EDIT"].CellType = "PushButton";
@@ -274,23 +277,32 @@ namespace BiologyDepartment
             switch (e.ColIndex == 2 ? "DELETE":(e.ColIndex == 1) ? "EDIT":"DEFAULT")
             {
                 case "DELETE":
-                    if (!_commonUtil.DataLockExists(GlobalVariables.ExperimentNode.ExperimentNode.ID, nJsonId, "EXPERIMENTS_JSONB"))
+                    try
                     {
-                        dgExData.DeleteRecordsAtRowIndex(e.RowIndex, e.RowIndex);
-                        _commonUtil.SerializeJson(null, nJsonId, "DELETE");
-                        if (e.RowIndex - 1 >= 0)
+                        if (!_commonUtil.DataLockExists(GlobalVariables.ExperimentNode.ExperimentNode.ID, nJsonId, "EXPERIMENTS_JSONB"))
                         {
-                            dgExData.Model.Selections.Add(Syncfusion.Windows.Forms.Grid.GridRangeInfo.Row(e.RowIndex));  
-                            dgExData.SetTopRow(e.RowIndex-1);
+                            dgExData.DeleteRecordsAtRowIndex(e.RowIndex, e.RowIndex);
+                            _commonUtil.SerializeJson(null, nJsonId, "DELETE", false);
+                            if (e.RowIndex - 1 >= 0)
+                            {
+                                dgExData.Model.Selections.Add(Syncfusion.Windows.Forms.Grid.GridRangeInfo.Row(e.RowIndex));
+                                dgExData.SetTopRow(e.RowIndex - 1);
+                            }
+                            //SaveData(nJsonId, "DELETE");
                         }
-                        //SaveData(nJsonId, "DELETE");
-                    }
-                    else
-                    {
-                        MessageBox.Show("The row you are trying to delete is currently locked by another user and cannot be edited at this time.", "Row Locked",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
 
+                        else
+                        {
+                            MessageBox.Show("The row you are trying to delete is currently locked by another user and cannot be edited at this time.", "Row Locked",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine("Error in ctlAnimalData deleterow.  " + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace);
+                        MessageBox.Show("There is currently a connection error.  The row cannot be deleted at this time.  Please try again later.  If the problem persists, please contact support.", "Connection Error",
+    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     break;
                 case "EDIT":
 
@@ -329,25 +341,51 @@ namespace BiologyDepartment
             if (dt == null && string.IsNullOrEmpty(sAction))
                 return;
             if (sAction.Equals("DELETE"))
-                _commonUtil.SerializeJson(null, nJsonID, sAction);
+                try
+                {
+                    _commonUtil.SerializeJson(null, nJsonID, sAction, false);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine("Error in ctlAnimalData deleterow.  " + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace);
+                    MessageBox.Show("There is currently a connection error.  The row cannot be deleted at this time.  Please try again later.  If the problem persists, please contact support.", "Connection Error",
+MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             else
             {
                 foreach (DataRow dr in dt.Rows)
                 {
-                    nJsonID = Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]);
                     string action = "";
-                    if (dr.RowState == DataRowState.Modified)
-                        action = "MODIFIED";
-                    else if (dr.RowState == DataRowState.Added)
-                        action = "ADDED";
-                    else if (dr.RowState == DataRowState.Deleted)
-                        action = "DELETED";
+                    try
+                    {
+                        nJsonID = Convert.ToInt32(dr["EXPERIMENTS_JSONB_ID"]);
+                        
+                        if (dr.RowState == DataRowState.Modified)
+                            action = "MODIFIED";
+                        else if (dr.RowState == DataRowState.Added)
+                            action = "ADDED";
+                        else if (dr.RowState == DataRowState.Deleted)
+                            action = "DELETED";
 
-                    _commonUtil.SerializeJson(dr, nJsonID, action);
+                        _commonUtil.SerializeJson(dr, nJsonID, action, false);
+                    }
+                    catch (Exception ex)
+                    {
+                        Trace.WriteLine("Error in ctlAnimalData SaveData.  " + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace);
+                        MessageBox.Show("There is currently a connection error.  The row cannot be " + action.ToLower() + " at this time.  Please try again later.  If the problem persists, please contact support.", "Connection Error",
+    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-            Initialize(GlobalVariables.ExperimentNode.ExperimentNode.ID);
-            bDataDirty = false;
+            try
+            {
+                Initialize(GlobalVariables.ExperimentNode.ExperimentNode.ID);
+                bDataDirty = false;
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine("Error in ctlAnimalData SaveData.  " + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace);
+            }
         }
 
         //private void BtnJSON_Click(object sender, EventArgs e)

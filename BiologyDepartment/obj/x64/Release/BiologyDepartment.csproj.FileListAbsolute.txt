@@ -106,7 +106,6 @@ C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.IO.FileSystem.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.IO.FileSystem.Primitives.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.Net.dll
-C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.Net.Http.4.1.1.0.Fakes.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.Net.Http.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.Net.Http.Formatting.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.Net.Sockets.dll
@@ -190,12 +189,10 @@ C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\Syncfusion.XlsIO.Base.xml
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\Syncfusion.XlsIO.Windows.xml
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.Diagnostics.DiagnosticSource.xml
-C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.Net.Http.4.1.1.0.Fakes.xml
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\System.Threading.Tasks.Extensions.xml
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\NuGet.Squirrel.pdb
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\fr\AdvancedDataGridView.resources.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\bin\x64\Release\ru\AdvancedDataGridView.resources.dll
-C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.csprojResolveAssemblyReference.cache
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\Interop.ActiveDs.dll
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.csproj.ResolveComReference.cache
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.Admin.dlgExperimentSearch.resources
@@ -203,7 +200,7 @@ C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.MainForm.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.ctlAuthors.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.ExperimentDocuments.frmAddDocument.resources
-C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.ctlExperiments.resources
+C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.CtlExperiments.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.ExperimentsFolder.ctlExperiments2.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.ExperimentsFolder.FrmAddEditExperiment.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.ctlLogIn.resources
@@ -212,7 +209,7 @@ C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.frmAbout.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.frmAuthor.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.frmDataLoading.resources
-C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.frmExDataEntry.resources
+C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.FrmExDataEntry.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.Properties.Resources.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.CtlAnimalData.resources
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.UserPermissions.resources
@@ -226,4 +223,3 @@ C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.application
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.exe
 C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.pdb
-C:\Users\James\Source\Repos\BiologyDataProject\BiologyDepartment\obj\x64\Release\BiologyDepartment.csprojFakesResolveAssemblyReference.cache

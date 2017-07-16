@@ -135,8 +135,7 @@ namespace BiologyDepartment
             NpgsqlCMD.Parameters[2].Value = pic;
 
 
-            if(!GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD))
-                MessageBox.Show("Error inserting picture.", "Insert Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            GlobalVariables.GlobalConnection.InsertData(NpgsqlCMD);
         }
 
         public void UpdatePic(string sTableName, int nRowID, byte[] pic)

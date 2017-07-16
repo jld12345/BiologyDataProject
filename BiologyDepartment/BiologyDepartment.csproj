@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BiologyDepartment</RootNamespace>
     <AssemblyName>BiologyDepartment</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
@@ -214,27 +214,28 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
     </Reference>
-    <Reference Include="Gnostice.Core, Version=17.1.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.Core.dll</HintPath>
+    <Reference Include="Gnostice.Core, Version=17.2.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.2.0\lib\net40\Gnostice.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Gnostice.Free.Documents, Version=17.1.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.Free.Documents.dll</HintPath>
+    <Reference Include="Gnostice.Free.Documents, Version=17.2.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.2.0\lib\net40\Gnostice.Free.Documents.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Gnostice.Free.Documents.Controls.WinForms, Version=17.1.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.Free.Documents.Controls.WinForms.dll</HintPath>
+    <Reference Include="Gnostice.Free.Documents.Controls.WinForms, Version=17.2.0.0, Culture=neutral, PublicKeyToken=fc8cb3ab6a24df63, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.2.0\lib\net40\Gnostice.Free.Documents.Controls.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Gnostice.XtremeFontEngine.4.0, Version=1.0.1876.419, Culture=neutral, PublicKeyToken=461de9da64be3a84, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.XtremeFontEngine.4.0.dll</HintPath>
+    <Reference Include="Gnostice.XtremeFontEngine.4.0, Version=1.0.1905.420, Culture=neutral, PublicKeyToken=461de9da64be3a84, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.2.0\lib\net40\Gnostice.XtremeFontEngine.4.0.dll</HintPath>
     </Reference>
-    <Reference Include="Gnostice.XtremeImageEngine, Version=12.0.1558.117, Culture=neutral, PublicKeyToken=67e9a3a7c22f1690, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Gnostice.XtremeImageEngine.dll</HintPath>
+    <Reference Include="Gnostice.XtremeImageEngine, Version=12.0.1592.130, Culture=neutral, PublicKeyToken=67e9a3a7c22f1690, processorArchitecture=MSIL">
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.2.0\lib\net40\Gnostice.XtremeImageEngine.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\squirrel.windows.1.5.1\lib\Net45\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.1.0\lib\net40\Ionic.Zip.Reduced.dll</HintPath>
+      <HintPath>..\packages\XtremeDocumentStudio.NETFree.17.2.0\lib\net40\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
@@ -420,10 +421,7 @@
     <Reference Include="Syncfusion.SfChart.WPF, Version=15.1450.0.41, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.SfChart.WPF45.15.1.0.41\lib\net45\Syncfusion.SfChart.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Shared.Base, Version=15.1460.0.33, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Syncfusion\Essential Studio\15.1.0.33\Assemblies\4.6\Syncfusion.Shared.Base.dll</HintPath>
-    </Reference>
+    <Reference Include="Syncfusion.Shared.Base, Version=15.1460.0.41, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Shared.Windows, Version=15.1450.0.41, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>..\packages\Syncfusion.Shared.Windows45.15.1.0.41\lib\net45\Syncfusion.Shared.Windows.dll</HintPath>
     </Reference>
@@ -743,7 +741,7 @@
       <DependentUpon>frmExDataEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1372,8 +1370,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Misc Files\images\table-add-icon 32.png" />
-    <Content Include="Misc Files\images\table-add-icon.png" />
     <None Include="Resources\AddRecord.bmp" />
     <None Include="Resources\table-add-icon 32.png" />
     <None Include="Resources\table-add-icon.png" />

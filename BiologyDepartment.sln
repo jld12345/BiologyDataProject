@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.10
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiologyDepartment", "BiologyDepartment\BiologyDepartment.csproj", "{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}"
 EndProject
@@ -38,6 +38,7 @@ Global
 		{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}.Release|x64.ActiveCfg = Release|x64
 		{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}.Release|x64.Build.0 = Release|x64
+		{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}.Release|x64.Deploy.0 = Release|x64
 		{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}.Release|x86.ActiveCfg = Release|x86
 		{63092BBC-E86F-4CBB-8AE7-39C30CE5E27F}.Release|x86.Build.0 = Release|x86
 		{CC7B76EF-3C30-4B99-AD72-2D8EA2C858EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -53,7 +54,6 @@ Global
 		{CC7B76EF-3C30-4B99-AD72-2D8EA2C858EC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CC7B76EF-3C30-4B99-AD72-2D8EA2C858EC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CC7B76EF-3C30-4B99-AD72-2D8EA2C858EC}.Release|x64.ActiveCfg = Release|Any CPU
-		{CC7B76EF-3C30-4B99-AD72-2D8EA2C858EC}.Release|x64.Build.0 = Release|Any CPU
 		{CC7B76EF-3C30-4B99-AD72-2D8EA2C858EC}.Release|x86.ActiveCfg = Release|Any CPU
 		{CC7B76EF-3C30-4B99-AD72-2D8EA2C858EC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection

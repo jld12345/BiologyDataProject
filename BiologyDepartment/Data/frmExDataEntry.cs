@@ -1,22 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using AForge.Video;
 using AForge.Video.DirectShow;
 using AForge.Imaging.Filters;
 using System.Drawing.Imaging;
 using System.IO;
-using NpgsqlTypes;
-using Excel = Microsoft.Office.Interop.Excel;
-using System.Threading;
 using BiologyDepartment.Common;
-using System.Reflection;
+using System.Diagnostics;
 
 namespace BiologyDepartment
 {
@@ -45,11 +38,15 @@ namespace BiologyDepartment
         private List<DataRow> lstRowId = new List<DataRow>();
         private int nPreviousCount = 0;
         private int nRowIndex = 0;
+        private string jsonPath = "C:\\BiologyProjectFiles\\";
+        private string jsonFile =  GlobalVariables.ExperimentNode.ExperimentNode.ID.ToString();
+        private string jsonPics = "Images";
         #endregion
 
         #region Public Variables
         public static FrmExDataEntry inst;
         public DataTable dtReturn = new DataTable();
+        public bool bHasConnectionError = false;
         #endregion
 
         #region Public Methods
@@ -86,6 +83,7 @@ namespace BiologyDepartment
                 SetFields(dtReturn.Rows[nRowIndex]);
             SetButtons(IsAdd);
             bIsAdd = IsAdd;
+            CheckDirectory();
         }
 
         public static FrmExDataEntry CreateInstance()
@@ -128,6 +126,17 @@ namespace BiologyDepartment
 
             return inst;
         }
+        
+        private void CheckDirectory()
+        {
+            if (!Directory.Exists(jsonPath))
+                Directory.CreateDirectory(jsonPath);
+            jsonPics = jsonPath + "\\" + jsonFile + "_" + jsonPics;
+            if (!File.Exists(jsonPics))
+                Directory.CreateDirectory(jsonPics);
+
+        }
+
         #endregion
 
         #region Private Methods
@@ -270,6 +279,8 @@ namespace BiologyDepartment
 
         private void FrmFishData_Load(object sender, EventArgs e)
         {
+            BtnPrevious.Enabled = !bIsAdd;
+            BtnPrevious.Visible = !bIsAdd;
             this.pbImage.BackgroundImageLayout = ImageLayout.Center;
             //List all available video sources. (That can be webcams as well as tv cards, etc)
             captureDevice = new FilterInfoCollection(FilterCategory.VideoInputDevice);
@@ -364,6 +375,8 @@ namespace BiologyDepartment
                 videoSource.SignalToStop();
                 videoSource.Stop();
             }
+            if (cbCaptureDevice.SelectedIndex == -1)
+                cbCaptureDevice.SelectedIndex = 0;
             videoSource = new VideoCaptureDevice(captureDevice[cbCaptureDevice.SelectedIndex].MonikerString);
 
             //Check if the video device provides a list of supported resolutions
@@ -386,6 +399,8 @@ namespace BiologyDepartment
         {
             try
             {
+                if (videoSource == null)
+                    return;
                 //Stop cam, change resolution, restart cam.
                 videoSource.SignalToStop();
                 videoSource.Stop();
@@ -405,23 +420,43 @@ namespace BiologyDepartment
 
         private void FrmFishData_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            AddRowToReturnTable();
+            if (videoSource == null)
+                return;
+            //Stop cam, change resolution, restart cam.
+            videoSource.SignalToStop();
+            videoSource.Stop();
         }
 
         private void AddRowToReturnTable(bool PreviousButton = false)
         {
+            DateTime dtStamp = DateTime.Now;
+            bool bConnectionError = false;
             DataRow row = dtReturn.NewRow();
             foreach (var con in pnlInput.Controls.OfType<TextBox>())
             {
                 if (bIsAdd)
-                {                    
+                {
                     if (string.IsNullOrEmpty(con.Text))
                         row[con.Name] = DBNull.Value;
                     else
                         row[con.Name] = con.Text;
 
-                    if (row["EXPERIMENTS_JSONB_ID"] == DBNull.Value)
-                        row["EXPERIMENTS_JSONB_ID"] = _daoData.GetBulkIDs(1).Rows[0][0];
+                    if (con.Name.Equals("EXPERIMENTS_JSONB_ID"))
+                    {
+                        try
+                        {
+                            if (row["EXPERIMENTS_JSONB_ID"] == DBNull.Value)
+                                row["EXPERIMENTS_JSONB_ID"] = _daoData.GetBulkIDs(1).Rows[0][0];
+                        }
+                        catch (Exception e)
+                        {
+                            Trace.WriteLine("Error getting jsonb_id.  " + Environment.NewLine + e.Message + Environment.NewLine + e.StackTrace);
+                            row["EXPERIMENTS_JSONB_ID"] = 0;
+                            bConnectionError = true;
+                            bHasConnectionError = true;
+                        }
+                    }
                 }
                 else if (!dtReturn.Columns[con.Name].ReadOnly)
                 {
@@ -438,7 +473,7 @@ namespace BiologyDepartment
                             dtReturn.Rows[0][con.Name] = con.Text;
                         else
                         {
-                            if(!dtReturn.Columns[con.Name].ReadOnly)
+                            if (!dtReturn.Columns[con.Name].ReadOnly)
                                 dtReturn.Rows[nRowIndex][con.Name] = con.Text.Clone();
                         }
                     }
@@ -451,8 +486,8 @@ namespace BiologyDepartment
                 else
                     row = dtReturn.Rows[nRowIndex];
             }
-            else
-              dtReturn.Rows.Add(row);
+            //else     
+            //dtReturn.Rows.Add(row);
 
 
             if (pbImage.BackgroundImage != null)
@@ -462,19 +497,54 @@ namespace BiologyDepartment
                 byte[] photo_array = new byte[ms.Length];
                 ms.Position = 0;
                 ms.Read(photo_array, 0, photo_array.Length);
-                _daoData.InsertPic("EXPERIMENTS_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), photo_array);
+                if (!bConnectionError)
+                    try
+                    {
+                        _daoData.InsertPic("EXPERIMENTS_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), photo_array);
+                    }
+                    catch (Exception e)
+                    {
+                        Trace.WriteLine("Error saving new pic.  " + Environment.NewLine + e.Message + Environment.NewLine + e.StackTrace);
+                        bConnectionError = true;
+                        bHasConnectionError = true;
+                    }
+                string temp = dtStamp.ToBinary().ToString();
+                bmpOriginal.Save(jsonPics + "\\" + dtStamp.ToBinary().ToString() + ".bmp");
             }
-            else if (originalPic != null)
-                _daoData.InsertPic("EXPERIMENTs_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), originalPic);
-
-            if (row["EXPERIMENTS_JSONB_ID"] != DBNull.Value)
-                util.SerializeJson(row, Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), (bIsAdd && !PreviousButton) ? "ADDED":"MODIFIED");
-            if (bIsAdd && !PreviousButton)
+            else if (originalPic != null && !bConnectionError)
+                try
+                {
+                    _daoData.InsertPic("EXPERIMENTs_JSONB", Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), originalPic);
+                }
+                catch (Exception e)
+                {
+                    Trace.WriteLine("Error saving original pic.  " + Environment.NewLine + e.Message + Environment.NewLine + e.StackTrace);
+                    bConnectionError = true;
+                    bHasConnectionError = true;
+                }
+            if (row["EXPERIMENTS_JSONB_ID"] != DBNull.Value && !bConnectionError)
             {
-                dtReturn.Rows.Add(row);
+                try
+                {
+                    string sJson = util.SerializeJson(row, Convert.ToInt32(row["EXPERIMENTS_JSONB_ID"]), (bIsAdd) ? "ADDED" : "MODIFIED", bConnectionError);
+                    File.AppendAllText(jsonPath + jsonFile, "Timestamp " + dtStamp.ToBinary().ToString() + Environment.NewLine + "Date:  " + dtStamp.ToUniversalTime().ToString() + Environment.NewLine + "JSON:  " + sJson + Environment.NewLine);
+                }
+                catch (Exception e)
+                {
+                    Trace.WriteLine($"Error serializing row.  {Environment.NewLine}{e.Message}{Environment.NewLine}{e.StackTrace}");
+                    bConnectionError = true;
+                    bHasConnectionError = true;
+                }
             }
+            else
+            { 
+                string sJson = util.SerializeJson(row, 0, (bIsAdd) ? "ADDED" : "MODIFIED", bConnectionError);
+                File.AppendAllText(jsonPath + jsonFile, "Timestamp " + dtStamp.ToBinary().ToString() + Environment.NewLine + "Date:  " + dtStamp.ToUniversalTime().ToString() + Environment.NewLine + "JSON:  " + sJson + Environment.NewLine);
+            }
+
             udZoom.Enabled = false;
             pbImage.BackgroundImage = null;
+            bmpOriginal = null;
             pointLine.Clear();
             pointCalibrate.Clear();
             txtMeasure.Text = "";
@@ -664,6 +734,7 @@ namespace BiologyDepartment
             txtUnitsMeasured.Text = "";
             txtCalibration.Text = "";
             txtMeasure.Text = "";
+
         }
 
         private void BtnLineColor_Click(object sender, EventArgs e)
@@ -760,7 +831,7 @@ namespace BiologyDepartment
                         c.Text = "";
                 }
             }
-
+            btnClearImage.PerformClick();
         }
         #endregion
 
@@ -821,6 +892,8 @@ namespace BiologyDepartment
 
         private void BtnPrevious_Click(object sender, EventArgs e)
         {
+            if (bIsAdd)
+                return;
             AddRowToReturnTable(true);
             if (nRowIndex - 1 >= 0)
             {
@@ -861,15 +934,15 @@ namespace BiologyDepartment
 
         private void BtnNext_Click(object sender, EventArgs e)
         {
-            AddRowToReturnTable(true);
-            
-            if (nRowIndex + 1 < dtReturn.Rows.Count && nRowIndex + 1 >= 0)
+            AddRowToReturnTable();
+
+            if (bIsAdd)
+                AddNewRow();
+            else if (nRowIndex + 1 < dtReturn.Rows.Count && nRowIndex + 1 >= 0)
             {
                 SetPreviousFields(dtReturn.Rows[nRowIndex + 1]);
                 nRowIndex++;
             }
-            else if (bIsAdd)
-                AddNewRow();
             else
             {
                 SetPreviousFields(dtReturn.Rows[0]);
@@ -879,7 +952,11 @@ namespace BiologyDepartment
 
         private void btnClearImage_Click(object sender, EventArgs e)
         {
+            btnClearAll.PerformClick();
             pbImage.BackgroundImage = null;
+            bmpOriginal = null;
+            bmpCanvas = null;
+            pbImage.Invalidate();
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)

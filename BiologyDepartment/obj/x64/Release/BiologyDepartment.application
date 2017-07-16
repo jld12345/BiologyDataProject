@@ -4,17 +4,17 @@
   <description asmv2:publisher="James Davis" asmv2:product="Experiment Database System" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" co.v1:createDesktopShortcut="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.6.2" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="BiologyDepartment.exe.manifest" size="82668">
+    <dependentAssembly dependencyType="install" codebase="BiologyDepartment.exe.manifest" size="85816">
       <assemblyIdentity name="BiologyDepartment.exe" version="1.0.2.1" publicKeyToken="0000000000000000" language="en" processorArchitecture="amd64" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>AqWCyI2gJxdOJHNcDQHpVeU0F0PR5sA320rXZI/y9TQ=</dsig:DigestValue>
+        <dsig:DigestValue>oM1zGyaMDWHeFCOdzRMMtp2xDyWUzGViLoI6Ab0vHNg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

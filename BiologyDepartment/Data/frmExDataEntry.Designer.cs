@@ -316,7 +316,7 @@
             this.cbCaptureDevice.Name = "cbCaptureDevice";
             this.cbCaptureDevice.Size = new System.Drawing.Size(159, 21);
             this.cbCaptureDevice.TabIndex = 100;
-            this.cbCaptureDevice.Click += new System.EventHandler(this.CbCaptureDevice_SelectedIndexChanged);
+            this.cbCaptureDevice.SelectedIndexChanged += new System.EventHandler(this.CbCaptureDevice_SelectedIndexChanged);
             // 
             // cbResolution
             // 
@@ -325,7 +325,7 @@
             this.cbResolution.Name = "cbResolution";
             this.cbResolution.Size = new System.Drawing.Size(65, 21);
             this.cbResolution.TabIndex = 101;
-            this.cbResolution.Click += new System.EventHandler(this.CbResolution_SelectedIndexChanged);
+            this.cbResolution.SelectedIndexChanged += new System.EventHandler(this.CbResolution_SelectedIndexChanged);
             // 
             // txtMeasure
             // 
@@ -529,7 +529,7 @@
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(55, 19);
             this.btnClearAll.Text = "Clear All";
-            this.btnClearAll.Click += new System.EventHandler(this.BtnClear_Click);
+            this.btnClearAll.Click += new System.EventHandler(this.BtnReset_Click);
             // 
             // toolStripSeparator3
             // 

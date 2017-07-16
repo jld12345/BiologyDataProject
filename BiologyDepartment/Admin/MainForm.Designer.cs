@@ -695,8 +695,8 @@
             this.docViewer.NavigationPane.WidthPercentage = 20;
             this.docViewer.PageLayout = null;
             this.docViewer.PageRotation = Gnostice.Documents.Controls.WinForms.RotationAngle.Zero;
-            spreadSheetFormatterSettings1.GridLinesPrint = false;
-            spreadSheetFormatterSettings1.GridLinesView = false;
+            //spreadSheetFormatterSettings1.GridLinesPrint = false;
+            //spreadSheetFormatterSettings1.GridLinesView = false;
             spreadSheetFormatterSettings1.PageOrder = Gnostice.Documents.Spreadsheet.LayoutDirection.BackwardN;
             pageSettings1.Height = 11.6929F;
             margins1.Bottom = 1F;

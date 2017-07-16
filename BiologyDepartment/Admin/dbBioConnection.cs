@@ -14,7 +14,7 @@ using BiologyDepartment.ExperimentDocuments;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-
+using System.IO;
 namespace BiologyDepartment
 {
     public class DbBioConnection
@@ -33,6 +33,7 @@ namespace BiologyDepartment
                                           "fetch", "insert", "kill", "select", "sys", "sysobjects",
                                           "syscolumns", "table", "update"
                                         };
+        private string jsonPath = "C:\\BiologyProjectFiles\\";
         public DbBioConnection()
         {
             DbUser = GlobalVariables.DbUser;
@@ -139,14 +140,18 @@ namespace BiologyDepartment
             }
             catch (NpgsqlException e)
             {
-                sMessage = e.ToString();
-                MessageBox.Show(sMessage.ToString());
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
                 return null;
             }
             catch (Exception e)
             {
-                sMessage = e.ToString();
-                MessageBox.Show(sMessage.ToString());
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
                 return null;
             }
         }
@@ -166,8 +171,12 @@ namespace BiologyDepartment
                 return true;
 
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
                 return false;
             }
         }
@@ -188,8 +197,12 @@ namespace BiologyDepartment
                 return nReturn;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
                 return 0;
             }
         }
@@ -211,21 +224,35 @@ namespace BiologyDepartment
             }
             catch (Exception e)
             {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
                 return false;
             }
         }
 
         public void UpdateFromDataGridView(DataTable dataSource, string sSelect)
         {
-            DataTable dt = new DataTable();
-            if (GlobalVariables.Connection != null)
-                GlobalVariables.Connection.Close();
-            NpgsqlConnection con = GlobalVariables.Connection;
-            using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sSelect, con))
+            try
             {
-                adapter.Fill(dt);
-                dt = dataSource.Copy();
-                adapter.Update(dt);
+                DataTable dt = new DataTable();
+                if (GlobalVariables.Connection != null)
+                    GlobalVariables.Connection.Close();
+                NpgsqlConnection con = GlobalVariables.Connection;
+                using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(sSelect, con))
+                {
+                    adapter.Fill(dt);
+                    dt = dataSource.Copy();
+                    adapter.Update(dt);
+                }
+            }
+            catch(Exception e)
+            {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
             }
         }
 
@@ -244,8 +271,12 @@ namespace BiologyDepartment
                 return true;
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
                 return false;
             }
         }
@@ -268,205 +299,273 @@ namespace BiologyDepartment
 
         public void BulkInsertData(List<string> ImportRows)
         {
-            if (GlobalVariables.Connection != null)
-                GlobalVariables.Connection.Close();
-            NpgsqlConnection con = GlobalVariables.Connection;
-            using (var writer = con.BeginBinaryImport
-                (@"COPY EXPERIMENTS_JSONB 
+            try
+            {
+                if (GlobalVariables.Connection != null)
+                    GlobalVariables.Connection.Close();
+                NpgsqlConnection con = GlobalVariables.Connection;
+                using (var writer = con.BeginBinaryImport
+                    (@"COPY EXPERIMENTS_JSONB 
                     (EX_ID, MODIFIED_DATE, MODIFIED_USER, DATA_AGG) 
                      FROM STDIN (FORMAT BINARY)"))
-            {
-                foreach (string row in ImportRows)
                 {
-                    writer.StartRow();
-                    writer.Write(GlobalVariables.Experiment.ID, NpgsqlDbType.Integer);
-                    writer.Write(DateTime.Now.ToLongDateString(), NpgsqlDbType.Timestamp);
-                    writer.Write(GlobalVariables.ADUserName, NpgsqlDbType.Varchar);
-                    writer.Write(row, NpgsqlDbType.Varchar);
+                    foreach (string row in ImportRows)
+                    {
+                        writer.StartRow();
+                        writer.Write(GlobalVariables.Experiment.ID, NpgsqlDbType.Integer);
+                        writer.Write(DateTime.Now.ToLongDateString(), NpgsqlDbType.Timestamp);
+                        writer.Write(GlobalVariables.ADUserName, NpgsqlDbType.Varchar);
+                        writer.Write(row, NpgsqlDbType.Varchar);
+                    }
                 }
+            }
+            catch(Exception e)
+            {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
             }
             
         }
 
         public void BulkInsertJSON(List<JObject> rowArray)
         {
-            if (GlobalVariables.Connection != null)
-                GlobalVariables.Connection.Close();
-            NpgsqlConnection con = GlobalVariables.Connection;
-            using (var writer = con.BeginBinaryImport
-                (@"COPY EXPERIMENTS_JSONB
+            try
+            {
+                if (GlobalVariables.Connection != null)
+                    GlobalVariables.Connection.Close();
+                NpgsqlConnection con = GlobalVariables.Connection;
+                using (var writer = con.BeginBinaryImport
+                    (@"COPY EXPERIMENTS_JSONB
                     (	
 	                    EXPERIMENTS_ID,
 	                    EXPERIMENTS_JSONB,
 	                    CREATED_USER) 
                      FROM STDIN (FORMAT BINARY)"))
-            {
-                foreach (JObject row in rowArray)
                 {
-                    writer.StartRow();
-                    writer.Write(GlobalVariables.Experiment.ID, NpgsqlDbType.Integer);
-                    writer.Write(row.ToString(), NpgsqlDbType.Jsonb);
-                    writer.Write(GlobalVariables.ADUserName, NpgsqlDbType.Varchar);
+                    foreach (JObject row in rowArray)
+                    {
+                        writer.StartRow();
+                        writer.Write(GlobalVariables.Experiment.ID, NpgsqlDbType.Integer);
+                        writer.Write(row.ToString(), NpgsqlDbType.Jsonb);
+                        writer.Write(GlobalVariables.ADUserName, NpgsqlDbType.Varchar);
+                    }
                 }
             }
-
+            catch(Exception e)
+            {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
+            }
         }
 
         public void BulkExportData()
         {
-            Data.ExperimentData data = new Data.ExperimentData();
+            try
+            {
+                Data.ExperimentData data = new Data.ExperimentData();
 
-            if(GlobalVariables.Connection != null)
-                GlobalVariables.Connection.Close();
-            NpgsqlConnection con = GlobalVariables.Connection;
-            using (var reader = con.BeginBinaryExport
-                (@"COPY (select to_jsonb((select json_agg(experiments_jsonb) from experiments_jsonb
+                if (GlobalVariables.Connection != null)
+                    GlobalVariables.Connection.Close();
+                NpgsqlConnection con = GlobalVariables.Connection;
+                using (var reader = con.BeginBinaryExport
+                    (@"COPY (select to_jsonb((select json_agg(experiments_jsonb) from experiments_jsonb
                         where experiments_id = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
-                         and deleted_date is null))) 
+                         ))) 
                         TO STDOUT (FORMAT BINARY)"))
-            {
-                while(reader.StartRow() != -1)
-                    data.JSON = reader.Read<string>(NpgsqlDbType.Jsonb);
+                {
+                    while (reader.StartRow() != -1)
+                        data.JSON = reader.Read<string>(NpgsqlDbType.Jsonb);
+                }
+                if (data != null)
+                {
+                    GlobalVariables.ExperimentData = data;
+                    GlobalVariables.ExperimentData.DeSerializeJsonToDataTable();
+                    GlobalVariables.ExperimentData.TableRow = 0;
+                }
+                else
+                    GlobalVariables.ExperimentData = new Data.ExperimentData();
             }
-            if (data != null)
+            catch(Exception e)
             {
-                GlobalVariables.ExperimentData = data;
-                GlobalVariables.ExperimentData.DeSerializeJsonToDataTable();
-                GlobalVariables.ExperimentData.TableRow = 0;
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
             }
-            else
-                GlobalVariables.ExperimentData = new Data.ExperimentData();
         }
 
         public byte[] BulkExportDataPic(string sTableName, int nRowID)
         {
-            byte[] dataPic = null;
+            try
+            {
+                byte[] dataPic = null;
 
-            if (GlobalVariables.BackgroundConnection != null)
-                GlobalVariables.BackgroundConnection.Close();
-            NpgsqlConnection con = GlobalVariables.BackgroundConnection;
+                if (GlobalVariables.BackgroundConnection != null)
+                    GlobalVariables.BackgroundConnection.Close();
+                NpgsqlConnection con = GlobalVariables.BackgroundConnection;
 
-            using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT DATA_PICTURE FROM DATA_PICTURES
-                         WHERE TABLE_NAME = '" + sTableName +@"'
+                using (var reader = con.BeginBinaryExport
+                    (@"COPY (SELECT DATA_PICTURE FROM DATA_PICTURES
+                         WHERE TABLE_NAME = '" + sTableName + @"'
                          AND TABLE_PRIMARY_KEY = " + nRowID + @") 
                         TO STDOUT (FORMAT BINARY)"))
-            {
-                while (reader.StartRow() != -1)
                 {
-                    if (!reader.IsNull)
-                        dataPic = reader.Read<byte[]>(NpgsqlDbType.Bytea);
-                    else
-                        reader.Skip();
+                    while (reader.StartRow() != -1)
+                    {
+                        if (!reader.IsNull)
+                            dataPic = reader.Read<byte[]>(NpgsqlDbType.Bytea);
+                        else
+                            reader.Skip();
+                    }
                 }
+                return dataPic;
             }
-            return dataPic;
+            catch(Exception e)
+            {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
+                return null;
+            }
         }
 
         public List<CustomColumns> GetColumns()
         {
-            CustomColumns col;
-            int rank = 1;
-            List<CustomColumns> colAgg = new List<CustomColumns>();
-            if (GlobalVariables.Connection != null)
-                GlobalVariables.Connection.Close();
-            NpgsqlConnection con = GlobalVariables.Connection;
-            using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE, CUSTOM_COLUMN_FORMULA, CUSTOM_COLUMN_RANK
+            try
+            {
+                CustomColumns col;
+                int rank = 1;
+                List<CustomColumns> colAgg = new List<CustomColumns>();
+                if (GlobalVariables.Connection != null)
+                    GlobalVariables.Connection.Close();
+                NpgsqlConnection con = GlobalVariables.Connection;
+                using (var reader = con.BeginBinaryExport
+                    (@"COPY (SELECT CUSTOM_COLUMNS_ID, CUSTOM_COLUMN_NAME, CUSTOM_COLUMN_DATA_TYPE, CUSTOM_COLUMN_FORMULA, CUSTOM_COLUMN_RANK
                         FROM EXPERIMENT_CUSTOM_COLUMNS WHERE EX_ID = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
                         ORDER BY CUSTOM_COLUMNS_ID) 
                         TO STDOUT (FORMAT BINARY)"))
-            {
-                while (reader.StartRow() != -1)
                 {
-                    col = new CustomColumns()
+                    while (reader.StartRow() != -1)
                     {
-                        ColID = reader.Read<int>(NpgsqlDbType.Integer),
-                        ColName = reader.Read<string>(NpgsqlDbType.Varchar),
-                        ColDataType = reader.Read<string>(NpgsqlDbType.Varchar),
-                        EX_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID
-                    };
-                    if (!reader.IsNull)
-                        col.Formula = reader.Read<string>(NpgsqlDbType.Varchar);
-                    else
-                        reader.Skip();
-                    if (!reader.IsNull)
-                        col.Rank = reader.Read<Int32>(NpgsqlDbType.Numeric);
-                    else
-                    {
-                        col.Rank = rank;
-                        rank++;
-                        reader.Skip();
+                        col = new CustomColumns()
+                        {
+                            ColID = reader.Read<int>(NpgsqlDbType.Integer),
+                            ColName = reader.Read<string>(NpgsqlDbType.Varchar),
+                            ColDataType = reader.Read<string>(NpgsqlDbType.Varchar),
+                            EX_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID
+                        };
+                        if (!reader.IsNull)
+                            col.Formula = reader.Read<string>(NpgsqlDbType.Varchar);
+                        else
+                            reader.Skip();
+                        if (!reader.IsNull)
+                            col.Rank = reader.Read<Int32>(NpgsqlDbType.Numeric);
+                        else
+                        {
+                            col.Rank = rank;
+                            rank++;
+                            reader.Skip();
+                        }
+
+                        colAgg.Add(col);
                     }
 
-                    colAgg.Add(col);
                 }
-
+                return colAgg.OrderBy(o => o.Rank).ToList();
             }
-            return colAgg.OrderBy(o => o.Rank).ToList();
+            catch(Exception e)
+            {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
+                return null;
+            }
         }
 
         public string BulkExportJSON()
         {
-            string sJson = "";
-            if (GlobalVariables.Connection != null)
-                GlobalVariables.Connection.Close();
-            NpgsqlConnection con = GlobalVariables.Connection;
-            using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT je.json_data
+            try
+            {
+                string sJson = "";
+                if (GlobalVariables.Connection != null)
+                    GlobalVariables.Connection.Close();
+                NpgsqlConnection con = GlobalVariables.Connection;
+                using (var reader = con.BeginBinaryExport
+                    (@"COPY (SELECT je.json_data
                          FROM json_experiments je
                          WHERE je.EX_ID = " + GlobalVariables.Experiment.ID + @"
                         order by json_id desc
                         limit 1) 
                         TO STDOUT (FORMAT BINARY)"))
-            {
-                while (reader.StartRow() != -1)
                 {
-                    sJson = reader.Read<string>(NpgsqlDbType.Json);
+                    while (reader.StartRow() != -1)
+                    {
+                        sJson = reader.Read<string>(NpgsqlDbType.Json);
+                    }
                 }
+                return sJson;
             }
-            return sJson;
+            catch(Exception e)
+            {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
+                return null;
+            }
         }
 
         public List<DocumentTreeNode> BulkExportPDF()
         {
-            DocumentTreeNode thePDF;
-            List<DocumentTreeNode> lstPDF = new List<DocumentTreeNode>();
+            try
+            {
+                DocumentTreeNode thePDF;
+                List<DocumentTreeNode> lstPDF = new List<DocumentTreeNode>();
 
-            if (GlobalVariables.BackgroundConnection != null)
-                GlobalVariables.BackgroundConnection.Close();
-            NpgsqlConnection con = GlobalVariables.BackgroundConnection;
+                if (GlobalVariables.BackgroundConnection != null)
+                    GlobalVariables.BackgroundConnection.Close();
+                NpgsqlConnection con = GlobalVariables.BackgroundConnection;
 
-            using (var reader = con.BeginBinaryExport
-                (@"COPY (SELECT DOC.EXPERIMENT_DOCUMENT_ID, DOC.EXPERIMENT_DOCUMENT_TITLE, DOC.EXPERIMENT_DOCUMENT_DESCRIPTION,
+                using (var reader = con.BeginBinaryExport
+                    (@"COPY (SELECT DOC.EXPERIMENT_DOCUMENT_ID, DOC.EXPERIMENT_DOCUMENT_TITLE, DOC.EXPERIMENT_DOCUMENT_DESCRIPTION,
                          DOC.EXPERIMENT_DOCUMENT_TYPE, DOC.EXPERIMENT_DOCUMENT
                          FROM EXPERIMENT_DOCUMENT DOC
                          WHERE DOC.EXPERIMENT_ID = " + GlobalVariables.ExperimentNode.ExperimentNode.ID + @"
                         order by DOC.EXPERIMENT_DOCUMENT_ID asc) 
                         TO STDOUT (FORMAT BINARY)"))
-            {
-                while (reader.StartRow() != -1)
                 {
-                    thePDF = new DocumentTreeNode();
-                    thePDF.DocumentNode.DOCUMENT_ID = reader.Read<int>(NpgsqlDbType.Integer);
-                    thePDF.DocumentNode.DOCUMENT_TITLE = reader.Read<string>(NpgsqlDbType.Varchar);
-                    thePDF.DocumentNode.DOCUMENT_DESCRIPTION = reader.Read<string>(NpgsqlDbType.Text);
-                    thePDF.DocumentNode.EXPERIMENT_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID;
-                    thePDF.DocumentNode.DOCUMENT_TYPE = reader.Read<string>(NpgsqlDbType.Varchar);
-                    if (!reader.IsNull)
-                        thePDF.DocumentNode.DOCUMENT = reader.Read<byte[]>(NpgsqlDbType.Bytea);
-                    else
-                        reader.Skip();
-                    lstPDF.Add(thePDF);
+                    while (reader.StartRow() != -1)
+                    {
+                        thePDF = new DocumentTreeNode();
+                        thePDF.DocumentNode.DOCUMENT_ID = reader.Read<int>(NpgsqlDbType.Integer);
+                        thePDF.DocumentNode.DOCUMENT_TITLE = reader.Read<string>(NpgsqlDbType.Varchar);
+                        thePDF.DocumentNode.DOCUMENT_DESCRIPTION = reader.Read<string>(NpgsqlDbType.Text);
+                        thePDF.DocumentNode.EXPERIMENT_ID = GlobalVariables.ExperimentNode.ExperimentNode.ID;
+                        thePDF.DocumentNode.DOCUMENT_TYPE = reader.Read<string>(NpgsqlDbType.Varchar);
+                        if (!reader.IsNull)
+                            thePDF.DocumentNode.DOCUMENT = reader.Read<byte[]>(NpgsqlDbType.Bytea);
+                        else
+                            reader.Skip();
+                        lstPDF.Add(thePDF);
 
+                    }
                 }
+                return lstPDF;
             }
-            return lstPDF;
-        }
-
-        internal void BulkUpdateJSON(string sJson)
-        {
-            throw new NotImplementedException();
+            catch(Exception e)
+            {
+                if (!Directory.Exists(jsonPath))
+                    Directory.CreateDirectory(jsonPath);
+                string msg = "Error with background connection.  " + e.Message + Environment.NewLine + e.StackTrace;
+                File.AppendAllText(jsonPath + GlobalVariables.ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
+                return null;
+            }
         }
     }
 }

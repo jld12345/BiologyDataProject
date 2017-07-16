@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Npgsql;
 using NpgsqlTypes;
 using BiologyDepartment.Data;
+using System.IO;
 
 namespace BiologyDepartment
 {
@@ -46,6 +47,8 @@ namespace BiologyDepartment
         static Cursor CrossHair;
 
         static DbBioConnection BioConnection;
+
+        static string jsonPath = "C:\\BiologyProjectFiles\\";
 
         /// <summary>
         /// Access routine for global variable.
@@ -98,8 +101,8 @@ namespace BiologyDepartment
                                         CommandTimeout=300;
                                         Connection Idle Lifetime=0");
                 }
-                if(con.State == System.Data.ConnectionState.Connecting 
-                    || con.State == System.Data.ConnectionState.Executing 
+                if (con.State == System.Data.ConnectionState.Connecting
+                    || con.State == System.Data.ConnectionState.Executing
                     || con.State == System.Data.ConnectionState.Fetching)
                 {
                     return BgwConnection();
@@ -108,14 +111,25 @@ namespace BiologyDepartment
                     con.Open();
                 return con;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                if (con.State != System.Data.ConnectionState.Open)
+                try
                 {
-                    con.Open();
-                    return con;
+                    if (con.State != System.Data.ConnectionState.Open)
+                    {
+                        con.Open();
+                        return con;
+                    }
+                    return null;
                 }
-                return null;
+                catch(Exception ex)
+                {
+                    if (!Directory.Exists(jsonPath))
+                        Directory.CreateDirectory(jsonPath);
+                    string msg = "Error with connection.  " + ex.Message + Environment.NewLine + ex.StackTrace;
+                    File.AppendAllText(jsonPath + ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
+                    return null;
+                }
             }
         }
 
@@ -140,12 +154,23 @@ namespace BiologyDepartment
             }
             catch (Exception e)
             {
-                if (bgwCon.State != System.Data.ConnectionState.Open)
+                try
                 {
-                    bgwCon.Open();
-                    return bgwCon;
+                    if (bgwCon.State != System.Data.ConnectionState.Open)
+                    {
+                        bgwCon.Open();
+                        return bgwCon;
+                    }
+                    return null;
                 }
-                return null;
+                catch (Exception ex)
+                {
+                    if (!Directory.Exists(jsonPath))
+                        Directory.CreateDirectory(jsonPath);
+                    string msg = "Error with background connection.  " + ex.Message + Environment.NewLine + ex.StackTrace;
+                    File.AppendAllText(jsonPath + ExperimentNode.ExperimentNode.ID + "_log.txt", msg);
+                    return null;
+                }
             }
         }
 
